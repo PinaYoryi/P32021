@@ -1,6 +1,6 @@
 #include "ComponentFactory.h"
 
- ComponentFactory& ComponentFactory::get()
+ ComponentFactory& ComponentFactory::getInstance()
  {
      static ComponentFactory instance;
      return instance;
