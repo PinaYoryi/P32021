@@ -1,6 +1,6 @@
 #include "Vector3.h"
 
-// CONSTRUCTORES
+#pragma region CONSTRUCTORES
 Vector3::Vector3()
 {
 	_x = _y = _z = 0;
@@ -21,8 +21,9 @@ Vector3::~Vector3()
 {
 
 }
+#pragma endregion
 
-// MÉTODOS
+#pragma region MÉTODOS
 double Vector3::magnitudeSquared() const
 {
 	return (_x * _x + _y * _y + _z * _z);
@@ -33,15 +34,12 @@ double Vector3::magnitude() const
 	return sqrt(magnitudeSquared());
 }
 
-
-Vector3& Vector3::normalized()
+void Vector3::normalized()
 {
 	double length = magnitude();
 
 	if (length > 0) *this /= length;
 	else _x = _y = _z = 0;
-
-	return *this;
 }
 
 double Vector3::dotProduct(const Vector3& other) const
@@ -49,7 +47,7 @@ double Vector3::dotProduct(const Vector3& other) const
 	return _x * other.getX() + _y * other.getY() + _z * other.getZ();
 }
 
-Vector3 Vector3::crossProduct(const Vector3& other)
+Vector3 Vector3::crossProduct(const Vector3& other) const
 {
 	float nx = _y * other.getZ() - _z * other.getY();
 	float ny = _z * other.getX() - _x * other.getZ();
@@ -68,7 +66,36 @@ void Vector3::clear()
 	_x = _y = _z = 0;
 }
 
-// OPERADORES
+void Vector3::inverse()
+{
+	_x = -_x;
+	_y = -_y;
+	_z = -_z;
+}
+
+double Vector3::angleRadians(const Vector3& other) const
+{
+	double dot = dotProduct(other);
+
+	double lenSq1 = magnitudeSquared();
+	double lenSq2 = other.magnitudeSquared();
+
+	double angle = acos(dot / sqrt(lenSq1 * lenSq2));
+
+	return angle;
+}
+
+double Vector3::angleDegrees(const Vector3& other) const
+{
+	double angle = angleRadians(other);
+
+	angle = angle * 180 / PI;
+
+	return angle;
+}
+#pragma endregion
+
+#pragma region OPERADORES
 bool Vector3::operator==(const Vector3& other) const
 {
 	// Si comparten la misma dirección de memoria es que son el mismo vector
@@ -151,4 +178,4 @@ Vector3 Vector3::operator/(const double val) const
 	// Devuelve un Vector3 nuevo sin modificar este
 	return Vector3(_x, _y, _z) /= val;
 }
-
+#pragma endregion

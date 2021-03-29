@@ -3,37 +3,17 @@
 using namespace std;
 
 int main() {
-	Vector3 a(10, 0, 0);
-	Vector3 b(30, 12, 18);
-	Vector3 c;
-	Vector3 d(b);
+	double angle = VECTOR_3_UP.angleRadians(VECTOR_3_RIGHT);
+	cout << "Angle Radians: " << angle << endl;	
+	angle = VECTOR_3_UP.angleDegrees(VECTOR_3_RIGHT);
+	cout << "Angle Degrees: " << angle << endl;
 
-	if (a.isZero()) cout << "True" << endl;
-	else cout << "False" << endl;
-
-	a.clear();
-
-	if (a.isZero()) cout << "True" << endl;
-	else cout << "False" << endl;
-
-	cout << endl;
-
-	a.print();
-	a.normalized();
-	a.print();
-
-	cout << endl;
-
-	b.print();
-	b.normalized();
-	b.print();
-
-	cout << endl;
-
-	d.print();
-	if (a != b) cout << "NO SON IGUALES" << endl;
-	else cout << "SON IGUALES" << endl;
-
+	Vector3 a(4, -7, 11);
+	Vector3 b(0, 3, -5);
+	angle = a.angleRadians(b);
+	cout << "Angle Radians: " << angle << endl;
+	angle = a.angleDegrees(b);
+	cout << "Angle Degrees: " << angle << endl;
 
 	system("pause");
 	return 0;
