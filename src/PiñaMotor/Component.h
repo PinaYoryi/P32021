@@ -4,6 +4,8 @@
 
 class Component {
 public:
+	virtual void Start() = 0;
+
 	virtual bool OnTriggerStart() = 0;
 	virtual bool OnTriggerStay() = 0;
 	virtual bool OnTriggerEnd() = 0;
