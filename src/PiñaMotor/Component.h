@@ -1,4 +1,5 @@
 #pragma once
+//clase abstracta de todos los componentes
 #include "ComponentFactoryRegistration.h"
 
 class Component {
