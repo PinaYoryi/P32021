@@ -16,7 +16,7 @@ typedef Component* (*componentInstanceGenerator) ();
 class ComponentFactory {
 public:
 	//devuelve una instancia del singleton 
-	DLL_INTERFACE static ComponentFactory& get();
+	DLL_INTERFACE static ComponentFactory& getInstance();
 	//Devuele el componente que quieres si esta guardado en mGenerators, si no existe devuelve nullptr
 	DLL_INTERFACE Component* getComponent(const char* typeName);
 	//Registra el nuevo componente que le pasas, primero el nombre (identificador) y luego el componente como tal
