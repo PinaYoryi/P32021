@@ -19,7 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\PiñaMotor\Entity.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Source.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\PiñaMotor\ecs.h" />
+    <ClInclude Include="..\..\src\PiñaMotor\Entity.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
