@@ -2,12 +2,12 @@
 
 Entity::Entity() : name("Entity")
 {
-
+	compArray[ecs::Transform] = new Transform();
 }
 
 Entity::Entity(char* entityName) : name(entityName)
 {
-
+	compArray[ecs::Transform] = new Transform();
 }
 
 Entity::~Entity() {
@@ -37,12 +37,11 @@ bool Entity::hasComponent(ecs::CmpIdType id)
 }
 
 template<typename T>
-T* Entity::removeComponent(ecs::CmpIdType id) 
+void Entity::removeComponent(ecs::CmpIdType id) 
 {
 	//¿Quitar de unique pointers?
-	T* save = compArray[id];
+	delete compArray[id];
 	compArray[id] = nullptr;
-	return save;
 };
 
 void Entity::update() {

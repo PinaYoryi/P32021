@@ -30,7 +30,7 @@ public:
 	bool hasComponent(ecs::CmpIdType id);
 
 	template<typename T>
-	T* removeComponent(ecs::CmpIdType id);
+	void removeComponent(ecs::CmpIdType id);
 
 	void update();
 
