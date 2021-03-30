@@ -12,5 +12,4 @@ namespace ecs {
 	};
 
 	constexpr std::size_t maxComponents = _LastCmptId_;
-	constexpr std::size_t maxHandlers = _LastHndlrId_;
 }
