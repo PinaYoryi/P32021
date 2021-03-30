@@ -1,13 +1,13 @@
 #include "Entity.h"
 
-Entity::Entity() : name("Entity")
+Entity::Entity() : _name("Entity")
 {
-	compArray[/*Lista<Transform>*/] = ComponentFactory::getInstance().getComponent(/*Lista<Transform>*/);
+	_compArray[indexOf<Transform, ComponentsList>] = ComponentFactory::getInstance().getComponent(indexOf<Transform, ComponentsList>);
 }
 
-Entity::Entity(char* entityName) : name(entityName)
+Entity::Entity(char* entityName) : _name(entityName)
 {
-	compArray[/*Lista<Transform>*/] = ComponentFactory::getInstance().getComponent(/*Lista<Transform>*/);
+	_compArray[indexOf<Transform, ComponentsList>] = ComponentFactory::getInstance().getComponent(indexOf<Transform, ComponentsList>);
 }
 
 Entity::~Entity() {
@@ -17,8 +17,8 @@ Entity::~Entity() {
 template<typename T, typename ...TArgs>
 T* Entity::addComponent(TArgs ...args)
 {
-	T* t(ComponentFactory::getInstance().getComponent(/*Lista<T>*/));
-	componentsArray_[/*Lista<T>*/] = t;
+	T* t(ComponentFactory::getInstance().getComponent(indexOf<T, ComponentsList>));
+	_compArray[indexOf<T, ComponentsList>] = t;
 	t->init();
 	return t;
 }
@@ -26,25 +26,25 @@ T* Entity::addComponent(TArgs ...args)
 template<typename T>
 T* Entity::getComponent()
 {
-	return compArray[/*Lista<T>*/];
+	return _compArray[indexOf<T, ComponentsList>];
 }
 
 template<typename T>
 bool Entity::hasComponent() 
 {
-	return compArray[/*Lista<T>*/];
+	return _compArray[indexOf<T, ComponentsList>];
 }
 
 template<typename T>
 void Entity::removeComponent() 
 {
 	//¿Quitar de unique pointers?
-	delete compArray[/*Lista<T>*/];
-	compArray[id] = nullptr;
+	delete _compArray[indexOf<T, ComponentsList>];
+	_compArray[indexOf<T, ComponentsList>] = nullptr;
 }
 
 void Entity::update() {
-	for (Component* c : compArray) {
+	for (Component* c : _compArray) {
 		if (c) c->Update();
 	}
 }

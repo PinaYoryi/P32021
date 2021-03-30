@@ -1,15 +1,28 @@
 #pragma once
-#include <ctime>
+#include <iostream>
 
-namespace ecs {
+class Transform;
 
-	using CmpIdType = std::size_t;
-	using HandlerIdType = std::size_t;
+template<typename ...Ts>
+struct TypeList {
+	constexpr static std::size_t size = sizeof...(Ts);
+};
 
-	enum CmpId : CmpIdType {
-		Transform = 0,
-		_LastCmptId_
-	};
+template<typename, typename>
+struct IndexOf;
 
-	constexpr std::size_t maxComponents = _LastCmptId_;
-}
+template<typename T, typename ...Ts>
+struct IndexOf<T, TypeList<T, Ts...>> : std::integral_constant<std::size_t, 0> {
+
+};
+
+template<typename T, typename TOther, typename ...Ts>
+struct IndexOf<T, TypeList<TOther, Ts...>> : std::integral_constant<std::size_t, 1 + IndexOf<T, TypeList<Ts...>>()> {
+
+};
+
+using ComponentsList = TypeList<Transform>;
+constexpr std::size_t numOfComponents = ComponentsList::size;
+
+template<typename T, typename TList>
+constexpr std::size_t indexOf = IndexOf<T, TList>();

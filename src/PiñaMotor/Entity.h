@@ -1,6 +1,6 @@
 #pragma once
-#include "ecs.h"
 #include "Component.h"
+#include "ecs.h"
 
 class Transform : public Component {};
 
@@ -8,9 +8,9 @@ using namespace std;
 
 class Entity {
 private:
-	const char* name;
+	const char* _name;
 	//std::vector<unique_ptr<Component>> compUnique;
-	Component* compArray[ecs::_LastCmptId_];
+	Component* _compArray[numOfComponents];
 public:
 	Entity();
 	Entity(char* entityName);
