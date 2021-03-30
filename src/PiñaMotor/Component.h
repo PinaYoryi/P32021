@@ -17,6 +17,11 @@ public:
 	virtual void Update() = 0;
 	virtual void FixedUpdate() = 0;
 
-private:
+	void SetActive(bool toggle) 
+	{
+		active = toggle;
+	}
+protected:
 	virtual void Render() = 0;
+	bool active;
 };

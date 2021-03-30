@@ -1,11 +1,7 @@
 #pragma once
 #include "ecs.h"
-#include <vector>
-#include <string>
-#include <vector>
-#include <memory>
+#include "Component.h"
 
-class Component{};
 class Transform : public Component {};
 
 using namespace std;
@@ -25,12 +21,13 @@ public:
 	T* addComponent(TArgs ...args);
 
 	template<typename T>
-	T* getComponent(ecs::CmpIdType id);
-
-	bool hasComponent(ecs::CmpIdType id);
+	T* getComponent();
 
 	template<typename T>
-	void removeComponent(ecs::CmpIdType id);
+	bool hasComponent();
+
+	template<typename T>
+	void removeComponent();
 
 	void update();
 

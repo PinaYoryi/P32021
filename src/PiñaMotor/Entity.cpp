@@ -2,12 +2,12 @@
 
 Entity::Entity() : name("Entity")
 {
-	compArray[ecs::Transform] = new Transform();
+	compArray[/*Lista<Transform>*/] = ComponentFactory::getInstance().getComponent(/*Lista<Transform>*/);
 }
 
 Entity::Entity(char* entityName) : name(entityName)
 {
-	compArray[ecs::Transform] = new Transform();
+	compArray[/*Lista<Transform>*/] = ComponentFactory::getInstance().getComponent(/*Lista<Transform>*/);
 }
 
 Entity::~Entity() {
@@ -17,41 +17,40 @@ Entity::~Entity() {
 template<typename T, typename ...TArgs>
 T* Entity::addComponent(TArgs ...args)
 {
-	T* t(new T(std::forward<TArgs>(args)...));
-	//std::unique_ptr<Component> c(t);
-	//compUnique.push_back(std::move(c));	//¿Cómo funciona esto?
-	componentsArray_[t->getID()] = t;
+	T* t(ComponentFactory::getInstance().getComponent(/*Lista<T>*/));
+	componentsArray_[/*Lista<T>*/] = t;
 	t->init();
 	return t;
 }
 
 template<typename T>
-T* Entity::getComponent(ecs::CmpIdType id)
+T* Entity::getComponent()
 {
-	return compArray[id];
-}
-
-bool Entity::hasComponent(ecs::CmpIdType id) 
-{
-	return compArray[id];
+	return compArray[/*Lista<T>*/];
 }
 
 template<typename T>
-void Entity::removeComponent(ecs::CmpIdType id) 
+bool Entity::hasComponent() 
+{
+	return compArray[/*Lista<T>*/];
+}
+
+template<typename T>
+void Entity::removeComponent() 
 {
 	//¿Quitar de unique pointers?
-	delete compArray[id];
+	delete compArray[/*Lista<T>*/];
 	compArray[id] = nullptr;
-};
+}
 
 void Entity::update() {
 	for (Component* c : compArray) {
-		if (c) c->update();
+		if (c) c->Update();
 	}
 }
 
 void Entity::render() {
-	for (auto& c : compArray) {
-		if(c) c->render();
-	}
+	/*for (auto& c : compArray) {
+		if(c) c->Render();
+	}*/
 }
