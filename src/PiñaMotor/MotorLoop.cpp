@@ -1,20 +1,18 @@
 #include <time.h>
 #include "MotorLoop.h"
 
-MotorLoop* MotorLoop::singleton_ = nullptr;
+MotorLoop* MotorLoop::_singleton = nullptr;
 
 MotorLoop* MotorLoop::getInstance() {
-	if (singleton_ == nullptr) {
-		singleton_ = new MotorLoop();
+	if (_singleton == nullptr) {
+		_singleton = new MotorLoop();
 		std::cout << "Nueva instancia del bucle\n";
 	}
 	else std::cout << "Misma instancia del bucle\n";
-	return singleton_;
+	return _singleton;
 }
 
-//----------
-//Métodos Lista Entidades
-//----------
+#pragma region Entidades
 
 bool MotorLoop::addEntity() {
 	//Comprueba si existe la entidad.
@@ -30,33 +28,38 @@ bool MotorLoop::removeEntity() {
 	return true;
 }
 
-//----------
-//Métodos Loop
-//----------
+#pragma endregion
+
+#pragma region Loop
 
 void MotorLoop::startLoop() {
-	if (loop_ == true) return;
+	if (_loop == true) return;
 	initLoop();
-	while (loop_) {
+	while (_loop) {
 		stepInput();
 		stepFixedUpdate();
 		stepUpdate();
 		stepRender();
+#ifdef _DEBUG
 		std::cout << "Iteracion del bucle\n";
-		stopLoop();
+#endif
 	}
+#ifdef _DEBUG
 	std::cout << "Detenido bucle\n";
+#endif
 }
 
 void MotorLoop::stopLoop() {
-	loop_ = false;
+	_loop = false;
 }
 
 void MotorLoop::initLoop() {
-	loop_ = true;
-	accumulatedTime_ = 0;
-	lastTime_ = clock();
+	_loop = true;
+	_accumulatedTime = 0;
+	_lastTime = clock();
+#ifdef _DEBUG
 	std::cout << "Inicializando bucle\n";
+#endif
 }
 
 bool MotorLoop::stepInput() {
@@ -64,16 +67,16 @@ bool MotorLoop::stepInput() {
 	return true;
 }
 
-bool MotorLoop::stepFixedUpdate() {
-	//for (Entidad en lista) e->fixedUpdate();
+bool MotorLoop::stepUpdate() {
+	//for (Entidad en lista) e->update();
 	return true;
 }
 
-bool MotorLoop::stepUpdate() {
+bool MotorLoop::stepFixedUpdate() {
 	updateTime();
-	while (accumulatedTime_ > UPDATE_TIME) {
-		//for (Entidad en lista) e->update();
-		accumulatedTime_ -= UPDATE_TIME;
+	while (_accumulatedTime > FIXED_UPDATE_TIME) {
+		//for (Entidad en lista) e->fixedUpdate();
+		_accumulatedTime -= FIXED_UPDATE_TIME;
 	}
 	return true;
 }
@@ -85,7 +88,9 @@ bool MotorLoop::stepRender() {
 
 void MotorLoop::updateTime() {
 	int currentTime = clock();
-	deltaTime_ = (currentTime - lastTime_) / (float)CLOCKS_PER_SEC;
-	accumulatedTime_ += deltaTime_;
-	lastTime_ = currentTime;
+	_deltaTime = (currentTime - _lastTime) / (float)CLOCKS_PER_SEC;
+	_accumulatedTime += _deltaTime;
+	_lastTime = currentTime;
 }
+
+#pragma endregion

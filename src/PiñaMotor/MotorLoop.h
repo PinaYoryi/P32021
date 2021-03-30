@@ -1,9 +1,11 @@
 #pragma once
 
-#include <iostream> //TEMPORAL
+#ifdef _DEBUG
+#include <iostream>
+#endif
 
 //Unidad de tiempo tras la cual se actualizan las físicas.
-const float UPDATE_TIME = 0.02;
+const float FIXED_UPDATE_TIME = 0.02;
 
 class MotorLoop {
 public:
@@ -30,13 +32,14 @@ public:
 	/// </summary>
 	bool removeEntity();
 
-private:
-	static MotorLoop* singleton_;
 
-	bool loop_ = false;
-	int lastTime_ = 0;
-	float accumulatedTime_ = 0;
-	float deltaTime_ = 0;
+protected:
+	static MotorLoop* _singleton;
+
+	bool _loop = false;
+	int _lastTime = 0;
+	float _accumulatedTime = 0;
+	float _deltaTime = 0;
 
 	//Lista de entidades
 
@@ -67,10 +70,11 @@ private:
 	/// </summary>
 	void updateTime();
 
-	//Getters / Setters
+#pragma region Getters/Setters
 public:
 	/// <summary>
 	/// Devuelve el deltaTime del último frame (el tiempo real que ha pasado entre frames).
 	/// </summary>
-	float getDeltaTime() { return deltaTime_; }
+	float getDeltaTime() { return _deltaTime; }
+#pragma endregion
 };

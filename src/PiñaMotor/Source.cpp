@@ -6,5 +6,6 @@ int main() {
 	MotorLoop* loop = MotorLoop::getInstance();
 	loop = MotorLoop::getInstance();
 	loop->startLoop();
+	delete loop;
 	return 0;
 }
