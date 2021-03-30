@@ -1,5 +1,6 @@
 #include <OgreRoot.h>
 
+
 #if (defined _DEBUG) || !(defined _WIN32) //<-- Ya no lo tenemos en teoría
 int main() {
 #else
