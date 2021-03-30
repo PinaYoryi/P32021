@@ -8,8 +8,8 @@
 
 Component* ComponentFactory::getComponent(const char* typeName)
  {
-     auto it = mGenerators.find(typeName);
-     if (it != mGenerators.end())
+     auto it = _mGenerators.find(typeName);
+     if (it != _mGenerators.end())
      {
          return it->second();
      }
@@ -18,5 +18,5 @@ Component* ComponentFactory::getComponent(const char* typeName)
 
 bool ComponentFactory::registerGenerator(const char* typeName, const componentInstanceGenerator& instGenerator)
 {
-	return mGenerators.insert(std::make_pair(typeName, instGenerator)).second;
+	return _mGenerators.insert(std::make_pair(typeName, instGenerator)).second;
 }
