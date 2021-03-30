@@ -5,7 +5,7 @@
 #endif
 
 //Unidad de tiempo tras la cual se actualizan las físicas.
-const float FIXED_UPDATE_TIME = 0.02;
+const float FIXED_UPDATE_TIME = 0.02f;
 
 class MotorLoop {
 public:
