@@ -1,7 +1,7 @@
 #include <OgreRoot.h>
+#include <btBulletDynamicsCommon.h>
 
-
-#if (defined _DEBUG) || !(defined _WIN32) //<-- Ya no lo tenemos en teoría
+#if (defined _DEBUG) || !(defined _WIN32) //<-- Ya no lo tenemos en teorï¿½a
 int main() {
 #else
 #include <windows.h>
