@@ -18,9 +18,10 @@ template<typename T, typename ...TArgs>
 T* Entity::addComponent(TArgs ...args)
 {
 	T* t(new T(std::forward<TArgs>(args)...));
-	std::unique_ptr<Component> c(t);
+	//std::unique_ptr<Component> c(t);
 	//compUnique.push_back(std::move(c));	//¿Cómo funciona esto?
 	componentsArray_[t->getID()] = t;
+	t->init();
 	return t;
 }
 
@@ -52,6 +53,6 @@ void Entity::update() {
 
 void Entity::render() {
 	for (auto& c : compArray) {
-		c->render();
+		if(c) c->render();
 	}
 }
