@@ -8,7 +8,9 @@ using namespace std;
 class Entity {
 private:
 	const char* _name;
-	//std::vector<unique_ptr<Component>> compUnique;
+	//aqui estaran los componentes de esta entidad
+	std::vector<unique_ptr<Component>> compUnique;
+	//aqui estaran todos los posibles punteros a componentes existentes
 	Component* _compArray[numOfComponents];
 public:
 	Entity();
@@ -17,10 +19,14 @@ public:
 	~Entity();
 
 	template<typename T, typename ... TArgs>
-	Component* addComponent(TArgs ...args) {
+	Component* addComponent(TArgs &&...args) {
 		Component* t = ComponentFactory::getInstance().getComponent(indexOf<T, ComponentsList>);
+		t->_myEntity = this;//ponemos la entidad en el componente
+		std::unique_ptr<Component> upt (t);
+		compUnique.push_back(std::move(upt));
 		_compArray[indexOf<T, ComponentsList>] = t;
 		std::map<std::string, std::string> map;
+		
 		// TODO: Que se cargue el diccionario con los args
 		if (t->init(map)) {
 			return t;
@@ -39,13 +45,26 @@ public:
 	}
 
 	template<typename T>
-	void removeComponent() {
-		//¿Quitar de unique pointers?
-		delete _compArray[indexOf<T, ComponentsList>];
-		_compArray[indexOf<T, ComponentsList>] = nullptr;
+	bool removeComponent() {
+		//¿Quitar de unique pointers?	
+		bool deleted = hasComponent<T>();
+		if (deleted) {
+			//eliminar el componente que queremos
+			for (int i = 0; i < compUnique.size(); ++i) {
+				if (dynamic_cast<T*>(compUnique[i].get())) {
+					*compUnique[i] = *compUnique.back();
+					compUnique.pop_back();
+					break;
+				}
+			}		
+			_compArray[indexOf<T, ComponentsList>] = nullptr;
+		}
+		return deleted;
 	}
 
 	void update();
 
 	void render();
 };
+
+

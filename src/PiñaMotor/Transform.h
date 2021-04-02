@@ -8,6 +8,6 @@ public:
 	}
 
 	bool init(const std::map<std::string, std::string>& mapa) override {
-
+		return true;
 	}
 };

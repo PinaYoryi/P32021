@@ -1,4 +1,7 @@
 #include <OgreRoot.h>
+#include "Entity.h"
+#include "Transform.h"
+#include "ComponentFactoryRegistration.h"
 
 #if (defined _DEBUG) || !(defined _WIN32) //<-- Ya no lo tenemos en teoría
 int main() {
@@ -9,6 +12,8 @@ WinMain(HINSTANCE zhInstance, HINSTANCE prevInstance, LPSTR lpCmdLine, int nCmdS
 #endif
     Ogre::Root* root;
     root = new Ogre::Root();
-
+    //TODO: carne de cañon de macro
+ /*   ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform> cpm;
+    Entity* ent = new Entity();*/
     return 0;
 }

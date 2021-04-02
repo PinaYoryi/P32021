@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\PiñaMotor\Component.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\ComponentFactory.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Entity.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Source.cpp" />

@@ -7,6 +7,7 @@
 Entity::Entity() : _name("Entity")
 {
 	addComponent<Transform>(std::map<std::string,std::string>());
+	
 }
 
 Entity::Entity(char* entityName) : _name(entityName)
@@ -19,7 +20,7 @@ Entity::~Entity() {
 }
 
 void Entity::update() {
-	for (Component* c : _compArray) {
+	for (auto& c : compUnique) {
 		if (c) c->Update();
 	}
 }

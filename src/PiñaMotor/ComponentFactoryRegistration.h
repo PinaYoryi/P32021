@@ -1,11 +1,12 @@
 #pragma once
 #include "ComponentFactory.h"
+#include "ecs.h"
 
 namespace ComponentFactoryRegistrations {
 	template<typename T> class ComponentFactoryRegistration {
 	public:
-		ComponentFactoryRegistration(const char* id) {
-			ComponentFactory::get().registerGenerator(id, []()
+		ComponentFactoryRegistration() {
+			ComponentFactory::getInstance().registerGenerator(indexOf<T,ComponentsList>, []()
 				{
 					return static_cast<Component*>(new T());
 				}

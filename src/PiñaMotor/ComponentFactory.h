@@ -1,7 +1,6 @@
 #pragma once
 #include <string>
 #include <unordered_map>
-
 class Component;
 
 typedef Component* (*componentInstanceGenerator) ();
