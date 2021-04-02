@@ -1,5 +1,4 @@
 #include "ComponentFactory.h"
-#include "ecs.h"
 
 ComponentFactory& ComponentFactory::getInstance()
 {
