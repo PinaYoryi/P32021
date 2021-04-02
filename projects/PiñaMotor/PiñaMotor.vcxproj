@@ -19,11 +19,20 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\PiñaMotor\Component.cpp" />
+    <ClCompile Include="..\..\src\PiñaMotor\ComponentFactory.cpp" />
+    <ClCompile Include="..\..\src\PiñaMotor\Entity.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\MotorLoop.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Source.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\src\PiñaMotor\Component.h" />
+    <ClInclude Include="..\..\src\PiñaMotor\ComponentFactory.h" />
+    <ClInclude Include="..\..\src\PiñaMotor\ComponentFactoryRegistration.h" />
+    <ClInclude Include="..\..\src\PiñaMotor\Transform.h" />
+    <ClInclude Include="..\..\src\PiñaMotor\ecs.h" />
+    <ClInclude Include="..\..\src\PiñaMotor\Entity.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Vector3.h" />
     <ClInclude Include="..\..\src\PiñaMotor\MotorLoop.h" />
   </ItemGroup>
@@ -110,6 +119,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)dependencies\Ogre\Build\include;$(SolutionDir)dependencies\Ogre\Src\OgreMain\include</AdditionalIncludeDirectories>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -127,6 +137,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)dependencies\Ogre\Build\include;$(SolutionDir)dependencies\Ogre\Src\OgreMain\include</AdditionalIncludeDirectories>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -163,7 +174,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir)dependencies\Ogre\Build\include;$(SolutionDir)dependencies\Ogre\Src\OgreMain\include;$(SolutionDir)dependencies\Fmod\include;$(SolutionDir)dependencies\Bullet\src\src\;$(SolutionDir)dependencies\Bullet\build\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
