@@ -1,12 +1,10 @@
 #pragma once
-//clase abstracta de todos los componentes
-#include "ComponentFactoryRegistration.h"
 #include <map>
 #include <string>
 //TODO : hacer friend con entity
+//clase abstracta de todos los componentes
 class Component {
 public:
-	
 	virtual bool init(const std::map<std::string, std::string>& mapa) = 0;
 
 	virtual void Start() {} ;

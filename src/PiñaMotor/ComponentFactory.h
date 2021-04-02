@@ -3,7 +3,6 @@
 #include <unordered_map>
 #include "ecs.h"
 
-
 class Component;
 
 typedef Component* (*componentInstanceGenerator) ();
@@ -13,28 +12,17 @@ public:
 	///<summary>
 	///devuelve una instancia del singleton 
 	///</summary>
-	 static ComponentFactory& getInstance();
-	
+	static ComponentFactory& getInstance();
+
 	///<summary>
 	///Devuele el componente que quieres si esta guardado en mGenerators, si no existe devuelve nullptr
 	///</summary>
-	template<typename T>
-	 T* getComponent() {
-		 auto it = _mGenerators.find(indexOf<T, ComponentsList>);
-		 if (it != _mGenerators.end())
-		 {
-			 return it->second();
-		 }
-		 return nullptr;
-	 }
-	
+	Component* getComponent(size_t index);
+
 	///<summary>
 	///Registra el nuevo componente que le pasas, primero el nombre (identificador del ecs) y luego el componente como tal
 	///</summary>
-	template<typename T>
-	 bool registerGenerator(const componentInstanceGenerator& instGenerator) {
-		 return _mGenerators.insert(std::make_pair(indexOf<T, ComponentsList>, instGenerator)).second;
-	 }
+	bool registerGenerator(size_t index, const componentInstanceGenerator& instGenerator);
 
 private:
 	ComponentFactory() {};

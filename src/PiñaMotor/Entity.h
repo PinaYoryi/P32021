@@ -1,7 +1,10 @@
 #pragma once
 #include "Component.h"
 #include "ecs.h"
+#include "ComponentFactory.h"
 using namespace std;
+
+
 class Entity {
 private:
 	const char* _name;
@@ -14,11 +17,15 @@ public:
 	~Entity();
 
 	template<typename T, typename ... TArgs>
-	T* addComponent(TArgs ...args) {
-		T* t = (ComponentFactory::getInstance().getComponent<T>());
+	Component* addComponent(TArgs ...args) {
+		Component* t = ComponentFactory::getInstance().getComponent(indexOf<T, ComponentsList>);
 		_compArray[indexOf<T, ComponentsList>] = t;
-		t->init(args...);
-		return t;
+		std::map<std::string, std::string> map;
+		// TODO: Que se cargue el diccionario con los args
+		if (t->init(map)) {
+			return t;
+		}
+		cout << "Error carga componente\n";
 	}
 
 	template<typename T>
