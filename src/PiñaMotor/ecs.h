@@ -3,13 +3,16 @@
 
 class Transform;
 
+//TODO: Comentar
 template<typename ...Ts>
 struct TypeList {
 	constexpr static std::size_t size = sizeof...(Ts);
 };
 
+
 template<typename, typename>
 struct IndexOf;
+
 
 template<typename T, typename ...Ts>
 struct IndexOf<T, TypeList<T, Ts...>> : std::integral_constant<std::size_t, 0> {

@@ -6,8 +6,9 @@
      return instance;
  }
 
-Component* ComponentFactory::getComponent(const char* typeName)
+Component* ComponentFactory::getComponent(size_t typeName)
  {
+
      auto it = _mGenerators.find(typeName);
      if (it != _mGenerators.end())
      {
@@ -16,7 +17,7 @@ Component* ComponentFactory::getComponent(const char* typeName)
 	return nullptr;
  }
 
-bool ComponentFactory::registerGenerator(const char* typeName, const componentInstanceGenerator& instGenerator)
+bool ComponentFactory::registerGenerator(size_t typeName, const componentInstanceGenerator& instGenerator)
 {
 	return _mGenerators.insert(std::make_pair(typeName, instGenerator)).second;
 }

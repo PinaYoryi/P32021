@@ -1,8 +1,9 @@
 #pragma once
 #include <string>
 #include <unordered_map>
-
-//macro
+#include "ecs.h"
+//TODO Decidir si dejar la macro o no
+//macro que igual no hace falta, mirar si la necesitamos o no
 #ifdef BUILD_DLL
 #define DLL_INTERFACE __declspec(dllexport)
 #else
@@ -23,16 +24,19 @@ public:
 	///<summary>
 	///Devuele el componente que quieres si esta guardado en mGenerators, si no existe devuelve nullptr
 	///</summary>
-	DLL_INTERFACE Component* getComponent(const char* typeName);
+	DLL_INTERFACE Component* getComponent(size_t typeName);
 	
 	///<summary>
-	///Registra el nuevo componente que le pasas, primero el nombre (identificador) y luego el componente como tal
+	///Registra el nuevo componente que le pasas, primero el nombre (identificador del ecs) y luego el componente como tal
 	///</summary>
-	DLL_INTERFACE bool registerGenerator(const char* typeName, const componentInstanceGenerator& instGenerator);
+	DLL_INTERFACE bool registerGenerator(size_t typeName, const componentInstanceGenerator& instGenerator);
 
 private:
 	ComponentFactory() {};
 	~ComponentFactory() {};
-
-	std::unordered_map<std::string, componentInstanceGenerator> _mGenerators;
+	///<summary>
+	//tabla hash donde guardamos todos los componentes, size_t es el nombre del ecs
+	//componentInstanceGenerator es el componente como tal
+	///</summary>
+	std::unordered_map<size_t, componentInstanceGenerator> _mGenerators;
 };
