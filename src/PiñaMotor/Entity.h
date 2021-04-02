@@ -1,11 +1,7 @@
 #pragma once
 #include "Component.h"
 #include "ecs.h"
-
-class Transform : public Component {};
-
 using namespace std;
-
 class Entity {
 private:
 	const char* _name;
@@ -18,16 +14,29 @@ public:
 	~Entity();
 
 	template<typename T, typename ... TArgs>
-	T* addComponent(TArgs ...args);
+	T* addComponent(TArgs ...args) {
+		T* t = (ComponentFactory::getInstance().getComponent<T>());
+		_compArray[indexOf<T, ComponentsList>] = t;
+		t->init(args...);
+		return t;
+	}
 
 	template<typename T>
-	T* getComponent();
+	T* getComponent() {
+		return _compArray[indexOf<T, ComponentsList>];
+	}
 
 	template<typename T>
-	bool hasComponent();
+	bool hasComponent() {
+		return _compArray[indexOf<T, ComponentsList>];
+	}
 
 	template<typename T>
-	void removeComponent();
+	void removeComponent() {
+		//¿Quitar de unique pointers?
+		delete _compArray[indexOf<T, ComponentsList>];
+		_compArray[indexOf<T, ComponentsList>] = nullptr;
+	}
 
 	void update();
 

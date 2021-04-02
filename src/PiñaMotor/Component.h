@@ -1,27 +1,32 @@
 #pragma once
 //clase abstracta de todos los componentes
 #include "ComponentFactoryRegistration.h"
-
+#include <map>
+#include <string>
+//TODO : hacer friend con entity
 class Component {
 public:
-	virtual void Start() = 0;
+	
+	virtual bool init(const std::map<std::string, std::string>& mapa) = 0;
 
-	virtual bool OnTriggerStart() = 0;
-	virtual bool OnTriggerStay() = 0;
-	virtual bool OnTriggerEnd() = 0;
+	virtual void Start() {} ;
 
-	virtual bool OnCollisionStart() = 0;
-	virtual bool OnCollisionStay() = 0;
-	virtual bool OnCollisionEnd() = 0;
+	virtual bool OnTriggerStart() {};
+	virtual bool OnTriggerStay() {};
+	virtual bool OnTriggerEnd() {};
 
-	virtual void Update() = 0;
-	virtual void FixedUpdate() = 0;
+	virtual bool OnCollisionStart() {};
+	virtual bool OnCollisionStay() {};
+	virtual bool OnCollisionEnd() {};
+
+	virtual void Update() {};
+	virtual void FixedUpdate(){};
 
 	void SetActive(bool toggle) 
 	{
 		active = toggle;
 	}
 protected:
-	virtual void Render() = 0;
+	virtual void Render() {};
 	bool active;
 };

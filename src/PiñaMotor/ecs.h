@@ -1,7 +1,9 @@
 #pragma once
 #include <iostream>
+#include "Transform.h"
+//#include "Component.h"
 
-class Transform;
+//class Transform;
 
 //TODO: Comentar
 template<typename ...Ts>
