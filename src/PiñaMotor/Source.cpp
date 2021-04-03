@@ -18,5 +18,6 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
     //TODO: carne de ca�on de macro
  /*   ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform> cpm;
     Entity* ent = new Entity();*/
+    delete root;
     return 0;
 }
