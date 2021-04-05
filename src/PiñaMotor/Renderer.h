@@ -57,8 +57,11 @@ public:
 	/// </summary>
 	//const Ogre::MeshPtr getMesh();
 
+	/// <summary>
+	/// Se encarga de renderizar   
+	/// </summary>
+	 void Update() override;
 private:
-	
 	bool _visible;
 	std::string _material;
 	std::string _mesh;

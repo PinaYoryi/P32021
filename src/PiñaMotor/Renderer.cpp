@@ -43,6 +43,13 @@ const std::string Renderer::getMeshName()
 	return _mesh;
 }
 
+void Renderer::Update()
+{
+	if (_visible) {
+
+	}
+}
+
 
 //const Ogre::MeshPtr Renderer::getMesh()
 //{
