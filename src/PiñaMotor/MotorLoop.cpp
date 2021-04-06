@@ -6,9 +6,13 @@ MotorLoop* MotorLoop::_singleton = nullptr;
 MotorLoop* MotorLoop::getInstance() {
 	if (_singleton == nullptr) {
 		_singleton = new MotorLoop();
+#if (defined _DEBUG)
 		std::cout << "Nueva instancia del bucle\n";
+#endif
 	}
+#if (defined _DEBUG)
 	else std::cout << "Misma instancia del bucle\n";
+#endif
 	return _singleton;
 }
 
