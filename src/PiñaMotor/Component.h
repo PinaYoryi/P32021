@@ -34,6 +34,6 @@ public:
 
 protected:
 	virtual void Render() {};
-	bool _active;
-	Entity* _myEntity;
+	bool _active = true;
+	Entity* _myEntity = nullptr;
 };
