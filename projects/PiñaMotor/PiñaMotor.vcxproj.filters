@@ -33,6 +33,9 @@
     <ClCompile Include="..\..\src\PiñaMotor\Component.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\PiñaMotor\Transform.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\PiñaMotor\Entity.h">
@@ -59,5 +62,5 @@
     <ClInclude Include="..\..\src\PiñaMotor\MotorLoop.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    </ItemGroup>
+  </ItemGroup>
 </Project>
