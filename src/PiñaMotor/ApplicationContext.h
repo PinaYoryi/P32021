@@ -26,12 +26,12 @@ struct NativeWindowPair
 	Base class responsible for setting up a common context for applications.
 	Subclass to implement specific event callbacks.
 	*/
-class IG2ApplicationContext : public Ogre::FrameListener
+class ApplicationContext : public Ogre::FrameListener
 {
 public:
-	explicit IG2ApplicationContext(const Ogre::String& appName = OGRE_VERSION_NAME);
+	explicit ApplicationContext(const Ogre::String& appName = OGRE_VERSION_NAME);
 
-	virtual ~IG2ApplicationContext();
+	virtual ~ApplicationContext();
 
 	/**
 	get the main RenderWindow owns the context on OpenGL
@@ -59,13 +59,6 @@ public:
 	virtual bool windowClosing(Ogre::RenderWindow* rw) { return true; }
 	virtual void windowClosed(Ogre::RenderWindow* rw) {}
 	virtual void windowFocusChange(Ogre::RenderWindow* rw) {}
-
-	/**
-	inspect the event and call one of the corresponding functions on the registered InputListener
-	@param event Input Event
-	@param windowID only call listeners of this window
-	*/
-	void _fireInputEvent(const Event& event) const;
 
 	/**
 	Initialize the RT Shader system.
