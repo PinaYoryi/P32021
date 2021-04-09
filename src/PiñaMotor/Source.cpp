@@ -15,8 +15,8 @@ WinMain(HINSTANCE zhInstance, HINSTANCE prevInstance, LPSTR lpCmdLine, int nCmdS
 _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Leaks
     Ogre::Root* root;
     root = new Ogre::Root();
-    //TODO: carne de ca�on de macro
- /*   ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform> cpm;
+    //TODO: carne de canon de macro
+    /*ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform> cpm;
     Entity* ent = new Entity();*/
     return 0;
 }

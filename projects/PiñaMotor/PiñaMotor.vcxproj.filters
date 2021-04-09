@@ -59,5 +59,5 @@
     <ClInclude Include="..\..\src\PiñaMotor\MotorLoop.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    </ItemGroup>
+  </ItemGroup>
 </Project>
