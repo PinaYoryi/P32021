@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
 #include "Vector3.h"
+#include <list>
 
 class Transform : public Component {
 public:
@@ -9,114 +10,70 @@ public:
 		World
 	};
 
-	Transform(Vector3 position, Vector3 rotation, Vector3 scale, Transform* parent = nullptr) :
-	_parent(parent), _position(position), _rotation(rotation), _scale(scale) {
-		if (parent == nullptr) {
-			_localPosition = _position;
-			_localRotation = _rotation;
-			_localScale = _scale;
-		}
-		else {
-			_localPosition = InverseTransformDirection(parent->position());
-			_localRotation = InverseTransformDirection(parent->rotation());
-			_localScale = InverseTransformDirection(parent->scale());
-		}
-	}
+	Transform(Vector3 position, Vector3 rotation, Vector3 scale, Transform* parent = nullptr);
 	
 	bool init(const std::map<std::string, std::string>& mapa) override {
 		return true;
 	}
 
-	void translate(float x, float y, float z) {
-		//Cambiamos la posicion sumando x, y, z
-	}
-	void rotate(float xAngle, float yAngle, float zAngle, Space relativeTo = Space::Self) {
-		if (relativeTo == Space::Self) {
-			//Cambiamos la rotacion x, y, z angulo
-		}
-		else {
-			//Transladamos el obj al centro (guardamos la direccion)
-			//Rotamos x, y, z angulo
-			//Volvemos a transladar el obj habiendo rotado tb la direccion
-		}
-	}
+	void translate(float x, float y, float z);
+	void rotate(float xAngle, float yAngle, float zAngle, Space relativeTo = Space::Self);
 	
 	//Getter
 	Transform* parent() { return _parent; }
-	Transform* getChild(char* name) {
-		for (auto c : _vChild) {
-			if (c->getEntity()->getName() == name)
-				return c;
-		}
-	}
-	
-	Vector3 localPosition() { return _localPosition; }
-	Vector3 localRotation() { return _localRotation; }
-	Vector3 localScale() { return _localScale; }
+	Transform* findChild(char* name);
 	
 	Vector3 position() { return _position; }
 	Vector3 rotation() { return _rotation; }
 	Vector3 scale() { return _scale; }
 	
+	Vector3 localPosition() { return _localPosition; }
+	Vector3 localRotation() { return _localRotation; }
+	Vector3 localScale() { return _localScale; }
+	
 	//Setter
-	void parent(Transform* parent) { _parent = parent; }
-	void child(Transform* child) { _vChild.push_back(child); }
+	void setParent(Transform* parent) { _parent = parent; }
+	void setChild(Transform* child) { _vChild.push_back(child); }
+	
+	void setPosition(Vector3 v);
+	void setPosition(float x, float y, float z);
+	
+	void setRotation(Vector3 v);
+	void setRotation(float x, float y, float z);
+	
+	void setScale(Vector3 v);
+	void setScale(float x, float y, float z);
 
-	void localPosition(Vector3 v) { _localPosition = v; }
-	void localPosition(float x, float y, float z) { _localPosition = { x, y, z }; }
-	
-	void localRotation(Vector3 v) { _localRotation = v; }
-	void localRotation(float x, float y, float z) { _localRotation = { x, y, z }; }
-	
-	void localScale(Vector3 v) { _localScale = v; }
-	void localScale(float x, float y, float z) { _localScale = { x, y, z }; }
-	
-	void position(Vector3 v) { _position = v; }
-	void position(float x, float y, float z) { _position = { x, y, z }; }
-	
-	void rotation(Vector3 v) { _rotation = v; }
-	void rotation(float x, float y, float z) { _rotation = { x, y, z }; }
-	
-	void scale(Vector3 v) { _scale = v; }
-	void scale(float x, float y, float z) { _scale = { x, y, z }; }
+	void setLocalPosition(Vector3 v);
+	void setLocalPosition(float x, float y, float z);
+
+	void setLocalRotation(Vector3 v);
+	void setLocalRotation(float x, float y, float z);
+
+	void setLocalScale(Vector3 v);
+	void setLocalScale(float x, float y, float z);
 	
 	//Transforma el vector direction del espacio local al espacio global
-	Vector3 TransformDirection(Vector3 direction) {
-		return { abs(direction.getX() + _parent->localPosition().getX()),
-				 abs(direction.getY() + _parent->localPosition().getY()),
-				 abs(direction.getZ() + _parent->localPosition().getZ()) };
-	}
+	Vector3 transformDirection(Vector3 direction);
 	//Transforma la posicion x, y, z del espacio local al espacio global
-	Vector3 TransformDirection(float x, float y, float z) {
-		return { abs(x + _parent->localPosition().getX()),
-				 abs(y + _parent->localPosition().getY()),
-				 abs(z + _parent->localPosition().getZ()) };
-	}
+	Vector3 transformDirection(float x, float y, float z);
 	
 	//Transforma el vector direction del espacio global al espacio local
-	Vector3 InverseTransformDirection(Vector3 direction) {
-		return { abs(direction.getX() - _parent->localPosition().getX()),
-				 abs(direction.getY() - _parent->localPosition().getY()),
-				 abs(direction.getZ() - _parent->localPosition().getZ()) };
-	}
+	Vector3 inverseTransformDirection(Vector3 direction);
 	//Transforma la posicion x, y, z del espacio global al espacio local
-	Vector3 InverseTransformDirection(float x, float y, float z) {
-		return { abs(x - _parent->localPosition().getX()),
-				 abs(y - _parent->localPosition().getY()),
-				 abs(z - _parent->localPosition().getZ()) };
-	}
+	Vector3 inverseTransformDirection(float x, float y, float z);
 
 private:
 	Transform* _parent = nullptr;
 	list<Transform*> _vChild;
-
-	//En funcion del padre (local)
-	Vector3 _localPosition;
-	Vector3 _localRotation;
-	Vector3 _localScale;
 	
 	//En funcion del mundo (global)
 	Vector3 _position;
 	Vector3 _rotation;
 	Vector3 _scale;
+
+	//En funcion del padre (local)
+	Vector3 _localPosition;
+	Vector3 _localRotation;
+	Vector3 _localScale;
 };
