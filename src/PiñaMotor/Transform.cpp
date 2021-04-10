@@ -38,8 +38,21 @@ void Transform::rotate(float xAngle, float yAngle, float zAngle, Space relativeT
 	}
 	else {
 		//Transladamos el obj al centro (guardamos la direccion)
+		Vector3 dir = _position;
+		if (relativeTo == Space::World)
+			setPosition(0, 0, 0);
+		else
+			setPosition(_parent->position());
+
 		//Rotamos x, y, z angulo
+		rotate(xAngle, yAngle, zAngle, Space::Self);
+		Vector3 angleX = { 0, cos(xAngle), sin(xAngle) };
+		Vector3 angleY = { sin(yAngle), 0, cos(yAngle) };
+		Vector3 angleZ = { sin(zAngle), cos(zAngle), 0 };
+		Vector3 newDir = dir + angleX + angleY + angleZ;
+
 		//Volvemos a transladar el obj habiendo rotado tb la direccion
+		setPosition(newDir);
 	}
 }
 

@@ -5,9 +5,10 @@
 
 class Transform : public Component {
 public:
-	enum Space {
+	enum class Space {
 		Self,
-		World
+		World,
+		Parent
 	};
 
 	Transform(Vector3 position, Vector3 rotation, Vector3 scale, Transform* parent = nullptr);
