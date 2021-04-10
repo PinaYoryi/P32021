@@ -130,6 +130,10 @@
       <AdditionalLibraryDirectories>$(SolutionDir)\dependencies\Ogre\Build\lib\Debug\</AdditionalLibraryDirectories>
       <AdditionalDependencies>OgreMain_d.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PreBuildEvent>
+      <Command>cd ../../dependencies/Ogre
+compilar.bat</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -143,13 +147,17 @@
       <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)\dependencies\Ogre\Build\lib\Release\</AdditionalLibraryDirectories>
       <AdditionalDependencies>OgreMain.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PreBuildEvent>
+      <Command>cd ../../dependencies/Ogre
+compilar.bat</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -165,6 +173,10 @@
       <AdditionalDependencies>OgreMain_d.lib;fmodl64_vc.lib;Bullet3Collision_Debug.lib;Bullet3Common_Debug.lib;Bullet2FileLoader_Debug.lib;Bullet3Dynamics_Debug.lib;Bullet3Geometry_Debug.lib;Bullet3OpenCL_clew_Debug.lib;BulletCollision_Debug.lib;BulletDynamics_Debug.lib;BulletFIleLoader_Debug.lib;BulletInverseDynamics_Debug.lib;BulletRobotics_Debug.lib;BulletRoboticsGUI_Debug.lib;BulletSoftBody_Debug.lib;BulletWorldImporter_Debug.lib;BulletXmlWorldImporter_Debug.lib;ConvexDecomposition_Debug.lib;GIMPACTUtils_Debug.lib;HACD_Debug.lib;LinearMath_Debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\Bullet\build\lib\Debug\;$(SolutionDir)\dependencies\Ogre\Build\lib\Debug\;$(SolutionDir)\dependencies\Fmod\lib</AdditionalLibraryDirectories>
     </Link>
+    <PreBuildEvent>
+      <Command>cd ../../dependencies/Ogre
+compilar.bat</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -184,6 +196,10 @@
       <AdditionalDependencies>OgreMain.lib;fmodl64_vc.lib;Bullet3Collision.lib;Bullet3Common.lib;Bullet2FileLoader.lib;Bullet3Dynamics.lib;Bullet3Geometry.lib;Bullet3OpenCL_clew.lib;BulletCollision.lib;BulletDynamics.lib;BulletFIleLoader.lib;BulletInverseDynamics.lib;BulletRobotics.lib;BulletRoboticsGUI.lib;BulletSoftBody.lib;BulletWorldImporter.lib;BulletXmlWorldImporter.lib;ConvexDecomposition.lib;GIMPACTUtils.lib;HACD.lib;LinearMath.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)\dependencies\Ogre\Build\lib\Release\;$(SolutionDir)dependencies\Bullet\build\lib\Release\;$(SolutionDir)\dependencies\Fmod\lib</AdditionalLibraryDirectories>
     </Link>
+    <PreBuildEvent>
+      <Command>cd ../../dependencies/Ogre
+compilar.bat</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

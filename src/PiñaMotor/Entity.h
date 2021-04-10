@@ -4,14 +4,7 @@
 #include "ComponentFactory.h"
 using namespace std;
 
-
 class Entity {
-private:
-	const char* _name;
-	//aqui estaran los componentes de esta entidad
-	std::vector<unique_ptr<Component>> compUnique;
-	//aqui estaran todos los posibles punteros a componentes existentes
-	Component* _compArray[numOfComponents];
 public:
 	Entity();
 	Entity(char* entityName);
@@ -62,9 +55,16 @@ public:
 		return deleted;
 	}
 
+	const char* getName() { return _name; }
+
 	void update();
 
 	void render();
+
+private:
+	const char* _name;
+	//aqui estaran los componentes de esta entidad
+	std::vector<unique_ptr<Component>> compUnique;
+	//aqui estaran todos los posibles punteros a componentes existentes
+	Component* _compArray[numOfComponents];
 };
-
-

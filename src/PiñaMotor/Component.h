@@ -5,6 +5,8 @@
 //#include "OgreEntity.h"
 //clase abstracta de todos los componentes
 class Entity;
+
+//clase abstracta de todos los componentes
 class Component {
 	friend  Entity;
 
@@ -28,6 +30,8 @@ public:
 	{
 		_active = toggle;
 	}
+
+	Entity* getEntity() { return _myEntity; }
 	//TODO:Como cambiar cosas de un componente a otro, pasando por la entidad
 	/*template<typename T>
 	T* getComponent() {
