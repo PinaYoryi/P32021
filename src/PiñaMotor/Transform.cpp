@@ -36,6 +36,8 @@ void Transform::rotate(float xAngle, float yAngle, float zAngle, Space relativeT
 						   _localRotation.getY() + yAngle,
 						   _localRotation.getZ() + zAngle };
 	}
+	//Esto no se si estará bien porque lo he intentado con quaternion pero no soy capaz
+	//en el caso de no funcionar se puede dejar solo la rotacion respecto a si mismo (Self)
 	else {
 		//Transladamos el obj al centro (guardamos la direccion)
 		Vector3 dir = _position;
@@ -61,6 +63,7 @@ Transform* Transform::findChild(char* name) {
 		if (c->getEntity()->getName() == name)
 			return c;
 	}
+	return nullptr;
 }
 
 void Transform::setPosition(Vector3 v) {
