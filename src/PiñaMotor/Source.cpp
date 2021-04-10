@@ -16,8 +16,10 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
     Ogre::Root* root;
     root = new Ogre::Root();
     //TODO: carne de ca�on de macro
- /*   ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform> cpm;
-    Entity* ent = new Entity();*/
+    /*ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform> cpm;
+    Entity* ent = new Entity();
+    ent->removeComponent<Transform>();
+    ent->getComponent<Transform>();*/
     delete root;
     return 0;
 }

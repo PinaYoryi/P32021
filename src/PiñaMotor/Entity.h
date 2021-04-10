@@ -35,7 +35,7 @@ public:
 	}
 
 	template<typename T>
-	T* getComponent() {
+	Component* getComponent() {
 		return _compArray[indexOf<T, ComponentsList>];
 	}
 

@@ -43,7 +43,7 @@ const std::string Renderer::getMeshName()
 	return _mesh;
 }
 
-void Renderer::Update()
+void Renderer::Render()
 {
 	if (_visible) {
 

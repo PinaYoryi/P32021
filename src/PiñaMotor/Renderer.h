@@ -60,7 +60,7 @@ public:
 	/// <summary>
 	/// Se encarga de renderizar   
 	/// </summary>
-	 void Update() override;
+	 void Render() override;
 private:
 	bool _visible;
 	std::string _material;
