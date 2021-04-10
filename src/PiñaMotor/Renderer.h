@@ -1,7 +1,7 @@
 #pragma once
 #include "Component.h"
-//#include "OgreSceneNode.h"
-//#include "OgreSceneManager.h"
+#include "OgreSceneNode.h"
+
 class Renderer : public Component {
 public:
 	Renderer() {
@@ -45,7 +45,7 @@ public:
 	/// <summary>
 	/// Crea una nueva entidad con este mesh
 	/// </summary>
-	//void  setMesh(Ogre::MeshPtr mesh);
+	void  setMesh(Ogre::MeshPtr mesh);
 
 	/// <summary>
 	/// Devuelve el nombre de la mesh que esta usando   
@@ -55,7 +55,12 @@ public:
 	/// <summary>
 	/// Devuelve una referencia de la mesh que esta usando   
 	/// </summary>
-	//const Ogre::MeshPtr getMesh();
+	const Ogre::MeshPtr getMesh();
+
+	/// <summary>
+	/// Devuelve un puntero del nodo de la entidad 
+	/// </summary>
+	Ogre::SceneNode* getNode(const std::string& name) const;
 
 	/// <summary>
 	/// Se encarga de renderizar   
@@ -63,7 +68,8 @@ public:
 	 void Render() override;
 private:
 	bool _visible;
-	std::string _material;
-	std::string _mesh;
-
+	std::string _material="";
+	std::string _mesh="";
+	Ogre::SceneNode* _ogreNode=nullptr;//nodo de ogre 
+	Ogre::Entity* _ogreEntity=nullptr;//entidad de ogre
 };

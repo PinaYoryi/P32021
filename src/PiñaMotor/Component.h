@@ -1,9 +1,6 @@
 #pragma once
 #include <map>
 #include <string>
-//#include "OgreSceneNode.h"
-//#include "OgreEntity.h"
-//clase abstracta de todos los componentes
 class Entity;
 
 //clase abstracta de todos los componentes
@@ -42,6 +39,5 @@ protected:
 	virtual void Render() {};
 	bool _active;
 	Entity* _myEntity;
-	//Ogre::SceneNode* _ogreNode;//nodo de ogre 
-	//Ogre::Entity* _ogreEntity;//entidad de ogre
+	
 };
