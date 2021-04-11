@@ -11,7 +11,6 @@ using namespace Ogre;
 void Application::shutdown()
 {
 	mRoot->destroySceneManager(mSM);
-	delete mCam;
 
 	// do not forget to call the base 
 	ApplicationContext::shutdown();

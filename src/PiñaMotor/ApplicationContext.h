@@ -61,16 +61,6 @@ public:
 	virtual void windowFocusChange(Ogre::RenderWindow* rw) {}
 
 	/**
-	Initialize the RT Shader system.
-	*/
-	bool initialiseRTShaderSystem();
-
-	/**
-	Destroy the RT Shader system.
-	*/
-	void destroyRTShaderSystem();
-
-	/**
 	Sets up the context after configuration.
 	*/
 	virtual void setup();

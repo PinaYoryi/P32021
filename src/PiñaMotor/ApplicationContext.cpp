@@ -67,9 +67,6 @@
 
 	void ApplicationContext::shutdown()
 	{
-		// Destroy the RT Shader System.
-		destroyRTShaderSystem();
-
 		if (mWindow.render != nullptr)
 		{
 			mRoot->destroyRenderTarget(mWindow.render);
@@ -91,7 +88,6 @@
 		setWindowGrab(false);   // IG2: ratón libre
 
 		locateResources();
-		initialiseRTShaderSystem();
 		loadResources();
 
 		// adds context as listener to process context-level (above the sample level) events
@@ -105,16 +101,6 @@
 			return mRoot->showConfigDialog(NULL);
 		}
 		else return true;
-	}
-	bool ApplicationContext::initialiseRTShaderSystem()
-	{
-		return true;
-	}
-
-	void ApplicationContext::destroyRTShaderSystem()
-	{
-		// Restore default scheme.
-		Ogre::MaterialManager::getSingleton().setActiveScheme(Ogre::MaterialManager::DEFAULT_SCHEME_NAME);
 	}
 
 	NativeWindowPair ApplicationContext::createWindow(const Ogre::String& name)

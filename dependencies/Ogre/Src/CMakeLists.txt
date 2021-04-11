@@ -312,7 +312,7 @@ cmake_dependent_option(OGRE_BUILD_RENDERSYSTEM_GL3PLUS "Build OpenGL 3+ RenderSy
 cmake_dependent_option(OGRE_BUILD_RENDERSYSTEM_GL "Build OpenGL RenderSystem" FALSE "OPENGL_FOUND;NOT APPLE_IOS;NOT WINDOWS_STORE;NOT WINDOWS_PHONE" FALSE)
 cmake_dependent_option(OGRE_BUILD_RENDERSYSTEM_GLES2 "Build OpenGL ES 2.x RenderSystem" FALSE "OPENGLES2_FOUND;NOT WINDOWS_STORE;NOT WINDOWS_PHONE" FALSE)
 cmake_dependent_option(OGRE_BUILD_RENDERSYSTEM_METAL "Build Metal RenderSystem" FALSE "APPLE" FALSE)
-cmake_dependent_option(OGRE_BUILD_PLUGIN_ASSIMP "Build Open Asset Import plugin" TRUE "ASSIMP_FOUND" FALSE)
+cmake_dependent_option(OGRE_BUILD_PLUGIN_ASSIMP "Build Open Asset Import plugin" FALSE "ASSIMP_FOUND" FALSE)
 cmake_dependent_option(OGRE_BUILD_RENDERSYSTEM_TINY "Build Tiny RenderSystem (software-rendering)" FALSE "NOT ANDROID" FALSE)
 option(OGRE_BUILD_PLUGIN_BSP "Build BSP SceneManager plugin" FALSE)
 option(OGRE_BUILD_PLUGIN_OCTREE "Build Octree SceneManager plugin" FALSE)
