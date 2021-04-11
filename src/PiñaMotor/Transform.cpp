@@ -27,7 +27,7 @@ void Transform::translate(float x, float y, float z) {
 
 void Transform::rotate(float xAngle, float yAngle, float zAngle, Space relativeTo) {
 	if (relativeTo == Space::Self) {
-		//Cambiamos la rotacion x, y, z angulo
+		// Cambiamos la rotacion x, y, z angulo
 		_rotation = { _rotation.getX() + xAngle,
 					  _rotation.getY() + yAngle,
 					  _rotation.getZ() + zAngle };
@@ -36,24 +36,24 @@ void Transform::rotate(float xAngle, float yAngle, float zAngle, Space relativeT
 						   _localRotation.getY() + yAngle,
 						   _localRotation.getZ() + zAngle };
 	}
-	//Esto no se si estará bien porque lo he intentado con quaternion pero no soy capaz
-	//en el caso de no funcionar se puede dejar solo la rotacion respecto a si mismo (Self)
+	// Esto no se si estará bien porque lo he intentado con quaternion pero no soy capaz
+	// en el caso de no funcionar se puede dejar solo la rotacion respecto a si mismo (Self)
 	else {
-		//Transladamos el obj al centro (guardamos la direccion)
+		// Transladamos el obj al centro (guardamos la direccion)
 		Vector3 dir = _position;
 		if (relativeTo == Space::World)
 			setPosition(0, 0, 0);
 		else
 			setPosition(_parent->position());
 
-		//Rotamos x, y, z angulo
+		// Rotamos x, y, z angulo
 		rotate(xAngle, yAngle, zAngle, Space::Self);
 		Vector3 angleX = { 0, cos(xAngle), sin(xAngle) };
 		Vector3 angleY = { sin(yAngle), 0, cos(yAngle) };
 		Vector3 angleZ = { sin(zAngle), cos(zAngle), 0 };
 		Vector3 newDir = dir + angleX + angleY + angleZ;
 
-		//Volvemos a transladar el obj habiendo rotado tb la direccion
+		// Volvemos a transladar el obj habiendo rotado tb la direccion
 		setPosition(newDir);
 	}
 }

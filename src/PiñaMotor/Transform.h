@@ -20,7 +20,7 @@ public:
 	void translate(float x, float y, float z);
 	void rotate(float xAngle, float yAngle, float zAngle, Space relativeTo = Space::Self);
 	
-	//Getter
+	// Getter
 	Transform* parent() { return _parent; }
 	Transform* findChild(char* name);
 	
@@ -32,7 +32,7 @@ public:
 	Vector3 localRotation() { return _localRotation; }
 	Vector3 localScale() { return _localScale; }
 	
-	//Setter
+	// Setter
 	void setParent(Transform* parent) { _parent = parent; }
 	void setChild(Transform* child) { _vChild.push_back(child); }
 	
@@ -54,26 +54,26 @@ public:
 	void setLocalScale(Vector3 v);
 	void setLocalScale(float x, float y, float z);
 	
-	//Transforma el vector direction del espacio local al espacio global
+	// Transforma el vector direction del espacio local al espacio global
 	Vector3 transformDirection(Vector3 direction);
-	//Transforma la posicion x, y, z del espacio local al espacio global
+	// Transforma la posicion x, y, z del espacio local al espacio global
 	Vector3 transformDirection(float x, float y, float z);
 	
-	//Transforma el vector direction del espacio global al espacio local
+	// Transforma el vector direction del espacio global al espacio local
 	Vector3 inverseTransformDirection(Vector3 direction);
-	//Transforma la posicion x, y, z del espacio global al espacio local
+	// Transforma la posicion x, y, z del espacio global al espacio local
 	Vector3 inverseTransformDirection(float x, float y, float z);
 
 private:
 	Transform* _parent = nullptr;
 	list<Transform*> _vChild;
 	
-	//En funcion del mundo (global)
+	// En funcion del mundo (global)
 	Vector3 _position;
 	Vector3 _rotation;
 	Vector3 _scale;
 
-	//En funcion del padre (local)
+	// En funcion del padre (local)
 	Vector3 _localPosition;
 	Vector3 _localRotation;
 	Vector3 _localScale;
