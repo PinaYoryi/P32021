@@ -1,13 +1,16 @@
 #pragma once
 #include <map>
 #include <string>
+
+using namespace std;
+
 //clase abstracta de todos los componentes
 class Entity;
 class Component {
 	friend  Entity;
 
 public:
-	virtual bool init(const std::map<std::string, std::string>& mapa) = 0;
+	virtual bool init(const map<std::string, std::string>& mapa) = 0;
 
 	virtual void Start() {} ;
 

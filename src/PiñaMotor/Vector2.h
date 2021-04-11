@@ -122,13 +122,14 @@ public:
 	// DEBUG
 	void print() { cout << "(" << _x << ", " << _y << ")" << "\n"; };
 
-	// Vectores predefinidos
+#pragma region Vectores Predefinidos
 	static const Vector2<T> up() { return Vector2<T>((T)0, (T)1); }
 	static const Vector2<T> down() { return Vector2<T>((T)0, (T)-1); }
 	static const Vector2<T> left() { return Vector2<T>((T)-1, (T)0); }
 	static const Vector2<T> right() { return Vector2<T>((T)1, (T)0); }
 	static const Vector2<T> one() { return Vector2<T>((T)1, (T)1); }
 	static const Vector2<T> zero() { return Vector2<T>((T)0, (T)0); }
+#pragma endregion
 
 private:
 	// Variables
