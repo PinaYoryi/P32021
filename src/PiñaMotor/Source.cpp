@@ -20,6 +20,15 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
     Entity* ent = new Entity();
     ent->removeComponent<Transform>();
     ent->getComponent<Transform>();*/
+    /*btScalar mass(1.0f);
+    btVector3 localInertia(0, 0, 0);
+    btCollisionShape* colShape = new btSphereShape(btScalar(1.0));
+    colShape->calculateLocalInertia(mass, localInertia);
+    btTransform startTransform;
+    startTransform.setIdentity();
+    btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
+    btRigidBody* body = new btRigidBody(btRigidBody::btRigidBodyConstructionInfo(
+        mass, myMotionState, colShape, localInertia));*/
     delete root;
     return 0;
 }
