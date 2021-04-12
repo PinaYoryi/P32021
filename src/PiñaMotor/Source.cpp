@@ -20,10 +20,13 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
  /*   ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform> cpm;
     Entity* ent = new Entity();*/
 
+
+    cout << "Primero" << endl;
     BulletInstance* bI = BulletInstance::getInstance();
     cout << "Segundo" << endl;
     bI = BulletInstance::getInstance();
-
+    cout << "Tercero" << endl;
+    BulletInstance::getInstance()->getWorld();
     
     if (bI != nullptr)
         delete bI;
