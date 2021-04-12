@@ -45,7 +45,7 @@ void Transform::rotate(float xAngle, float yAngle, float zAngle, Space relativeT
 	else {
 		// Transladamos el obj al centro (guardamos la direccion)
 		Vector3 dir = _position;
-		if (relativeTo == Space::Parent && parent != nullptr)
+		if (relativeTo == Space::Parent && _parent != nullptr)
 			setPosition(_parent->position());
 		else
 			setPosition(0, 0, 0);
@@ -207,7 +207,7 @@ void Transform::setLocalScale(float x, float y, float z)
 }
 
 Vector3 Transform::transformDirection(Vector3 direction) {
-	if (parent == nullptr)
+	if (_parent == nullptr)
 		return direction;
 
 	else
@@ -217,7 +217,7 @@ Vector3 Transform::transformDirection(Vector3 direction) {
 }
 
 Vector3 Transform::transformDirection(float x, float y, float z) {
-	if (parent == nullptr)
+	if (_parent == nullptr)
 		return {x, y, z};
 
 	else
@@ -227,7 +227,7 @@ Vector3 Transform::transformDirection(float x, float y, float z) {
 }
 
 Vector3 Transform::inverseTransformDirection(Vector3 direction) {
-	if (parent == nullptr)
+	if (_parent == nullptr)
 		return direction;
 
 	else
@@ -237,7 +237,7 @@ Vector3 Transform::inverseTransformDirection(Vector3 direction) {
 }
 
 Vector3 Transform::inverseTransformDirection(float x, float y, float z) {
-	if (parent == nullptr)
+	if (_parent == nullptr)
 		return { x, y, z };
 
 	else
