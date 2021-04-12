@@ -7,7 +7,6 @@
 #include <OgreLogManager.h>
 #include <OgrePlugin.h>
 #include <OgreFileSystemLayer.h>
-
 #include <OgreFrameListener.h>
 #include <SDL.h>  
 
@@ -34,8 +33,8 @@ public:
 	virtual ~ApplicationContext();
 
 	/**
-	get the main RenderWindow owns the context on OpenGL
-	*/
+		get the main RenderWindow owns the context on OpenGL
+		*/
 	Ogre::RenderWindow* getRenderWindow() const { return mWindow.render; }
 
 	Ogre::Root* getRoot() const { return mRoot; }

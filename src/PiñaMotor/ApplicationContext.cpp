@@ -187,7 +187,7 @@
 
 	void ApplicationContext::loadResources()
 	{
-		//Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
+		Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 	}
 
 	void ApplicationContext::locateResources()
