@@ -10,7 +10,7 @@ public:
 		World,
 		Parent
 	};
-
+	Transform() {}
 	Transform(Vector3 position, Vector3 rotation, Vector3 scale, Transform* parent = nullptr);
 	
 	bool init(const std::map<std::string, std::string>& mapa) override {
@@ -63,6 +63,9 @@ public:
 	Vector3 inverseTransformDirection(Vector3 direction);
 	//Transforma la posicion x, y, z del espacio global al espacio local
 	Vector3 inverseTransformDirection(float x, float y, float z);
+
+
+
 
 private:
 	Transform* _parent = nullptr;

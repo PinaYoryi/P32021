@@ -2,16 +2,18 @@
 #include "OgreSceneManager.h"
 #include "OgreMesh.h"
 #include "OgreEntity.h"
-
+#include "OgreInstance.h"
+#include "Entity.h"
+#include "Transform.h"
 bool Renderer::init(const std::map<std::string, std::string>& mapa){
 	//_mesh=map.mesh;
 	//_material=map.material;
-	//_ogreNode = mSM->getRootSceneNode()->createChildSceneNode("nombredel nodo");
-	//_ogreEntity = mSM->getRootSceneNode()->createEntity(_mesh);
+	//_ogreNode = OgreInstance::getInstance().getmSM()->getRootSceneNode()->createChildSceneNode("nombredel nodo");
+	//_ogreEntity = _ogreEntity->createEntity(_mesh);
 	// _ogreNode.attachedObject(_ogreEntity);
 	//if(_material!="")
 	//_ogreEntity.setMaterialName(_material)
-
+	
 	return true;
 }
 void Renderer::setVisible(bool visible){
@@ -42,12 +44,21 @@ void Renderer::setMesh(Ogre::MeshPtr mesh){
 }
 
 const std::string Renderer::getMeshName(){
-	return _mesh;
+	return _mesh;	
 }
 
 void Renderer::Render(){
 	if (_visible) {
+		if (_myEntity->hasComponent<Transform>()) {
+			Transform* tr = _myEntity->getComponent<Transform>();
+			_ogreNode->setPosition(tr->position().getX(), tr->position().getY(), tr->position().getZ());
+			//_ogreNode->translate();
+			_ogreNode->setScale(tr->scale().getX(), tr->scale().getY(), tr->scale().getZ());
+			//Ogre::SceneNode* node = _myEntity->getComponent<Renderer>()->getNode();
+			//node->setPosition(_position.getX(), _position.getY(), _position.getY());
 
+			//_ogreNode->setOrientation(Ogre::Quaternion(Ogre::Degree(45), Vector3(1, 0, 0)));
+		}
 	}
 }
 
@@ -56,7 +67,7 @@ const Ogre::MeshPtr Renderer::getMesh(){
 	return _ogreEntity->getMesh();
 }
 
-Ogre::SceneNode* Renderer::getNode(const std::string& name) const{
+Ogre::SceneNode* Renderer::getNode() const{
 	return _ogreNode;
 }
 

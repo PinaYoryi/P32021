@@ -60,7 +60,7 @@ public:
 	/// <summary>
 	/// Devuelve un puntero del nodo de la entidad 
 	/// </summary>
-	Ogre::SceneNode* getNode(const std::string& name) const;
+	Ogre::SceneNode* getNode() const;
 
 	/// <summary>
 	/// Se encarga de renderizar   

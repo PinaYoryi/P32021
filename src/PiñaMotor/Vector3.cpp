@@ -89,7 +89,7 @@ double Vector3::angleDegrees(const Vector3& other) const
 {
 	double angle = angleRadians(other);
 
-	angle = angle * 180 / PI;
+	angle = angle * 180 / Pi;
 
 	return angle;
 }

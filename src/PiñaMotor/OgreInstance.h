@@ -1,7 +1,6 @@
 #pragma once
-#include "OgreSceneNode.h"
 #include "OgreSceneManager.h"
-
+#include "OgreRoot.h"
 
 class OgreInstance {
 public:
@@ -9,15 +8,23 @@ public:
 	/// Devuelve una instancia de la clase. La crea si no existe.
 	/// </summary>
 	static OgreInstance* getInstance();
+
+	/// <summary>
+	/// devuelve un puntero de mSM que es el sceneManager
+	/// </summary>
 	Ogre::SceneManager* getmSM() {
-		return mSM;
+		return _mSM;
 	}
-	
+
+	/// <summary>
+	/// Crea un sceneManager si no existe uno
+	/// </summary>
 	Ogre::SceneManager* createmSM(Ogre::Root* mRoot) {
-		//mSM->mRoot->createSceneManager();
+		if(_mSM==nullptr)
+			_mSM = mRoot->createSceneManager();
 	}
 
 protected:
 	static OgreInstance* _singleton;
-	Ogre::SceneManager* mSM = nullptr;
+	Ogre::SceneManager* _mSM = nullptr;
 };

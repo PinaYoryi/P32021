@@ -3,7 +3,7 @@
 //#include <OgreVector3.h>
 using namespace std;
 
-# define PI 3.14159265358979323846
+# define Pi 3.14159265358979323846
 
 class Vector3
 {

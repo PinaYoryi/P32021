@@ -28,8 +28,8 @@ public:
 	}
 
 	template<typename T>
-	Component* getComponent() {
-		return _compArray[indexOf<T, ComponentsList>];
+	T* getComponent() {
+		return static_cast<T*>(_compArray[indexOf<T, ComponentsList>]);
 	}
 
 	template<typename T>

@@ -7,19 +7,21 @@ Transform::Transform(Vector3 position, Vector3 rotation, Vector3 scale, Transfor
 		_localPosition = _position;
 		_localRotation = _rotation;
 		_localScale = _scale;
+		
 	}
 	else {
 		_localPosition = inverseTransformDirection(parent->position());
 		_localRotation = inverseTransformDirection(parent->rotation());
 		_localScale = inverseTransformDirection(parent->scale());
 	}
+
 }
 
 void Transform::translate(float x, float y, float z) {
 	_position = { _position.getX() + x,
 				  _position.getY() + y,
 				  _position.getZ() + z };
-
+	
 	_localPosition = { _localPosition.getX() + x,
 					   _localPosition.getY() + y, 
 					   _localPosition.getZ() + z };
