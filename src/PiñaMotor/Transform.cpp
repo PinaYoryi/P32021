@@ -16,29 +16,13 @@ Transform::Transform(Vector3 position, Vector3 rotation, Vector3 scale, Transfor
 }
 
 void Transform::translate(float x, float y, float z) {
-	_position = { _position.getX() + x,
-				  _position.getY() + y,
-				  _position.getZ() + z };
-
-	_localPosition = { _localPosition.getX() + x,
-					   _localPosition.getY() + y, 
-					   _localPosition.getZ() + z };
-
-	for (auto c : _vChild) {
-		c->translate(x, y, z);
-	}
+	setPosition(_position.getX() + x, _position.getY() + y, _position.getZ() + z);
 }
 
 void Transform::rotate(float xAngle, float yAngle, float zAngle, Space relativeTo) {
 	if (relativeTo == Space::Self) {
 		// Cambiamos la rotacion x, y, z angulo
-		_rotation = { _rotation.getX() + xAngle,
-					  _rotation.getY() + yAngle,
-					  _rotation.getZ() + zAngle };
-
-		_localRotation = { _localRotation.getX() + xAngle,
-						   _localRotation.getY() + yAngle,
-						   _localRotation.getZ() + zAngle };
+		setRotation(_rotation.getX() + xAngle, _rotation.getY() + yAngle, _rotation.getZ() + zAngle);
 	}
 	// Esto no se si estará bien porque lo he intentado con quaternion pero no soy capaz
 	// en el caso de no funcionar se puede dejar solo la rotacion respecto a si mismo (Self)
@@ -59,10 +43,6 @@ void Transform::rotate(float xAngle, float yAngle, float zAngle, Space relativeT
 
 		// Volvemos a transladar el obj habiendo rotado tb la direccion
 		setPosition(newDir);
-	}
-
-	for (auto c : _vChild) {
-		c->rotate(xAngle, yAngle, zAngle, relativeTo);
 	}
 }
 
