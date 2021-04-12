@@ -52,12 +52,12 @@ void Renderer::Render(){
 		if (_myEntity->hasComponent<Transform>()) {
 			Transform* tr = _myEntity->getComponent<Transform>();
 			_ogreNode->setPosition(tr->position().getX(), tr->position().getY(), tr->position().getZ());
-			//_ogreNode->translate();
 			_ogreNode->setScale(tr->scale().getX(), tr->scale().getY(), tr->scale().getZ());
-			//Ogre::SceneNode* node = _myEntity->getComponent<Renderer>()->getNode();
-			//node->setPosition(_position.getX(), _position.getY(), _position.getY());
-
-			//_ogreNode->setOrientation(Ogre::Quaternion(Ogre::Degree(45), Vector3(1, 0, 0)));
+			//TODO: Falta hacer la rotacion, es necesario usar Quaterniones
+			//Vector3<float> rot = tr->rotation();
+			//_ogreNode->setOrientation(Ogre::Quaternion(Ogre::Degree(rot.getX()), Vector3<float>(1, 0, 0)));
+			//_ogreNode->setOrientation(Ogre::Quaternion(Ogre::Degree(rot.getX()), Vector3<float>(1, 0, 0)));
+			//_ogreNode->setOrientation(Ogre::Quaternion(Ogre::Degree(rot.getX()), Vector3<float>(1, 0, 0)));
 		}
 	}
 }
