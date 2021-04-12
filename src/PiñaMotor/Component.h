@@ -10,6 +10,8 @@ class Component {
 	friend  Entity;
 
 public:
+	virtual ~Component() {};
+
 	virtual bool init(const map<std::string, std::string>& mapa) = 0;
 
 	virtual void Start() {} ;

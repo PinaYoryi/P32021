@@ -18,17 +18,10 @@ const int WIN_WIDTH = 1000;
 /// </summary>
 class UITransform : public Component {
 public:
-	UITransform() : _width(0), _height(0), _parent(nullptr), _anchor(Vector2<float>(0, 0)) {
-		_children = list<Entity*>();
-	}
+	UITransform();
+	~UITransform();
 
-	~UITransform() {
-		if (_parent != nullptr) _parent->getComponent<UITransform>()->removeChild(_myEntity);
-		for (auto it = _children.begin(); it != _children.end(); ++it)
-			if ((*it) != nullptr) delete (*it); //TODO: Esto no deberia ser un delete sino que deberia borrarlo en juego.
-	}
-
-	bool init(const map<std::string, std::string>& mapa) override {}
+	bool init(const map<std::string, std::string>& mapa) override { return true; }
 
 #pragma region Setters
 	/// <summary>
@@ -63,15 +56,15 @@ public:
 	/// <summary>
 	/// Asigna el padre del objeto.
 	/// </summary>
-	void setParent(Entity* parent);
+	void setParent(UITransform* parent);
 	/// <summary>
 	/// Añade un hijo a la lista de hijos. Devuelve true si se ha añadido y false si ya estaba en la lista.
 	/// </summary>
-	bool addChild(Entity* child);
+	bool addChild(UITransform* child);
 	/// <summary>
 	/// Elimina a un hijo a la lista de hijos. Devuelve true si se ha eliminado y false si no estaba en la lista.
 	/// </summary>
-	bool removeChild(Entity* child);
+	bool removeChild(UITransform* child);
 #pragma endregion
 
 #pragma region Getters
@@ -99,19 +92,20 @@ public:
 	/// <summary>
 	/// Devuelve un puntero al padre del objeto.
 	/// </summary>
-	Entity* getParent() { return _parent; };
+	UITransform* getParent() { return _parent; };
 	/// <summary>
 	/// Devuelve una lista de punteros con los hijos del objeto.
 	/// </summary>
-	std::list<Entity*> getChildren() { return _children; };
+	list<UITransform*> getChildren() { return _children; };
 #pragma endregion
 
 #pragma region Anclas Predefinidos
-	static const Vector2<float> up() { return Vector2<float>(0.5, 1.0); }
-	static const Vector2<float> down() { return Vector2<float>(0.5, 0.0); }
-	static const Vector2<float> left() { return Vector2<float>(0.0, 0.5); }
-	static const Vector2<float> right() { return Vector2<float>(1.0, 0.5); }
-	static const Vector2<float> zero() { return Vector2<float>(0.0, 0.0); }
+	static const Vector2<float> upAnchor() { return Vector2<float>(0.5, 1.0); }
+	static const Vector2<float> downAnchor() { return Vector2<float>(0.5, 0.0); }
+	static const Vector2<float> leftAnchor() { return Vector2<float>(0.0, 0.5); }
+	static const Vector2<float> rightAnchor() { return Vector2<float>(1.0, 0.5); }
+	static const Vector2<float> middleAnchor() { return Vector2<float>(0.5, 0.5); }
+	static const Vector2<float> zeroAnchor() { return Vector2<float>(0.0, 0.0); }
 #pragma endregion
 
 protected:
@@ -120,6 +114,6 @@ protected:
 	float _rotation;
 	Vector2<float> _pos;
 	Vector2<float> _anchor;
-	Entity* _parent;
-	list<Entity*> _children;
+	UITransform* _parent;
+	list<UITransform*> _children;
 };

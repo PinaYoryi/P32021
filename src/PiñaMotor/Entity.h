@@ -19,7 +19,7 @@ public:
 	~Entity();
 
 	template<typename T, typename ... TArgs>
-	Component* addComponent(TArgs &&...args) {
+	T* addComponent(TArgs &&...args) {
 		Component* t = ComponentFactory::getInstance().getComponent(indexOf<T, ComponentsList>);
 		t->_myEntity = this;//ponemos la entidad en el componente
 		std::unique_ptr<Component> upt (t);
@@ -29,14 +29,14 @@ public:
 		
 		// TODO: Que se cargue el diccionario con los args
 		if (t->init(map)) {
-			return t;
+			return static_cast<T*>(t);
 		}
 		cout << "Error carga componente\n";
 	}
 
 	template<typename T>
 	T* getComponent() {
-		return _compArray[indexOf<T, ComponentsList>];
+		return static_cast<T*>(_compArray[indexOf<T, ComponentsList>]);
 	}
 
 	template<typename T>
