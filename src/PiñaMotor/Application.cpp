@@ -8,67 +8,54 @@
 
 using namespace Ogre;
 
-void Application::shutdown()
-{
-	mRoot->destroySceneManager(mSM);
+// Destruye el SceneManager y llama a la base
+void Application::shutdown(){
+	_mRoot->destroySceneManager(_mSM);
 
-	// do not forget to call the base 
 	ApplicationContext::shutdown();
 }
 
-void Application::setup(void)
-{
-	// do not forget to call the base first
+// Llama a la base, crea el config y el SceneManager e incia la escena
+void Application::setup(void){
 	ApplicationContext::setup();
 
-	mRoot->showConfigDialog(NULL);
+	_mRoot->showConfigDialog(NULL);
 
-	mSM = mRoot->createSceneManager();
+	_mSM = _mRoot->createSceneManager();
 
 	setupScene();
 }
 
-void Application::setupScene(void)
-{
-	// create the camera
-	mCam = mSM->createCamera("Cam");
-	mCam->setNearClipDistance(1);
-	mCam->setFarClipDistance(10000);
-	mCam->setAutoAspectRatio(true);
-	//cam->setPolygonMode(Ogre::PM_WIREFRAME); 
+// Genera los componentes de una escena básica
+void Application::setupScene(void){
+	// Genera cámara
+	_mCam = _mSM->createCamera("Cam");
+	_mCam->setNearClipDistance(1);
+	_mCam->setFarClipDistance(10000);
+	_mCam->setAutoAspectRatio(true);
 
-	mCamNode = mSM->getRootSceneNode()->createChildSceneNode("nCam");
-	mCamNode->attachObject(mCam);
+	// La añade a su nodo y lo posiciona
+	_mCamNode = _mSM->getRootSceneNode()->createChildSceneNode("nCam");
+	_mCamNode->attachObject(_mCam);
 
-	mCamNode->setPosition(0, 0, 1000);
-	mCamNode->lookAt(Ogre::Vector3(0, 0, 0), Ogre::Node::TS_WORLD);
-	//mCamNode->setDirection(Ogre::Vector3(0, 0, -1));  
+	_mCamNode->setPosition(0, 0, 1000);
+	_mCamNode->lookAt(Ogre::Vector3(0, 0, 0), Ogre::Node::TS_WORLD);
 
-	// and tell it to render into the main window
-	vp = getRenderWindow()->addViewport(mCam);
-	vp->setBackgroundColour(Ogre::ColourValue(153.0/250.0, 50.0/255.0, 204/255.0));
-	CompositorManager::getSingleton().addCompositor(vp, "Luminance");
-	CompositorManager::getSingleton().addCompositor(vp, "IG2/EdgeEmboss");
+	// Crea el viewport de la cámara
+	_vp = getRenderWindow()->addViewport(_mCam);
+	_vp->setBackgroundColour(Ogre::ColourValue(153.0/250.0, 50.0/255.0, 204/255.0));
 
-
-	//------------------------------------------------------------------------
-
-	// without light we would just get a black screen 
-
-	Light* luz = mSM->createLight("Luz");
+	// Crea una luz en la escena
+	Light* luz = _mSM->createLight("Luz");
 	luz->setType(Ogre::Light::LT_DIRECTIONAL);
 	luz->setDiffuseColour(1.0, 1.0, 1.0);
 
-	mLightNode = mSM->getRootSceneNode()->createChildSceneNode("nLuz");
-	//mLightNode = mCamNode->createChildSceneNode("nLuz");
-	mLightNode->attachObject(luz);
+	// Une la luz a un nodo y lo posiciona
+	_mLightNode = _mSM->getRootSceneNode()->createChildSceneNode("nLuz");
+	_mLightNode->attachObject(luz);
 
-	mLightNode->setDirection(Ogre::Vector3(0, -1, -1));  //vec3.normalise();*/
-	//lightNode->setPosition(0, 0, 1000);
+	_mLightNode->setDirection(Ogre::Vector3(0, -1, -1)); 
 
-	mSM->setAmbientLight(Ogre::ColourValue(0.2, 0.2, 0.2, 1.0));
-
-	//------------------------------------------------------------------------
-
-	//mSM->setSkyPlane(true, Plane(Vector3::UNIT_Z, -50), "IG2/spaceGLSL", 1, 1, true, 1.0, 10, 10);	//true, Plane(Vector3::UNIT_Z, -200), "IG2/space", 1, 1, true, 0, 10, 10
+	// Pone la luz ambiente de la escena
+	_mSM->setAmbientLight(Ogre::ColourValue(0.2, 0.2, 0.2, 1.0));
 }

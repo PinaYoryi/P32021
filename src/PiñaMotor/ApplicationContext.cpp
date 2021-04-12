@@ -7,114 +7,99 @@
 #include <OgreViewport.h>
 #include <OgreDataStream.h>
 #include <OgreMaterialManager.h>
-
-//#include <OgreConfigPaths.h>    // IG2: lo quito xq las rutas son absolutas y deben ser relativas al directorio de la solución
-//#include <OgreOverlaySystem.h>  // IG2: lo he incluido en el .h para evitar declaraciones adelantadas
-//#include <SDL.h>				  // IG2: lo he incluido en el .h para evitar declaraciones adelantadas
 #include <SDL_video.h>
 #include <SDL_syswm.h>
 
-	ApplicationContext::ApplicationContext(const Ogre::String& appName)
-	{
-		mAppName = appName;
-		mFSLayer = new Ogre::FileSystemLayer(mAppName);
-		mRoot = nullptr;
-		mFirstRun = true;
+	ApplicationContext::ApplicationContext(const Ogre::String& appName){
+		_mAppName = appName;
+		_mFSLayer = new Ogre::FileSystemLayer(_mAppName);
+		_mRoot = nullptr;
+		_mFirstRun = true;
 	}
 
-	ApplicationContext::~ApplicationContext()
-	{
-		delete mFSLayer;
+	ApplicationContext::~ApplicationContext(){
+		delete _mFSLayer;
 	}
 
-	void ApplicationContext::initApp()
-	{
+	void ApplicationContext::initApp(){
 		createRoot();
 
 		if (oneTimeConfig())
 			setup();
 	}
 
-	void ApplicationContext::closeApp()
-	{
-		if (mRoot != nullptr)
+	void ApplicationContext::closeApp(){
+		if (_mRoot != nullptr)
 		{
-			mRoot->saveConfig();
+			_mRoot->saveConfig();
 		}
 		shutdown();
-		delete mRoot;
-		mRoot = nullptr;
+		delete _mRoot;
+		_mRoot = nullptr;
 	}
 
-	void ApplicationContext::createRoot()
-	{
+	void ApplicationContext::createRoot(){
 		Ogre::String pluginsPath;
-		pluginsPath = mFSLayer->getConfigFilePath("plugins.cfg");
+		pluginsPath = _mFSLayer->getConfigFilePath("plugins.cfg");
 
 		if (!Ogre::FileSystemLayer::fileExists(pluginsPath))
-		{	// IG2: OGRE_CONFIG_DIR tiene un valor absoluto no portable
-			//pluginsPath = Ogre::FileSystemLayer::resolveBundlePath(OGRE_CONFIG_DIR "/plugins" OGRE_BUILD_SUFFIX ".cfg");
+		{	
 			OGRE_EXCEPT(Ogre::Exception::ERR_FILE_NOT_FOUND, "plugins.cfg", "IG2ApplicationContext::createRoot");
 		}
 
-		mSolutionPath = pluginsPath;    // IG2: añadido para definir directorios relativos al de la solución 
-		mSolutionPath.erase(mSolutionPath.find_last_of("\\") + 1, mSolutionPath.size() - 1);
-		mFSLayer->setHomePath(mSolutionPath);   // IG2: para los archivos de configuración ogre. (en el bin de la solubión)
-		mSolutionPath.erase(mSolutionPath.find_last_of("\\") + 1, mSolutionPath.size() - 1);   // IG2: Quito /bin
+		_mSolutionPath = pluginsPath;    
+		_mSolutionPath.erase(_mSolutionPath.find_last_of("\\") + 1, _mSolutionPath.size() - 1);
+		_mFSLayer->setHomePath(_mSolutionPath); 
+		_mSolutionPath.erase(_mSolutionPath.find_last_of("\\") + 1, _mSolutionPath.size() - 1);
 
-		mRoot = new Ogre::Root(pluginsPath, mFSLayer->getWritablePath("ogre.cfg"), mFSLayer->getWritablePath("ogre.log"));
+		_mRoot = new Ogre::Root(pluginsPath, _mFSLayer->getWritablePath("ogre.cfg"), _mFSLayer->getWritablePath("ogre.log"));
 	}
 
-	void ApplicationContext::shutdown()
-	{
-		if (mWindow.render != nullptr)
+	void ApplicationContext::shutdown(){
+		if (_mWindow._render != nullptr)
 		{
-			mRoot->destroyRenderTarget(mWindow.render);
-			mWindow.render = nullptr;
+			_mRoot->destroyRenderTarget(_mWindow._render);
+			_mWindow._render = nullptr;
 		}
 
-		if (mWindow.native != nullptr)
+		if (_mWindow._native != nullptr)
 		{
-			SDL_DestroyWindow(mWindow.native);
+			SDL_DestroyWindow(_mWindow._native);
 			SDL_QuitSubSystem(SDL_INIT_VIDEO);
-			mWindow.native = nullptr;
+			_mWindow._native = nullptr;
 		}
 	}
 
-	void ApplicationContext::setup()
-	{
-		mRoot->initialise(false);
-		createWindow(mAppName);
-		setWindowGrab(false);   // IG2: ratón libre
+	void ApplicationContext::setup(){
+		_mRoot->initialise(false);
+		createWindow(_mAppName);
+		setWindowGrab(false);
 
 		locateResources();
 		loadResources();
 
-		// adds context as listener to process context-level (above the sample level) events
-		mRoot->addFrameListener(this);
+		_mRoot->addFrameListener(this);
 	}
 
-	bool ApplicationContext::oneTimeConfig()
-	{
-		if (!mRoot->restoreConfig())
+	bool ApplicationContext::oneTimeConfig(){
+		if (!_mRoot->restoreConfig())
 		{
-			return mRoot->showConfigDialog(NULL);
+			return _mRoot->showConfigDialog(NULL);
 		}
 		else return true;
 	}
 
-	NativeWindowPair ApplicationContext::createWindow(const Ogre::String& name)
-	{
+	NativeWindowPair ApplicationContext::createWindow(const Ogre::String& name){
 		uint32_t w, h;
 		Ogre::NameValuePairList miscParams;
 
-		Ogre::ConfigOptionMap ropts = mRoot->getRenderSystem()->getConfigOptions();
+		Ogre::ConfigOptionMap ropts = _mRoot->getRenderSystem()->getConfigOptions();
 
 		std::istringstream mode(ropts["Video Mode"].currentValue);
 		Ogre::String token;
-		mode >> w; // width
-		mode >> token; // 'x' as seperator between width and height
-		mode >> h; // height
+		mode >> w; 
+		mode >> token; 
+		mode >> h; 
 
 		miscParams["FSAA"] = ropts["FSAA"].currentValue;
 		miscParams["vsync"] = ropts["VSync"].currentValue;
@@ -125,37 +110,32 @@
 		Uint32 flags = SDL_WINDOW_RESIZABLE;
 
 		if (ropts["Full Screen"].currentValue == "Yes")  flags = SDL_WINDOW_FULLSCREEN;
-		//else  flags = SDL_WINDOW_RESIZABLE;
 
-		mWindow.native = SDL_CreateWindow(name.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, w, h, flags);
+		_mWindow._native = SDL_CreateWindow(name.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, w, h, flags);
 
 		SDL_SysWMinfo wmInfo;
 		SDL_VERSION(&wmInfo.version);
-		SDL_GetWindowWMInfo(mWindow.native, &wmInfo);
+		SDL_GetWindowWMInfo(_mWindow._native, &wmInfo);
 
 		miscParams["externalWindowHandle"] = Ogre::StringConverter::toString(size_t(wmInfo.info.win.window));
 
-		mWindow.render = mRoot->createRenderWindow(name, w, h, false, &miscParams);
-		return mWindow;
+		_mWindow._render = _mRoot->createRenderWindow(name, w, h, false, &miscParams);
+		return _mWindow;
 	}
 
-	void ApplicationContext::setWindowGrab(bool _grab)
-	{
+	void ApplicationContext::setWindowGrab(bool _grab){
 		SDL_bool grab = SDL_bool(_grab);
-		SDL_SetWindowGrab(mWindow.native, grab);
-		//SDL_SetRelativeMouseMode(grab);
+		SDL_SetWindowGrab(_mWindow._native, grab);
 		SDL_ShowCursor(grab);
 	}
 
-	bool ApplicationContext::frameRenderingQueued(const Ogre::FrameEvent& evt)
-	{
+	bool ApplicationContext::frameRenderingQueued(const Ogre::FrameEvent& evt){
 		return true;
 	}
 
-	void ApplicationContext::pollEvents()   // from frameStarted
-	{
-		if (mWindow.native == nullptr)
-			return;  // SDL events not initialized
+	void ApplicationContext::pollEvents(){
+		if (_mWindow._native == nullptr)
+			return;  
 
 		SDL_Event event;
 		while (SDL_PollEvent(&event))
@@ -163,14 +143,13 @@
 			switch (event.type)
 			{
 			case SDL_QUIT:
-				mRoot->queueEndRendering();
+				_mRoot->queueEndRendering();
 				break;
 			case SDL_WINDOWEVENT:
-				if (event.window.windowID == SDL_GetWindowID(mWindow.native)) {
+				if (event.window.windowID == SDL_GetWindowID(_mWindow._native)) {
 					if (event.window.event == SDL_WINDOWEVENT_RESIZED)
 					{
-						Ogre::RenderWindow* win = mWindow.render;
-						//win->resize(event.window.data1, event.window.data2);  // IG2: ERROR 
+						Ogre::RenderWindow* win = _mWindow._render;
 						win->windowMovedOrResized();
 						windowResized(win);
 					}
@@ -180,22 +159,16 @@
 				break;
 			}
 		}
-
-		// just avoid "window not responding"
-		//WindowEventUtilities::messagePump();
 	}
 
-	void ApplicationContext::loadResources()
-	{
+	void ApplicationContext::loadResources(){
 		Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 	}
 
-	void ApplicationContext::locateResources()
-	{
-		// load resource paths from config file
+	void ApplicationContext::locateResources(){
 		Ogre::ConfigFile cf;
 
-		Ogre::String resourcesPath = mFSLayer->getConfigFilePath("resources.cfg");
+		Ogre::String resourcesPath = _mFSLayer->getConfigFilePath("resources.cfg");
 		if (Ogre::FileSystemLayer::fileExists(resourcesPath))
 		{
 			cf.load(resourcesPath);
@@ -203,19 +176,18 @@
 		else
 		{
 			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(
-				Ogre::FileSystemLayer::resolveBundlePath(mSolutionPath + "\\media"),
+				Ogre::FileSystemLayer::resolveBundlePath(_mSolutionPath + "\\media"),
 				"FileSystem", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 		}
 
 		Ogre::String sec, type, arch;
-		// go through all specified resource groups
+		
 		Ogre::ConfigFile::SettingsBySection_::const_iterator seci;
 		for (seci = cf.getSettingsBySection().begin(); seci != cf.getSettingsBySection().end(); ++seci) {
 			sec = seci->first;
 			const Ogre::ConfigFile::SettingsMultiMap& settings = seci->second;
 			Ogre::ConfigFile::SettingsMultiMap::const_iterator i;
 
-			// go through all resource paths
 			for (i = settings.begin(); i != settings.end(); i++)
 			{
 				type = i->first;
@@ -232,7 +204,6 @@
 		arch = genLocs.front().archive->getName();
 		type = genLocs.front().archive->getType();
 
-		// Add locations for supported shader languages
 		if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("glsles"))
 		{
 			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch + "/materials/programs/GLSLES", type, sec);
@@ -258,22 +229,5 @@
 		else if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("hlsl"))
 		{
 			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch + "/materials/programs/HLSL", type, sec);
-		}
-
-		mRTShaderLibPath = arch + "/RTShaderLib";
-		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/materials", type, sec);
-
-		if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("glsles"))
-		{
-			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/GLSL", type, sec);
-			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/GLSLES", type, sec);
-		}
-		else if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("glsl"))
-		{
-			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/GLSL", type, sec);
-		}
-		else if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("hlsl"))
-		{
-			Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/HLSL", type, sec);
 		}
 	}

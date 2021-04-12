@@ -12,114 +12,108 @@
 
 typedef SDL_Window NativeWindowType;
 
-/**
-link between a renderwindow and a platform specific window
-*/
+// Enlace entre una RenderWindow y una ventana específica de plataforma
 struct NativeWindowPair
 {
-	Ogre::RenderWindow* render = nullptr;
-	NativeWindowType* native = nullptr;
+	Ogre::RenderWindow* _render = nullptr;
+	NativeWindowType* _native = nullptr;
 };
 
-/**
-	Base class responsible for setting up a common context for applications.
-	Subclass to implement specific event callbacks.
-	*/
-class ApplicationContext : public Ogre::FrameListener
-{
+/// <summary>
+/// Clase base con contexto específico para
+/// Subclase para implementar eventos específicos de callback
+/// </summary>
+class ApplicationContext : public Ogre::FrameListener {
 public:
 	explicit ApplicationContext(const Ogre::String& appName = OGRE_VERSION_NAME);
 
 	virtual ~ApplicationContext();
 
-	/**
-		get the main RenderWindow owns the context on OpenGL
-		*/
-	Ogre::RenderWindow* getRenderWindow() const { return mWindow.render; }
+	// Obtiene la RenderWindow
+	Ogre::RenderWindow* getRenderWindow() const { return _mWindow._render; }
 
-	Ogre::Root* getRoot() const { return mRoot; }
+	Ogre::Root* getRoot() const { return _mRoot; }
 
-	/**
-	This function initializes the render system and resources.
-	*/
+	// Inicializa el render system y recursos
 	void initApp();
 
-	/**
-	This function closes down the application - saves the configuration then shutdowns.
-	*/
+	// Cierra la aplicación, guarda la configuración y hace shutdowm
 	void closeApp();
 
-	// callback interface copied from various listeners to be used by ApplicationContext
+	// Interfaz de callbacks basada en ApplicationContext
 	virtual bool frameStarted(const Ogre::FrameEvent& evt) { pollEvents(); return true; }
+
 	virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
+
 	virtual bool frameEnded(const Ogre::FrameEvent& evt) { return true; }
+
 	virtual void windowMoved(Ogre::RenderWindow* rw) {}
+
 	virtual void windowResized(Ogre::RenderWindow* rw) {}
+
 	virtual bool windowClosing(Ogre::RenderWindow* rw) { return true; }
+
 	virtual void windowClosed(Ogre::RenderWindow* rw) {}
+
 	virtual void windowFocusChange(Ogre::RenderWindow* rw) {}
 
-	/**
-	Sets up the context after configuration.
-	*/
+	// Inicia el context tras la configuración
 	virtual void setup();
 
-	/**
-	Creates the OGRE root.
-	*/
+	// Crea el root de OGRE
 	virtual void createRoot();
 
-	/**
-	Configures the startup settings for OGRE. I use the config dialog here,
-	but you can also restore from a config file. Note that this only happens
-	when you start the context, and not when you reset it.
-	*/
+	//  I use the config dialog here,
+	//but you can also restore from a config file. Note that this only happens
+	//when you start the context, and not when you reset it.
+	
+	/// <summary>
+	/// Configura los settins de incio de OGRE
+	/// Sólo ocurre al inciar el context, no al resetearlo
+	/// </summary>
+	/// <returns>Si ha podido inicializar la configuración</returns>
 	virtual bool oneTimeConfig();
 
-	/**
-	When input is grabbed the mouse is confined to the window.
-	*/
+	// Confina el ratón a la ventana al detectar input
 	void setWindowGrab(bool grab);
 
-	/**
-	Finds context-wide resource groups. I load paths from a config file here,
-	but you can choose your resource locations however you want.
-	*/
+	// Usa configs para cargar recursos en el context
 	virtual void locateResources();
 
-	/**
-	Loads context-wide resource groups. I chose here to simply initialise all
-	groups, but you can fully load specific ones if you wish.
-	*/
+	// Carga los grupos de recursos del context
 	virtual void loadResources();
 
-	/**
-	Cleans up and shuts down the context.
-	*/
+	// Limpia y cierra el context
 	virtual void shutdown();
 
-	/**
-	process all window events since last call
-	*/
+	// Procesa lso eventos de ventana desde la última llamada
 	void pollEvents();
 
-	/**
-	Create a new render window
-	You must use SDL and not an auto-created window as SDL does not get the events otherwise.
-	By default the values from ogre.cfg are used for w, h and miscParams.
-	*/
+	//Create a new render window
+	//You must use SDL and not an auto-created window as SDL does not get the events otherwise.
+	//By default the values from ogre.cfg are used for w, h and miscParams.
+
+	/// <summary>
+	/// Usa una nueva ventana de renderizado de SDL
+	/// Usa valores de ogre.cfg
+	/// </summary>
+	/// <param name="name">Nombre de la ventana</param>
+	/// <returns>La ventana creada</returns>
 	virtual NativeWindowPair createWindow(const Ogre::String& name);
 
 protected:
+	// OGRE root
+	Ogre::Root* _mRoot;   
+	// Ventana
+	NativeWindowPair _mWindow; 
 
-	Ogre::Root* mRoot;        // OGRE root
-	NativeWindowPair mWindow; // the window
+	// Capa de abstracción del sistema de archivos
+	Ogre::FileSystemLayer* _mFSLayer; 
 
-	Ogre::FileSystemLayer* mFSLayer; // File system abstraction layer
-
-	bool mFirstRun;
-	Ogre::String mAppName;
-	Ogre::String mSolutionPath;    // IG2: variable para hacer las rutas relativas al directorio de la solución
-
-	Ogre::String mRTShaderLibPath;
+	// Variable para identificar primera ejecución
+	bool _mFirstRun;
+	// Nombre de la aplicación
+	Ogre::String _mAppName;
+	// Variable para hacer las rutas relativas al directorio de la solución
+	Ogre::String _mSolutionPath;    
 };

@@ -7,26 +7,28 @@
 #include <OgreViewport.h>
 #include <OgreRoot.h>
 
+/// <summary>
+/// Aplicación que hereda de ApplicationContext
+/// Inicializa datos específicos de la aplicación con base en ApplicationContext
+/// </summary>
 class Application : public  ApplicationContext
 {
 public:
-    explicit Application() : ApplicationContext("Application") { };  // new -> setup()  
-    virtual ~Application() { };   // delete -> shutdown()  
+    explicit Application() : ApplicationContext("Application") { };  
+    virtual ~Application() { };
 
 protected:
     virtual void setup();
     virtual void shutdown();
     virtual void setupScene();
 
-    //virtual bool keyPressed(const OgreBites::KeyboardEvent& evt);  // tendrá que estar nuestro input
+    Ogre::SceneManager* _mSM = nullptr;
+    Ogre::Camera* _mCam = nullptr;
 
-    Ogre::SceneManager* mSM = nullptr;
-    Ogre::Camera* mCam = nullptr;
+    Ogre::SceneNode* _mCamNode = nullptr;
+    Ogre::SceneNode* _mLightNode = nullptr;
 
-    Ogre::SceneNode* mCamNode = nullptr;
-    Ogre::SceneNode* mLightNode = nullptr;
-
-    Ogre::Viewport* vp = nullptr;
-    bool lEnabled = false;
-    bool kEnabled = false;
+    Ogre::Viewport* _vp = nullptr;
+    bool _lEnabled = false;
+    bool _kEnabled = false;
 };
