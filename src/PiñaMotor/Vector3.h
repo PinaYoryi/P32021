@@ -131,7 +131,10 @@ public:
 	operator Ogre::Vector3() const { return Ogre::Vector3((float)_x, (float)_y, (float)_z); }
 
 	// DEBUG
+#ifdef _DEBUG
 	void print() { cout << "(" << _x << ", " << _y << ", " << _z << ")" << "\n"; };
+#endif 
+	
 
 	// Vectores predefinidos
 	static const Vector3<T> up() { return Vector3<T>((T)0, (T)1, (T)0); }
