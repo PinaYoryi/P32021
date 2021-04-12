@@ -3,7 +3,8 @@
 #include "Transform.h"
 #include "ComponentFactoryRegistration.h"
 #include <btBulletDynamicsCommon.h>
-#include "MotorLoop.h"
+#include "Vector3.h"
+#include "Vector2.h"
 
 #if (defined _DEBUG) || !(defined _WIN32) //<-- Ya no lo tenemos en teor�a
 int main() {

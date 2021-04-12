@@ -15,12 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\PiñaMotor\Source.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\PiñaMotor\Vector3.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\PiñaMotor\MotorLoop.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
@@ -40,6 +34,9 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\PiñaMotor\OgreInstance.cpp">
+    <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\PiñaMotor\Source.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
@@ -72,6 +69,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\PiñaMotor\OgreInstance.h">
+    <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\PiñaMotor\Vector2.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
