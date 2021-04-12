@@ -3,8 +3,7 @@
 
 BulletInstance* BulletInstance::_bulletInstance = nullptr;
 
-BulletInstance::~BulletInstance()
-{
+BulletInstance::~BulletInstance() {
 	delete _world;
 	delete _solver;
 	delete _collisionConfiguration;
