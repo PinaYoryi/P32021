@@ -22,15 +22,21 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
 
     Vector3<float> vec1 = Vector3<float>(1.0, 1.5, 2.0);
     Vector3<int> vec2 = Vector3<int>(5, 10, 15);
+#ifdef _DEBUG
     vec1 *= 5; vec1.print();
     vec2 /= 2; vec2.print();
+#endif // _DEBUG
     cout << vec1.magnitude() << "\n";
     cout << vec2.magnitude() << "\n";
     vec1.normalized(); vec2.normalized();
     cout << vec1.getX() << " " << vec1.getY() << " " << vec1.getZ() << "\n";
     cout << vec2.getX() << " " << vec2.getY() << " " << vec2.getZ() << "\n";
-    vec1 = Vector3<float>::forward(); vec1.print();
-    vec2 = Vector3<int>::back(); vec2.print();
+    vec1 = Vector3<float>::forward(); 
+    vec2 = Vector3<int>::back(); 
+#ifdef _DEBUG
+    vec1.print();
+    vec2.print();
+#endif // _DEBUG
 
     Vector2<float> vec3 = Vector2<float>(1.0, 1.5);
     Vector2<int> vec4 = Vector2<int>(5, 10);

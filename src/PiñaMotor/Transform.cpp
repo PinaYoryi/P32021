@@ -1,7 +1,7 @@
 #include "Transform.h"
 #include "Entity.h"
 
-Transform::Transform(Vector3 position, Vector3 rotation, Vector3 scale, Transform* parent) :
+Transform::Transform(Vector3<float> position, Vector3<float> rotation, Vector3<float> scale, Transform* parent) :
 	_parent(parent), _position(position), _rotation(rotation), _scale(scale) {
 	if (parent == nullptr) {
 		_localPosition = _position;
@@ -28,7 +28,7 @@ void Transform::rotate(float xAngle, float yAngle, float zAngle, Space relativeT
 	// en el caso de no funcionar se puede dejar solo la rotacion respecto a si mismo (Self)
 	else {
 		// Transladamos el obj al centro (guardamos la direccion)
-		Vector3 dir = _position;
+		Vector3<float> dir = _position;
 		if (relativeTo == Space::Parent && _parent != nullptr)
 			setPosition(_parent->position());
 		else
@@ -36,10 +36,10 @@ void Transform::rotate(float xAngle, float yAngle, float zAngle, Space relativeT
 
 		// Rotamos x, y, z angulo
 		rotate(xAngle, yAngle, zAngle, Space::Self);
-		Vector3 angleX = { 0, cos(xAngle), sin(xAngle) };
-		Vector3 angleY = { sin(yAngle), 0, cos(yAngle) };
-		Vector3 angleZ = { sin(zAngle), cos(zAngle), 0 };
-		Vector3 newDir = dir + angleX + angleY + angleZ;
+		Vector3<float> angleX = { 0, cos(xAngle), sin(xAngle) };
+		Vector3<float> angleY = { sin(yAngle), 0, cos(yAngle) };
+		Vector3<float> angleZ = { sin(zAngle), cos(zAngle), 0 };
+		Vector3<float> newDir = dir + angleX + angleY + angleZ;
 
 		// Volvemos a transladar el obj habiendo rotado tb la direccion
 		setPosition(newDir);
@@ -70,7 +70,7 @@ void Transform::setParent(Transform* parent)
 	_localScale = inverseTransformDirection(_scale);
 }
 
-void Transform::setPosition(Vector3 v) {
+void Transform::setPosition(Vector3<float> v) {
 	_position = v;
 	_localPosition = inverseTransformDirection(v);
 
@@ -84,11 +84,11 @@ void Transform::setPosition(float x, float y, float z) {
 	_localPosition = inverseTransformDirection(x, y, z);
 
 	for (auto c : _vChild) {
-		c->setPosition(Vector3(x, y, z) + c->localPosition());
+		c->setPosition(Vector3<float>(x, y, z) + c->localPosition());
 	}
 }
 
-void Transform::setRotation(Vector3 v) {
+void Transform::setRotation(Vector3<float> v) {
 	_rotation = v;
 	_localRotation = inverseTransformDirection(v);
 
@@ -102,11 +102,11 @@ void Transform::setRotation(float x, float y, float z) {
 	_localRotation = inverseTransformDirection(x, y, z);
 
 	for (auto c : _vChild) {
-		c->setRotation(Vector3(x, y, z) + c->localRotation());
+		c->setRotation(Vector3<float>(x, y, z) + c->localRotation());
 	}
 }
 
-void Transform::setScale(Vector3 v)
+void Transform::setScale(Vector3<float> v)
 {
 	_scale = v;
 	_localScale = inverseTransformDirection(v);
@@ -122,11 +122,11 @@ void Transform::setScale(float x, float y, float z)
 	_localScale = inverseTransformDirection(x, y, z);
 
 	for (auto c : _vChild) {
-		c->setScale(Vector3(x, y, z) + c->localScale());
+		c->setScale(Vector3<float>(x, y, z) + c->localScale());
 	}
 }
 
-void Transform::setLocalPosition(Vector3 v)
+void Transform::setLocalPosition(Vector3<float> v)
 {
 	_localPosition = v;
 	_position = transformDirection(v);
@@ -146,7 +146,7 @@ void Transform::setLocalPosition(float x, float y, float z)
 	}
 }
 
-void Transform::setLocalRotation(Vector3 v)
+void Transform::setLocalRotation(Vector3<float> v)
 {
 	_localRotation = v;
 	_rotation = transformDirection(v);
@@ -166,7 +166,7 @@ void Transform::setLocalRotation(float x, float y, float z)
 	}
 }
 
-void Transform::setLocalScale(Vector3 v)
+void Transform::setLocalScale(Vector3<float> v)
 {
 	_localScale = v;
 	_scale = transformDirection(v);
@@ -186,7 +186,7 @@ void Transform::setLocalScale(float x, float y, float z)
 	}
 }
 
-Vector3 Transform::transformDirection(Vector3 direction) {
+Vector3<float> Transform::transformDirection(Vector3<float> direction) {
 	if (_parent == nullptr)
 		return direction;
 
@@ -196,7 +196,7 @@ Vector3 Transform::transformDirection(Vector3 direction) {
 				 abs(direction.getZ() + _parent->localPosition().getZ()) };
 }
 
-Vector3 Transform::transformDirection(float x, float y, float z) {
+Vector3<float> Transform::transformDirection(float x, float y, float z) {
 	if (_parent == nullptr)
 		return {x, y, z};
 
@@ -206,7 +206,7 @@ Vector3 Transform::transformDirection(float x, float y, float z) {
 				 abs(z + _parent->localPosition().getZ()) };
 }
 
-Vector3 Transform::inverseTransformDirection(Vector3 direction) {
+Vector3<float> Transform::inverseTransformDirection(Vector3<float> direction) {
 	if (_parent == nullptr)
 		return direction;
 
@@ -216,7 +216,7 @@ Vector3 Transform::inverseTransformDirection(Vector3 direction) {
 				 abs(direction.getZ() - _parent->localPosition().getZ()) };
 }
 
-Vector3 Transform::inverseTransformDirection(float x, float y, float z) {
+Vector3<float> Transform::inverseTransformDirection(float x, float y, float z) {
 	if (_parent == nullptr)
 		return { x, y, z };
 

@@ -11,7 +11,7 @@ public:
 		Parent
 	};
 
-	Transform(Vector3 position, Vector3 rotation, Vector3 scale, Transform* parent = nullptr);
+	Transform(Vector3<float> position, Vector3<float> rotation, Vector3<float> scale, Transform* parent = nullptr);
 
 	bool init(const std::map<std::string, std::string>& mapa) override {
 		return true;
@@ -24,45 +24,45 @@ public:
 	Transform* parent() { return _parent; }
 	Transform* findChild(char* name);
 
-	Vector3 position() { return _position; }
-	Vector3 rotation() { return _rotation; }
-	Vector3 scale() { return _scale; }
+	Vector3<float> position() { return _position; }
+	Vector3<float> rotation() { return _rotation; }
+	Vector3<float> scale() { return _scale; }
 
-	Vector3 localPosition() { return _localPosition; }
-	Vector3 localRotation() { return _localRotation; }
-	Vector3 localScale() { return _localScale; }
+	Vector3<float> localPosition() { return _localPosition; }
+	Vector3<float> localRotation() { return _localRotation; }
+	Vector3<float> localScale() { return _localScale; }
 
 	// Setter
 	void setParent(Transform* parent);
 
-	void setPosition(Vector3 v);
+	void setPosition(Vector3<float> v);
 	void setPosition(float x, float y, float z);
 
-	void setRotation(Vector3 v);
+	void setRotation(Vector3<float> v);
 	void setRotation(float x, float y, float z);
 
-	void setScale(Vector3 v);
+	void setScale(Vector3<float> v);
 	void setScale(float x, float y, float z);
 
-	void setLocalPosition(Vector3 v);
+	void setLocalPosition(Vector3<float> v);
 	void setLocalPosition(float x, float y, float z);
 
-	void setLocalRotation(Vector3 v);
+	void setLocalRotation(Vector3<float> v);
 	void setLocalRotation(float x, float y, float z);
 
-	void setLocalScale(Vector3 v);
+	void setLocalScale(Vector3<float> v);
 	void setLocalScale(float x, float y, float z);
 
 
 	// Transforma el vector direction del espacio local al espacio global
-	Vector3 transformDirection(Vector3 direction);
+	Vector3<float> transformDirection(Vector3<float> direction);
 	// Transforma la posicion x, y, z del espacio local al espacio global
-	Vector3 transformDirection(float x, float y, float z);
+	Vector3<float> transformDirection(float x, float y, float z);
 
 	// Transforma el vector direction del espacio global al espacio local
-	Vector3 inverseTransformDirection(Vector3 direction);
+	Vector3<float> inverseTransformDirection(Vector3<float> direction);
 	// Transforma la posicion x, y, z del espacio global al espacio local
-	Vector3 inverseTransformDirection(float x, float y, float z);
+	Vector3<float> inverseTransformDirection(float x, float y, float z);
 
 private:
 	// Añade a un hijo a la lista
@@ -74,12 +74,12 @@ private:
 	list<Transform*> _vChild;
 
 	// En funcion del mundo (global)
-	Vector3 _position;
-	Vector3 _rotation;
-	Vector3 _scale;
+	Vector3<float> _position;
+	Vector3<float> _rotation;
+	Vector3<float> _scale;
 
 	// En funcion del padre (local)
-	Vector3 _localPosition;
-	Vector3 _localRotation;
-	Vector3 _localScale;
+	Vector3<float> _localPosition;
+	Vector3<float> _localRotation;
+	Vector3<float> _localScale;
 };

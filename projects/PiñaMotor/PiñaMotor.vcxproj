@@ -25,7 +25,6 @@
     <ClCompile Include="..\..\src\PiñaMotor\MotorLoop.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Source.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Transform.cpp" />
-    <ClCompile Include="..\..\src\PiñaMotor\Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\PiñaMotor\Component.h" />
