@@ -11,6 +11,8 @@ using namespace std;
 *	compilador se pierde un poco y las soluciones que he visto no parecian muy limpias.
 */
 
+class Quaternion;
+
 template <typename T = float>
 class Vector3 {
 public:
@@ -44,13 +46,15 @@ public:
 	double magnitudeSquared() const { return (sqrt(_x) + sqrt(_y) + sqrt(_z)); }
 	double magnitude() const { return sqrt(magnitudeSquared()); }
 
+	Vector3<float> rotate(float angle, Vector3<float> axis);
+
 	/// <summary>
 	/// Normaliza el vector
 	/// </summary>
 	void normalized() {
 		double length = magnitude();
 		if (length > 0) *this /= (T)length;
-		else _x = _y = _z = 0;
+		throw std::domain_error("Magnitude equals zero");
 	}
 
 	/// <summary>
