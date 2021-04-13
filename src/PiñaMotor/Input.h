@@ -2,7 +2,7 @@
 
 #include <SDL.h>
 #undef main
-#include "Vector3.h"
+#include "Vector2.h"
 
 #ifdef _DEBUG
 #include <iostream>
@@ -76,7 +76,7 @@ public:
 	/// <summary>
 	/// Devuelve la posición del ratón.
 	/// </summary>
-	Vector3 getMousePos(); //Todo: Actualizar a vector2
+	Vector2<int> getMousePos(); //Todo: Actualizar a vector2
 
 protected:
 	static Input* _singleton;

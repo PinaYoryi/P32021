@@ -89,10 +89,10 @@ int Input::wheelDir() {
 
 #pragma region Getters/Setters
 
-Vector3 Input::getMousePos() {
+Vector2<int> Input::getMousePos() {
 	int mouseX, mouseY;
 	SDL_GetMouseState(&mouseX, &mouseY);
-	return Vector3((float)mouseX, (float)mouseY, 0);
+	return Vector2<int>(mouseX, mouseY);
 }
 
 #pragma endregion
