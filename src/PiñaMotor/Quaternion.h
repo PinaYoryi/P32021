@@ -7,14 +7,19 @@ public:
 	Vector3<float> v;
 
 	Quaternion();
+	Quaternion(float w, float x, float y, float z);
 	Quaternion(float scalar, Vector3<float>& vector);
 	Quaternion(const Quaternion& quat);
 	~Quaternion() {};
 
+	static Quaternion euler(Vector3<float>& vector);
+	static float angle(Quaternion& a, Quaternion& b);
+	
 	float magnitude();
 	Quaternion normalize();
 	Quaternion conjugate();
 	Quaternion inverse();
+	Vector3<float> toEuler();
 
 	Quaternion& operator=(const Quaternion& quat);
 	void operator+=(const Quaternion& quat);

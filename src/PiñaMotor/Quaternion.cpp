@@ -1,8 +1,34 @@
 #include "Quaternion.h"
 
-Quaternion::Quaternion(float scalar, Vector3<float>& vector) : s(scalar), v(vector) { }
+Quaternion::Quaternion(float w, float x, float y, float z) : s(w), v(x,y,z) {}
+
+Quaternion::Quaternion(float scalar, Vector3<float>& vector) : s(scalar), v(vector) {}
 
 Quaternion::Quaternion(const Quaternion& quat) : s(quat.s), v(quat.v) {}
+
+Quaternion Quaternion::euler(Vector3<float>& vector) {
+	Vector3<> v = vector * M_PI / 180;
+
+	float cx = cosf(v.getX() * 0.5);
+	float sx = sinf(v.getX() * 0.5);
+	float cy = cosf(v.getY() * 0.5);
+	float sy = sinf(v.getY() * 0.5);
+	float cz = cosf(v.getZ() * 0.5);
+	float sz = sinf(v.getZ() * 0.5);
+
+	Vector3<float> vec;
+	float s = cx * cy * cz + sx * sy * sz;
+	vec.setX(sx * cy * cz - cx * sy * sz);
+	vec.setY(cx * sy * cz + sx * cy * sz);
+	vec.setZ(cx * cy * sz - sx * sy * cz);
+
+	return { s, vec };
+}
+
+float Quaternion::angle(Quaternion& a, Quaternion& b) {
+	Quaternion ab = a.conjugate() * b;
+	return 2.0 * atan2(ab.v.magnitude(), ab.s);
+}
 
 float Quaternion::magnitude() {
 	float scalar = s * s;
@@ -37,6 +63,25 @@ Quaternion Quaternion::inverse() {
 	Vector3<float> vec = conj.v * mag;
 
 	return { conj.s * mag , vec };
+}
+
+Vector3<float> Quaternion::toEuler() {
+	Vector3<float> vec;
+	float sinx_cosy = 2 * (s * v.getX() + v.getY() * v.getZ());
+	float cosx_cosy = 1 - 2 * (v.getX() * v.getX() + v.getY() * v.getY());
+	vec.setX(atan2(sinx_cosy, cosx_cosy));
+
+	float siny = 2 * (s * v.getY() - v.getZ() * v.getX());
+	if (abs(siny) >= 1)
+		vec.setY(copysignf(M_PI_2, siny));
+	else
+		vec.setY(asinf(siny));
+
+	float sinz_cosy = 2 * (s * v.getZ() + v.getX() * v.getY());
+	float cosz_cosy = 1 - 2 * (v.getY() * v.getY() + v.getZ() * v.getZ());
+	vec.setZ(atan2(sinz_cosy, cosz_cosy));
+
+	return vec * 180 / M_PI;
 }
 
 Quaternion& Quaternion::operator=(const Quaternion& quat) {

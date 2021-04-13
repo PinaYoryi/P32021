@@ -43,7 +43,7 @@ public:
 	inline void setZ(T z) { _z = z; };
 
 	// Métodos
-	double magnitudeSquared() const { return (sqrt(_x) + sqrt(_y) + sqrt(_z)); }
+	double magnitudeSquared() const { return (pow(_x, 2) + pow(_y, 2) + pow(_z, 2)); }
 	double magnitude() const { return sqrt(magnitudeSquared()); }
 
 	Vector3<float> rotate(float angle, Vector3<float> axis);
@@ -51,9 +51,12 @@ public:
 	/// <summary>
 	/// Normaliza el vector
 	/// </summary>
-	void normalized() {
+	Vector3<T> normalized() {
 		double length = magnitude();
-		if (length > 0) *this /= (T)length;
+		if (length > 0) {
+			*this /= (T)length;
+			return *this;
+		}
 		throw std::domain_error("Magnitude equals zero");
 	}
 
@@ -138,7 +141,7 @@ public:
 #ifdef _DEBUG
 	void print() { cout << "(" << _x << ", " << _y << ", " << _z << ")" << "\n"; };
 #endif 
-	
+
 
 	// Vectores predefinidos
 	static const Vector3<T> up() { return Vector3<T>((T)0, (T)1, (T)0); }
