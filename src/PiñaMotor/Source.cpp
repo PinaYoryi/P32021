@@ -2,7 +2,7 @@
 #include "Entity.h"
 #include "Transform.h"
 #include "ComponentFactoryRegistration.h"
-#include <btBulletDynamicsCommon.h>
+#include "BulletInstance.h"
 #include "MotorLoop.h"
 #include "Input.h"
 #include "Application.h"

@@ -2,7 +2,7 @@
 
 #include <SDL.h>
 #undef main
-#include "Vector3.h"
+#include "Vector2.h"
 
 #ifdef _DEBUG
 #include <iostream>
@@ -76,7 +76,7 @@ public:
 	/// <summary>
 	/// Devuelve la posición del ratón.
 	/// </summary>
-	Vector3 getMousePos(); //Todo: Actualizar a vector2
+	Vector2<int> getMousePos(); //Todo: Actualizar a vector2
 
 protected:
 	static Input* _singleton;
@@ -93,13 +93,7 @@ protected:
 	bool _currMouse[NUM_MOUSE_BUTTONS];
 	int _wheel; //1 hacia arriba, 0 sin movimiento, -1 hacia abajo.
 
-	Input() {
-		_currKeyboard = SDL_GetKeyboardState(&_numKeys);
-		_prevKeyboard = new Uint8[_numKeys];
-		for (int i = 0; i < NUM_MOUSE_BUTTONS; i++) {
-			_prevMouse[i] = false; _currMouse[i] = false;
-		}
-	};
+	Input();
 
 	/// <summary>
 	/// Actualiza las estructuras de datos del frame anterior antes de modificar las del frame actual
