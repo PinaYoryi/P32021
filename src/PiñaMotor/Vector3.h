@@ -126,10 +126,13 @@ public:
 
 	Vector3<T>& operator/=(const T val) { x /= val; y /= val; z /= val; return *this; }
 	Vector3<T> operator/(const T val) const { return Vector3<T>(x, y, z) /= val; }
+#ifdef _DEBUG
 	friend ostream& operator<<(ostream& output, const Vector3<T>& v) {
 		output << "(" << v.x << ", " << v.y << ", " << v.z << ")" << "\n";
 		return output;
 	};
+#endif // _DEBUG
+
 
 	//Parsear de Vector3 a Ogre::Vector3
 	operator Ogre::Vector3() const { return Ogre::Vector3((float)x, (float)y, (float)z); }

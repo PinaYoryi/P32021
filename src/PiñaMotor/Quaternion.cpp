@@ -131,3 +131,7 @@ Quaternion Quaternion::operator*(const float value) const {
 	Vector3<float> vec = v * value;
 	return { s * value, vec };
 }
+
+Quaternion::operator Ogre::Quaternion() const {
+	return { s, v.x, v.y, v.z }; 
+}
