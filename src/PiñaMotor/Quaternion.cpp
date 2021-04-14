@@ -1,4 +1,5 @@
 #include "Quaternion.h"
+Quaternion::Quaternion(): s(1), v(0,0,0) {};
 
 Quaternion::Quaternion(float w, float x, float y, float z) : s(w), v(x,y,z) {}
 
@@ -9,18 +10,18 @@ Quaternion::Quaternion(const Quaternion& quat) : s(quat.s), v(quat.v) {}
 Quaternion Quaternion::euler(Vector3<float>& vector) {
 	Vector3<> v = vector * M_PI / 180;
 
-	float cx = cosf(v.getX() * 0.5);
-	float sx = sinf(v.getX() * 0.5);
-	float cy = cosf(v.getY() * 0.5);
-	float sy = sinf(v.getY() * 0.5);
-	float cz = cosf(v.getZ() * 0.5);
-	float sz = sinf(v.getZ() * 0.5);
+	float cx = cosf(v.x * 0.5);
+	float sx = sinf(v.x * 0.5);
+	float cy = cosf(v.y * 0.5);
+	float sy = sinf(v.y * 0.5);
+	float cz = cosf(v.z * 0.5);
+	float sz = sinf(v.z * 0.5);
 
 	Vector3<float> vec;
 	float s = cx * cy * cz + sx * sy * sz;
-	vec.setX(sx * cy * cz - cx * sy * sz);
-	vec.setY(cx * sy * cz + sx * cy * sz);
-	vec.setZ(cx * cy * sz - sx * sy * cz);
+	vec.x = sx * cy * cz - cx * sy * sz;
+	vec.y = cx * sy * cz + sx * cy * sz;
+	vec.z = cx * cy * sz - sx * sy * cz;
 
 	return { s, vec };
 }
@@ -67,19 +68,19 @@ Quaternion Quaternion::inverse() {
 
 Vector3<float> Quaternion::toEuler() {
 	Vector3<float> vec;
-	float sinx_cosy = 2 * (s * v.getX() + v.getY() * v.getZ());
-	float cosx_cosy = 1 - 2 * (v.getX() * v.getX() + v.getY() * v.getY());
-	vec.setX(atan2(sinx_cosy, cosx_cosy));
+	float sinx_cosy = 2 * (s * v.x + v.y * v.z);
+	float cosx_cosy = 1 - 2 * (v.x * v.x + v.y * v.y);
+	vec.x = atan2(sinx_cosy, cosx_cosy);
 
-	float siny = 2 * (s * v.getY() - v.getZ() * v.getX());
+	float siny = 2 * (s * v.y - v.z * v.x);
 	if (abs(siny) >= 1)
-		vec.setY(copysignf(M_PI_2, siny));
+		vec.y = copysignf(M_PI_2, siny);
 	else
-		vec.setY(asinf(siny));
+		vec.y = asinf(siny);
 
-	float sinz_cosy = 2 * (s * v.getZ() + v.getX() * v.getY());
-	float cosz_cosy = 1 - 2 * (v.getY() * v.getY() + v.getZ() * v.getZ());
-	vec.setZ(atan2(sinz_cosy, cosz_cosy));
+	float sinz_cosy = 2 * (s * v.z + v.x * v.y);
+	float cosz_cosy = 1 - 2 * (v.y * v.y + v.z * v.z);
+	vec.z = atan2(sinz_cosy, cosz_cosy);
 
 	return vec * 180 / M_PI;
 }

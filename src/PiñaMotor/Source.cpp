@@ -28,18 +28,15 @@ WinMain(HINSTANCE zhInstance, HINSTANCE prevInstance, LPSTR lpCmdLine, int nCmdS
 	Quaternion b(Quaternion::euler(vec2));
 
 	cout << "-------------------------------------------------------------------\n";
-	vec1.print();
-	cout << vec1.magnitude() << "\n";
-	vec2.print();
-	cout << vec2.magnitude() << "\n";
+	cout << vec1 << vec1.magnitude() << "\n" << vec2 << vec2.magnitude() << "\n";
 
 	cout << Quaternion::angle(a, b) * 180 / M_PI << "\n";
 
 	vec1 = a.toEuler();
 	vec2 = b.toEuler();
 
-	vec1.print();
-	vec2.print();
+	cout << vec1;
+	cout << vec2;
 	cout << "-------------------------------------------------------------------\n";
 
 	delete root;

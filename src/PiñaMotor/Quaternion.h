@@ -30,5 +30,8 @@ public:
 	Quaternion operator*(const Quaternion& quat) const;
 	void operator*=(const float value);
 	Quaternion operator*(const float value) const;
+
+	operator Ogre::Quaternion() const { return Ogre::Quaternion( s, v.x, v.y, v.z);}
+	
 };
 

@@ -16,13 +16,13 @@ Transform::Transform(Vector3<float> position, Vector3<float> rotation, Vector3<f
 }
 
 void Transform::translate(float x, float y, float z) {
-	setPosition(_position.getX() + x, _position.getY() + y, _position.getZ() + z);
+	setPosition(_position.x + x, _position.y + y, _position.z + z);
 }
 
 void Transform::rotate(float xAngle, float yAngle, float zAngle, Space relativeTo) {
 	if (relativeTo == Space::Self) {
 		// Cambiamos la rotacion x, y, z angulo
-		setRotation(_rotation.getX() + xAngle, _rotation.getY() + yAngle, _rotation.getZ() + zAngle);
+		setRotation(_rotation.x + xAngle, _rotation.y + yAngle, _rotation.z + zAngle);
 	}
 	// Esto no se si estará bien porque lo he intentado con quaternion pero no soy capaz
 	// en el caso de no funcionar se puede dejar solo la rotacion respecto a si mismo (Self)
@@ -191,9 +191,9 @@ Vector3<float> Transform::transformDirection(Vector3<float> direction) {
 		return direction;
 
 	else
-		return { abs(direction.getX() + _parent->localPosition().getX()),
-				 abs(direction.getY() + _parent->localPosition().getY()),
-				 abs(direction.getZ() + _parent->localPosition().getZ()) };
+		return { abs(direction.x + _parent->localPosition().x),
+				 abs(direction.y + _parent->localPosition().y),
+				 abs(direction.z + _parent->localPosition().z) };
 }
 
 Vector3<float> Transform::transformDirection(float x, float y, float z) {
@@ -201,9 +201,9 @@ Vector3<float> Transform::transformDirection(float x, float y, float z) {
 		return {x, y, z};
 
 	else
-		return { abs(x + _parent->localPosition().getX()),
-				 abs(y + _parent->localPosition().getY()),
-				 abs(z + _parent->localPosition().getZ()) };
+		return { abs(x + _parent->localPosition().x),
+				 abs(y + _parent->localPosition().y),
+				 abs(z + _parent->localPosition().z) };
 }
 
 Vector3<float> Transform::inverseTransformDirection(Vector3<float> direction) {
@@ -211,9 +211,9 @@ Vector3<float> Transform::inverseTransformDirection(Vector3<float> direction) {
 		return direction;
 
 	else
-		return { abs(direction.getX() - _parent->localPosition().getX()),
-				 abs(direction.getY() - _parent->localPosition().getY()),
-				 abs(direction.getZ() - _parent->localPosition().getZ()) };
+		return { abs(direction.x - _parent->localPosition().x),
+				 abs(direction.y- _parent->localPosition().y),
+				 abs(direction.z - _parent->localPosition().z) };
 }
 
 Vector3<float> Transform::inverseTransformDirection(float x, float y, float z) {
@@ -221,7 +221,7 @@ Vector3<float> Transform::inverseTransformDirection(float x, float y, float z) {
 		return { x, y, z };
 
 	else
-		return { abs(x - _parent->localPosition().getX()),
-				 abs(y - _parent->localPosition().getY()),
-				 abs(z - _parent->localPosition().getZ()) };
+		return { abs(x - _parent->localPosition().x),
+				 abs(y - _parent->localPosition().y),
+				 abs(z - _parent->localPosition().z) };
 }
