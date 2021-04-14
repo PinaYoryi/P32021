@@ -11,7 +11,7 @@ class Component {
 public:
 	virtual ~Component() {};
 
-	virtual bool init(const map<std::string, std::string>& mapa) = 0;
+	virtual bool init(const std::map<std::string, std::string>& mapa) = 0;
 
 	virtual void Start() {} ;
 
