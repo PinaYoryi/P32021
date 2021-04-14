@@ -136,7 +136,7 @@ public:
 #endif 
 	
 
-	// Vectores predefinidos
+#pragma region Vectores Predefinidos
 	static const Vector3<T> up() { return Vector3<T>((T)0, (T)1, (T)0); }
 	static const Vector3<T> down() { return Vector3<T>((T)0, (T)-1, (T)0); }
 	static const Vector3<T> left() { return Vector3<T>((T)-1, (T)0, (T)0); }
@@ -145,6 +145,7 @@ public:
 	static const Vector3<T> back() { return Vector3<T>((T)0, (T)0, (T)-1); }
 	static const Vector3<T> one() { return Vector3<T>((T)1, (T)1, (T)1); }
 	static const Vector3<T> zero() { return Vector3<T>((T)0, (T)0, (T)0); }
+#pragma endregion
 
 private:
 	// Variables

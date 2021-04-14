@@ -2,9 +2,6 @@
 #include "Entity.h"
 #include "Transform.h"
 #include "ComponentFactoryRegistration.h"
-#include "BulletInstance.h"
-#include "MotorLoop.h"
-#include "Input.h"
 #include "Application.h"
 
 #if (defined _DEBUG) || !(defined _WIN32) //<-- Ya no lo tenemos en teor�a
