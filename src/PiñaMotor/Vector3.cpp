@@ -1,7 +1,7 @@
 #include "Vector3.h"
 #include "Quaternion.h"
 
-Vector3<float> Vector3<float>::rotate(float angle, Vector3<float> axis) {
+Vector3<double> Vector3<double>::rotate(double angle, Vector3<double> axis) {
 	// Convertirmos el eje en un cuaternion puro
 	Quaternion a(0, *this);
 	

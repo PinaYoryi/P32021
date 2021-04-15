@@ -1,4 +1,4 @@
-#include <time.h>
+﻿#include <time.h>
 #include "MotorLoop.h"
 
 MotorLoop* MotorLoop::_singleton = nullptr;
@@ -21,7 +21,7 @@ MotorLoop* MotorLoop::getInstance() {
 bool MotorLoop::addEntity() {
 	//Comprueba si existe la entidad.
 	//Si existe, return false.
-	//Si no existe, la a�ade y return true.
+	//Si no existe, la añade y return true.
 	return true;
 }
 

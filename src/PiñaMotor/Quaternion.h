@@ -12,7 +12,7 @@ public:
 	Quaternion(const Quaternion& quat);
 	~Quaternion() {};
 
-	static Quaternion euler(Vector3<float>& vector);
+	static Quaternion euler(Vector3<float> vector);
 	static float angle(Quaternion& a, Quaternion& b);
 	
 	float magnitude();

@@ -24,6 +24,8 @@
     <ClCompile Include="..\..\src\PiñaMotor\Entity.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\MotorLoop.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Quaternion.cpp" />
+    <ClCompile Include="..\..\src\PiñaMotor\OgreInstance.cpp" />
+    <ClCompile Include="..\..\src\PiñaMotor\Renderer.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Source.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Transform.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Vector3.cpp" />
@@ -33,6 +35,8 @@
     <ClInclude Include="..\..\src\PiñaMotor\ComponentFactory.h" />
     <ClInclude Include="..\..\src\PiñaMotor\ComponentFactoryRegistration.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Quaternion.h" />
+    <ClInclude Include="..\..\src\PiñaMotor\OgreInstance.h" />
+    <ClInclude Include="..\..\src\PiñaMotor\Renderer.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Transform.h" />
     <ClInclude Include="..\..\src\PiñaMotor\ecs.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Entity.h" />

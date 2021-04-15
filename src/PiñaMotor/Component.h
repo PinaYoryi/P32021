@@ -1,7 +1,6 @@
 #pragma once
 #include <map>
 #include <string>
-
 class Entity;
 
 //clase abstracta de todos los componentes
@@ -40,4 +39,5 @@ protected:
 	virtual void Render() {};
 	bool _active;
 	Entity* _myEntity;
+	
 };

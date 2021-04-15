@@ -2,7 +2,7 @@
 #include <iostream>
 #define _USE_MATH_DEFINES
 #include <math.h>
-#include <OgreVector3.h>
+#include <OgreVector.h>
 using namespace std;
 
 /*
@@ -39,7 +39,7 @@ public:
 	double magnitudeSquared() const { return (pow(x, 2) + pow(y, 2) + pow(z, 2)); }
 	double magnitude() const { return sqrt(magnitudeSquared()); }
 
-	Vector3<float> rotate(float angle, Vector3<float> axis);
+	Vector3<double> rotate(double angle, Vector3<double> axis);
 
 	/// <summary>
 	/// Normaliza el vector

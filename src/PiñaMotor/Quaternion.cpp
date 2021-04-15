@@ -7,7 +7,7 @@ Quaternion::Quaternion(float scalar, Vector3<float>& vector) : s(scalar), v(vect
 
 Quaternion::Quaternion(const Quaternion& quat) : s(quat.s), v(quat.v) {}
 
-Quaternion Quaternion::euler(Vector3<float>& vector) {
+Quaternion Quaternion::euler(Vector3<float> vector) {
 	Vector3<> v = vector * M_PI / 180;
 
 	float cx = cosf(v.x * 0.5);

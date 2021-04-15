@@ -18,26 +18,27 @@ WinMain(HINSTANCE zhInstance, HINSTANCE prevInstance, LPSTR lpCmdLine, int nCmdS
 	Ogre::Root* root;
 	root = new Ogre::Root();
 	//TODO: carne de ca�on de macro
- /*   ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform> cpm;
-	Entity* ent = new Entity();*/
+	ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform> cpm;
+	//Entity* ent = new Entity();
+	////ent->removeComponent<Transform>();
+	//ent->getComponent<Transform>();
 
-	Vector3<float> vec1 = Vector3<float>(0.0, 0.0, 90);
-	Vector3<float> vec2 = Vector3<float>(90, 0.0, 0.0);
+	Transform t1 = Transform();
+	Transform t2 = Transform();
 
-	Quaternion a(Quaternion::euler(vec1));
-	Quaternion b(Quaternion::euler(vec2));
+	//t2.setParent(&t1);
 
-	cout << "-------------------------------------------------------------------\n";
-	cout << vec1 << vec1.magnitude() << "\n" << vec2 << vec2.magnitude() << "\n";
+	//t1.rotate(120, 120, 30, Transform::Space::World);
+	t2.rotate(10, 10, 0, Transform::Space::World);
 
-	cout << Quaternion::angle(a, b) * 180 / M_PI << "\n";
+	std::cout << "World " << t2.rotation().toEuler();
+	std::cout << "Local " << t2.localRotation().toEuler() << "--------------------------------------------\n";
 
-	vec1 = a.toEuler();
-	vec2 = b.toEuler();
+	t2.rotate(10, 10, 0, Transform::Space::World);
 
-	cout << vec1;
-	cout << vec2;
-	cout << "-------------------------------------------------------------------\n";
+	std::cout << "World " << t2.rotation().toEuler();
+	std::cout << "Local " << t2.localRotation().toEuler();
+
 
 	delete root;
 	return 0;

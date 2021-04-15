@@ -2,6 +2,7 @@
 #include "Component.h"
 #include "Vector3.h"
 #include <list>
+#include "Quaternion.h"
 
 class Transform : public Component {
 public:
@@ -11,8 +12,9 @@ public:
 		Parent
 	};
 
-	Transform(Vector3<float> position, Vector3<float> rotation, Vector3<float> scale, Transform* parent = nullptr);
+	Transform(Vector3<float> position, Quaternion rotation, Vector3<float> scale, Transform* parent = nullptr);
 
+	Transform() {}
 	bool init(const std::map<std::string, std::string>& mapa) override {
 		return true;
 	}
@@ -25,11 +27,11 @@ public:
 	Transform* findChild(char* name);
 
 	Vector3<float> position() { return _position; }
-	Vector3<float> rotation() { return _rotation; }
+	Quaternion rotation() { return _rotation; }
 	Vector3<float> scale() { return _scale; }
 
 	Vector3<float> localPosition() { return _localPosition; }
-	Vector3<float> localRotation() { return _localRotation; }
+	Quaternion localRotation() { return _localRotation; }
 	Vector3<float> localScale() { return _localScale; }
 
 	// Setter
@@ -38,7 +40,8 @@ public:
 	void setPosition(Vector3<float> v);
 	void setPosition(float x, float y, float z);
 
-	void setRotation(Vector3<float> v);
+	void setRotation(Quaternion q);
+	Quaternion inverseTransformRotation(Quaternion q);
 	void setRotation(float x, float y, float z);
 
 	void setScale(Vector3<float> v);
@@ -47,7 +50,8 @@ public:
 	void setLocalPosition(Vector3<float> v);
 	void setLocalPosition(float x, float y, float z);
 
-	void setLocalRotation(Vector3<float> v);
+	void setLocalRotation(Quaternion q);
+	Quaternion transformRotation(Quaternion q);
 	void setLocalRotation(float x, float y, float z);
 
 	void setLocalScale(Vector3<float> v);
@@ -65,7 +69,7 @@ public:
 	Vector3<float> inverseTransformDirection(float x, float y, float z);
 
 private:
-	// Añade a un hijo a la lista
+	// Aï¿½ade a un hijo a la lista
 	void setChild(Transform* child) { _vChild.push_back(child); }
 	// Elimina a un hijo de la lista
 	void removeChild(Transform* child) { if (child->parent() == this) _vChild.remove(child); };
@@ -75,11 +79,11 @@ private:
 
 	// En funcion del mundo (global)
 	Vector3<float> _position;
-	Vector3<float> _rotation;
+	Quaternion _rotation;
 	Vector3<float> _scale;
 
 	// En funcion del padre (local)
 	Vector3<float> _localPosition;
-	Vector3<float> _localRotation;
+	Quaternion _localRotation;
 	Vector3<float> _localScale;
 };
