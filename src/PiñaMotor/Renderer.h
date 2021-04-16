@@ -30,22 +30,11 @@ public:
 	/// </summary>
 	void setMaterial(std::string name);
 
+
 	/// <summary>
 	/// Devuelve el nombre del material que esta usando   
 	/// </summary>
 	const std::string getMaterialName();
-
-	/// <summary>
-	/// Crea una nueva entidad con la mesh que se le pasa por parametro
-	/// el nombre tiene que ser un .mesh creado previamente  
-	/// es necesario poner .mesh al final del nombre
-	/// </summary>
-	void setMesh(std::string name);
-
-	/// <summary>
-	/// Crea una nueva entidad con este mesh
-	/// </summary>
-	void  setMesh(Ogre::MeshPtr mesh);
 
 	/// <summary>
 	/// Devuelve el nombre de la mesh que esta usando   
@@ -66,10 +55,23 @@ public:
 	/// Se encarga de renderizar   
 	/// </summary>
 	 void Render() override;
-private:
+protected:
 	bool _visible;
 	std::string _material="";
 	std::string _mesh="";
 	Ogre::SceneNode* _ogreNode=nullptr;//nodo de ogre 
 	Ogre::Entity* _ogreEntity=nullptr;//entidad de ogre
+
+	/// <summary>
+	/// Crea una nueva entidad con la mesh que se le pasa por parametro
+	/// el nombre tiene que ser un .mesh creado previamente  
+	/// es necesario poner .mesh al final del nombre
+	/// </summary>
+	void setMesh(std::string name);
+
+	/// <summary>
+	/// Crea una nueva entidad con este mesh
+	/// </summary>
+	void  setMesh(Ogre::MeshPtr mesh);
+
 };

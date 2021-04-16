@@ -8,7 +8,7 @@
 bool Renderer::init(const std::map<std::string, std::string>& mapa){
 	//_mesh=map.mesh;
 	//_material=map.material;
-	//_ogreNode = OgreInstance::getInstance().getmSM()->getRootSceneNode()->createChildSceneNode("nombredel nodo");
+	//_ogreNode = OgreInstance::getInstance()->getmSM()->getRootSceneNode()->createChildSceneNode("nombredel nodo");
 	//_ogreEntity = _ogreEntity->createEntity(_mesh);
 	// _ogreNode.attachedObject(_ogreEntity);
 	//if(_material!="")
@@ -25,7 +25,7 @@ bool Renderer::isVisible(){
 	return _visible;
 }
 
-void Renderer::setMaterial(std::string name){
+ void Renderer::setMaterial(std::string name){
 	_material = name;
 	//_ogreEntity->setMaterialName(name);
 }
@@ -33,6 +33,7 @@ void Renderer::setMaterial(std::string name){
 const std::string Renderer::getMaterialName(){
 	return _material;
 }
+
 void Renderer::setMesh(std::string name)
 {
 	//_ogreEntity=_ogreNode->getCreator()->createEntity(name);
