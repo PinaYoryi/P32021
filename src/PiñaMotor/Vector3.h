@@ -39,7 +39,7 @@ public:
 	double magnitudeSquared() const { return (pow(x, 2) + pow(y, 2) + pow(z, 2)); }
 	double magnitude() const { return sqrt(magnitudeSquared()); }
 
-	Vector3<double> rotate(double angle, Vector3<double> axis);
+	Vector3<float> rotate(float angle, Vector3<float> axis);
 
 	/// <summary>
 	/// Normaliza el vector
