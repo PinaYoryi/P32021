@@ -15,9 +15,17 @@ public:
 	~BulletInstance();
 
 	/// <summary>
-	/// Devuelve una instancia de la clase. La crea si no existe.
+	/// Devuelve una instancia de la clase. Devuelve nullptr por defecto si no se ha inicializado.
+	/// Para inicializarla se usa Init().
 	/// </summary>
-	static BulletInstance* getInstance();
+	static BulletInstance* GetInstance();
+
+	/// <summary>
+	/// Inicializa la clase BulletInstance con los parametros dados si no se ha inicializado antes.
+	/// Devuelve true si se inicializa por primera vez y false si ya había sido inicializada.
+	/// Todo: Implementar los parametros a inicializar.
+	/// </summary>
+	static bool Init();
 
 	// TODO 
 	// Getters
