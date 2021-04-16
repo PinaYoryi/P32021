@@ -23,11 +23,11 @@ struct NativeWindowPair
 /// Clase base con contexto específico para
 /// Subclase para implementar eventos específicos de callback
 /// </summary>
-class ApplicationContext : public Ogre::FrameListener {
+class OgreMotor : public Ogre::FrameListener {
 public:
-	explicit ApplicationContext(const Ogre::String& appName = OGRE_VERSION_NAME);
+	explicit OgreMotor(const Ogre::String& appName = OGRE_VERSION_NAME);
 
-	virtual ~ApplicationContext();
+	virtual ~OgreMotor();
 
 	// Obtiene la RenderWindow
 	Ogre::RenderWindow* getRenderWindow() const { return _mWindow._render; }
@@ -101,6 +101,11 @@ public:
 	/// <returns>La ventana creada</returns>
 	virtual NativeWindowPair createWindow(const Ogre::String& name);
 
+	Ogre::SceneManager* getSceneManager() { return _mSM; }
+	
+	// Borra todos los nodos de la escena, re-inicializa el root y el sceneManager
+	void createNewScene();
+
 protected:
 	// OGRE root
 	Ogre::Root* _mRoot;   
@@ -116,4 +121,6 @@ protected:
 	Ogre::String _mAppName;
 	// Variable para hacer las rutas relativas al directorio de la solución
 	Ogre::String _mSolutionPath;    
+	
+	Ogre::SceneManager* _mSM = nullptr;
 };

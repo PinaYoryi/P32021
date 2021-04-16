@@ -5,7 +5,7 @@
 #include "BulletInstance.h"
 #include "MotorLoop.h"
 #include "Input.h"
-#include "Application.h"
+#include "OgreMotor.h"
 
 #if (defined _DEBUG) || !(defined _WIN32) //<-- Ya no lo tenemos en teor�a
 int main() {
@@ -38,7 +38,7 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
     //SDL_DestroyWindow(window);
     //SDL_Quit();
 
-    Application app;
+    OgreMotor app("Motor de Ogre");
     try {
         app.initApp();
         app.getRoot()->startRendering();

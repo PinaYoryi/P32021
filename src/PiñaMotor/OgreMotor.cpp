@@ -1,4 +1,4 @@
-#include "ApplicationContext.h"
+#include "OgreMotor.h"
 
 #include <OgreRoot.h>
 #include <OgreGpuProgramManager.h>
@@ -10,25 +10,25 @@
 #include <SDL_video.h>
 #include <SDL_syswm.h>
 
-ApplicationContext::ApplicationContext(const Ogre::String& appName){
+OgreMotor::OgreMotor(const Ogre::String& appName){
 	_mAppName = appName;
 	_mFSLayer = new Ogre::FileSystemLayer(_mAppName);
 	_mRoot = nullptr;
 	_mFirstRun = true;
 }
 
-ApplicationContext::~ApplicationContext(){
+OgreMotor::~OgreMotor(){
 	delete _mFSLayer;
 }
 
-void ApplicationContext::initApp(){
+void OgreMotor::initApp(){
 	createRoot();
 
 	if (oneTimeConfig())
 		setup();
 }
 
-void ApplicationContext::closeApp(){
+void OgreMotor::closeApp(){
 	if (_mRoot != nullptr)
 	{
 		_mRoot->saveConfig();
@@ -38,7 +38,7 @@ void ApplicationContext::closeApp(){
 	_mRoot = nullptr;
 }
 
-void ApplicationContext::createRoot(){
+void OgreMotor::createRoot(){
 	Ogre::String pluginsPath;
 	pluginsPath = _mFSLayer->getConfigFilePath("plugins.cfg");
 
@@ -55,7 +55,9 @@ void ApplicationContext::createRoot(){
 	_mRoot = new Ogre::Root(pluginsPath, _mFSLayer->getWritablePath("ogre.cfg"), _mFSLayer->getWritablePath("ogre.log"));
 }
 
-void ApplicationContext::shutdown(){
+void OgreMotor::shutdown(){
+	_mRoot->destroySceneManager(_mSM);
+
 	if (_mWindow._render != nullptr)
 	{
 		_mRoot->destroyRenderTarget(_mWindow._render);
@@ -70,7 +72,7 @@ void ApplicationContext::shutdown(){
 	}
 }
 
-void ApplicationContext::setup(){
+void OgreMotor::setup(){
 	_mRoot->initialise(false);
 	createWindow(_mAppName);
 	setWindowGrab(false);
@@ -79,9 +81,13 @@ void ApplicationContext::setup(){
 	loadResources();
 
 	_mRoot->addFrameListener(this);
+
+	_mRoot->showConfigDialog(NULL);
+
+	_mSM = _mRoot->createSceneManager();
 }
 
-bool ApplicationContext::oneTimeConfig(){
+bool OgreMotor::oneTimeConfig(){
 	if (!_mRoot->restoreConfig())
 	{
 		return _mRoot->showConfigDialog(NULL);
@@ -89,7 +95,7 @@ bool ApplicationContext::oneTimeConfig(){
 	else return true;
 }
 
-NativeWindowPair ApplicationContext::createWindow(const Ogre::String& name){
+NativeWindowPair OgreMotor::createWindow(const Ogre::String& name){
 	uint32_t w, h;
 	Ogre::NameValuePairList miscParams;
 
@@ -123,17 +129,17 @@ NativeWindowPair ApplicationContext::createWindow(const Ogre::String& name){
 	return _mWindow;
 }
 
-void ApplicationContext::setWindowGrab(bool _grab){
+void OgreMotor::setWindowGrab(bool _grab){
 	SDL_bool grab = SDL_bool(_grab);
 	SDL_SetWindowGrab(_mWindow._native, grab);
 	SDL_ShowCursor(grab);
 }
 
-bool ApplicationContext::frameRenderingQueued(const Ogre::FrameEvent& evt){
+bool OgreMotor::frameRenderingQueued(const Ogre::FrameEvent& evt){
 	return true;
 }
 
-void ApplicationContext::pollEvents(){
+void OgreMotor::pollEvents(){
 	if (_mWindow._native == nullptr)
 		return;  
 
@@ -161,11 +167,11 @@ void ApplicationContext::pollEvents(){
 	}
 }
 
-void ApplicationContext::loadResources(){
+void OgreMotor::loadResources(){
 	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 }
 
-void ApplicationContext::locateResources(){
+void OgreMotor::locateResources(){
 	Ogre::ConfigFile cf;
 
 	Ogre::String resourcesPath = _mFSLayer->getConfigFilePath("resources.cfg");
@@ -230,4 +236,13 @@ void ApplicationContext::locateResources(){
 	{
 		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch + "/materials/programs/HLSL", type, sec);
 	}
+}
+
+void OgreMotor::createNewScene()
+{
+	_mSM->getRootSceneNode()->removeAndDestroyAllChildren();
+	_mRoot->destroySceneManager(_mSM);
+	_mRoot->initialise(false);
+	_mRoot->addFrameListener(this);
+	_mSM = _mRoot->createSceneManager();
 }
