@@ -9,7 +9,7 @@ class Component {
 
 public:
 	virtual bool init(const std::map<std::string, std::string>& mapa) = 0;
-
+	virtual ~Component() {}
 	virtual void Start() {} ;
 
 	virtual void OnTriggerStart() {};
