@@ -28,7 +28,7 @@ void Input::update() {
 	while (SDL_PollEvent(&event)) {
 		switch (event.type) {
 		case SDL_QUIT:
-			MotorLoop::getInstance()->stopLoop();
+			MotorLoop::GetInstance()->stopLoop();
 			break;
 		case SDL_MOUSEMOTION:
 			_mouseMotion = true;
