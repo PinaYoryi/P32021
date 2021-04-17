@@ -1,4 +1,4 @@
-﻿#include <time.h>
+#include <time.h>
 #include "MotorLoop.h"
 
 MotorLoop* MotorLoop::_singleton = nullptr;
@@ -6,13 +6,12 @@ MotorLoop* MotorLoop::_singleton = nullptr;
 MotorLoop* MotorLoop::getInstance() {
 	if (_singleton == nullptr) {
 		_singleton = new MotorLoop();
-#if (defined _DEBUG) || !(defined _WIN32) //<-- Ya no lo tenemos en teor�a
+#ifdef _DEBUG
 		std::cout << "Nueva instancia del bucle\n";
 #endif
 
 	}
-#if (defined _DEBUG) || !(defined _WIN32) //<-- Ya no lo tenemos en teor�a
-
+#ifdef _DEBUG
 	else std::cout << "Misma instancia del bucle\n";
 #endif
 
@@ -24,7 +23,7 @@ MotorLoop* MotorLoop::getInstance() {
 bool MotorLoop::addEntity() {
 	//Comprueba si existe la entidad.
 	//Si existe, return false.
-	//Si no existe, la añade y return true.
+	//Si no existe, la a�ade y return true.
 	return true;
 }
 
