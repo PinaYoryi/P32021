@@ -6,6 +6,12 @@
 #include "MotorLoop.h"
 #include "Input.h"
 #include "OgreMotor.h"
+/// TEST MOTOR OGRE
+#include <OgreCamera.h>         
+#include <OgreRenderWindow.h>   
+#include <OgreViewport.h>        
+#include <OgreColourValue.h>    
+#include <OgreLight.h>
 
 #if (defined _DEBUG) || !(defined _WIN32) //<-- Ya no lo tenemos en teor�a
 int main() {
@@ -41,6 +47,31 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
     OgreMotor app("Motor de Ogre");
     try {
         app.initApp();
+
+        //Inicialización test, cambia el color del viewport a naranja coral
+        Ogre::Camera* cam = app.getSceneManager()->createCamera("Main");
+        cam->setNearClipDistance(1);
+        cam->setFarClipDistance(10000);
+        cam->setAutoAspectRatio(true);
+
+        Ogre::SceneNode* camNode = app.getSceneManager()->getRootSceneNode()->createChildSceneNode("Cam");
+        camNode->attachObject(cam);
+        camNode->setPosition(0, 0, 1000);
+        camNode->lookAt(Ogre::Vector3(0, 0, 0), Ogre::Node::TS_WORLD);
+
+        Ogre::Viewport* vp = app.getRenderWindow()->addViewport(cam);
+        vp->setBackgroundColour(Ogre::ColourValue(255.0/255.0, 127.0/250.0, 80.0/250.0));
+
+        Ogre::Light* luz = app.getSceneManager()->createLight("Luz");
+        luz->setType(Ogre::Light::LT_DIRECTIONAL);
+        luz->setDiffuseColour(0.0, 0.0, 0.0);
+
+        Ogre::SceneNode* lightNode = app.getSceneManager()->getRootSceneNode()->createChildSceneNode("Luz");
+        lightNode->attachObject(luz);
+        lightNode->setDirection(Ogre::Vector3(0, -1, -1));
+
+        app.getSceneManager()->setAmbientLight(Ogre::ColourValue(0.2, 0.2, 0.2, 1.0));
+
         app.getRoot()->startRendering();
     }
     catch (Ogre::Exception& e) {
