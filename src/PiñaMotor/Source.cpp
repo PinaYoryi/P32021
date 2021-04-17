@@ -71,6 +71,7 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
         lightNode->setDirection(Ogre::Vector3(0, -1, -1));
 
         app.getSceneManager()->setAmbientLight(Ogre::ColourValue(0.2, 0.2, 0.2, 1.0));
+        //Aquí acaba el test
 
         app.getRoot()->startRendering();
     }
