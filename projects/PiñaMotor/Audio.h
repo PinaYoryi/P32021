@@ -10,10 +10,9 @@ public:
 	void init();
 	void update();
 
-	FMOD::Channel** playSound(const std::string name);
+	FMOD::Channel* playSound(const std::string name, float volume, bool loop);
 	void stopSound(FMOD::Channel* channel);
 
-	void addSound();
 	void setVolume(float volume) const;
 	FMOD::Sound* getSound(const std::string name);
 	const float getVolume() const;
@@ -21,6 +20,8 @@ public:
 private:
 	Audio() {};
 	~Audio() {};
+
+	void errorCheck(FMOD_RESULT result);
 
 	static Audio* _audioInstance;
 	FMOD::System* _system;
