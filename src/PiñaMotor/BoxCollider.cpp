@@ -1,6 +1,6 @@
 #include "BoxCollider.h"
 
-BoxCollider::BoxCollider(Vector3 position, Vector3 size, bool isTrigger)
+BoxCollider::BoxCollider(Vector3<float> position, Vector3<float> size, bool isTrigger)
 {
 	//// Se crea el objeto colisionable
 	//_btCollisionObject = new btCollisionObject();
