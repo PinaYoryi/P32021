@@ -12,7 +12,7 @@
 #include <OgreViewport.h>        
 #include <OgreColourValue.h>    
 #include <OgreLight.h>
-
+#include "OgreEntity.h"
 #if (defined _DEBUG) || !(defined _WIN32) //<-- Ya no lo tenemos en teor�a
 int main() {
 #else
@@ -72,8 +72,10 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
 
         app.getSceneManager()->setAmbientLight(Ogre::ColourValue(0.2, 0.2, 0.2, 1.0));
         //Aquí acaba el test
-
-        app.getRoot()->startRendering();
+        Ogre::Entity* simbadEnt = app.getSceneManager()->createEntity("Sinbad.mesh");
+        Ogre::SceneNode* simbadNode = app.getSceneManager()->getRootSceneNode()->createChildSceneNode("nSimbad");
+        simbadNode->attachObject(simbadEnt);
+        simbadNode->setScale(20, 20, 20);        app.getRoot()->startRendering();
     }
     catch (Ogre::Exception& e) {
         Ogre::LogManager::getSingleton().logMessage("An exception has occured: " + e.getFullDescription() + "\n");
