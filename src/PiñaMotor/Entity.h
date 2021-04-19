@@ -4,14 +4,7 @@
 #include "ComponentFactory.h"
 using namespace std;
 
-
 class Entity {
-private:
-	const char* _name;
-	//aqui estaran los componentes de esta entidad
-	std::vector<unique_ptr<Component>> compUnique;
-	//aqui estaran todos los posibles punteros a componentes existentes
-	Component* _compArray[numOfComponents];
 public:
 	Entity();
 	Entity(char* entityName);
@@ -19,7 +12,7 @@ public:
 	~Entity();
 
 	template<typename T, typename ... TArgs>
-	Component* addComponent(TArgs &&...args) {
+	T* addComponent(TArgs &&...args) {
 		Component* t = ComponentFactory::getInstance().getComponent(indexOf<T, ComponentsList>);
 		t->_myEntity = this;//ponemos la entidad en el componente
 		std::unique_ptr<Component> upt (t);
@@ -29,14 +22,14 @@ public:
 		
 		// TODO: Que se cargue el diccionario con los args
 		if (t->init(map)) {
-			return t;
+			return static_cast<T*>(t);
 		}
 		cout << "Error carga componente\n";
 	}
 
 	template<typename T>
 	T* getComponent() {
-		return _compArray[indexOf<T, ComponentsList>];
+		return static_cast<T*>(_compArray[indexOf<T, ComponentsList>]);
 	}
 
 	template<typename T>
@@ -62,9 +55,16 @@ public:
 		return deleted;
 	}
 
+	const char* getName() { return _name; }
+
 	void update();
 
 	void render();
+
+private:
+	const char* _name;
+	//aqui estaran los componentes de esta entidad
+	std::vector<unique_ptr<Component>> compUnique;
+	//aqui estaran todos los posibles punteros a componentes existentes
+	Component* _compArray[numOfComponents];
 };
-
-
