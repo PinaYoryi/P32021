@@ -2,6 +2,7 @@
 #include "Component.h"
 #include <fmod.hpp>
 #include <map>
+#include "Vector3.h"
 
 class AudioSource : public Component {
 public:
@@ -19,7 +20,12 @@ public:
 	// Añade un nuevo sonido a la lista
 	void addNewSound(const std::string name);
 
+	void setPosition();
+	Vector3<float> getPosition() { return _position; };
+
 private:
+	
+	Vector3<float> _position;
 	// Lista con los canales de sonido que se estan ejecutando
 	std::map<std::string, FMOD::Channel*> _sounds;
 };

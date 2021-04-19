@@ -25,6 +25,8 @@ public:
 	FMOD::Sound* getSound(const std::string name);
 	const float getVolume() const;
 
+	FMOD::System* getSystemFMOD() { return _system; }
+
 private:
 	Audio() {};
 	~Audio() {};

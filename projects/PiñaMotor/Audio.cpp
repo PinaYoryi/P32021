@@ -22,6 +22,11 @@ void Audio::init() {
         std::cout << "Error: " << result << std::endl;
 }
 
+void Audio::update()
+{
+    _system->update();
+}
+
 FMOD::Channel* Audio::playSound(const std::string name, float volume, bool loop) {
     FMOD::Channel* channel;
     try {
