@@ -9,6 +9,7 @@
 #include <OgreFileSystemLayer.h>
 #include <OgreFrameListener.h>
 #include <SDL.h>  
+#include <OgreShaderGenerator.h>
 
 typedef SDL_Window NativeWindowType;
 
@@ -56,6 +57,14 @@ public:
 	virtual void windowClosed(Ogre::RenderWindow* rw) {}
 
 	virtual void windowFocusChange(Ogre::RenderWindow* rw) {}
+
+	
+	//Initialize the RT Shader system.	
+	bool initialiseRTShaderSystem();
+
+	
+	//Destroy the RT Shader system.	
+	void destroyRTShaderSystem();
 
 	// Inicia el context tras la configuración
 	virtual void setup();
@@ -123,4 +132,9 @@ protected:
 	Ogre::String _mSolutionPath;    
 	
 	Ogre::SceneManager* _mSM = nullptr;
+	
+	Ogre::RTShader::ShaderGenerator* mShaderGenerator; // The Shader generator instance.
+	//SGTechniqueResolverListener* mMaterialMgrListener; // Shader generator material manager listener.
+	//Ogre::MaterialManager::Listener* mMaterialMgrListener=nullptr;
+
 };

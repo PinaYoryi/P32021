@@ -10,6 +10,10 @@
 #include <SDL_video.h>
 #include <SDL_syswm.h>
 
+
+
+
+
 OgreMotor::OgreMotor(const Ogre::String& appName){
 	_mAppName = appName;
 	_mFSLayer = new Ogre::FileSystemLayer(_mAppName);
@@ -70,6 +74,40 @@ void OgreMotor::shutdown(){
 		SDL_QuitSubSystem(SDL_INIT_VIDEO);
 		_mWindow._native = nullptr;
 	}
+}
+
+bool OgreMotor::initialiseRTShaderSystem()
+{
+	//if (Ogre::RTShader::ShaderGenerator::initialize())
+	//{
+	//	//mShaderGenerator = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
+	//	// Core shader libs not found -> shader generating will fail.
+	//	//if (mRTShaderLibPath.empty())
+	//	//	return false;
+	//	// Create and register the material manager listener if it doesn't exist yet.
+	//	/*if (!mMaterialMgrListener) {
+	//		mMaterialMgrListener = new SGTechniqueResolverListener(mShaderGenerator);
+	//		Ogre::MaterialManager::getSingleton().addListener(mMaterialMgrListener);
+	//	}*/
+	//}
+
+	if (Ogre::RTShader::ShaderGenerator::initialize())
+	{
+		Ogre::RTShader::ShaderGenerator* mShaderGenerator = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
+
+		// Create and register the material manager listener if it doesn't exist yet.
+		//if (!mMaterialMgrListener) {
+			//mMaterialMgrListener = new Ogre::MaterialManager::Listener(mShaderGenerator);
+			//Ogre::MaterialManager::getSingleton().addListener(mMaterialMgrListener);
+		//}
+	}
+
+
+	return true;
+}
+
+void OgreMotor::destroyRTShaderSystem()
+{
 }
 
 void OgreMotor::setup(){

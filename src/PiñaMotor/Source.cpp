@@ -75,7 +75,8 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
         Ogre::Entity* simbadEnt = app.getSceneManager()->createEntity("Sinbad.mesh");
         Ogre::SceneNode* simbadNode = app.getSceneManager()->getRootSceneNode()->createChildSceneNode("nSimbad");
         simbadNode->attachObject(simbadEnt);
-        simbadNode->setScale(20, 20, 20);        app.getRoot()->startRendering();
+        simbadNode->setScale(20, 20, 20);   
+        app.getRoot()->startRendering();
     }
     catch (Ogre::Exception& e) {
         Ogre::LogManager::getSingleton().logMessage("An exception has occured: " + e.getFullDescription() + "\n");
