@@ -28,14 +28,16 @@ WinMain(HINSTANCE zhInstance, HINSTANCE prevInstance, LPSTR lpCmdLine, int nCmdS
 
 	//t2.setParent(&t1);
 
-	//t1.rotate(120, 120, 30, Transform::Space::World);
-	t2.rotate(10, 10, 0, Transform::Space::World);
+	//t1.rotate(-60.000, 60.000, -180.000, Transform::Space::World);
+	t2.rotate(10, 10, 0, Transform::Space::Self);
 
+	std::cout << "World T1 " << t1.rotation().toEuler();
 	std::cout << "World " << t2.rotation().toEuler();
 	std::cout << "Local " << t2.localRotation().toEuler() << "--------------------------------------------\n";
 
 	t2.rotate(10, 10, 0, Transform::Space::World);
 
+	std::cout << "World T1 " << t1.rotation().toEuler();
 	std::cout << "World " << t2.rotation().toEuler();
 	std::cout << "Local " << t2.localRotation().toEuler();
 

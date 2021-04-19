@@ -20,9 +20,9 @@ public:
 	T x;
 	T y;
 	T z;
-	
+
 	// Constructor vac�o (inicia todas las variables a 0)
-	Vector3():x(), y(), z() {}
+	Vector3() :x(), y(), z() {}
 
 	// Constructor por parámetros
 	Vector3(T x, T y, T z) :
@@ -44,12 +44,22 @@ public:
 	/// <summary>
 	/// Normaliza el vector
 	/// </summary>
-	Vector3<T> normalized() {
+	Vector3<T> normalize() {
 		double length = magnitude();
 		if (length > 0) {
 			*this /= (T)length;
 			return *this;
 		}
+		throw std::domain_error("Magnitude equals zero");
+	}
+
+	/// <summary>
+	/// Devuelve el vector normalizado, pero no lo cambia
+	/// </summary>
+	Vector3<T> normalized() const {
+		double length = magnitude();
+		if (length > 0)
+			return  *this / (T)length;
 		throw std::domain_error("Magnitude equals zero");
 	}
 

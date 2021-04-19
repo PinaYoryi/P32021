@@ -23,18 +23,22 @@ void Transform::translate(float x, float y, float z) {
 
 void Transform::rotate(float xAngle, float yAngle, float zAngle, Space relativeTo) {
 	// Esto no se si estar� bien.
-	Quaternion rot(Quaternion::euler({ xAngle, yAngle, zAngle }));
+	Quaternion rot(Quaternion::Euler({ xAngle, yAngle, zAngle }));
 	switch (relativeTo) {
 	case Space::Self:
-		setLocalRotation(rot * _localRotation * rot.conjugate());
+		setLocalRotation(_localRotation * rot);
 		break;
 	case Space::Parent:
 		if (parent()) {
-			setRotation(inverseTransformRotation(rot));
+			setRotation(rot * _rotation);
 			break;
 		}
 	case Space::World:
-		setRotation(rot * _rotation);
+		if (parent()) {
+			setRotation(_rotation * rot * parent()->rotation() );
+		}
+		else 
+			setRotation(_rotation * rot );
 		break;
 	default:
 		break;
@@ -105,7 +109,7 @@ Quaternion Transform::transformRotation(Quaternion q) {
 
 void Transform::setRotation(float x, float y, float z) {
 
-	_rotation = Quaternion::euler({ x, y, z });
+	_rotation = Quaternion::Euler({ x, y, z });
 	_localRotation = inverseTransformRotation(_rotation);
 
 	for (auto c : _vChild) {
@@ -159,7 +163,7 @@ void Transform::setLocalRotation(Quaternion q) {
 }
 
 void Transform::setLocalRotation(float x, float y, float z) {
-	_localRotation = Quaternion::euler({ x, y, z });
+	_localRotation = Quaternion::Euler({ x, y, z });
 	_rotation = transformRotation(_localRotation);
 
 	for (auto c : _vChild) {

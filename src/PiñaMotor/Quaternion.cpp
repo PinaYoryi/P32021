@@ -1,13 +1,15 @@
 #include "Quaternion.h"
-Quaternion::Quaternion(): s(1), v(0,0,0) {};
+#include "OgreMatrix3.h"
 
-Quaternion::Quaternion(float w, float x, float y, float z) : s(w), v(x,y,z) {}
+Quaternion::Quaternion() : s(1), v(0, 0, 0) {};
+
+Quaternion::Quaternion(float w, float x, float y, float z) : s(w), v(x, y, z) {}
 
 Quaternion::Quaternion(float scalar, Vector3<float>& vector) : s(scalar), v(vector) {}
 
 Quaternion::Quaternion(const Quaternion& quat) : s(quat.s), v(quat.v) {}
 
-Quaternion Quaternion::euler(Vector3<float> vector) {
+Quaternion Quaternion::Euler(Vector3<float> vector) {
 	Vector3<> v = vector * M_PI / 180;
 
 	float cx = cosf(v.x * 0.5);
@@ -23,10 +25,16 @@ Quaternion Quaternion::euler(Vector3<float> vector) {
 	vec.y = cx * sy * cz + sx * cy * sz;
 	vec.z = cx * cy * sz - sx * sy * cz;
 
+	float error = 0.000001;
+	if (abs(s) < error) s = 0;
+	if (abs(v.x) < error) v.x = 0;
+	if (abs(v.y) < error) v.y = 0;
+	if (abs(v.z) < error) v.z = 0;
+
 	return { s, vec };
 }
 
-float Quaternion::angle(Quaternion& a, Quaternion& b) {
+float Quaternion::Angle(Quaternion& a, Quaternion& b) {
 	Quaternion ab = a.conjugate() * b;
 	return 2.0 * atan2(ab.v.magnitude(), ab.s);
 }
@@ -82,7 +90,23 @@ Vector3<float> Quaternion::toEuler() {
 	float cosz_cosy = 1 - 2 * (v.y * v.y + v.z * v.z);
 	vec.z = atan2(sinz_cosy, cosz_cosy);
 
+	float error = 0.000001;
+	if (abs(vec.x) < error) vec.x = 0;
+	if (abs(vec.y) < error) vec.y = 0;
+	if (abs(vec.z) < error) vec.z = 0;
+
 	return vec * 180 / M_PI;
+}
+
+Ogre::Matrix3 Quaternion::toMatrix()
+{
+	normalize();
+	Ogre::Matrix3 m;
+	m[0][0] = 1 - 2 * (pow(v.y, 2) + pow(v.z, 2)); m[0][1] = 2 * (v.x * v.y - v.z * s);				m[0][2] = 2 * (v.x * v.z + v.y * s);
+	m[1][0] = 2 * (v.x * v.y + v.z * s);		   m[1][1] = 1 - 2 * (pow(v.x, 2) + pow(v.z, 2));   m[1][2] = 2 * (v.y * v.z - v.x * s);
+	m[2][0] = 2 * (v.x * v.z - v.y * s);		   m[2][1] = 2 * (v.y * v.z + v.x * s);				m[1][1] = 1 - 2 * (pow(v.x, 2) + pow(v.y, 2));
+
+	return m;
 }
 
 Quaternion& Quaternion::operator=(const Quaternion& quat) {
@@ -133,5 +157,5 @@ Quaternion Quaternion::operator*(const float value) const {
 }
 
 Quaternion::operator Ogre::Quaternion() const {
-	return { s, v.x, v.y, v.z }; 
+	return { s, v.x, v.y, v.z };
 }
