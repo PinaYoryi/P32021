@@ -40,7 +40,7 @@ public:
 	// Invierte el signo de la parte imaginaria, actua como inversa
 	Quaternion conjugate();
 	// La inversa, pero normalizada, es un metodo un poco redundante pues solo se 
-	//tendría que usar si se han puesto los Quaterniones a mano y no mediante Euler()
+	// tendria que usar si se han puesto los Quaterniones a mano y no mediante Euler()
 	Quaternion inverse();
 	/// <summary>
 	/// Convierte el Quaternion en angulos de Euler.
