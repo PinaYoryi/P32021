@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -30,6 +30,7 @@
     <ClCompile Include="..\..\src\PiñaMotor\OgreInstance.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Renderer.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Source.cpp" />
+    <ClCompile Include="..\..\src\PiñaMotor\UITransform.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -42,9 +43,11 @@
     <ClInclude Include="..\..\src\PiñaMotor\OgreInstance.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Renderer.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Input.h" />
+    <ClInclude Include="..\..\src\PiñaMotor\LuaReader.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Transform.h" />
     <ClInclude Include="..\..\src\PiñaMotor\ecs.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Entity.h" />
+    <ClInclude Include="..\..\src\PiñaMotor\UITransform.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Vector2.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Vector3.h" />
     <ClInclude Include="..\..\src\PiñaMotor\MotorLoop.h" />

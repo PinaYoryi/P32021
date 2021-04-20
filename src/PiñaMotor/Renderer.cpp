@@ -48,7 +48,7 @@ const std::string Renderer::getMeshName(){
 	return _mesh;	
 }
 
-void Renderer::Render(){
+void Renderer::render(){
 	if (_visible) {
 		if (_myEntity->hasComponent<Transform>()) {
 			Transform* tr = _myEntity->getComponent<Transform>();
