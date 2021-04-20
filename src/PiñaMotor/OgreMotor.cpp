@@ -19,6 +19,9 @@ OgreMotor::OgreMotor(const Ogre::String& appName){
 	_mFSLayer = new Ogre::FileSystemLayer(_mAppName);
 	_mRoot = nullptr;
 	_mFirstRun = true;
+
+	mShaderGenerator = nullptr;
+	mMaterialMgrListener = nullptr;
 }
 
 OgreMotor::~OgreMotor(){
@@ -60,6 +63,8 @@ void OgreMotor::createRoot(){
 }
 
 void OgreMotor::shutdown(){
+	// Destroy the RT Shader System.
+	destroyRTShaderSystem();
 	_mRoot->destroySceneManager(_mSM);
 
 	if (_mWindow._render != nullptr)
@@ -76,39 +81,7 @@ void OgreMotor::shutdown(){
 	}
 }
 
-bool OgreMotor::initialiseRTShaderSystem()
-{
-	//if (Ogre::RTShader::ShaderGenerator::initialize())
-	//{
-	//	//mShaderGenerator = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
-	//	// Core shader libs not found -> shader generating will fail.
-	//	//if (mRTShaderLibPath.empty())
-	//	//	return false;
-	//	// Create and register the material manager listener if it doesn't exist yet.
-	//	/*if (!mMaterialMgrListener) {
-	//		mMaterialMgrListener = new SGTechniqueResolverListener(mShaderGenerator);
-	//		Ogre::MaterialManager::getSingleton().addListener(mMaterialMgrListener);
-	//	}*/
-	//}
 
-	/*if (Ogre::RTShader::ShaderGenerator::initialize())
-	{
-		Ogre::RTShader::ShaderGenerator* mShaderGenerator = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
-
-		// Create and register the material manager listener if it doesn't exist yet.
-		//if (!mMaterialMgrListener) {
-			//mMaterialMgrListener = new Ogre::MaterialManager::Listener(mShaderGenerator);
-			//Ogre::MaterialManager::getSingleton().addListener(mMaterialMgrListener);
-		//}
-	}*/
-
-
-	return true;
-}
-
-void OgreMotor::destroyRTShaderSystem()
-{
-}
 
 void OgreMotor::setup(){
 	_mRoot->initialise(false);
@@ -116,6 +89,7 @@ void OgreMotor::setup(){
 	setWindowGrab(false);
 
 	locateResources();
+	initialiseRTShaderSystem();
 	loadResources();
 
 	_mRoot->addFrameListener(this);
@@ -123,6 +97,8 @@ void OgreMotor::setup(){
 	_mRoot->showConfigDialog(NULL);
 
 	_mSM = _mRoot->createSceneManager();
+	mShaderGenerator->addSceneManager(_mSM);
+
 }
 
 bool OgreMotor::oneTimeConfig(){
@@ -132,7 +108,44 @@ bool OgreMotor::oneTimeConfig(){
 	}
 	else return true;
 }
+bool OgreMotor::initialiseRTShaderSystem()
+{
+	if (Ogre::RTShader::ShaderGenerator::initialize())
+	{
+		mShaderGenerator = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
+		// Core shader libs not found -> shader generating will fail.
+		if (mRTShaderLibPath.empty())
+			return false;
+			// Create and register the material manager listener if it doesn't exist yet.
+		if (!mMaterialMgrListener) {
+			mMaterialMgrListener = new SGTechniqueResolverListener(mShaderGenerator);
+			Ogre::MaterialManager::getSingleton().addListener(mMaterialMgrListener);
+		}
+	}
 
+	return true;
+}
+
+void OgreMotor::destroyRTShaderSystem()
+{
+	// Restore default scheme.
+	Ogre::MaterialManager::getSingleton().setActiveScheme(Ogre::MaterialManager::DEFAULT_SCHEME_NAME);
+
+	// Unregister the material manager listener.
+	if (mMaterialMgrListener != nullptr)
+	{
+		Ogre::MaterialManager::getSingleton().removeListener(mMaterialMgrListener);
+		delete mMaterialMgrListener;
+		mMaterialMgrListener = nullptr;
+	}
+
+	// Destroy RTShader system.
+	if (mShaderGenerator != nullptr)
+	{
+		Ogre::RTShader::ShaderGenerator::destroy();
+		mShaderGenerator = nullptr;
+	}
+}
 NativeWindowPair OgreMotor::createWindow(const Ogre::String& name){
 	uint32_t w, h;
 	Ogre::NameValuePairList miscParams;
@@ -273,6 +286,22 @@ void OgreMotor::locateResources(){
 	else if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("hlsl"))
 	{
 		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch + "/materials/programs/HLSL", type, sec);
+	}
+	mRTShaderLibPath = arch + "/RTShaderLib";
+	Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/materials", type, sec);
+
+	if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("glsles"))
+	{
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/GLSL", type, sec);
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/GLSLES", type, sec);
+	}
+	else if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("glsl"))
+	{
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/GLSL", type, sec);
+	}
+	else if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("hlsl"))
+	{
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/HLSL", type, sec);
 	}
 }
 

@@ -8,8 +8,88 @@
 #include <OgrePlugin.h>
 #include <OgreFileSystemLayer.h>
 #include <OgreFrameListener.h>
-#include <SDL.h>  
-//#include <OgreShaderGenerator.h>
+#include <SDL.h> 
+#undef main
+#include <OgreRTShaderSystem.h>
+#include <OgreMaterialManager.h>
+#include "OgreTechnique.h"
+
+class SGTechniqueResolverListener : public Ogre::MaterialManager::Listener {
+public:
+	 SGTechniqueResolverListener(Ogre::RTShader::ShaderGenerator* pShaderGenerator) {
+		 mShaderGenerator = pShaderGenerator;
+	 }
+
+	/** This is the hook point where shader based technique will be created.
+		It will be called whenever the material manager won't find appropriate technique
+		that satisfy the target scheme name. If the scheme name is out target RT Shader System
+		scheme name we will try to create shader generated technique for it.
+	*/
+	Ogre::Technique* handleSchemeNotFound(unsigned short schemeIndex,
+		const Ogre::String& schemeName,
+		Ogre::Material* originalMaterial, unsigned short lodIndex,
+		const Ogre::Renderable* rend) {
+		if (!mShaderGenerator->hasRenderState(schemeName))
+		{
+			return NULL;
+		}
+		// Case this is the default shader generator scheme.
+
+		// Create shader generated technique for this material.
+		bool techniqueCreated = mShaderGenerator->createShaderBasedTechnique(
+			*originalMaterial,
+			Ogre::MaterialManager::DEFAULT_SCHEME_NAME,
+			schemeName);
+
+		if (!techniqueCreated)
+		{
+			return NULL;
+		}
+		// Case technique registration succeeded.
+
+		// Force creating the shaders for the generated technique.
+		mShaderGenerator->validateMaterial(schemeName, *originalMaterial);
+
+		// Grab the generated technique.
+		Ogre::Material::Techniques::const_iterator it;
+		for (it = originalMaterial->getTechniques().begin(); it != originalMaterial->getTechniques().end(); ++it)
+		{
+			Ogre::Technique* curTech = *it;
+
+			if (curTech->getSchemeName() == schemeName)
+			{
+				return curTech;
+			}
+		}
+
+		return NULL;
+	}
+
+	bool afterIlluminationPassesCreated(Ogre::Technique* tech) {
+		if (mShaderGenerator->hasRenderState(tech->getSchemeName()))
+		{
+			Ogre::Material* mat = tech->getParent();
+			mShaderGenerator->validateMaterialIlluminationPasses(tech->getSchemeName(),
+				mat->getName(), mat->getGroup());
+			return true;
+		}
+		return false;
+	}
+
+	bool beforeIlluminationPassesCleared(Ogre::Technique* tech) {
+		if (mShaderGenerator->hasRenderState(tech->getSchemeName()))
+		{
+			Ogre::Material* mat = tech->getParent();
+			mShaderGenerator->invalidateMaterialIlluminationPasses(tech->getSchemeName(),
+				mat->getName(), mat->getGroup());
+			return true;
+		}
+		return false;
+	}
+
+protected:
+	Ogre::RTShader::ShaderGenerator* mShaderGenerator; // The shader generator instance.
+};
 
 typedef SDL_Window NativeWindowType;
 
@@ -133,8 +213,10 @@ protected:
 	
 	Ogre::SceneManager* _mSM = nullptr;
 	
-	//Ogre::RTShader::ShaderGenerator* mShaderGenerator; // The Shader generator instance.
-	//SGTechniqueResolverListener* mMaterialMgrListener; // Shader generator material manager listener.
+	Ogre::String mRTShaderLibPath;
+	Ogre::RTShader::ShaderGenerator* mShaderGenerator; // The Shader generator instance.
+	SGTechniqueResolverListener* mMaterialMgrListener; // Shader generator material manager listener.
 	//Ogre::MaterialManager::Listener* mMaterialMgrListener=nullptr;
 
 };
+
