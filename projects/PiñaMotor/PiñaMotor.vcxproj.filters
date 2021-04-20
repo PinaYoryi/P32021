@@ -98,5 +98,8 @@
     <ClInclude Include="..\..\src\PiñaMotor\BulletInstance.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\PiñaMotor\LuaReader.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
