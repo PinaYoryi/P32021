@@ -79,7 +79,6 @@ Quaternion Quaternion::inverse() {
 }
 
 Vector3<float> Quaternion::toEuler() {
-	//*
 	Vector3<float> vec;
 	float sinx_cosy = 2 * (s * v.x + v.y * v.z);
 	float cosx_cosy = 1 - 2 * (v.x * v.x + v.y * v.y);
@@ -101,19 +100,6 @@ Vector3<float> Quaternion::toEuler() {
 	if (abs(vec.z) < error) vec.z = 0;
 
 	return vec * 180 / M_PI;
-	/*/
-	Vector3<float> vec;
-	Matrix3 kRot;
-
-	kRot = toMatrix();
-
-	for (size_t iCol = 0; iCol < 3; iCol++)
-	{
-		akAxis[iCol].x = kRot[0][iCol];
-		akAxis[iCol].y = kRot[1][iCol];
-		akAxis[iCol].z = kRot[2][iCol];
-	}
-	//*/
 }
 
 Matrix3 Quaternion::toMatrix()
