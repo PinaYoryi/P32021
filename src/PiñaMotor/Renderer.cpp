@@ -22,7 +22,7 @@ bool Renderer::init(const std::map<std::string, std::string>& mapa){
 }
 void Renderer::setVisible(bool visible){
 	_visible = visible;
-	//_ogreNode->setVisible(visible);
+	_ogreNode->setVisible(visible);
 }
 
 bool Renderer::isVisible(){
@@ -31,26 +31,38 @@ bool Renderer::isVisible(){
 
  void Renderer::setMaterial(std::string name){
 	_material = name;
-	//_ogreEntity->setMaterialName(name);
+	_ogreEntity->setMaterialName(name);
 }
 
 const std::string Renderer::getMaterialName(){
 	return _material;
 }
 
-void Renderer::setMesh(std::string name)
-{
-	//_ogreEntity=_ogreNode->getCreator()->createEntity(name);
-	_mesh = name;
-}
-
-void Renderer::setMesh(Ogre::MeshPtr mesh){
-	_ogreEntity = _ogreNode->getCreator()->createEntity(mesh);
-}
 
 const std::string Renderer::getMeshName(){
 	return _mesh;	
 }
+
+
+const Ogre::MeshPtr Renderer::getMesh() {
+	return _ogreEntity->getMesh();
+}
+
+Ogre::SceneNode* Renderer::getNode() const {
+	return _ogreNode;
+}
+
+
+void Renderer::setMesh(std::string name)
+{
+	_ogreEntity = _ogreNode->getCreator()->createEntity(name);
+	_mesh = name;
+}
+
+void Renderer::setMesh(Ogre::MeshPtr mesh) {
+	_ogreEntity = _ogreNode->getCreator()->createEntity(mesh);
+}
+
 
 void Renderer::render(){
 	if (_visible) {
@@ -68,12 +80,5 @@ void Renderer::render(){
 }
 
 
-const Ogre::MeshPtr Renderer::getMesh(){
-	return _ogreEntity->getMesh();
-}
-
-Ogre::SceneNode* Renderer::getNode() const{
-	return _ogreNode;
-}
 
 
