@@ -54,7 +54,7 @@ public:
 	/// <summary>
 	/// Se encarga de renderizar   
 	/// </summary>
-	 void render() override;
+	 void Render() override;
 protected:
 	bool _visible;
 	std::string _material="";
