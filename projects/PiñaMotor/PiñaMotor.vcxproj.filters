@@ -54,10 +54,10 @@
     <ClCompile Include="..\..\src\PiñaMotor\AudioSource.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="AudioListener.cpp">
+    <ClCompile Include="..\..\src\PiñaMotor\AudioListener.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="Audio.cpp">
+    <ClCompile Include="..\..\src\PiñaMotor\Audio.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
@@ -113,7 +113,7 @@
     <ClInclude Include="..\..\src\PiñaMotor\AudioListener.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="Audio.h">
+    <ClInclude Include="..\..\src\PiñaMotor\Audio.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

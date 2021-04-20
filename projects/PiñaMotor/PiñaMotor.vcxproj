@@ -21,6 +21,8 @@
   <ItemGroup>
     <ClCompile Include="..\..\src\PiñaMotor\Application.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\ApplicationContext.cpp" />
+    <ClCompile Include="..\..\src\PiñaMotor\Audio.cpp" />
+    <ClCompile Include="..\..\src\PiñaMotor\AudioListener.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\AudioSource.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\BoxCollider.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\BulletInstance.cpp" />
@@ -32,12 +34,11 @@
     <ClCompile Include="..\..\src\PiñaMotor\Source.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\UITransform.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Transform.cpp" />
-    <ClCompile Include="Audio.cpp" />
-    <ClCompile Include="AudioListener.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\PiñaMotor\Application.h" />
     <ClInclude Include="..\..\src\PiñaMotor\ApplicationContext.h" />
+    <ClInclude Include="..\..\src\PiñaMotor\Audio.h" />
     <ClInclude Include="..\..\src\PiñaMotor\AudioListener.h" />
     <ClInclude Include="..\..\src\PiñaMotor\AudioSource.h" />
     <ClInclude Include="..\..\src\PiñaMotor\BoxCollider.h" />
@@ -53,7 +54,6 @@
     <ClInclude Include="..\..\src\PiñaMotor\Vector2.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Vector3.h" />
     <ClInclude Include="..\..\src\PiñaMotor\MotorLoop.h" />
-    <ClInclude Include="Audio.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
