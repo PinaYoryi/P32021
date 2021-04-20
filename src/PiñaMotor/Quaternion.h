@@ -1,5 +1,6 @@
 #pragma once
 #include "Vector3.h"
+#include "Matrix3.h"
 
 class Quaternion {
 public:
@@ -10,6 +11,7 @@ public:
 	Quaternion(float w, float x, float y, float z);
 	Quaternion(float scalar, Vector3<float>& vector);
 	Quaternion(const Quaternion& quat);
+	Quaternion(const Matrix3& mat);
 	~Quaternion() {};
 
 	static Quaternion Euler(Vector3<float> vector);
@@ -20,7 +22,8 @@ public:
 	Quaternion conjugate();
 	Quaternion inverse();
 	Vector3<float> toEuler();
-	Ogre::Matrix3 toMatrix();
+	Matrix3 toMatrix();
+	void fromMatrix(const Matrix3& mat);
 
 	Quaternion& operator=(const Quaternion& quat);
 	void operator+=(const Quaternion& quat);

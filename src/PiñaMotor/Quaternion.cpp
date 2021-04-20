@@ -9,6 +9,10 @@ Quaternion::Quaternion(float scalar, Vector3<float>& vector) : s(scalar), v(vect
 
 Quaternion::Quaternion(const Quaternion& quat) : s(quat.s), v(quat.v) {}
 
+Quaternion::Quaternion(const Matrix3& mat) {
+	fromMatrix(mat);
+}
+
 Quaternion Quaternion::Euler(Vector3<float> vector) {
 	Vector3<> v = vector * M_PI / 180;
 
@@ -98,15 +102,51 @@ Vector3<float> Quaternion::toEuler() {
 	return vec * 180 / M_PI;
 }
 
-Ogre::Matrix3 Quaternion::toMatrix()
+Matrix3 Quaternion::toMatrix()
 {
 	normalize();
-	Ogre::Matrix3 m;
+	Matrix3 m;
 	m[0][0] = 1 - 2 * (pow(v.y, 2) + pow(v.z, 2)); m[0][1] = 2 * (v.x * v.y - v.z * s);				m[0][2] = 2 * (v.x * v.z + v.y * s);
 	m[1][0] = 2 * (v.x * v.y + v.z * s);		   m[1][1] = 1 - 2 * (pow(v.x, 2) + pow(v.z, 2));   m[1][2] = 2 * (v.y * v.z - v.x * s);
 	m[2][0] = 2 * (v.x * v.z - v.y * s);		   m[2][1] = 2 * (v.y * v.z + v.x * s);				m[1][1] = 1 - 2 * (pow(v.x, 2) + pow(v.y, 2));
 
 	return m;
+}
+
+void Quaternion::fromMatrix(const Matrix3& mat) {
+	float trace = mat[0][0] + mat[1][1] + mat[2][2];
+	float root;
+
+	if (trace > 0.0)
+	{
+		// |w| > 1/2, may as well choose w > 1/2
+		root = sqrt(trace + 1.0f);  // 2w
+		s = 0.5f * root;
+		root = 0.5f / root;  // 1/(4w)
+		v.x = (mat[2][1] - mat[1][2]) * root;
+		v.y = (mat[0][2] - mat[2][0]) * root;
+		v.z = (mat[1][0] - mat[0][1]) * root;
+	}
+	else
+	{
+		// |w| <= 1/2
+		static size_t s_iNext[3] = { 1, 2, 0 };
+		size_t i = 0;
+		if (mat[1][1] > mat[0][0])
+			i = 1;
+		if (mat[2][2] > mat[i][i])
+			i = 2;
+		size_t j = s_iNext[i];
+		size_t k = s_iNext[j];
+
+		root = sqrt(mat[i][i] - mat[j][j] - mat[k][k] + 1.0f);
+		float* q[3] = { &v.x, &v.y, &v.z };
+		*q[i] = 0.5f * root;
+		root = 0.5f / root;
+		s = (mat[k][j] - mat[j][k]) * root;
+		*q[j] = (mat[j][i] + mat[i][j]) * root;
+		*q[k] = (mat[k][i] + mat[i][k]) * root;
+	}
 }
 
 Quaternion& Quaternion::operator=(const Quaternion& quat) {
