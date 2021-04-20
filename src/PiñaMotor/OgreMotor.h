@@ -10,6 +10,8 @@
 #include <OgreFrameListener.h>
 #include <SDL.h>  
 
+#undef main
+
 typedef SDL_Window NativeWindowType;
 
 // Enlace entre una RenderWindow y una ventana específica de plataforma
