@@ -8,24 +8,22 @@ class Component {
 	friend  Entity;
 
 public:
-	virtual ~Component() {};
-
 	virtual bool init(const std::map<std::string, std::string>& mapa) = 0;
 
-	virtual void start() {} ;
+	virtual void Start() {};
 
-	virtual void onTriggerStart() {};
-	virtual void onTriggerStay() {};
-	virtual void onTriggerEnd() {};
+	virtual void OnTriggerStart() {};
+	virtual void OnTriggerStay() {};
+	virtual void OnTriggerEnd() {};
 
-	virtual void onCollisionStart() {};
-	virtual void onCollisionStay() {};
-	virtual void onCollisionEnd() {};
+	virtual void OnCollisionStart() {};
+	virtual void OnCollisionStay() {};
+	virtual void OnCollisionEnd() {};
 
-	virtual void update() {};
-	virtual void fixedUpdate(){};
-
-	void setActive(bool toggle) 
+	virtual void Update() {};
+	virtual void FixedUpdate() {};
+	virtual ~Component() {};
+	void SetActive(bool toggle) 
 	{
 		_active = toggle;
 	}
@@ -38,7 +36,7 @@ public:
 	}*/
 
 protected:
-	virtual void render() {};
+	virtual void Render() {};
 	bool _active = true;
 	Entity* _myEntity = nullptr;
 };

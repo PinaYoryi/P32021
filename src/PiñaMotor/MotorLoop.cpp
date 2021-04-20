@@ -3,13 +3,19 @@
 
 MotorLoop* MotorLoop::_singleton = nullptr;
 
-MotorLoop* MotorLoop::GetInstance() {
-	return _singleton;
-}
+MotorLoop* MotorLoop::getInstance() {
+	if (_singleton == nullptr) {
+		_singleton = new MotorLoop();
+#ifdef _DEBUG
+		std::cout << "Nueva instancia del bucle\n";
+#endif
 
-bool MotorLoop::Init() {
-	if (_singleton != nullptr) return false;
-	_singleton = new MotorLoop(); return true;
+	}
+#ifdef _DEBUG
+	else std::cout << "Misma instancia del bucle\n";
+#endif
+
+	return _singleton;
 }
 
 #pragma region Entidades

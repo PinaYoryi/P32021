@@ -24,17 +24,9 @@ public:
 	}
 
 	/// <summary>
-	/// Devuelve una instancia de la clase. Devuelve nullptr por defecto si no se ha inicializado.
-	/// Para inicializarla se usa Init().
+	/// Devuelve una instancia de la clase. La crea si no existe.
 	/// </summary>
-	static Input* GetInstance();
-
-	/// <summary>
-	/// Inicializa la clase Input con los parametros dados si no se ha inicializado antes.
-	/// Devuelve true si se inicializa por primera vez y false si ya había sido inicializada.
-	/// Todo: Implementar los parametros a inicializar.
-	/// </summary>
-	static bool Init();
+	static Input* getInstance();
 
 	/// <summary>
 	/// Actualiza las estructuras de teclados con los nuevos inputs.

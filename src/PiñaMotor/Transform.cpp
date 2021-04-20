@@ -17,15 +17,6 @@ Transform::Transform(Vector3<float> position, Vector3<float> rotation, Vector3<f
 
 }
 
-Transform::~Transform() {
-	for (auto child : _vChild) {
-		if (child != nullptr)
-			delete child;
-	}
-	if (_parent != nullptr)
-		delete _parent;
-}
-
 void Transform::translate(float x, float y, float z) {
 	setPosition(_position.getX() + x, _position.getY() + y, _position.getZ() + z);
 }

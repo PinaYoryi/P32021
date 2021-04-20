@@ -6,13 +6,13 @@
 
 Entity::Entity() : _name("Entity")
 {
-	//addComponent<Transform>(std::map<std::string,std::string>());
+	addComponent<Transform>(std::map<std::string,std::string>());
 	
 }
 
 Entity::Entity(char* entityName) : _name(entityName)
 {
-	//addComponent<Transform>();
+	addComponent<Transform>();
 }
 
 Entity::~Entity() {
@@ -21,7 +21,7 @@ Entity::~Entity() {
 
 void Entity::update() {
 	for (auto& c : compUnique) {
-		if (c) c->update();
+		if (c) c->Update();
 	}
 }
 
