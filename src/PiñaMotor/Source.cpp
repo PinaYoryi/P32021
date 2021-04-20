@@ -29,16 +29,15 @@ WinMain(HINSTANCE zhInstance, HINSTANCE prevInstance, LPSTR lpCmdLine, int nCmdS
 	//t2.setParent(&t1);
 
 	//t1.rotate(-60.000, 60.000, -180.000, Transform::Space::World);
-	t2.rotate(10, 10, 0, Transform::Space::Self);
-
-	std::cout << "World T1 " << t1.rotation().toEuler();
-	std::cout << "World " << t2.rotation().toEuler();
+	t2.rotate(10, 0, 0, Transform::Space::Self);
+	Ogre::Quaternion a, b;
+	Ogre::Vector3 t;
+	std::cout << "Local Quat " << t2.localRotation();
 	std::cout << "Local " << t2.localRotation().toEuler() << "--------------------------------------------\n";
 
-	t2.rotate(10, 10, 0, Transform::Space::World);
-
-	std::cout << "World T1 " << t1.rotation().toEuler();
-	std::cout << "World " << t2.rotation().toEuler();
+	t2.rotate(0, 10, 0, Transform::Space::World);
+	t2.rotate(10, 0, 0, Transform::Space::World);
+	std::cout << "Local Quat " << t2.localRotation();
 	std::cout << "Local " << t2.localRotation().toEuler();
 
 

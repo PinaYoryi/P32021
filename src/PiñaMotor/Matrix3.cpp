@@ -1,5 +1,5 @@
 #include "Matrix3.h"
-explicit Matrix3::Matrix3(const float arr[3][3]) {
+Matrix3::Matrix3(const float arr[3][3]) {
 	memcpy(_mat, arr, 9 * sizeof(float));
 }
 

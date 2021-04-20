@@ -1,11 +1,10 @@
 #pragma once
 #include "Vector3.h"
 
-class Matrix3
-{
+class Matrix3 {
 public:
-	Matrix3();
-	explicit Matrix3(const float arr[3][3]);
+	Matrix3():_mat() {};
+	Matrix3(const float arr[3][3]);
 	Matrix3(float a1, float a2, float a3,
 		float b1, float b2, float b3,
 		float c1, float c2, float c3);

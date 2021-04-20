@@ -79,6 +79,7 @@ Quaternion Quaternion::inverse() {
 }
 
 Vector3<float> Quaternion::toEuler() {
+	//*
 	Vector3<float> vec;
 	float sinx_cosy = 2 * (s * v.x + v.y * v.z);
 	float cosx_cosy = 1 - 2 * (v.x * v.x + v.y * v.y);
@@ -100,6 +101,19 @@ Vector3<float> Quaternion::toEuler() {
 	if (abs(vec.z) < error) vec.z = 0;
 
 	return vec * 180 / M_PI;
+	/*/
+	Vector3<float> vec;
+	Matrix3 kRot;
+
+	kRot = toMatrix();
+
+	for (size_t iCol = 0; iCol < 3; iCol++)
+	{
+		akAxis[iCol].x = kRot[0][iCol];
+		akAxis[iCol].y = kRot[1][iCol];
+		akAxis[iCol].z = kRot[2][iCol];
+	}
+	//*/
 }
 
 Matrix3 Quaternion::toMatrix()
@@ -117,19 +131,15 @@ void Quaternion::fromMatrix(const Matrix3& mat) {
 	float trace = mat[0][0] + mat[1][1] + mat[2][2];
 	float root;
 
-	if (trace > 0.0)
-	{
-		// |w| > 1/2, may as well choose w > 1/2
-		root = sqrt(trace + 1.0f);  // 2w
+	if (trace > 0.0) {
+		root = sqrt(trace + 1.0f);
 		s = 0.5f * root;
-		root = 0.5f / root;  // 1/(4w)
+		root = 0.5f / root;
 		v.x = (mat[2][1] - mat[1][2]) * root;
 		v.y = (mat[0][2] - mat[2][0]) * root;
 		v.z = (mat[1][0] - mat[0][1]) * root;
 	}
-	else
-	{
-		// |w| <= 1/2
+	else {
 		static size_t s_iNext[3] = { 1, 2, 0 };
 		size_t i = 0;
 		if (mat[1][1] > mat[0][0])

@@ -26,23 +26,20 @@ void Transform::rotate(float xAngle, float yAngle, float zAngle, Space relativeT
 	Quaternion rot(Quaternion::Euler({ xAngle, yAngle, zAngle }));
 	switch (relativeTo) {
 	case Space::Self:
-		setLocalRotation(_localRotation * rot);
+		_rotation = _rotation * rot;
 		break;
 	case Space::Parent:
-		if (parent()) {
-			setRotation(rot * _rotation);
+		_rotation = rot * _rotation;
 			break;
-		}
 	case Space::World:
-		if (parent()) {
-			setRotation(_rotation * rot * parent()->rotation() );
-		}
-		else 
-			setRotation(_rotation * rot );
+		getParentData();
+		_rotation = _rotation * _localRotation.inverse() * rot * _localRotation;
 		break;
 	default:
 		break;
 	}
+
+	_rotation.normalize();
 }
 
 Transform* Transform::findChild(char* name) {
@@ -227,4 +224,23 @@ Vector3<float> Transform::inverseTransformDirection(float x, float y, float z) {
 		return { abs(x - _parent->localPosition().x),
 				 abs(y - _parent->localPosition().y),
 				 abs(z - _parent->localPosition().z) };
+}
+
+void Transform::getParentData() {
+	if(parent()) {
+		_localRotation = parent()->rotation() * _rotation;
+
+		Vector3<> scale;
+		scale.x = parent()->scale().x * _scale.x;
+		scale.y = parent()->scale().y * _scale.y;
+		scale.z = parent()->scale().z * _scale.z;
+
+		_localScale = scale;
+		_localPosition = parent()->position() + _position;
+	}
+	else {
+		_localRotation = _rotation;
+		_localScale = _scale;
+		_localPosition = _position;
+	}
 }

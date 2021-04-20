@@ -30,9 +30,9 @@ public:
 	Quaternion rotation() { return _rotation; }
 	Vector3<float> scale() { return _scale; }
 
-	Vector3<float> localPosition() { return _localPosition; }
-	Quaternion localRotation() { return _localRotation; }
-	Vector3<float> localScale() { return _localScale; }
+	Vector3<float> localPosition() { getParentData(); return _localPosition; }
+	Quaternion localRotation() { getParentData(); return _localRotation; }
+	Vector3<float> localScale() { getParentData(); return _localScale; }
 
 	// Setter
 	void setParent(Transform* parent);
@@ -73,6 +73,8 @@ private:
 	void setChild(Transform* child) { _vChild.push_back(child); }
 	// Elimina a un hijo de la lista
 	void removeChild(Transform* child) { if (child->parent() == this) _vChild.remove(child); };
+
+	void getParentData();
 
 	Transform* _parent = nullptr;
 	list<Transform*> _vChild;

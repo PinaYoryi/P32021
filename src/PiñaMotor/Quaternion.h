@@ -35,6 +35,13 @@ public:
 	void operator*=(const float value);
 	Quaternion operator*(const float value) const;
 
+#ifdef _DEBUG
+	friend ostream& operator<<(ostream& output, const Quaternion& q) {
+		output << "(" << q.s << ", " << q.v.x << ", " << q.v.y << ", " << q.v.z << ")" << "\n";
+		return output;
+	};
+#endif // _DEBUG
+
 	operator Ogre::Quaternion() const;
 	
 };
