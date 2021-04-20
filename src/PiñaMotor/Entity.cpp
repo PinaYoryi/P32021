@@ -21,12 +21,12 @@ Entity::~Entity() {
 
 void Entity::update() {
 	for (auto& c : compUnique) {
-		if (c) c->Update();
+		if (c) c->update();
 	}
 }
 
 void Entity::render() {
-	/*for (auto& c : compArray) {
-		if(c) c->Render();
-	}*/
+	for (auto& c : compUnique) {
+		 c->render();
+	}
 }

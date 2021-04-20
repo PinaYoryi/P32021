@@ -10,6 +10,9 @@
 #include <OgreFrameListener.h>
 #include <SDL.h> 
 #undef main
+
+#pragma region clase de ogre Bites para poder renderizar
+
 #include <OgreRTShaderSystem.h>
 #include <OgreMaterialManager.h>
 #include "OgreTechnique.h"
@@ -90,6 +93,8 @@ public:
 protected:
 	Ogre::RTShader::ShaderGenerator* mShaderGenerator; // The shader generator instance.
 };
+#pragma endregion
+
 
 typedef SDL_Window NativeWindowType;
 
@@ -212,11 +217,14 @@ protected:
 	Ogre::String _mSolutionPath;    
 	
 	Ogre::SceneManager* _mSM = nullptr;
-	
+
+
+#pragma region atributos de la clase de ogreBites para poder renderizar
 	Ogre::String mRTShaderLibPath;
-	Ogre::RTShader::ShaderGenerator* mShaderGenerator; // The Shader generator instance.
-	SGTechniqueResolverListener* mMaterialMgrListener; // Shader generator material manager listener.
-	//Ogre::MaterialManager::Listener* mMaterialMgrListener=nullptr;
+	Ogre::RTShader::ShaderGenerator* _mShaderGenerator; // The Shader generator instance.
+	SGTechniqueResolverListener* _mMaterialMgrListener; // Shader generator material manager listener.
+	
+#pragma endregion
 
 };
 

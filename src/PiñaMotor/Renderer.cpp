@@ -13,7 +13,11 @@ bool Renderer::init(const std::map<std::string, std::string>& mapa){
 	// _ogreNode.attachedObject(_ogreEntity);
 	//if(_material!="")
 	//_ogreEntity.setMaterialName(_material)
-	
+	_ogreEntity = OgreInstance::getInstance()->getmSM()->createEntity("Barrel.mesh");
+	_ogreNode = OgreInstance::getInstance()->getmSM()->getRootSceneNode()->createChildSceneNode("nSimbad");
+	_ogreNode->attachObject(_ogreEntity);
+	_ogreNode->setScale(20, 20, 20);
+	_ogreNode->setPosition(20, 20, 20);
 	return true;
 }
 void Renderer::setVisible(bool visible){
@@ -48,7 +52,7 @@ const std::string Renderer::getMeshName(){
 	return _mesh;	
 }
 
-void Renderer::Render(){
+void Renderer::render(){
 	if (_visible) {
 		if (_myEntity->hasComponent<Transform>()) {
 			Transform* tr = _myEntity->getComponent<Transform>();

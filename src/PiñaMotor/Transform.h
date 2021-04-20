@@ -10,7 +10,7 @@ public:
 		World,
 		Parent
 	};
-
+	Transform() { _scale = { 1, 1, 1 }; }
 	Transform(Vector3<float> position, Vector3<float> rotation, Vector3<float> scale, Transform* parent = nullptr);
 
 	bool init(const std::map<std::string, std::string>& mapa) override {

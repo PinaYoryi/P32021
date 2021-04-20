@@ -17,11 +17,10 @@ public:
 	}
 
 	/// <summary>
-	/// Crea un sceneManager si no existe uno
+	/// guarda una referencia al sceneManager
 	/// </summary>
-	Ogre::SceneManager* createmSM(Ogre::Root* mRoot) {
-		if(_mSM==nullptr)
-			_mSM = mRoot->createSceneManager();
+	void createmSM(Ogre::SceneManager* mSM) {
+		_mSM = mSM;
 	}
 
 protected:
