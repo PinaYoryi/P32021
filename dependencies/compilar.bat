@@ -1,4 +1,6 @@
+REM OGRE
 REM Si no hay dlls compilados en Build, compilar
+cd Ogre
 if not exist ../../bin/Codec_STBI.dll goto foo
 if not exist ../../bin/Codec_STBI_d.dll goto foo
 if not exist ../../bin/OgreMain.dll goto foo
@@ -61,3 +63,21 @@ copy /Y RenderSystem_Direct3D11.dll "../../../../../bin/RenderSystem_Direct3D11.
 copy /Y SDL2.dll "../../../../../bin/SDL2.dll"
 copy /Y zlib.dll "../../../../../bin/zlib.dll"
 echo COPYDONE
+REM BULLET
+REM Si no hay libs compilados en build, compilar
+echo COMPROBATION
+cd ../../../../Bullet
+if not exist build/lib goto foo
+goto afterfoo
+:foo
+echo STARTMAKE
+rmdir /S /Q build 
+mkdir build
+cd build
+..\..\Cmake\cmake-3.20.0-rc2-windows-x86_64\bin\cmake.exe -DBUILD_BULLET2_DEMOS=OFF -DBUILD_CLSOCKET=OFF -DBUILD_CPU_DEMOS=OFF -DBUILD_ENET=OFF -DBUILD_UNIT_TESTS=OFF -DENABLE_VHACD=OFF -DINSTALL_LIBS=OFF -DUSE_GLUT=OFF -DUSE_GRAPHICAL_BENCHMARK=OFF ../src
+..\..\Cmake\cmake-3.20.0-rc2-windows-x86_64\bin\cmake.exe --build . --config release 
+..\..\Cmake\cmake-3.20.0-rc2-windows-x86_64\bin\cmake.exe --build . --config debug
+cd ..
+echo CMADE
+:afterfoo
+REM Aqui no hay que copiar nada
