@@ -9,6 +9,7 @@
 #include <OgreFileSystemLayer.h>
 #include <OgreFrameListener.h>
 #include <SDL.h>  
+#undef main
 #include <OgreShaderGenerator.h>
 
 typedef SDL_Window NativeWindowType;
