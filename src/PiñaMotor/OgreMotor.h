@@ -9,7 +9,7 @@
 #include <OgreFileSystemLayer.h>
 #include <OgreFrameListener.h>
 #include <SDL.h>  
-#include <OgreShaderGenerator.h>
+//#include <OgreShaderGenerator.h>
 
 typedef SDL_Window NativeWindowType;
 
@@ -133,7 +133,7 @@ protected:
 	
 	Ogre::SceneManager* _mSM = nullptr;
 	
-	Ogre::RTShader::ShaderGenerator* mShaderGenerator; // The Shader generator instance.
+	//Ogre::RTShader::ShaderGenerator* mShaderGenerator; // The Shader generator instance.
 	//SGTechniqueResolverListener* mMaterialMgrListener; // Shader generator material manager listener.
 	//Ogre::MaterialManager::Listener* mMaterialMgrListener=nullptr;
 

@@ -91,7 +91,7 @@ bool OgreMotor::initialiseRTShaderSystem()
 	//	}*/
 	//}
 
-	if (Ogre::RTShader::ShaderGenerator::initialize())
+	/*if (Ogre::RTShader::ShaderGenerator::initialize())
 	{
 		Ogre::RTShader::ShaderGenerator* mShaderGenerator = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
 
@@ -100,7 +100,7 @@ bool OgreMotor::initialiseRTShaderSystem()
 			//mMaterialMgrListener = new Ogre::MaterialManager::Listener(mShaderGenerator);
 			//Ogre::MaterialManager::getSingleton().addListener(mMaterialMgrListener);
 		//}
-	}
+	}*/
 
 
 	return true;
