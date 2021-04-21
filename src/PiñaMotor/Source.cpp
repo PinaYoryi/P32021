@@ -91,6 +91,8 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
         ent->addComponent<Renderer>();
         ent->addComponent<Animation>();
         ent->getComponent<Transform>()->setScale({ 20,20,20 });
+        app.addInputListener(ent->getComponent<Animation>());
+        //app.getRoot()->startRendering();
         while (true) {
             app.getRoot()->renderOneFrame();
             Vector3<float> v = ent->getComponent<Transform>()->position();

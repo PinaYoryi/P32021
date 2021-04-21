@@ -95,6 +95,14 @@ protected:
 };
 #pragma endregion
 
+#pragma region clase de ogre Bites para poder animar
+//no esta toda la clase, solo lo que vamos a usar
+struct InputListener {
+	virtual ~InputListener() {}
+	virtual void frameRendered(const Ogre::FrameEvent& evt) { }	
+};
+
+#pragma endregion
 
 typedef SDL_Window NativeWindowType;
 
@@ -200,6 +208,16 @@ public:
 	// Borra todos los nodos de la escena, re-inicializa el root y el sceneManager
 	void createNewScene();
 
+
+
+
+
+	virtual void frameRendered(const Ogre::FrameEvent& evt) { }
+
+
+	void addInputListener(InputListener* lis) { mInputListeners.insert(lis); }
+	void removeInputListener(InputListener* lis) { mInputListeners.erase(lis); };
+
 protected:
 	// OGRE root
 	Ogre::Root* _mRoot;   
@@ -224,6 +242,13 @@ protected:
 	Ogre::RTShader::ShaderGenerator* _mShaderGenerator; // The Shader generator instance.
 	SGTechniqueResolverListener* _mMaterialMgrListener; // Shader generator material manager listener.
 	
+#pragma endregion
+
+
+
+#pragma region atributo para poder animar
+	//vector donde se guardan los componentes Animation para poder actualizarlos
+	std::set<InputListener*> mInputListeners;
 #pragma endregion
 
 };

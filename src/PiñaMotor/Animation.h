@@ -2,10 +2,14 @@
 #include "Component.h"
 #include <vector>
 #include <OgreAnimation.h>
+#include "OgreMotor.h"
 
-class Animation :   public Component {
+
+class Animation :   public Component, public InputListener {
 public:
 	Animation() { }
+
+
 	/// <summary>
 	/// inicializa el componente con los valores pasados por parametro
 	/// </summary>
@@ -44,11 +48,14 @@ public:
 	/// </summary>
 	bool setAnimation(std::string animationName);
 
+	/// <summary>
+	/// modifica el tiempo que lleva en un frame para cambiar al siguiente
+	/// </summary>
+	virtual void frameRendered(const Ogre::FrameEvent& evt);
+
 private:
 	bool _loop;
 	bool _active;//si queremos que no se anime
-	//std::vector<Ogre::AnimationState*> animations;//todas las animacion que tiene 
-	std::string _animationName;
 	Ogre::Entity* _ogreEnt;
 	Ogre::AnimationState* _myAnimation;//la animacion que estas usando
 

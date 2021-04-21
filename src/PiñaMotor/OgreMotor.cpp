@@ -194,6 +194,10 @@ void OgreMotor::setWindowGrab(bool _grab){
 }
 
 bool OgreMotor::frameRenderingQueued(const Ogre::FrameEvent& evt){
+	for (std::set<InputListener*>::iterator it = mInputListeners.begin(); it != mInputListeners.end(); ++it)
+	{
+		(*it)->frameRendered(evt);
+	}
 	return true;
 }
 
