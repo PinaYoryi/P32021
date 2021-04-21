@@ -86,8 +86,10 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
         //Empieza el test del componente renderer
         ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform> cpm;
         ComponentFactoryRegistrations::ComponentFactoryRegistration<Renderer> cpm2;
+        ComponentFactoryRegistrations::ComponentFactoryRegistration<Animation> cpm3;
         Entity* ent = new Entity();
         ent->addComponent<Renderer>();
+        ent->addComponent<Animation>();
         ent->getComponent<Transform>()->setScale({ 20,20,20 });
         while (true) {
             app.getRoot()->renderOneFrame();

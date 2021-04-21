@@ -47,7 +47,7 @@ public:
 private:
 	bool _loop;
 	bool _active;//si queremos que no se anime
-	std::vector<Ogre::AnimationState*> animations;//todas las animacion que tiene 
+	//std::vector<Ogre::AnimationState*> animations;//todas las animacion que tiene 
 	std::string _animationName;
 	Ogre::Entity* _ogreEnt;
 	Ogre::AnimationState* _myAnimation;//la animacion que estas usando

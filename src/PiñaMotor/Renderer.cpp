@@ -13,7 +13,7 @@ bool Renderer::init(const std::map<std::string, std::string>& mapa){
 	// _ogreNode.attachedObject(_ogreEntity);
 	//if(_material!="")
 	//_ogreEntity.setMaterialName(_material)
-	_ogreEntity = OgreInstance::getInstance()->getmSM()->createEntity("Barrel.mesh");
+	_ogreEntity = OgreInstance::getInstance()->getmSM()->createEntity("Sinbad.mesh");
 	_ogreNode = OgreInstance::getInstance()->getmSM()->getRootSceneNode()->createChildSceneNode("nSimbad");
 	_ogreNode->attachObject(_ogreEntity);
 	_ogreNode->setScale(20, 20, 20);

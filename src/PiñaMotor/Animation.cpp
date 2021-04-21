@@ -5,27 +5,32 @@
 
 bool Animation::init(const std::map<std::string, std::string>& mapa)
 {
-	/*if (_myEntity->hasComponent<Renderer>()) {
+	if (_myEntity->hasComponent<Renderer>()) {
 		_ogreEnt=_myEntity->getComponent<Renderer>()->getOgreEntity();
-		//animations.push_back()
-	}*/
+		_animationName = "Dance"; 
+		_myAnimation = _ogreEnt->getAnimationState("RunBase");
+		_myAnimation->setEnabled(true);
+		_loop = true;
+		_myAnimation->setLoop(_loop);
+
+	}
 	return true;
 }
 
 bool Animation::setAnimation(std::string animationName)
 {
-	for (int i = 0; i < animations.size(); ++i) {
-		if (animations[i]->getAnimationName() == animationName) {
-			if (_myAnimation != animations[i]) {
-				_animationName = animationName;
-				_myAnimation->setEnabled(false);
-				_myAnimation = animations[i];
-				_myAnimation->setEnabled(_active);
-				_myAnimation->setLoop(_loop);
-			}
-			return true;
+	Ogre::AnimationState* anim=_ogreEnt->getAnimationState(animationName);
+	if (anim!=nullptr) {
+		if (_myAnimation != anim) {
+			_animationName = animationName;
+			_myAnimation->setEnabled(false);
+			_myAnimation = anim;
+			_myAnimation->setEnabled(_active);
+			_myAnimation->setLoop(_loop);
 		}
-
+		return true;
 	}
+
+	
 	return false;
 }
