@@ -9,12 +9,10 @@ MotorLoop* MotorLoop::getInstance() {
 #ifdef _DEBUG
 		std::cout << "Nueva instancia del bucle\n";
 #endif
-
 	}
 #ifdef _DEBUG
 	else std::cout << "Misma instancia del bucle\n";
 #endif
-
 	return _singleton;
 }
 

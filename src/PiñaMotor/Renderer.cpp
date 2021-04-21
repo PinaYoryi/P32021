@@ -68,13 +68,11 @@ void Renderer::render(){
 	if (_visible) {
 		if (_myEntity->hasComponent<Transform>()) {
 			Transform* tr = _myEntity->getComponent<Transform>();
-			_ogreNode->setPosition(tr->position().getX(), tr->position().getY(), tr->position().getZ());
-			_ogreNode->setScale(tr->scale().getX(), tr->scale().getY(), tr->scale().getZ());
+			_ogreNode->setPosition(tr->position().x, tr->position().y, tr->position().z);
+			_ogreNode->setScale(tr->scale().x, tr->scale().y, tr->scale().z);
 			//TODO: Falta hacer la rotacion, es necesario usar Quaterniones
 			//Vector3<float> rot = tr->rotation();
-			//_ogreNode->setOrientation(Ogre::Quaternion(Ogre::Degree(rot.getX()), Vector3<float>(1, 0, 0)));
-			//_ogreNode->setOrientation(Ogre::Quaternion(Ogre::Degree(rot.getX()), Vector3<float>(1, 0, 0)));
-			//_ogreNode->setOrientation(Ogre::Quaternion(Ogre::Degree(rot.getX()), Vector3<float>(1, 0, 0)));
+			_ogreNode->setOrientation(tr->rotation());
 		}
 	}
 }

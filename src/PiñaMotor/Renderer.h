@@ -47,15 +47,25 @@ public:
 	const Ogre::MeshPtr getMesh();
 
 	/// <summary>
-	/// Devuelve un puntero del nodo de la entidad 
+	/// Devuelve un puntero del nodo de ogre 
 	/// </summary>
 	Ogre::SceneNode* getNode() const;
 
 	/// <summary>
+	 /// Devuelve un puntero de la entidad de de ogre 
+	 /// </summary>
+	Ogre::Entity* getOgreEntity() {
+		return _ogreEntity;
+	}
+	
+protected:
+	/// <summary>
 	/// Se encarga de renderizar   
 	/// </summary>
-	 void render() override;
-protected:
+	void render() override;
+
+	 
+
 	bool _visible;
 	std::string _material="";
 	std::string _mesh="";

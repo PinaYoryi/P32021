@@ -15,6 +15,11 @@
 #include "OgreEntity.h"
 
 #include "Renderer.h"
+#include <btBulletDynamicsCommon.h>
+#include "Vector3.h"
+#include "Vector2.h"
+#include "Quaternion.h"
+#include "Animation.h"
 #if (defined _DEBUG) || !(defined _WIN32) //<-- Ya no lo tenemos en teor�a
 int main() {
 #else
@@ -88,7 +93,7 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
             app.getRoot()->renderOneFrame();
             Vector3<float> v = ent->getComponent<Transform>()->position();
             ent->render();
-            ent->getComponent<Transform>()->setPosition(v.getX()+1.0f, v.getY(), v.getZ());
+            //ent->getComponent<Transform>()->setPosition(v.x+1.0f, v.y, v.z);
         }
     }
     catch (Ogre::Exception& e) {
