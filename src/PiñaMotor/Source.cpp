@@ -13,6 +13,7 @@
 #include <OgreColourValue.h>    
 #include <OgreLight.h>
 #include "OgreEntity.h"
+#include "Camera.h"
 #if (defined _DEBUG) || !(defined _WIN32) //<-- Ya no lo tenemos en teor�a
 int main() {
 #else
@@ -48,19 +49,21 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
     try {
         app.initApp();
 
-        //Inicialización test, cambia el color del viewport a naranja coral
-        Ogre::Camera* cam = app.getSceneManager()->createCamera("Main");
-        cam->setNearClipDistance(1);
-        cam->setFarClipDistance(10000);
-        cam->setAutoAspectRatio(true);
+        // Aquí empieza el test de la cámara
+        ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform> cpm;
+        ComponentFactoryRegistrations::ComponentFactoryRegistration<Camera> cp3;
 
-        Ogre::SceneNode* camNode = app.getSceneManager()->getRootSceneNode()->createChildSceneNode("Cam");
-        camNode->attachObject(cam);
-        camNode->setPosition(0, 0, 1000);
-        camNode->lookAt(Ogre::Vector3(0, 0, 0), Ogre::Node::TS_WORLD);
+        Entity* camera = new Entity();
+        camera->addComponent<Camera>();
+        camera->getComponent<Camera>()->setNearClipPlane(1);
+        camera->getComponent<Camera>()->setFarClipPlane(10000);
+        camera->getComponent<Camera>()->setAspectRatio(true);
 
-        Ogre::Viewport* vp = app.getRenderWindow()->addViewport(cam);
-        vp->setBackgroundColour(Ogre::ColourValue(255.0/255.0, 127.0/250.0, 80.0/250.0));
+        camera->getComponent<Transform>()->setPosition(0, 0, 1000);
+        camera->getComponent<Transform>()->setRotation(0, 0, 0);
+
+        camera->getComponent<Camera>()->setBackgroundColor(1.0f, 0.5f, 0.3137f);
+        //Aquí acaba el test
 
         Ogre::Light* luz = app.getSceneManager()->createLight("Luz");
         luz->setType(Ogre::Light::LT_DIRECTIONAL);
@@ -71,12 +74,16 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
         lightNode->setDirection(Ogre::Vector3(0, -1, -1));
 
         app.getSceneManager()->setAmbientLight(Ogre::ColourValue(0.2, 0.2, 0.2, 1.0));
-        //Aquí acaba el test
-        /*Ogre::Entity* simbadEnt = app.getSceneManager()->createEntity("Sinbad.mesh");
+
+        Ogre::Entity* simbadEnt = app.getSceneManager()->createEntity("Sinbad.mesh");
         Ogre::SceneNode* simbadNode = app.getSceneManager()->getRootSceneNode()->createChildSceneNode("nSimbad");
         simbadNode->attachObject(simbadEnt);
-        simbadNode->setScale(20, 20, 20);   */
-        app.getRoot()->startRendering();
+        simbadNode->setScale(20, 20, 20);   
+
+        while (true) {
+            camera->render();
+            app.getRoot()->renderOneFrame();
+        }
     }
     catch (Ogre::Exception& e) {
         Ogre::LogManager::getSingleton().logMessage("An exception has occured: " + e.getFullDescription() + "\n");
