@@ -112,7 +112,7 @@ public:
 
 	Vector2<T>& operator/=(const T val) { x /= val; y /= val; return *this; }
 	Vector2<T> operator/(const T val) const { return Vector2<T>(x, y) /= val; }
-	friend ostream& operator<<(ostream& output, const Vector3<T>& v) {
+	friend ostream& operator<<(ostream& output, const Vector2<T>& v) {
 		output << "(" << v.x << ", " << v.y << ")" << "\n";
 		return output;
 	};

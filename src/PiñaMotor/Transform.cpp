@@ -18,7 +18,7 @@ Transform::Transform(Vector3<float> position, Quaternion rotation, Vector3<float
 }
 
 void Transform::translate(float x, float y, float z) {
-	setPosition(_position.x + x, _position.y + y, _position.z + z);
+	setPosition(_position.x + x, _position.x + y, _position.x + z);
 }
 
 void Transform::rotate(float xAngle, float yAngle, float zAngle, Space relativeTo) {
@@ -49,7 +49,8 @@ Transform* Transform::findChild(char* name) {
 	return nullptr;
 }
 
-void Transform::setParent(Transform* parent) {
+void Transform::setParent(Transform* parent)
+{
 	// Si teniamos otro padre, nos quitamos como hijos
 	if (_parent != nullptr)
 		_parent->removeChild(this);

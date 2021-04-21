@@ -10,7 +10,7 @@ class Component {
 public:
 	virtual bool init(const std::map<std::string, std::string>& mapa) = 0;
 
-	virtual void Start() {} ;
+	virtual void Start() {};
 
 	virtual void OnTriggerStart() {};
 	virtual void OnTriggerStay() {};
@@ -21,8 +21,8 @@ public:
 	virtual void OnCollisionEnd() {};
 
 	virtual void Update() {};
-	virtual void FixedUpdate(){};
-
+	virtual void FixedUpdate() {};
+	virtual ~Component() {};
 	void SetActive(bool toggle) 
 	{
 		_active = toggle;
@@ -37,7 +37,6 @@ public:
 
 protected:
 	virtual void Render() {};
-	bool _active;
-	Entity* _myEntity;
-	
+	bool _active = true;
+	Entity* _myEntity = nullptr;
 };

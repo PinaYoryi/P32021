@@ -6,7 +6,7 @@ class Camera :
 {
 public:
     Camera();
-    bool init(const std::map<std::string, std::string>& mapa) override {}
+    bool init(const std::map<std::string, std::string>& mapa) override;
 protected:
     void Render() override;
 
