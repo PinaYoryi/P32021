@@ -1,13 +1,21 @@
-#pragma once
+﻿#pragma once
 #include "OgreSceneManager.h"
 #include "OgreRoot.h"
 
 class OgreInstance {
 public:
 	/// <summary>
-	/// Devuelve una instancia de la clase. La crea si no existe.
+	/// Devuelve una instancia de la clase. Devuelve nullptr por defecto si no se ha inicializado.
+	/// Para inicializarla se usa OgreInstance().
 	/// </summary>
-	static OgreInstance* getInstance();
+	static OgreInstance* GetInstance();
+
+	/// <summary>
+	/// Inicializa la clase OgreInstance con los parametros dados si no se ha inicializado antes.
+	/// Devuelve true si se inicializa por primera vez y false si ya hab�a sido inicializada.
+	/// Todo: Implementar los parametros a inicializar.
+	/// </summary>
+	static bool Init();
 
 	/// <summary>
 	/// devuelve un puntero de mSM que es el sceneManager

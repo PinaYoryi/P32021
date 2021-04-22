@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <SDL.h>
 #undef main
@@ -8,7 +8,7 @@
 #include <iostream>
 #endif
 
-//Número de botones que tiene un ratón.
+//NÃºmero de botones que tiene un ratÃ³n.
 const int NUM_MOUSE_BUTTONS = 3;
 
 enum SDL_Mousecode {
@@ -24,9 +24,17 @@ public:
 	}
 
 	/// <summary>
-	/// Devuelve una instancia de la clase. La crea si no existe.
+	/// Devuelve una instancia de la clase. Devuelve nullptr por defecto si no se ha inicializado.
+	/// Para inicializarla se usa Init().
 	/// </summary>
-	static Input* getInstance();
+	static Input* GetInstance();
+
+	/// <summary>
+	/// Inicializa la clase Input con los parametros dados si no se ha inicializado antes.
+	/// Devuelve true si se inicializa por primera vez y false si ya habï¿½a sido inicializada.
+	/// Todo: Implementar los parametros a inicializar.
+	/// </summary>
+	static bool Init();
 
 	/// <summary>
 	/// Actualiza las estructuras de teclados con los nuevos inputs.
@@ -49,7 +57,7 @@ public:
 	bool keyHold(SDL_Scancode key);
 
 	/// <summary>
-	/// Devuelve si se ha movido el ratón.
+	/// Devuelve si se ha movido el ratÃ³n.
 	/// </summary>
 	bool mouseMovement();
 
@@ -69,24 +77,24 @@ public:
 	bool mouseHold(SDL_Mousecode button);
 	
 	/// <summary>
-	/// Devuelve 1 si se gira la rueda del raton hacia arriba, -1 hacia abajo y 0 si no se está moviendo.
+	/// Devuelve 1 si se gira la rueda del raton hacia arriba, -1 hacia abajo y 0 si no se estÃ¡ moviendo.
 	/// </summary>
 	int wheelDir();
 
 	/// <summary>
-	/// Devuelve la posición del ratón.
+	/// Devuelve la posiciÃ³n del ratÃ³n.
 	/// </summary>
 	Vector2<int> getMousePos(); //Todo: Actualizar a vector2
 
 protected:
 	static Input* _singleton;
 	
-	//Estructuras con la información de los teclados del frame actual y del anterior y su numero de teclas.
+	//Estructuras con la informaciÃ³n de los teclados del frame actual y del anterior y su numero de teclas.
 	const Uint8* _currKeyboard;
 	Uint8* _prevKeyboard;
 	int _numKeys;
 
-	//Estructuras con la información del ratón.
+	//Estructuras con la informaciÃ³n del ratÃ³n.
 	//El primer elemento de los vectores representa el valor actual y el segundo el del frame anterior.
 	bool _mouseMotion;
 	bool _prevMouse[NUM_MOUSE_BUTTONS];

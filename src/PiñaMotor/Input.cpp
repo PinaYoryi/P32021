@@ -3,17 +3,13 @@
 
 Input* Input::_singleton = nullptr;
 
-Input* Input::getInstance() {
-	if (_singleton == nullptr) {
-		_singleton = new Input();
-#ifdef _DEBUG
-		std::cout << "Nueva instancia del input\n";
-#endif
-	}
-#ifdef _DEBUG
-	else std::cout << "Misma instancia del input\n";
-#endif
+Input* Input::GetInstance() {
 	return _singleton;
+}
+
+bool Input::Init() {
+	if (_singleton != nullptr) return false;
+	_singleton = new Input(); return true;
 }
 
 Input::Input() : 
@@ -32,7 +28,7 @@ void Input::update() {
 	while (SDL_PollEvent(&event)) {
 		switch (event.type) {
 		case SDL_QUIT:
-			MotorLoop::getInstance()->stopLoop();
+			MotorLoop::GetInstance()->stopLoop();
 			break;
 		case SDL_MOUSEMOTION:
 			_mouseMotion = true;

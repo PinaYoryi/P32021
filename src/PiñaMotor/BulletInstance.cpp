@@ -11,17 +11,13 @@ BulletInstance::~BulletInstance() {
 	delete _broadphase;
 }
 
-BulletInstance* BulletInstance::getInstance() {
-	if (_bulletInstance == nullptr) {
-		_bulletInstance = new BulletInstance();
-#ifdef _DEBUG
-		std::cout << "Nueva instancia del bullet\n";
-#endif
-	}
-#ifdef _DEBUG
-	else std::cout << "Misma instancia del bullet\n";
-#endif
+BulletInstance* BulletInstance::GetInstance() {
 	return _bulletInstance;
+}
+
+bool BulletInstance::Init() {
+	if (_bulletInstance != nullptr) return false;
+	_bulletInstance = new BulletInstance(); return true;
 }
 
 BulletInstance::BulletInstance(){

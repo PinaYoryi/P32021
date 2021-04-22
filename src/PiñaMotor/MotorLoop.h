@@ -1,18 +1,26 @@
-#pragma once
+ï»¿#pragma once
 
 #ifdef _DEBUG
 #include <iostream>
 #endif
 
-//Unidad de tiempo tras la cual se actualizan las físicas.
+//Unidad de tiempo tras la cual se actualizan las fÃ­sicas.
 const float FIXED_UPDATE_TIME = 0.02f;
 
 class MotorLoop {
 public:
 	/// <summary>
-	/// Devuelve una instancia de la clase. La crea si no existe.
+	/// Devuelve una instancia de la clase. Devuelve nullptr por defecto si no se ha inicializado.
+	/// Para inicializarla se usa Init().
+    /// </summary>
+	static MotorLoop* GetInstance();
+
+	/// <summary>
+	/// Inicializa la clase MotorLoop con los parametros dados si no se ha inicializado antes.
+	/// Devuelve true si se inicializa por primera vez y false si ya habï¿½a sido inicializada.
+	/// Todo: Implementar los parametros a inicializar.
 	/// </summary>
-	static MotorLoop* getInstance();
+	static bool Init();
 
 	/// <summary>
 	/// Inicializa el bucle principal Input -> FixedUpdate -> Update -> Render
@@ -24,7 +32,7 @@ public:
 	void stopLoop();
 
 	/// <summary>
-	/// Añade una entidad a la lista de entidades del bucle principal. Devuelve true si logra hacerlo, false en caso contrario.
+	/// AÃ±ade una entidad a la lista de entidades del bucle principal. Devuelve true si logra hacerlo, false en caso contrario.
 	/// </summary>
 	bool addEntity();
 	/// <summary>
@@ -54,11 +62,11 @@ protected:
 	/// </summary>
 	bool stepInput();
 	/// <summary>
-	/// Actualiza los componentes físicos. Devuelve false en caso de error.
+	/// Actualiza los componentes fÃ­sicos. Devuelve false en caso de error.
 	/// </summary>
 	bool stepFixedUpdate();
 	/// <summary>
-	/// Actualiza los componentes lógicos. Devuelve false en caso de error.
+	/// Actualiza los componentes lÃ³gicos. Devuelve false en caso de error.
 	/// </summary>
 	bool stepUpdate();
 	/// <summary>
@@ -66,14 +74,14 @@ protected:
 	/// </summary>
 	bool stepRender();
 	/// <summary>
-	/// Actualiza deltaTime y acumula el tiempo real transpirado para la ejecución de FixedUpdate
+	/// Actualiza deltaTime y acumula el tiempo real transpirado para la ejecuciÃ³n de FixedUpdate
 	/// </summary>
 	void updateTime();
 
 #pragma region Getters/Setters
 public:
 	/// <summary>
-	/// Devuelve el deltaTime del último frame (el tiempo real que ha pasado entre frames).
+	/// Devuelve el deltaTime del Ãºltimo frame (el tiempo real que ha pasado entre frames).
 	/// </summary>
 	float getDeltaTime() { return _deltaTime; }
 #pragma endregion
