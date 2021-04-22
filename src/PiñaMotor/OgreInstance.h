@@ -9,6 +9,8 @@ public:
 	/// </summary>
 	static OgreInstance* getInstance();
 
+	~OgreInstance() { delete _mSM; }
+
 	/// <summary>
 	/// devuelve un puntero de mSM que es el sceneManager
 	/// </summary>

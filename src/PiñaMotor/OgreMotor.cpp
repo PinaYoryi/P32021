@@ -79,6 +79,8 @@ void OgreMotor::shutdown(){
 		SDL_QuitSubSystem(SDL_INIT_VIDEO);
 		_mWindow._native = nullptr;
 	}
+
+	
 }
 
 
@@ -99,7 +101,7 @@ void OgreMotor::setup(){
 	_mSM = _mRoot->createSceneManager();
 	_mShaderGenerator->addSceneManager(_mSM);
 
-	//le pasamos el escene manager a OgreInstace porque lo usan muchos componentes
+	//le pasamos el scene manager a OgreInstace porque lo usan muchos componentes
 	OgreInstance::getInstance()->createmSM(_mSM);
 }
 

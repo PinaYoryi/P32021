@@ -13,6 +13,7 @@
 #include <OgreColourValue.h>    
 #include <OgreLight.h>
 #include "OgreEntity.h"
+#include "OgreInstance.h"
 
 #include "Renderer.h"
 #include <btBulletDynamicsCommon.h>
@@ -93,12 +94,14 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
         ent->getComponent<Transform>()->setScale({ 20,20,20 });
         app.addInputListener(ent->getComponent<Animation>());
         //app.getRoot()->startRendering();
-        while (true) {
+        /*while (true) {
             app.getRoot()->renderOneFrame();
             Vector3<float> v = ent->getComponent<Transform>()->position();
             ent->render();
             //ent->getComponent<Transform>()->setPosition(v.x+1.0f, v.y, v.z);
-        }
+        }*/
+       // delete OgreInstance::getInstance();
+        delete ent;
     }
     catch (Ogre::Exception& e) {
         Ogre::LogManager::getSingleton().logMessage("An exception has occured: " + e.getFullDescription() + "\n");

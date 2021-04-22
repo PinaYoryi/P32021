@@ -18,23 +18,17 @@ public:
 	/// <summary>
 	/// activa el flag de animar en bucle
 	/// </summary>
-	void setLoop(bool loop) {
-		_loop = loop;
-	}
+	void setLoop(bool loop);
 
 	/// <summary>
 	/// empieza a animar
 	/// </summary>
-	void play() {
-		_active = true;
-	}
+	void play();
 
 	/// <summary>
 	/// para de animar
 	/// </summary>
-	void stop() {
-		_active = false;
-	}
+	void stop();
 
 	/// <summary>
 	/// devuelve true si esta en bucle la animacion
@@ -46,7 +40,12 @@ public:
 	/// <summary>
 	/// cambia la animacion que va a usar, si no existe esa animacion devuelve false y no cambia de animacion
 	/// </summary>
-	bool setAnimation(std::string animationName);
+	bool changeAnimation(std::string animationName);
+
+	/// <summary>
+	/// cambia las animaciones que va a usar, si no existe alguna animacion devuelve false y no cambia ninguna animacion
+	/// </summary>
+	bool changeAnimation(std::vector<std::string> animationsNames);
 
 	/// <summary>
 	/// modifica el tiempo que lleva en un frame para cambiar al siguiente
@@ -54,10 +53,9 @@ public:
 	virtual void frameRendered(const Ogre::FrameEvent& evt);
 
 private:
-	bool _loop;
-	bool _active;//si queremos que no se anime
-	Ogre::Entity* _ogreEnt;
-	Ogre::AnimationState* _myAnimation;//la animacion que estas usando
-
+	bool _loop = true;
+	bool _active = true;//si queremos que no se anime
+	Ogre::Entity* _ogreEnt = nullptr;
+	std::vector< Ogre::AnimationState*> _myAnimations;//las animaciones que tienes activas
 };
 

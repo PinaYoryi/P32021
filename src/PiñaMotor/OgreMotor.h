@@ -215,7 +215,7 @@ public:
 	virtual void frameRendered(const Ogre::FrameEvent& evt) { }
 
 
-	void addInputListener(InputListener* lis) { mInputListeners.insert(lis); }
+	void addInputListener(InputListener* lis) {mInputListeners.insert(lis); }
 	void removeInputListener(InputListener* lis) { mInputListeners.erase(lis); };
 
 protected:
