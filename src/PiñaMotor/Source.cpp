@@ -98,7 +98,7 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
         Animation* an = ent->getComponent<Animation>();
         app.addInputListener(an);
         //app.getRoot()->startRendering();
-        int i = 0;   
+        int i = 1;   
         an->changeAnimation("Dance");
 
         while (true) {
@@ -106,10 +106,12 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
             Vector3<float> v = ent->getComponent<Transform>()->position();
             ent->render();
             if(i%250==0)
-                 an->changeAnimation(std::vector<std::string> { "Dance", "RunTop" ,"yht" });
+                 an->changeAnimation(std::vector<std::string> { "RunBase", "RunTop" /*,"yht"*/ });
 
-            else if (i%200 == 0)
-                an->changeAnimation("Dance");
+            else if (i % 200 == 0) {
+               // an->changeAnimation("Dance");
+                an->setLoop(false);
+            }
             /*else if(i%70==0)
                  an->changeAnimation(std::vector<std::string> { "Dance", "RunTop" });*/
 

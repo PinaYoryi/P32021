@@ -83,9 +83,8 @@ bool Animation::changeAnimation(std::string animationName)
 		for (int i = 0; i < aux.size(); ++i)
 		{
 			_myAnimations.push_back(aux[i]);
-			_myAnimations[i]->setEnabled(true);
+			_myAnimations[i]->setEnabled(_active);
 		}
-		//aux.clear();
 		return false;
 	}
 	return true;
@@ -127,9 +126,8 @@ bool Animation::changeAnimation(std::vector<std::string> animationsNames)
 			for (int i = 0; i < aux.size(); ++i)
 			{
 				_myAnimations.push_back(aux[i]);
-				_myAnimations[i]->setEnabled(true);
+				_myAnimations[i]->setEnabled(_active);
 			}
-			//aux.clear();
 			return false;
 		}
 		j++;
