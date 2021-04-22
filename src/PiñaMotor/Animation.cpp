@@ -52,7 +52,8 @@ bool Animation::changeAnimation(std::string animationName)
 	//desactivamos las animaciones y las guardamos por si hay que volver a ponerlas en caso de error
 	std::vector<Ogre::AnimationState*> aux;
 	for (int i = 0; i < _myAnimations.size(); ++i)
-	{
+	{		
+
 		_myAnimations[i]->setEnabled(false);
 		aux.push_back(_myAnimations[i]);
 	}
@@ -62,6 +63,8 @@ bool Animation::changeAnimation(std::string animationName)
 	//ponemos las nuevas animaciones	
 	try {
 		_myAnimations.push_back(_ogreEnt->getAnimationState(animationName));
+		_myAnimations[0]->setTimePosition(0);//que empiece desde el principio la animacion
+
 		_myAnimations[0]->setEnabled(_active);
 		_myAnimations[0]->setLoop(_loop);
 	}
@@ -105,6 +108,7 @@ bool Animation::changeAnimation(std::vector<std::string> animationsNames)
 		try {
 			Ogre::AnimationState* anim = _ogreEnt->getAnimationState(name);
 			_myAnimations.push_back(anim);
+			_myAnimations[j]->setTimePosition(0);//que empiece desde el principio la animacion
 			_myAnimations[j]->setEnabled(_active);
 			_myAnimations[j]->setLoop(_loop);
 		}

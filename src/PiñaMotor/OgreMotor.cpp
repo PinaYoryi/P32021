@@ -80,7 +80,7 @@ void OgreMotor::shutdown(){
 		_mWindow._native = nullptr;
 	}
 
-	
+	delete OgreInstance::GetInstance();
 }
 
 
@@ -102,7 +102,8 @@ void OgreMotor::setup(){
 	_mShaderGenerator->addSceneManager(_mSM);
 
 	//le pasamos el scene manager a OgreInstace porque lo usan muchos componentes
-	OgreInstance::getInstance()->createmSM(_mSM);
+	OgreInstance::Init();
+	OgreInstance::GetInstance()->setmSM(_mSM);
 }
 
 bool OgreMotor::oneTimeConfig(){
@@ -327,5 +328,5 @@ void OgreMotor::createNewScene()
 	_mSM = _mRoot->createSceneManager();
 
 	_mShaderGenerator->addSceneManager(_mSM);
-	OgreInstance::getInstance()->createmSM(_mSM);
+	OgreInstance::GetInstance()->setmSM(_mSM);
 }

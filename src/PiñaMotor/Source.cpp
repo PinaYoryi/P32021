@@ -21,6 +21,9 @@
 #include "Vector2.h"
 #include "Quaternion.h"
 #include "Animation.h"
+
+#include "vector"
+#include "iostream"
 #if (defined _DEBUG) || !(defined _WIN32) //<-- Ya no lo tenemos en teor�a
 int main() {
 #else
@@ -90,17 +93,31 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
         ComponentFactoryRegistrations::ComponentFactoryRegistration<Animation> cpm3;
         Entity* ent = new Entity();
         ent->addComponent<Renderer>();
-        ent->addComponent<Animation>();
+         ent->addComponent<Animation>();
         ent->getComponent<Transform>()->setScale({ 20,20,20 });
-        app.addInputListener(ent->getComponent<Animation>());
+        Animation* an = ent->getComponent<Animation>();
+        app.addInputListener(an);
         //app.getRoot()->startRendering();
-        /*while (true) {
+        int i = 0;   
+        an->changeAnimation("Dance");
+
+        while (true) {
             app.getRoot()->renderOneFrame();
             Vector3<float> v = ent->getComponent<Transform>()->position();
             ent->render();
+            if(i%250==0)
+                 an->changeAnimation(std::vector<std::string> { "Dance", "RunTop" ,"yht" });
+
+            else if (i%200 == 0)
+                an->changeAnimation("Dance");
+            /*else if(i%70==0)
+                 an->changeAnimation(std::vector<std::string> { "Dance", "RunTop" });*/
+
+            
+
+            i++;
             //ent->getComponent<Transform>()->setPosition(v.x+1.0f, v.y, v.z);
-        }*/
-       // delete OgreInstance::getInstance();
+        }
         delete ent;
     }
     catch (Ogre::Exception& e) {

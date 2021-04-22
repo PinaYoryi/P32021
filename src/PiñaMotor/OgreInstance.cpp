@@ -2,9 +2,11 @@
 
 OgreInstance* OgreInstance::_singleton = nullptr;
 
-OgreInstance* OgreInstance::getInstance() {
-	if (_singleton == nullptr) 
-		_singleton = new OgreInstance();
-
+OgreInstance* OgreInstance::GetInstance() {
 	return _singleton;
+}
+
+bool OgreInstance::Init() {
+	if (_singleton != nullptr) return false;
+	_singleton = new OgreInstance(); return true;
 }
