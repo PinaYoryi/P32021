@@ -21,7 +21,7 @@ Entity::~Entity() {
 
 void Entity::update() {
 	for (auto& c : compUnique) {
-		if (c) c->Update();
+		if (c) c->update();
 	}
 }
 
