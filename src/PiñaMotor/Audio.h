@@ -3,10 +3,7 @@
 #include <string>
 #include <map>
 
-
-
-class Audio
-{
+class Audio {
 public:
 	static Audio* getInstance();
 	void init();
@@ -28,13 +25,14 @@ public:
 	FMOD::System* getSystemFMOD() { return _system; }
 
 private:
-	Audio() {};
-	~Audio() {};
+	Audio();
+	~Audio();
 
 	void errorCheck(FMOD_RESULT result);
 
 	static Audio* _audioInstance;
 	FMOD::System* _system;
+	FMOD::ChannelGroup* _channelGroup;
 	FMOD::Channel* _channel;
 
 	// Lista con todos los sonidos del juego

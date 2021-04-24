@@ -5,11 +5,8 @@
 #include "Audio.h"
 
 class AudioListener : public Component {
-
-
 public:
-	AudioListener() {};
-	AudioListener(Vector3<float> position, Vector3<float> velocity);
+	AudioListener(Vector3<float> position = { 0.0f, 0.0f, 0.0f }, Vector3<float> velocity = { 0.0f, 0.0f, 0.0f });
 	~AudioListener() {};
 
 	bool init(const std::map<std::string, std::string>& mapa) override {
@@ -24,9 +21,8 @@ public:
 
 	void update();
 
-
 private:
-
+	Audio* _instance;
 	FMOD::System* _system;
 	FMOD_VECTOR _position;
 	FMOD_VECTOR _velocity;
