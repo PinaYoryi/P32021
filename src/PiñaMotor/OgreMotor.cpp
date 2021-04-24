@@ -37,7 +37,7 @@ bool OgreMotor::init(const Ogre::String& appName) {
 	return true;
 }
 
-void OgreMotor::initApp(){
+void OgreMotor::initApp() {
 	createRoot();
 
 	if (oneTimeConfig())
@@ -46,7 +46,16 @@ void OgreMotor::initApp(){
 	_ogreWasInit = true;
 }
 
-void OgreMotor::close(){
+bool OgreMotor::close() {
+	if (_instance)
+		_instance->closeApp();
+	else
+		return false;
+	delete _instance;
+	return true;
+}
+
+void OgreMotor::closeApp() {
 	if (_mRoot != nullptr)
 	{
 		_mRoot->saveConfig();
@@ -57,7 +66,7 @@ void OgreMotor::close(){
 	_ogreWasInit = false;
 }
 
-void OgreMotor::createRoot(){
+void OgreMotor::createRoot() {
 	Ogre::String pluginsPath;
 	pluginsPath = _mFSLayer->getConfigFilePath("plugins.cfg");
 
@@ -74,7 +83,7 @@ void OgreMotor::createRoot(){
 	_mRoot = new Ogre::Root(pluginsPath, _mFSLayer->getWritablePath("ogre.cfg"), _mFSLayer->getWritablePath("ogre.log"));
 }
 
-void OgreMotor::shutdown(){
+void OgreMotor::shutdown() {
 	_mRoot->destroySceneManager(_mSM);
 
 	if (_mWindow._render != nullptr)
@@ -91,7 +100,7 @@ void OgreMotor::shutdown(){
 	}
 }
 
-void OgreMotor::setup(){
+void OgreMotor::setup() {
 	_mRoot->initialise(false);
 	createWindow(_mAppName);
 	setWindowGrab(false);
@@ -106,7 +115,7 @@ void OgreMotor::setup(){
 	_mSM = _mRoot->createSceneManager();
 }
 
-bool OgreMotor::oneTimeConfig(){
+bool OgreMotor::oneTimeConfig() {
 	if (!_mRoot->restoreConfig())
 	{
 		return _mRoot->showConfigDialog(NULL);
@@ -114,7 +123,7 @@ bool OgreMotor::oneTimeConfig(){
 	else return true;
 }
 
-NativeWindowPair OgreMotor::createWindow(const Ogre::String& name){
+NativeWindowPair OgreMotor::createWindow(const Ogre::String& name) {
 	uint32_t w, h;
 	Ogre::NameValuePairList miscParams;
 
@@ -148,17 +157,17 @@ NativeWindowPair OgreMotor::createWindow(const Ogre::String& name){
 	return _mWindow;
 }
 
-void OgreMotor::setWindowGrab(bool _grab){
+void OgreMotor::setWindowGrab(bool _grab) {
 	SDL_bool grab = SDL_bool(_grab);
 	SDL_SetWindowGrab(_mWindow._native, grab);
 	SDL_ShowCursor(grab);
 }
 
-bool OgreMotor::frameRenderingQueued(const Ogre::FrameEvent& evt){
+bool OgreMotor::frameRenderingQueued(const Ogre::FrameEvent& evt) {
 	return true;
 }
 
-void OgreMotor::pollEvents(){
+void OgreMotor::pollEvents() {
 	if (_mWindow._native == nullptr)
 		return;  
 
@@ -186,11 +195,11 @@ void OgreMotor::pollEvents(){
 	}
 }
 
-void OgreMotor::loadResources(){
+void OgreMotor::loadResources() {
 	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 }
 
-void OgreMotor::locateResources(){
+void OgreMotor::locateResources() {
 	Ogre::ConfigFile cf;
 
 	Ogre::String resourcesPath = _mFSLayer->getConfigFilePath("resources.cfg");
@@ -257,8 +266,7 @@ void OgreMotor::locateResources(){
 	}
 }
 
-void OgreMotor::createNewScene()
-{
+void OgreMotor::createNewScene() {
 	_mSM->getRootSceneNode()->removeAndDestroyAllChildren();
 	_mRoot->destroySceneManager(_mSM);
 	_mRoot->initialise(false);

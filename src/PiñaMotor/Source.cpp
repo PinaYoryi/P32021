@@ -46,8 +46,8 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
     //SDL_DestroyWindow(window);
     //SDL_Quit();
 
-    OgreMotor::init("Motor de Ogre");
     try {
+        OgreMotor::init("Motor de Ogre");
 
         // Aquí empieza el test de la cámara
         ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform> cpm;
@@ -75,20 +75,20 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
 
         OgreMotor::GetInstance()->getSceneManager()->setAmbientLight(Ogre::ColourValue(0.2, 0.2, 0.2, 1.0));
 
-        Ogre::Entity* simbadEnt = OgreMotor::GetInstance()->getSceneManager()->createEntity("Sinbad.mesh");
-        Ogre::SceneNode* simbadNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode("nSimbad");
-        simbadNode->attachObject(simbadEnt);
-        simbadNode->setScale(20, 20, 20);   
+        //Ogre::Entity* simbadEnt = OgreMotor::GetInstance()->getSceneManager()->createEntity("Sinbad.mesh");
+        //Ogre::SceneNode* simbadNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode("nSimbad");
+        //simbadNode->attachObject(simbadEnt);
+        //simbadNode->setScale(20, 20, 20);   
 
         while (true) {
             camera->render();
             OgreMotor::GetInstance()->getRoot()->renderOneFrame();
         }
+        OgreMotor::close(); 
     }
     catch (Ogre::Exception& e) {
         Ogre::LogManager::getSingleton().logMessage("An exception has occured: " + e.getFullDescription() + "\n");
     }
-    OgreMotor::GetInstance()->close();
 
     /*delete example;
     delete root;*/

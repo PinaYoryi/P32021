@@ -1,9 +1,11 @@
 #include "Camera.h"
-#include "OgreInstance.h"
+#include "OgreMotor.h"
 #include <OgreNode.h>
 #include "Transform.h"
 #include "Entity.h"
 #include <OgreViewport.h>
+#include <OgreSceneManager.h>
+#include <OgreRenderWindow.h>
 
 Camera::Camera()
 {
@@ -12,9 +14,9 @@ Camera::Camera()
 
 bool Camera::init(const std::map<std::string, std::string>& mapa)
 {
-	_cam = OgreInstance::getInstance()->getmSM()->createCamera("camName");
-	_camNode = OgreInstance::getInstance()->getmSM()->getRootSceneNode()->createChildSceneNode("camNode"/*_myEntity->getName()*/);
-	_viewport = OgreInstance::getInstance()->getRenderWindow()->addViewport(_cam);
+	_cam = OgreMotor::GetInstance()->getSceneManager()->createCamera("camName");
+	_camNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode("camNode"/*_myEntity->getName()*/);
+	_viewport = OgreMotor::GetInstance()->getRenderWindow()->addViewport(_cam);
 	_camNode->attachObject(_cam);
 
 

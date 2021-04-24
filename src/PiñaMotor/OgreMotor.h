@@ -9,7 +9,6 @@
 #include <OgreFileSystemLayer.h>
 #include <OgreFrameListener.h>
 #include <SDL.h>  
-
 #undef main
 
 typedef SDL_Window NativeWindowType;
@@ -33,13 +32,15 @@ public:
 
 	static bool init(const Ogre::String& appName = OGRE_VERSION_NAME);
 
+	// Cierra la aplicaci�n, guarda la configuraci�n y hace shutdowm
+	static bool close();
+
 	// Obtiene la RenderWindow
 	Ogre::RenderWindow* getRenderWindow() const { return _mWindow._render; }
 
 	Ogre::Root* getRoot() const { return _mRoot; }
 
-	// Cierra la aplicaci�n, guarda la configuraci�n y hace shutdowm
-	void close();
+	Ogre::SceneManager* getSceneManager() { return _mSM; }
 
 #pragma region Callbacks
 	virtual bool frameStarted(const Ogre::FrameEvent& evt) { pollEvents(); return true; }
@@ -86,8 +87,6 @@ public:
 	/// <returns>La ventana creada</returns>
 	virtual NativeWindowPair createWindow(const Ogre::String& name);
 
-	Ogre::SceneManager* getSceneManager() { return _mSM; }
-	
 	// Borra todos los nodos de la escena, re-inicializa el root y el sceneManager
 	void createNewScene();
 
@@ -122,6 +121,8 @@ protected:
 
 	// Inicia el context tras la configuraci�n
 	virtual void setup();
+
+	void closeApp();
 
 	//  I use the config dialog here,
 	//but you can also restore from a config file. Note that this only happens
