@@ -10,6 +10,8 @@
 #include <SDL_video.h>
 #include <SDL_syswm.h>
 
+OgreMotor* OgreMotor::_instance = nullptr;
+
 OgreMotor::OgreMotor(const Ogre::String& appName){
 	_mAppName = appName;
 	_mFSLayer = new Ogre::FileSystemLayer(_mAppName);
@@ -19,6 +21,20 @@ OgreMotor::OgreMotor(const Ogre::String& appName){
 
 OgreMotor::~OgreMotor(){
 	delete _mFSLayer;
+	if (_ogreWasInit) close();
+}
+
+OgreMotor* OgreMotor::GetInstance() {
+	return _instance;
+}
+
+bool OgreMotor::init(const Ogre::String& appName) {
+	if (_instance != nullptr) 
+		return false;
+
+	_instance = new OgreMotor(appName); 
+	_instance->initApp();
+	return true;
 }
 
 void OgreMotor::initApp(){
@@ -26,9 +42,11 @@ void OgreMotor::initApp(){
 
 	if (oneTimeConfig())
 		setup();
+
+	_ogreWasInit = true;
 }
 
-void OgreMotor::closeApp(){
+void OgreMotor::close(){
 	if (_mRoot != nullptr)
 	{
 		_mRoot->saveConfig();
@@ -36,6 +54,7 @@ void OgreMotor::closeApp(){
 	shutdown();
 	delete _mRoot;
 	_mRoot = nullptr;
+	_ogreWasInit = false;
 }
 
 void OgreMotor::createRoot(){

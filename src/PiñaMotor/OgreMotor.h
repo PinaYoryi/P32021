@@ -27,22 +27,21 @@ struct NativeWindowPair
 /// </summary>
 class OgreMotor : public Ogre::FrameListener {
 public:
-	explicit OgreMotor(const Ogre::String& appName = OGRE_VERSION_NAME);
-
 	virtual ~OgreMotor();
+
+	static OgreMotor* GetInstance();
+
+	static bool init(const Ogre::String& appName = OGRE_VERSION_NAME);
 
 	// Obtiene la RenderWindow
 	Ogre::RenderWindow* getRenderWindow() const { return _mWindow._render; }
 
 	Ogre::Root* getRoot() const { return _mRoot; }
 
-	// Inicializa el render system y recursos
-	void initApp();
-
 	// Cierra la aplicaci�n, guarda la configuraci�n y hace shutdowm
-	void closeApp();
+	void close();
 
-	// Interfaz de callbacks basada en ApplicationContext
+#pragma region Callbacks
 	virtual bool frameStarted(const Ogre::FrameEvent& evt) { pollEvents(); return true; }
 
 	virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
@@ -58,23 +57,7 @@ public:
 	virtual void windowClosed(Ogre::RenderWindow* rw) {}
 
 	virtual void windowFocusChange(Ogre::RenderWindow* rw) {}
-
-	// Inicia el context tras la configuraci�n
-	virtual void setup();
-
-	// Crea el root de OGRE
-	virtual void createRoot();
-
-	//  I use the config dialog here,
-	//but you can also restore from a config file. Note that this only happens
-	//when you start the context, and not when you reset it.
-	
-	/// <summary>
-	/// Configura los settins de incio de OGRE
-	/// S�lo ocurre al inciar el context, no al resetearlo
-	/// </summary>
-	/// <returns>Si ha podido inicializar la configuraci�n</returns>
-	virtual bool oneTimeConfig();
+#pragma endregion
 
 	// Confina el rat�n a la ventana al detectar input
 	void setWindowGrab(bool grab);
@@ -109,6 +92,7 @@ public:
 	void createNewScene();
 
 protected:
+	static OgreMotor* _instance;
 	// OGRE root
 	Ogre::Root* _mRoot;   
 	// Ventana
@@ -125,4 +109,28 @@ protected:
 	Ogre::String _mSolutionPath;    
 	
 	Ogre::SceneManager* _mSM = nullptr;
+
+	bool _ogreWasInit = false;
+
+	OgreMotor(const Ogre::String& appName = OGRE_VERSION_NAME);
+
+	// Inicializa el render system y recursos
+	void initApp();
+
+	// Crea el root de OGRE
+	virtual void createRoot();
+
+	// Inicia el context tras la configuraci�n
+	virtual void setup();
+
+	//  I use the config dialog here,
+	//but you can also restore from a config file. Note that this only happens
+	//when you start the context, and not when you reset it.
+	
+	/// <summary>
+	/// Configura los settins de incio de OGRE
+	/// S�lo ocurre al inciar el context, no al resetearlo
+	/// </summary>
+	/// <returns>Si ha podido inicializar la configuraci�n</returns>
+	virtual bool oneTimeConfig();
 };

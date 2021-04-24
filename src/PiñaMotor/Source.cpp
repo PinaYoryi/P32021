@@ -46,9 +46,8 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
     //SDL_DestroyWindow(window);
     //SDL_Quit();
 
-    OgreMotor app("Motor de Ogre");
+    OgreMotor::init("Motor de Ogre");
     try {
-        app.initApp();
 
         // Aquí empieza el test de la cámara
         ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform> cpm;
@@ -66,30 +65,30 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
         camera->getComponent<Camera>()->setBackgroundColor(1.0f, 0.5f, 0.3137f);
         //Aquí acaba el test
 
-        Ogre::Light* luz = app.getSceneManager()->createLight("Luz");
+        Ogre::Light* luz = OgreMotor::GetInstance()->getSceneManager()->createLight("Luz");
         luz->setType(Ogre::Light::LT_DIRECTIONAL);
         luz->setDiffuseColour(0.0, 0.0, 0.0);
 
-        Ogre::SceneNode* lightNode = app.getSceneManager()->getRootSceneNode()->createChildSceneNode("Luz");
+        Ogre::SceneNode* lightNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode("Luz");
         lightNode->attachObject(luz);
         lightNode->setDirection(Ogre::Vector3(0, -1, -1));
 
-        app.getSceneManager()->setAmbientLight(Ogre::ColourValue(0.2, 0.2, 0.2, 1.0));
+        OgreMotor::GetInstance()->getSceneManager()->setAmbientLight(Ogre::ColourValue(0.2, 0.2, 0.2, 1.0));
 
-        Ogre::Entity* simbadEnt = app.getSceneManager()->createEntity("Sinbad.mesh");
-        Ogre::SceneNode* simbadNode = app.getSceneManager()->getRootSceneNode()->createChildSceneNode("nSimbad");
+        Ogre::Entity* simbadEnt = OgreMotor::GetInstance()->getSceneManager()->createEntity("Sinbad.mesh");
+        Ogre::SceneNode* simbadNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode("nSimbad");
         simbadNode->attachObject(simbadEnt);
         simbadNode->setScale(20, 20, 20);   
 
         while (true) {
             camera->render();
-            app.getRoot()->renderOneFrame();
+            OgreMotor::GetInstance()->getRoot()->renderOneFrame();
         }
     }
     catch (Ogre::Exception& e) {
         Ogre::LogManager::getSingleton().logMessage("An exception has occured: " + e.getFullDescription() + "\n");
     }
-    app.closeApp();
+    OgreMotor::GetInstance()->close();
 
     /*delete example;
     delete root;*/
