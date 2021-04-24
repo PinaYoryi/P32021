@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <btBulletDynamicsCommon.h>
 
 #undef main
@@ -15,14 +15,13 @@ public:
 	~BulletInstance();
 
 	/// <summary>
-	/// Devuelve una instancia de la clase. Devuelve nullptr por defecto si no se ha inicializado.
-	/// Para inicializarla se usa Init().
+	/// Devuelve una instancia de la clase. La crea si no existe.
 	/// </summary>
 	static BulletInstance* GetInstance();
 
 	/// <summary>
 	/// Inicializa la clase BulletInstance con los parametros dados si no se ha inicializado antes.
-	/// Devuelve true si se inicializa por primera vez y false si ya había sido inicializada.
+	/// Devuelve true si se inicializa por primera vez y false si ya habï¿½a sido inicializada.
 	/// Todo: Implementar los parametros a inicializar.
 	/// </summary>
 	static bool Init();
@@ -44,7 +43,7 @@ public:
 
 protected:
 	/// <summary>
-	/// Inicia los elementos del motor de físicas
+	/// Inicia los elementos del motor de fÃ­sicas
 	/// </summary>
 	BulletInstance();
 

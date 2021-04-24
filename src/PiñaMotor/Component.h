@@ -1,7 +1,6 @@
 #pragma once
 #include <map>
 #include <string>
-
 class Entity;
 
 //clase abstracta de todos los componentes
@@ -9,11 +8,9 @@ class Component {
 	friend  Entity;
 
 public:
-	virtual ~Component() {};
-
 	virtual bool init(const std::map<std::string, std::string>& mapa) = 0;
 
-	virtual void start() {} ;
+	virtual void start() {};
 
 	virtual void onTriggerStart() {};
 	virtual void onTriggerStay() {};
@@ -24,8 +21,8 @@ public:
 	virtual void onCollisionEnd() {};
 
 	virtual void update() {};
-	virtual void fixedUpdate(){};
-
+	virtual void fixedUpdate() {};
+	virtual ~Component() {};
 	void setActive(bool toggle) 
 	{
 		_active = toggle;

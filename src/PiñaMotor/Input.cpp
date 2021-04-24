@@ -12,6 +12,7 @@ bool Input::Init() {
 	_singleton = new Input(); return true;
 }
 
+
 Input::Input() : 
 	_mouseMotion(false),
 	_wheel(0),

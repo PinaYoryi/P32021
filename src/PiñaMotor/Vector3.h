@@ -1,8 +1,8 @@
-#pragma once
+Ôªø#pragma once
 #include <iostream>
 #define _USE_MATH_DEFINES
 #include <math.h>
-#include <OgreVector3.h>
+#include <OgreVector.h>
 using namespace std;
 
 /*
@@ -11,82 +11,92 @@ using namespace std;
 *	compilador se pierde un poco y las soluciones que he visto no parecian muy limpias.
 */
 
+class Quaternion;
+
 template <typename T = float>
 class Vector3 {
 public:
-	// Constructor vacÌo (inicia todas las variables a 0)
-	Vector3() {
-		_x = _y = _z = 0;
-	}
+	// Variables
+	T x;
+	T y;
+	T z;
 
-	// Constructor por par·metros
+	// Constructor vacÔøΩo (inicia todas las variables a 0)
+	Vector3() :x(), y(), z() {}
+
+	// Constructor por par√°metros
 	Vector3(T x, T y, T z) :
-		_x(x), _y(y), _z(z) {}
+		x(x), y(y), z(z) {}
 
-	// Constructor por copia (Est· comentado porque se carga el resto de constructores)
+	// Constructor por copia
 	Vector3(const Vector3<T>& other) :
-		_x(other.getX()), _y(other.getY()), _z(other.getZ()) {}
+		x(other.x), y(other.y), z(other.z) {}
 
-	// Destructor (vacÌo)
+	// Destructor (vac√≠o)
 	~Vector3() {}
 
-	// Getters
-	inline T getX() const { return _x; };
-	inline T getY() const { return _y; };
-	inline T getZ() const { return _z; };
-
-	// Setters
-	inline void setX(T x) { _x = x; };
-	inline void setY(T y) { _y = y; };
-	inline void setZ(T z) { _z = z; };
-
-	// MÈtodos
-	double magnitudeSquared() const { return (sqrt(_x) + sqrt(_y) + sqrt(_z)); }
+	// M√©todos
+	double magnitudeSquared() const { return (pow(x, 2) + pow(y, 2) + pow(z, 2)); }
 	double magnitude() const { return sqrt(magnitudeSquared()); }
+
+	Vector3<float> rotate(float angle, Vector3<float> axis);
 
 	/// <summary>
 	/// Normaliza el vector
 	/// </summary>
-	void normalized() {
+	Vector3<T> normalize() {
 		double length = magnitude();
-		if (length > 0) *this /= (T)length;
-		else _x = _y = _z = 0;
+		if (length > 0) {
+			*this /= (T)length;
+			return *this;
+		}
+		throw std::domain_error("Magnitude equals zero");
+	}
+
+	/// <summary>
+	/// Devuelve el vector normalizado, pero no lo cambia
+	/// </summary>
+	Vector3<T> normalized() const {
+		double length = magnitude();
+		if (length > 0)
+			return  *this / (T)length;
+		throw std::domain_error("Magnitude equals zero");
 	}
 
 	/// <summary>
 	/// Devuelve el producto escalar entre 2 vectores
 	/// </summary>
-	double dotProduct(const Vector3<T>& other) const { return _x * other.getX() + _y * other.getY() + _z * other.getZ(); }
+	double dotProduct(const Vector3<T>& other) const { return x * other.x + y * other.y + z * other.z; }
 
 	/// <summary>
 	/// Devuelve el producto cruzado entre 2 vectores
 	/// </summary>
 	Vector3<T> crossProduct(const Vector3<T>& other) const {
-		float nx = _y * other.getZ() - _z * other.getY();
-		float ny = _z * other.getX() - _x * other.getZ();
-		float nz = _x * other.getY() - _y * other.getX();
+		float nx = y * other.z - z * other.y;
+		float ny = z * other.x - x * other.z;
+		float nz = x * other.y - y * other.x;
 		return Vector3<T>(nx, ny, nz);
 	}
 
 	/// <summary>
-	/// Devuelve true si todas las variables del vector est·n a 0
+	/// Devuelve true si todas las variables del vector est√°n a 0
 	/// </summary>
-	bool isZero() const { return ((_x == 0) && (_y == 0) && (_z == 0)); }
+	bool isZero() const { return ((x == 0) && (y == 0) && (z == 0)); }
 
 	/// <summary>
 	/// Setea el vector a 0
 	/// </summary>
-	void clear() { _x = _y = _z = 0; }
+	void clear() { x = y = z = 0; }
 
 	/// <summary>
 	/// Invierte el vector
 	/// </summary>
-	void inverse() { _x = -_x; _y = -_y; _z = -_z; }
+	void inverse() { x = -x; y = -y; z = -z; }
 
 	/// <summary>
-	/// Calcula el ·ngulo con respecto a otro vector
+	/// Calcula el √°ngulo con respecto a otro vector
 	/// </summary>
-	/// <returns> ¡ngulo en radianes </returns>
+	/// <returns> √Ångulo en radianes </returns>
 	double angleRadians(const Vector3<T>& other) const {
 		double dot = dotProduct(other);
 		double lenSq1 = magnitudeSquared();
@@ -96,9 +106,9 @@ public:
 	}
 
 	/// <summary>
-	/// Calcula el ·ngulo con respecto a otro vector
+	/// Calcula el √°ngulo con respecto a otro vector
 	/// </summary>
-	/// <returns> ¡ngulo en grados </returns>
+	/// <returns> √Ångulo en grados </returns>
 	double angleDegrees(const Vector3<T>& other) const {
 		double angle = angleRadians(other);
 		angle = angle * 180 / M_PI;
@@ -107,36 +117,38 @@ public:
 
 	// Operadores
 	bool operator==(const Vector3<T>& other) const {
-		// Si comparten la misma direcciÛn de memoria es que son el mismo vector
+		// Si comparten la misma direcci√≥n de memoria es que son el mismo vector
 		if (this == &other) return true;
-		// Si las tres componentes son iguales tambiÈn son el mismo vector
-		if ((_x == other.getX()) && (_y == other.getY()) && (_z == other.getZ())) return true;
+		// Si las tres componentes son iguales tambi√©n son el mismo vector
+		if ((x == other.x) && (y == other.y) && (z == other.z)) return true;
 		return false;
 	}
 	bool operator!=(const Vector3<T>& other) const { return !(*this == other); }
 
-	Vector3<T>& operator+=(const Vector3<T>& other) { _x += other.getX(); _y += other.getY(); _z += other.getZ(); return *this; }
-	Vector3<T> operator+(const Vector3<T>& other) const { return Vector3<T>(_x, _y, _z) += other; }
+	Vector3<T>& operator+=(const Vector3<T>& other) { x += other.x; y += other.y; z += other.z; return *this; }
+	Vector3<T> operator+(const Vector3<T>& other) const { return Vector3<T>(x, y, z) += other; }
 
-	Vector3<T>& operator-=(const Vector3<T>& other) { _x -= other.getX(); _y -= other.getY(); _z -= other.getZ(); return *this; }
-	Vector3<T> operator-(const Vector3<T>& other) const { return Vector3<T>(_x, _y, _z) -= other; }
+	Vector3<T>& operator-=(const Vector3<T>& other) { x -= other.x; y -= other.y; z -= other.z; return *this; }
+	Vector3<T> operator-(const Vector3<T>& other) const { return Vector3<T>(x, y, z) -= other; }
 
-	Vector3<T>& operator*=(const T val) { _x *= val; _y *= val; _z *= val; return *this; }
-	Vector3<T> operator*(const T val) const { return Vector3<T>(_x, _y, _z) *= val; }
+	Vector3<T>& operator*=(const T val) { x *= val; y *= val; z *= val; return *this; }
+	Vector3<T> operator*(const T val) const { return Vector3<T>(x, y, z) *= val; }
 
-	Vector3<T>& operator/=(const T val) { _x /= val; _y /= val; _z /= val; return *this; }
-	Vector3<T> operator/(const T val) const { return Vector3<T>(_x, _y, _z) /= val; }
+	Vector3<T>& operator/=(const T val) { x /= val; y /= val; z /= val; return *this; }
+	Vector3<T> operator/(const T val) const { return Vector3<T>(x, y, z) /= val; }
+#ifdef _DEBUG
+	friend ostream& operator<<(ostream& output, const Vector3<T>& v) {
+		output << "(" << v.x << ", " << v.y << ", " << v.z << ")" << "\n";
+		return output;
+	};
+#endif // _DEBUG
+
 
 	//Parsear de Vector3 a Ogre::Vector3
-	operator Ogre::Vector3() const { return Ogre::Vector3((float)_x, (float)_y, (float)_z); }
+	operator Ogre::Vector3() const { return Ogre::Vector3((float)x, (float)y, (float)z); }
 
-	// DEBUG
-#ifdef _DEBUG
-	void print() { cout << "(" << _x << ", " << _y << ", " << _z << ")" << "\n"; };
-#endif 
-	
 
-#pragma region Vectores Predefinidos
+	// Vectores predefinidos
 	static const Vector3<T> up() { return Vector3<T>((T)0, (T)1, (T)0); }
 	static const Vector3<T> down() { return Vector3<T>((T)0, (T)-1, (T)0); }
 	static const Vector3<T> left() { return Vector3<T>((T)-1, (T)0, (T)0); }
@@ -145,11 +157,4 @@ public:
 	static const Vector3<T> back() { return Vector3<T>((T)0, (T)0, (T)-1); }
 	static const Vector3<T> one() { return Vector3<T>((T)1, (T)1, (T)1); }
 	static const Vector3<T> zero() { return Vector3<T>((T)0, (T)0, (T)0); }
-#pragma endregion
-
-private:
-	// Variables
-	T _x;
-	T _y;
-	T _z;
 };

@@ -1,4 +1,4 @@
-#include "ApplicationContext.h"
+#include "OgreMotor.h"
 
 #include <OgreRoot.h>
 #include <OgreGpuProgramManager.h>
@@ -10,25 +10,32 @@
 #include <SDL_video.h>
 #include <SDL_syswm.h>
 
-ApplicationContext::ApplicationContext(const Ogre::String& appName){
+
+#include "OgreInstance.h"
+
+
+OgreMotor::OgreMotor(const Ogre::String& appName){
 	_mAppName = appName;
 	_mFSLayer = new Ogre::FileSystemLayer(_mAppName);
 	_mRoot = nullptr;
 	_mFirstRun = true;
+
+	_mShaderGenerator = nullptr;
+	_mMaterialMgrListener = nullptr;
 }
 
-ApplicationContext::~ApplicationContext(){
+OgreMotor::~OgreMotor(){
 	delete _mFSLayer;
 }
 
-void ApplicationContext::initApp(){
+void OgreMotor::initApp(){
 	createRoot();
 
 	if (oneTimeConfig())
 		setup();
 }
 
-void ApplicationContext::closeApp(){
+void OgreMotor::closeApp(){
 	if (_mRoot != nullptr)
 	{
 		_mRoot->saveConfig();
@@ -38,7 +45,7 @@ void ApplicationContext::closeApp(){
 	_mRoot = nullptr;
 }
 
-void ApplicationContext::createRoot(){
+void OgreMotor::createRoot(){
 	Ogre::String pluginsPath;
 	pluginsPath = _mFSLayer->getConfigFilePath("plugins.cfg");
 
@@ -55,7 +62,11 @@ void ApplicationContext::createRoot(){
 	_mRoot = new Ogre::Root(pluginsPath, _mFSLayer->getWritablePath("ogre.cfg"), _mFSLayer->getWritablePath("ogre.log"));
 }
 
-void ApplicationContext::shutdown(){
+void OgreMotor::shutdown(){
+	// Destroy the RT Shader System.
+	destroyRTShaderSystem();
+	_mRoot->destroySceneManager(_mSM);
+
 	if (_mWindow._render != nullptr)
 	{
 		_mRoot->destroyRenderTarget(_mWindow._render);
@@ -68,20 +79,34 @@ void ApplicationContext::shutdown(){
 		SDL_QuitSubSystem(SDL_INIT_VIDEO);
 		_mWindow._native = nullptr;
 	}
+
+	delete OgreInstance::GetInstance();
 }
 
-void ApplicationContext::setup(){
+
+
+void OgreMotor::setup(){
 	_mRoot->initialise(false);
 	createWindow(_mAppName);
 	setWindowGrab(false);
 
 	locateResources();
+	initialiseRTShaderSystem();
 	loadResources();
 
 	_mRoot->addFrameListener(this);
+
+	_mRoot->showConfigDialog(NULL);
+
+	_mSM = _mRoot->createSceneManager();
+	_mShaderGenerator->addSceneManager(_mSM);
+
+	//le pasamos el scene manager a OgreInstace porque lo usan muchos componentes
+	OgreInstance::Init();
+	OgreInstance::GetInstance()->setmSM(_mSM);
 }
 
-bool ApplicationContext::oneTimeConfig(){
+bool OgreMotor::oneTimeConfig(){
 	if (!_mRoot->restoreConfig())
 	{
 		return _mRoot->showConfigDialog(NULL);
@@ -89,7 +114,49 @@ bool ApplicationContext::oneTimeConfig(){
 	else return true;
 }
 
-NativeWindowPair ApplicationContext::createWindow(const Ogre::String& name){
+#pragma region metodos de RTShader para poder renderizar
+bool OgreMotor::initialiseRTShaderSystem()
+{
+	if (Ogre::RTShader::ShaderGenerator::initialize())
+	{
+		_mShaderGenerator = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
+		// Core shader libs not found -> shader generating will fail.
+		if (mRTShaderLibPath.empty())
+			return false;
+			// Create and register the material manager listener if it doesn't exist yet.
+		if (!_mMaterialMgrListener) {
+			_mMaterialMgrListener = new SGTechniqueResolverListener(_mShaderGenerator);
+			Ogre::MaterialManager::getSingleton().addListener(_mMaterialMgrListener);
+		}
+	}
+
+	return true;
+}
+
+void OgreMotor::destroyRTShaderSystem()
+{
+	// Restore default scheme.
+	Ogre::MaterialManager::getSingleton().setActiveScheme(Ogre::MaterialManager::DEFAULT_SCHEME_NAME);
+
+	// Unregister the material manager listener.
+	if (_mMaterialMgrListener != nullptr)
+	{
+		Ogre::MaterialManager::getSingleton().removeListener(_mMaterialMgrListener);
+		delete _mMaterialMgrListener;
+		_mMaterialMgrListener = nullptr;
+	}
+
+	// Destroy RTShader system.
+	if (_mShaderGenerator != nullptr)
+	{
+		Ogre::RTShader::ShaderGenerator::destroy();
+		_mShaderGenerator = nullptr;
+	}
+}
+
+#pragma endregion
+
+NativeWindowPair OgreMotor::createWindow(const Ogre::String& name){
 	uint32_t w, h;
 	Ogre::NameValuePairList miscParams;
 
@@ -123,17 +190,21 @@ NativeWindowPair ApplicationContext::createWindow(const Ogre::String& name){
 	return _mWindow;
 }
 
-void ApplicationContext::setWindowGrab(bool _grab){
+void OgreMotor::setWindowGrab(bool _grab){
 	SDL_bool grab = SDL_bool(_grab);
 	SDL_SetWindowGrab(_mWindow._native, grab);
 	SDL_ShowCursor(grab);
 }
 
-bool ApplicationContext::frameRenderingQueued(const Ogre::FrameEvent& evt){
+bool OgreMotor::frameRenderingQueued(const Ogre::FrameEvent& evt){
+	for (std::set<InputListener*>::iterator it = mInputListeners.begin(); it != mInputListeners.end(); ++it)
+	{
+		(*it)->frameRendered(evt);
+	}
 	return true;
 }
 
-void ApplicationContext::pollEvents(){
+void OgreMotor::pollEvents(){
 	if (_mWindow._native == nullptr)
 		return;  
 
@@ -161,11 +232,11 @@ void ApplicationContext::pollEvents(){
 	}
 }
 
-void ApplicationContext::loadResources(){
+void OgreMotor::loadResources(){
 	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 }
 
-void ApplicationContext::locateResources(){
+void OgreMotor::locateResources(){
 	Ogre::ConfigFile cf;
 
 	Ogre::String resourcesPath = _mFSLayer->getConfigFilePath("resources.cfg");
@@ -230,4 +301,32 @@ void ApplicationContext::locateResources(){
 	{
 		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(arch + "/materials/programs/HLSL", type, sec);
 	}
+	mRTShaderLibPath = arch + "/RTShaderLib";
+	Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/materials", type, sec);
+
+	if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("glsles"))
+	{
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/GLSL", type, sec);
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/GLSLES", type, sec);
+	}
+	else if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("glsl"))
+	{
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/GLSL", type, sec);
+	}
+	else if (Ogre::GpuProgramManager::getSingleton().isSyntaxSupported("hlsl"))
+	{
+		Ogre::ResourceGroupManager::getSingleton().addResourceLocation(mRTShaderLibPath + "/HLSL", type, sec);
+	}
+}
+
+void OgreMotor::createNewScene()
+{
+	_mSM->getRootSceneNode()->removeAndDestroyAllChildren();
+	_mRoot->destroySceneManager(_mSM);
+	_mRoot->initialise(false);
+	_mRoot->addFrameListener(this);
+	_mSM = _mRoot->createSceneManager();
+
+	_mShaderGenerator->addSceneManager(_mSM);
+	OgreInstance::GetInstance()->setmSM(_mSM);
 }

@@ -2,8 +2,28 @@
 #include "Entity.h"
 #include "Transform.h"
 #include "ComponentFactoryRegistration.h"
-#include "Application.h"
+#include "BulletInstance.h"
+#include "MotorLoop.h"
+#include "Input.h"
+#include "OgreMotor.h"
+/// TEST MOTOR OGRE
+#include <OgreCamera.h>         
+#include <OgreRenderWindow.h>   
+#include <OgreViewport.h>        
+#include <OgreColourValue.h>    
+#include <OgreLight.h>
+#include "OgreEntity.h"
+#include "OgreInstance.h"
 
+#include "Renderer.h"
+#include <btBulletDynamicsCommon.h>
+#include "Vector3.h"
+#include "Vector2.h"
+#include "Quaternion.h"
+#include "Animation.h"
+
+#include "vector"
+#include "iostream"
 #if (defined _DEBUG) || !(defined _WIN32) //<-- Ya no lo tenemos en teor�a
 int main() {
 #else
@@ -35,10 +55,72 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
     //SDL_DestroyWindow(window);
     //SDL_Quit();
 
-    Application app;
+    OgreMotor app("Motor de Ogre");
     try {
         app.initApp();
-        app.getRoot()->startRendering();
+
+        //Inicialización test, cambia el color del viewport a naranja coral
+        Ogre::Camera* cam = app.getSceneManager()->createCamera("Main");
+        cam->setNearClipDistance(1);
+        cam->setFarClipDistance(10000);
+        cam->setAutoAspectRatio(true);
+
+        Ogre::SceneNode* camNode = app.getSceneManager()->getRootSceneNode()->createChildSceneNode("Cam");
+        camNode->attachObject(cam);
+        camNode->setPosition(0, 0, 1000);
+        camNode->lookAt(Ogre::Vector3(0, 0, 0), Ogre::Node::TS_WORLD);
+
+        Ogre::Viewport* vp = app.getRenderWindow()->addViewport(cam);
+        vp->setBackgroundColour(Ogre::ColourValue(255.0/255.0, 127.0/250.0, 80.0/250.0));
+
+        Ogre::Light* luz = app.getSceneManager()->createLight("Luz");
+        luz->setType(Ogre::Light::LT_DIRECTIONAL);
+        luz->setDiffuseColour(0.0, 0.0, 0.0);
+
+        Ogre::SceneNode* lightNode = app.getSceneManager()->getRootSceneNode()->createChildSceneNode("Luz");
+        lightNode->attachObject(luz);
+        lightNode->setDirection(Ogre::Vector3(0, -1, -1));
+
+        
+       
+
+        app.getSceneManager()->setAmbientLight(Ogre::ColourValue(0.2, 0.2, 0.2, 1.0));
+        //Aquí acaba el test
+
+        //Empieza el test del componente renderer
+        ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform> cpm;
+        ComponentFactoryRegistrations::ComponentFactoryRegistration<Renderer> cpm2;
+        ComponentFactoryRegistrations::ComponentFactoryRegistration<Animation> cpm3;
+        Entity* ent = new Entity();
+        ent->addComponent<Renderer>();
+         ent->addComponent<Animation>();
+        ent->getComponent<Transform>()->setScale({ 20,20,20 });
+        Animation* an = ent->getComponent<Animation>();
+        app.addInputListener(an);
+        //app.getRoot()->startRendering();
+        int i = 1;   
+        an->changeAnimation("Dance");
+
+        while (true) {
+            app.getRoot()->renderOneFrame();
+            Vector3<float> v = ent->getComponent<Transform>()->position();
+            ent->render();
+            if(i%250==0)
+                 an->changeAnimation(std::vector<std::string> { "RunBase", "RunTop" /*,"yht"*/ });
+
+            else if (i % 200 == 0) {
+               // an->changeAnimation("Dance");
+                an->setLoop(false);
+            }
+            /*else if(i%70==0)
+                 an->changeAnimation(std::vector<std::string> { "Dance", "RunTop" });*/
+
+            
+
+            i++;
+            //ent->getComponent<Transform>()->setPosition(v.x+1.0f, v.y, v.z);
+        }
+        delete ent;
     }
     catch (Ogre::Exception& e) {
         Ogre::LogManager::getSingleton().logMessage("An exception has occured: " + e.getFullDescription() + "\n");
