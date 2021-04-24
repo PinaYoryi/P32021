@@ -22,7 +22,7 @@ public:
 	void play();
 
 	/// <summary>
-	/// ParaR de animar
+	/// Parar de animar
 	/// </summary>
 	void stop();
 
