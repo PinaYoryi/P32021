@@ -39,8 +39,8 @@
     <ClInclude Include="..\..\src\PiñaMotor\LuaReader.h" />
     <ClInclude Include="..\..\src\PiñaMotor\OgreMotor.h" />
     <ClInclude Include="..\..\src\PiñaMotor\BoxCollider.h" />
-    <ClInclude Include="..\..\src\PiñaMotor\BulletInstance.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Camera.h" />
+    <ClInclude Include="..\..\src\PiñaMotor\BulletInstance.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Component.h" />
     <ClInclude Include="..\..\src\PiñaMotor\ComponentFactory.h" />
     <ClInclude Include="..\..\src\PiñaMotor\ComponentFactoryRegistration.h" />
@@ -182,6 +182,7 @@ compilar.bat</Command>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)dependencies\Ogre\Src\Components\RTShaderSystem\include;$(SolutionDir)dependencies\Ogre\Build\SDL2-2.0.10\include;$(SolutionDir)dependencies\Ogre\Build\include;$(SolutionDir)dependencies\Ogre\Src\OgreMain\include;$(SolutionDir)dependencies\Fmod\include;$(SolutionDir)dependencies\Bullet\src\src\;$(SolutionDir)dependencies\Lua\include\;$(SolutionDir)dependencies\Bullet\build\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -203,14 +204,15 @@ compilar.bat</Command>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)dependencies\Ogre\Src\Components\RTShaderSystem\include;$(SolutionDir)dependencies\Ogre\Build\SDL2-2.0.10\include;$(SolutionDir)dependencies\Ogre\Build\include;$(SolutionDir)dependencies\Ogre\Src\OgreMain\include;$(SolutionDir)dependencies\Fmod\include;$(SolutionDir)dependencies\Bullet\src\src\;$(SolutionDir)dependencies\Lua\include\;$(SolutionDir)dependencies\Bullet\build\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>lua54.lib;OgreMain.lib;fmodl64_vc.lib;Bullet3Collision.lib;Bullet3Common.lib;Bullet2FileLoader.lib;Bullet3Dynamics.lib;Bullet3Geometry.lib;Bullet3OpenCL_clew.lib;BulletCollision.lib;BulletDynamics.lib;BulletFIleLoader.lib;BulletInverseDynamics.lib;BulletRobotics.lib;BulletRoboticsGUI.lib;BulletSoftBody.lib;BulletWorldImporter.lib;BulletXmlWorldImporter.lib;ConvexDecomposition.lib;GIMPACTUtils.lib;HACD.lib;LinearMath.lib;SDL2.lib;SDL2main.lib;Codec_STBI.lib;OgreMeshLodGenerator.lib;OgreOverlay.lib;OgrePaging.lib;OgreProperty.lib;OgreRTShaderSystem.lib;RenderSystem_Direct3D11.lib;Plugin_ParticleFX.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\Lua\lib\;$(SolutionDir)dependencies\Ogre\Build\Dependencies\lib;$(SolutionDir)dependencies\Ogre\Build\lib\Release\;$(SolutionDir)dependencies\Bullet\build\lib\Release\;$(SolutionDir)dependencies\Fmod\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>lua54.lib;OgreMain.lib;fmodl64_vc.lib;Bullet3Collision.lib;Bullet3Common.lib;Bullet2FileLoader.lib;Bullet3Dynamics.lib;Bullet3Geometry.lib;Bullet3OpenCL_clew.lib;BulletCollision.lib;BulletDynamics.lib;BulletFIleLoader.lib;BulletInverseDynamics.lib;BulletRobotics.lib;BulletRoboticsGUI.lib;BulletSoftBody.lib;BulletWorldImporter.lib;BulletXmlWorldImporter.lib;ConvexDecomposition.lib;GIMPACTUtils.lib;HACD.lib;LinearMath.lib;SDL2.lib;SDL2main.lib;Codec_STBI.lib;OgreMeshLodGenerator.lib;OgreOverlay.lib;OgrePaging.lib;OgreProperty.lib;OgreRTShaderSystem.lib;RenderSystem_Direct3D11.lib;Plugin_ParticleFX.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>cd ../../dependencies/Ogre

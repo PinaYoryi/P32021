@@ -12,8 +12,9 @@
 #include <OgreViewport.h>        
 #include <OgreColourValue.h>    
 #include <OgreLight.h>
-#include "OgreEntity.h"
 #include "Camera.h"
+#include "OgreEntity.h"
+
 #if (defined _DEBUG) || !(defined _WIN32) //<-- Ya no lo tenemos en teor�a
 int main() {
 #else

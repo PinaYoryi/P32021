@@ -9,12 +9,12 @@
 #include <OgreFileSystemLayer.h>
 #include <OgreFrameListener.h>
 #include <SDL.h>  
+
 #undef main
-#include <OgreShaderGenerator.h>
 
 typedef SDL_Window NativeWindowType;
 
-// Enlace entre una RenderWindow y una ventana específica de plataforma
+// Enlace entre una RenderWindow y una ventana especï¿½fica de plataforma
 struct NativeWindowPair
 {
 	Ogre::RenderWindow* _render = nullptr;
@@ -22,8 +22,8 @@ struct NativeWindowPair
 };
 
 /// <summary>
-/// Clase base con contexto específico para
-/// Subclase para implementar eventos específicos de callback
+/// Clase base con contexto especï¿½fico para
+/// Subclase para implementar eventos especï¿½ficos de callback
 /// </summary>
 class OgreMotor : public Ogre::FrameListener {
 public:
@@ -39,7 +39,7 @@ public:
 	// Inicializa el render system y recursos
 	void initApp();
 
-	// Cierra la aplicación, guarda la configuración y hace shutdowm
+	// Cierra la aplicaciï¿½n, guarda la configuraciï¿½n y hace shutdowm
 	void closeApp();
 
 	// Interfaz de callbacks basada en ApplicationContext
@@ -59,15 +59,7 @@ public:
 
 	virtual void windowFocusChange(Ogre::RenderWindow* rw) {}
 
-	
-	//Initialize the RT Shader system.	
-	bool initialiseRTShaderSystem();
-
-	
-	//Destroy the RT Shader system.	
-	void destroyRTShaderSystem();
-
-	// Inicia el context tras la configuración
+	// Inicia el context tras la configuraciï¿½n
 	virtual void setup();
 
 	// Crea el root de OGRE
@@ -79,12 +71,12 @@ public:
 	
 	/// <summary>
 	/// Configura los settins de incio de OGRE
-	/// Sólo ocurre al inciar el context, no al resetearlo
+	/// Sï¿½lo ocurre al inciar el context, no al resetearlo
 	/// </summary>
-	/// <returns>Si ha podido inicializar la configuración</returns>
+	/// <returns>Si ha podido inicializar la configuraciï¿½n</returns>
 	virtual bool oneTimeConfig();
 
-	// Confina el ratón a la ventana al detectar input
+	// Confina el ratï¿½n a la ventana al detectar input
 	void setWindowGrab(bool grab);
 
 	// Usa configs para cargar recursos en el context
@@ -96,7 +88,7 @@ public:
 	// Limpia y cierra el context
 	virtual void shutdown();
 
-	// Procesa lso eventos de ventana desde la última llamada
+	// Procesa lso eventos de ventana desde la ï¿½ltima llamada
 	void pollEvents();
 
 	//Create a new render window
@@ -122,20 +114,15 @@ protected:
 	// Ventana
 	NativeWindowPair _mWindow; 
 
-	// Capa de abstracción del sistema de archivos
+	// Capa de abstracciï¿½n del sistema de archivos
 	Ogre::FileSystemLayer* _mFSLayer; 
 
-	// Variable para identificar primera ejecución
+	// Variable para identificar primera ejecuciï¿½n
 	bool _mFirstRun;
-	// Nombre de la aplicación
+	// Nombre de la aplicaciï¿½n
 	Ogre::String _mAppName;
-	// Variable para hacer las rutas relativas al directorio de la solución
+	// Variable para hacer las rutas relativas al directorio de la soluciï¿½n
 	Ogre::String _mSolutionPath;    
 	
 	Ogre::SceneManager* _mSM = nullptr;
-	
-	Ogre::RTShader::ShaderGenerator* mShaderGenerator; // The Shader generator instance.
-	//SGTechniqueResolverListener* mMaterialMgrListener; // Shader generator material manager listener.
-	//Ogre::MaterialManager::Listener* mMaterialMgrListener=nullptr;
-
 };
