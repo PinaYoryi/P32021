@@ -8,7 +8,7 @@ public:
 		_visible = true;
 	}
 	/// <summary>
-	/// inicializa el componente con los valores pasador por parametro
+	/// Inicializa el componente con los valores pasador por parametro
 	/// utiliza setMesh para poner su mesh y setMaterial para poner su material
 	/// </summary>
 	bool init(const std::map<std::string, std::string>& mapa) override;
@@ -29,7 +29,6 @@ public:
 	/// no hace falta poner .material al final del nombre   
 	/// </summary>
 	void setMaterial(std::string name);
-
 
 	/// <summary>
 	/// Devuelve el nombre del material que esta usando   
@@ -64,11 +63,9 @@ protected:
 	/// </summary>
 	void render() override;
 
-	 
-
 	bool _visible;
 	std::string _material="";
-	std::string _mesh="";
+	std::string _meshName="";
 	Ogre::SceneNode* _ogreNode=nullptr;//nodo de ogre 
 	Ogre::Entity* _ogreEntity=nullptr;//entidad de ogre
 

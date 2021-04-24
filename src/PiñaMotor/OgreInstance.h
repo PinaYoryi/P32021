@@ -19,8 +19,6 @@ public:
 	/// </summary>
 	static bool Init();
 
-
-
 	/// <summary>
 	/// devuelve un puntero de mSM que es el sceneManager
 	/// </summary>
