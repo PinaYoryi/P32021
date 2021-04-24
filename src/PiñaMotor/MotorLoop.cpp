@@ -11,7 +11,6 @@ bool MotorLoop::Init() {
 	if (_singleton != nullptr) return false;
 	_singleton = new MotorLoop(); return true;
 }
-
 #pragma region Entidades
 
 bool MotorLoop::addEntity() {

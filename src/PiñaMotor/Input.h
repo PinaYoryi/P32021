@@ -24,8 +24,7 @@ public:
 	}
 
 	/// <summary>
-	/// Devuelve una instancia de la clase. Devuelve nullptr por defecto si no se ha inicializado.
-	/// Para inicializarla se usa Init().
+	/// Devuelve una instancia de la clase. La crea si no existe.
 	/// </summary>
 	static Input* GetInstance();
 

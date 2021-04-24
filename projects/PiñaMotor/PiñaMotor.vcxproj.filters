@@ -30,9 +30,6 @@
     <ClCompile Include="..\..\src\PiñaMotor\Renderer.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\PiñaMotor\Transform.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\PiñaMotor\OgreInstance.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
@@ -40,7 +37,7 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\PiñaMotor\Input.cpp">
-          <Filter>Archivos de origen</Filter>
+      <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\PiñaMotor\Transform.cpp">
       <Filter>Archivos de origen</Filter>
@@ -57,13 +54,16 @@
     <ClCompile Include="..\..\src\PiñaMotor\Quaternion.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\PiñaMotor\Vector3.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\PiñaMotor\Matrix4.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\PiñaMotor\Matrix3.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\PiñaMotor\Vector3.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\PiñaMotor\Animation.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
@@ -98,9 +98,6 @@
     <ClInclude Include="..\..\src\PiñaMotor\Vector2.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\PiñaMotor\OgreInstance.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\PiñaMotor\Input.h">
           <Filter>Archivos de encabezado</Filter>
     </ClInclude>
@@ -120,6 +117,12 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\PiñaMotor\Quaternion.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\PiñaMotor\Animation.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\PiñaMotor\OgreInstance.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\PiñaMotor\Matrix4.h">

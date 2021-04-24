@@ -14,7 +14,8 @@ public:
 
 	Transform(Vector3<float> position, Quaternion rotation, Vector3<float> scale, Transform* parent = nullptr);
 
-	Transform() {}
+	Transform() :_scale ( 1, 1, 1 ){}
+
 	bool init(const std::map<std::string, std::string>& mapa) override {
 		return true;
 	}

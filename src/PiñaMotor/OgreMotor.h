@@ -8,13 +8,105 @@
 #include <OgrePlugin.h>
 #include <OgreFileSystemLayer.h>
 #include <OgreFrameListener.h>
-#include <SDL.h>  
+#include <SDL.h> 
 #undef main
-#include <OgreShaderGenerator.h>
+
+#pragma region clase de ogre Bites para poder renderizar
+
+#include <OgreRTShaderSystem.h>
+#include <OgreMaterialManager.h>
+#include "OgreTechnique.h"
+
+class SGTechniqueResolverListener : public Ogre::MaterialManager::Listener {
+public:
+	 SGTechniqueResolverListener(Ogre::RTShader::ShaderGenerator* pShaderGenerator) {
+		 mShaderGenerator = pShaderGenerator;
+	 }
+
+	/** This is the hook point where shader based technique will be created.
+		It will be called whenever the material manager won't find appropriate technique
+		that satisfy the target scheme name. If the scheme name is out target RT Shader System
+		scheme name we will try to create shader generated technique for it.
+	*/
+	Ogre::Technique* handleSchemeNotFound(unsigned short schemeIndex,
+		const Ogre::String& schemeName,
+		Ogre::Material* originalMaterial, unsigned short lodIndex,
+		const Ogre::Renderable* rend) {
+		if (!mShaderGenerator->hasRenderState(schemeName))
+		{
+			return NULL;
+		}
+		// Case this is the default shader generator scheme.
+
+		// Create shader generated technique for this material.
+		bool techniqueCreated = mShaderGenerator->createShaderBasedTechnique(
+			*originalMaterial,
+			Ogre::MaterialManager::DEFAULT_SCHEME_NAME,
+			schemeName);
+
+		if (!techniqueCreated)
+		{
+			return NULL;
+		}
+		// Case technique registration succeeded.
+
+		// Force creating the shaders for the generated technique.
+		mShaderGenerator->validateMaterial(schemeName, *originalMaterial);
+
+		// Grab the generated technique.
+		Ogre::Material::Techniques::const_iterator it;
+		for (it = originalMaterial->getTechniques().begin(); it != originalMaterial->getTechniques().end(); ++it)
+		{
+			Ogre::Technique* curTech = *it;
+
+			if (curTech->getSchemeName() == schemeName)
+			{
+				return curTech;
+			}
+		}
+
+		return NULL;
+	}
+
+	bool afterIlluminationPassesCreated(Ogre::Technique* tech) {
+		if (mShaderGenerator->hasRenderState(tech->getSchemeName()))
+		{
+			Ogre::Material* mat = tech->getParent();
+			mShaderGenerator->validateMaterialIlluminationPasses(tech->getSchemeName(),
+				mat->getName(), mat->getGroup());
+			return true;
+		}
+		return false;
+	}
+
+	bool beforeIlluminationPassesCleared(Ogre::Technique* tech) {
+		if (mShaderGenerator->hasRenderState(tech->getSchemeName()))
+		{
+			Ogre::Material* mat = tech->getParent();
+			mShaderGenerator->invalidateMaterialIlluminationPasses(tech->getSchemeName(),
+				mat->getName(), mat->getGroup());
+			return true;
+		}
+		return false;
+	}
+
+protected:
+	Ogre::RTShader::ShaderGenerator* mShaderGenerator; // The shader generator instance.
+};
+#pragma endregion
+
+#pragma region clase de ogre Bites para poder animar
+//no esta toda la clase, solo lo que vamos a usar
+struct InputListener {
+	virtual ~InputListener() {}
+	virtual void frameRendered(const Ogre::FrameEvent& evt) { }	
+};
+
+#pragma endregion
 
 typedef SDL_Window NativeWindowType;
 
-// Enlace entre una RenderWindow y una ventana específica de plataforma
+// Enlace entre una RenderWindow y una ventana especï¿½fica de plataforma
 struct NativeWindowPair
 {
 	Ogre::RenderWindow* _render = nullptr;
@@ -22,8 +114,8 @@ struct NativeWindowPair
 };
 
 /// <summary>
-/// Clase base con contexto específico para
-/// Subclase para implementar eventos específicos de callback
+/// Clase base con contexto especï¿½fico para
+/// Subclase para implementar eventos especï¿½ficos de callback
 /// </summary>
 class OgreMotor : public Ogre::FrameListener {
 public:
@@ -39,7 +131,7 @@ public:
 	// Inicializa el render system y recursos
 	void initApp();
 
-	// Cierra la aplicación, guarda la configuración y hace shutdowm
+	// Cierra la aplicaciï¿½n, guarda la configuraciï¿½n y hace shutdowm
 	void closeApp();
 
 	// Interfaz de callbacks basada en ApplicationContext
@@ -67,7 +159,7 @@ public:
 	//Destroy the RT Shader system.	
 	void destroyRTShaderSystem();
 
-	// Inicia el context tras la configuración
+	// Inicia el context tras la configuraciï¿½n
 	virtual void setup();
 
 	// Crea el root de OGRE
@@ -79,12 +171,12 @@ public:
 	
 	/// <summary>
 	/// Configura los settins de incio de OGRE
-	/// Sólo ocurre al inciar el context, no al resetearlo
+	/// Sï¿½lo ocurre al inciar el context, no al resetearlo
 	/// </summary>
-	/// <returns>Si ha podido inicializar la configuración</returns>
+	/// <returns>Si ha podido inicializar la configuraciï¿½n</returns>
 	virtual bool oneTimeConfig();
 
-	// Confina el ratón a la ventana al detectar input
+	// Confina el ratï¿½n a la ventana al detectar input
 	void setWindowGrab(bool grab);
 
 	// Usa configs para cargar recursos en el context
@@ -96,7 +188,7 @@ public:
 	// Limpia y cierra el context
 	virtual void shutdown();
 
-	// Procesa lso eventos de ventana desde la última llamada
+	// Procesa lso eventos de ventana desde la ï¿½ltima llamada
 	void pollEvents();
 
 	//Create a new render window
@@ -116,26 +208,48 @@ public:
 	// Borra todos los nodos de la escena, re-inicializa el root y el sceneManager
 	void createNewScene();
 
+
+
+
+
+	virtual void frameRendered(const Ogre::FrameEvent& evt) { }
+
+
+	void addInputListener(InputListener* lis) {mInputListeners.insert(lis); }
+	void removeInputListener(InputListener* lis) { mInputListeners.erase(lis); };
+
 protected:
 	// OGRE root
 	Ogre::Root* _mRoot;   
 	// Ventana
 	NativeWindowPair _mWindow; 
 
-	// Capa de abstracción del sistema de archivos
+	// Capa de abstracciï¿½n del sistema de archivos
 	Ogre::FileSystemLayer* _mFSLayer; 
 
-	// Variable para identificar primera ejecución
+	// Variable para identificar primera ejecuciï¿½n
 	bool _mFirstRun;
-	// Nombre de la aplicación
+	// Nombre de la aplicaciï¿½n
 	Ogre::String _mAppName;
-	// Variable para hacer las rutas relativas al directorio de la solución
+	// Variable para hacer las rutas relativas al directorio de la soluciï¿½n
 	Ogre::String _mSolutionPath;    
 	
 	Ogre::SceneManager* _mSM = nullptr;
+
+
+#pragma region atributos de la clase de ogreBites para poder renderizar
+	Ogre::String mRTShaderLibPath;
+	Ogre::RTShader::ShaderGenerator* _mShaderGenerator; // The Shader generator instance.
+	SGTechniqueResolverListener* _mMaterialMgrListener; // Shader generator material manager listener.
 	
-	Ogre::RTShader::ShaderGenerator* mShaderGenerator; // The Shader generator instance.
-	//SGTechniqueResolverListener* mMaterialMgrListener; // Shader generator material manager listener.
-	//Ogre::MaterialManager::Listener* mMaterialMgrListener=nullptr;
+#pragma endregion
+
+
+
+#pragma region atributo para poder animar
+	//vector donde se guardan los componentes Animation para poder actualizarlos
+	std::set<InputListener*> mInputListeners;
+#pragma endregion
 
 };
+

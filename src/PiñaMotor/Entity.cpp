@@ -26,7 +26,7 @@ void Entity::update() {
 }
 
 void Entity::render() {
-	/*for (auto& c : compArray) {
-		if(c) c->Render();
-	}*/
+	for (auto& c : compUnique) {
+		 c->render();
+	}
 }
