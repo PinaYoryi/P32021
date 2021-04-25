@@ -12,14 +12,14 @@
 
 OgreMotor* OgreMotor::_instance = nullptr;
 
-OgreMotor::OgreMotor(const Ogre::String& appName){
+OgreMotor::OgreMotor(const Ogre::String& appName) {
 	_mAppName = appName;
 	_mFSLayer = new Ogre::FileSystemLayer(_mAppName);
 	_mRoot = nullptr;
 	_mFirstRun = true;
 }
 
-OgreMotor::~OgreMotor(){
+OgreMotor::~OgreMotor() {
 	delete _mFSLayer;
 	if (_ogreWasInit) close();
 }
