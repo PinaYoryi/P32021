@@ -25,8 +25,7 @@ Audio::~Audio() {
     }
 }
 
-Audio* Audio::getInstance()
-{
+Audio* Audio::getInstance() {
     if (_audioInstance == nullptr) {
         _audioInstance = new Audio();
     }
@@ -45,8 +44,7 @@ void Audio::init() {
     }
 }
 
-void Audio::update()
-{
+void Audio::update() {
     try {
         FMOD_RESULT result = _system->update();
         errorCheck(result);
@@ -91,16 +89,14 @@ void Audio::stopSound(FMOD::Channel* channel) {
     delete channel;
 }
 
-void Audio::fadeIn()
-{
+void Audio::fadeIn() {
     unsigned long long parentclock;
     FMOD_RESULT res = _channel->getDSPClock(NULL, &parentclock);
     res = _channel->addFadePoint(parentclock, 0.0f);
     res = _channel->addFadePoint(parentclock + 500000, 1.0f);
 }
 
-void Audio::fadeOut()
-{
+void Audio::fadeOut() {
     unsigned long long parentclock;
     FMOD_RESULT res = _channel->getDSPClock(NULL, &parentclock);
     float vol;
@@ -109,8 +105,7 @@ void Audio::fadeOut()
     res = _channel->addFadePoint(parentclock + 500000, 0.0f);
 }
 
-void Audio::setPitch(float i)
-{
+void Audio::setPitch(float i) {
     try {
         FMOD_RESULT result;
         result = _channel->setPitch(i);
@@ -120,8 +115,7 @@ void Audio::setPitch(float i)
     }
 }
 
-void Audio::togglePause()
-{
+void Audio::togglePause() {
     bool paused;
     _channel->getPaused(&paused);
     _channel->setPaused(!paused);
