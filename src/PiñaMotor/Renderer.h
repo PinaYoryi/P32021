@@ -30,6 +30,7 @@ public:
 	/// </summary>
 	void setMaterial(std::string name);
 
+
 	/// <summary>
 	/// Devuelve el nombre del material que esta usando   
 	/// </summary>

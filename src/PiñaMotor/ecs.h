@@ -4,6 +4,7 @@
 // TODO: Macros
 class Transform;
 class Renderer;
+class Camera;
 class Animation;
 
 //TODO: Comentar
@@ -27,6 +28,7 @@ struct IndexOf<T, TypeList<TOther, Ts...>> : std::integral_constant<std::size_t,
 
 };
 
+using ComponentsList = TypeList<Transform, Renderer, Camera>;
 using ComponentsList = TypeList<Transform,Renderer,Animation>;
 constexpr std::size_t numOfComponents = ComponentsList::size;
 

@@ -23,6 +23,7 @@
     <ClCompile Include="..\..\src\PiñaMotor\BoxCollider.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\BulletInstance.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Animation.cpp" />
+    <ClCompile Include="..\..\src\PiñaMotor\Camera.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Component.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\ComponentFactory.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Entity.cpp" />
@@ -42,6 +43,7 @@
     <ClInclude Include="..\..\src\PiñaMotor\LuaReader.h" />
     <ClInclude Include="..\..\src\PiñaMotor\OgreMotor.h" />
     <ClInclude Include="..\..\src\PiñaMotor\BoxCollider.h" />
+    <ClInclude Include="..\..\src\PiñaMotor\Camera.h" />
     <ClInclude Include="..\..\src\PiñaMotor\BulletInstance.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Animation.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Component.h" />
