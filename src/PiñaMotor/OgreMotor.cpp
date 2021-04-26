@@ -87,6 +87,7 @@ void OgreMotor::createRoot() {
 }
 
 void OgreMotor::shutdown() {
+	destroyRTShaderSystem();
 	_mRoot->destroySceneManager(_mSM);
 
 	if (_mWindow._render != nullptr)
