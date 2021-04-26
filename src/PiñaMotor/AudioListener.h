@@ -19,7 +19,7 @@ public:
 	void setVelocity(Vector3<float> velocity) { _velocity.x = velocity.getX(); _velocity.y = velocity.getY(); _velocity.z = velocity.getZ(); };
 	Vector3<float> getVelocity() { return Vector3<float>(_velocity.x, _velocity.y, _velocity.z); };
 
-	void update();
+	void Update() override;
 
 private:
 	Audio* _instance;

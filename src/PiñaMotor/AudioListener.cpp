@@ -15,7 +15,7 @@ AudioListener::AudioListener(Vector3<float> position, Vector3<float> velocity) {
         _system->set3DListenerAttributes(0, &_position, &_velocity,&_forward,&_up);
 }
 
-void AudioListener::update() {
+void AudioListener::Update() {
     if (_system != nullptr)
         _system->set3DListenerAttributes(0, &_position, &_velocity, &_forward, &_up);
 }
