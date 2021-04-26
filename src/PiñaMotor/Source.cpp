@@ -1,13 +1,14 @@
 #include "Initialize.h"
 
-#if (defined _DEBUG) || !(defined _WIN32) //<-- Ya no lo tenemos en teor�a
+#if (defined _DEBUG)
+#include <crtdbg.h>
 int main() {
+_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Leaks
 #else
 #include <windows.h>
 int WINAPI
 WinMain(HINSTANCE zhInstance, HINSTANCE prevInstance, LPSTR lpCmdLine, int nCmdShow) {
 #endif
-_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Leaks
 
     Initialize motor;
     return 0;

@@ -21,7 +21,7 @@ public:
 	/// Devuelve true si se inicializa por primera vez y false si ya hab�a sido inicializada.
 	/// Todo: Implementar los parametros a inicializar.
 	/// </summary>
-	static bool Init(OgreMotor* ogre);
+	static bool Init();
 
 	/// <summary>
 	/// Inicializa el bucle principal Input -> FixedUpdate -> Update -> Render
@@ -34,9 +34,9 @@ public:
 
 protected:
 	Entity* _ent; 
+	Entity* _cam;
 
 	static MotorLoop* _singleton;
-	static OgreMotor* _ogre;
 
 	bool _loop = false;
 	int _lastTime = 0;
@@ -45,7 +45,7 @@ protected:
 
 	//Lista de entidades
 
-	MotorLoop() : _ent(nullptr) {}; //<------Esto es placeholder de la escena que crea SceneManager
+	MotorLoop() : _ent(nullptr), _cam(nullptr) {}; //<------Esto es placeholder de la escena que crea SceneManager
 
 	/// <summary>
 	/// Prepara la clase para inicializar el bucle principal del motor.

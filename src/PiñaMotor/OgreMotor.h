@@ -123,10 +123,10 @@ public:
 
 	static OgreMotor* GetInstance();
 
-	static bool init(const Ogre::String& appName = OGRE_VERSION_NAME);
+	static bool Init(const Ogre::String& appName = OGRE_VERSION_NAME);
 
 	// Cierra la aplicaci�n, guarda la configuraci�n y hace shutdowm
-	static bool close();
+	static bool Close();
 
 	// Obtiene la RenderWindow
 	Ogre::RenderWindow* getRenderWindow() const { return _mWindow._render; }

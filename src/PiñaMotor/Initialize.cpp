@@ -1,4 +1,6 @@
 #include "Initialize.h"
+#include "OgreMotor.h"
+#include "MotorLoop.h"
 
 Initialize::Initialize() {
     startOgre();
@@ -8,25 +10,21 @@ Initialize::Initialize() {
     //SceneManager::Init();
     //SceneManager::loadScene();
 
-    MotorLoop::Init(_ogre); //<---- Hay que pasar los motores
+    MotorLoop::Init();
     MotorLoop::GetInstance()->startLoop();
 }
 
 Initialize::~Initialize() {
+    delete MotorLoop::GetInstance();
     stopOgre();
     stopBullet();
     stopFMOD();
-
-    delete _ogre;
-    delete MotorLoop::GetInstance();
 }
-
 
 #pragma region Ogre
 void Initialize::startOgre() {
-    _ogre = new OgreMotor("Motor de Ogre");
     try {
-        _ogre->initApp();
+        OgreMotor::Init("Motoraso");
     }
     catch (Ogre::Exception& e) {
         Ogre::LogManager::getSingleton().logMessage("An exception has occured: " + e.getFullDescription() + "\n");
@@ -34,7 +32,7 @@ void Initialize::startOgre() {
 }
 
 void Initialize::stopOgre() {
-    _ogre->closeApp();
+    OgreMotor::Close();
 }
 #pragma endregion
 
