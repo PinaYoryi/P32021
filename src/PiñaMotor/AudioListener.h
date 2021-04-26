@@ -17,7 +17,7 @@ public:
 	Vector3<float> getPosition() { return Vector3<float>(_position.x,_position.y,_position.z); };
 
 	void setVelocity(Vector3<float> velocity) { _velocity.x = velocity.getX(); _velocity.y = velocity.getY(); _velocity.z = velocity.getZ(); };
-	Vector3<float> getPosition() { return Vector3<float>(_velocity.x, _velocity.y, _velocity.z); };
+	Vector3<float> getVelocity() { return Vector3<float>(_velocity.x, _velocity.y, _velocity.z); };
 
 	void update();
 
