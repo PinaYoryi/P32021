@@ -1,14 +1,15 @@
 ﻿#pragma once
 
-#ifdef _DEBUG
-#include <iostream>
-#endif
+#include "OgreMotor.h"
+#include "Entity.h" //<------Esto es placeholder de la escena que crea SceneManager
 
 //Unidad de tiempo tras la cual se actualizan las físicas.
 const float FIXED_UPDATE_TIME = 0.02f;
 
 class MotorLoop {
 public:
+	~MotorLoop();
+
 	/// <summary>
 	/// Devuelve una instancia de la clase. Devuelve nullptr por defecto si no se ha inicializado.
 	/// Para inicializarla se usa Init().
@@ -20,7 +21,7 @@ public:
 	/// Devuelve true si se inicializa por primera vez y false si ya hab�a sido inicializada.
 	/// Todo: Implementar los parametros a inicializar.
 	/// </summary>
-	static bool Init();
+	static bool Init(OgreMotor* ogre);
 
 	/// <summary>
 	/// Inicializa el bucle principal Input -> FixedUpdate -> Update -> Render
@@ -31,18 +32,11 @@ public:
 	/// </summary>
 	void stopLoop();
 
-	/// <summary>
-	/// Añade una entidad a la lista de entidades del bucle principal. Devuelve true si logra hacerlo, false en caso contrario.
-	/// </summary>
-	bool addEntity();
-	/// <summary>
-	/// Retira una entidad de la lista de entidades del bucle principal. Devuelve true si logra hacerlo, false en caso contrario.
-	/// </summary>
-	bool removeEntity();
-
-
 protected:
+	Entity* _ent; 
+
 	static MotorLoop* _singleton;
+	static OgreMotor* _ogre;
 
 	bool _loop = false;
 	int _lastTime = 0;
@@ -51,7 +45,7 @@ protected:
 
 	//Lista de entidades
 
-	MotorLoop() {};
+	MotorLoop() : _ent(nullptr) {}; //<------Esto es placeholder de la escena que crea SceneManager
 
 	/// <summary>
 	/// Prepara la clase para inicializar el bucle principal del motor.
@@ -77,6 +71,12 @@ protected:
 	/// Actualiza deltaTime y acumula el tiempo real transpirado para la ejecución de FixedUpdate
 	/// </summary>
 	void updateTime();
+
+
+	//PRUEBA
+	void placeholderScene();
+
+
 
 #pragma region Getters/Setters
 public:

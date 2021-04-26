@@ -4,10 +4,6 @@
 #undef main
 #include "Vector2.h"
 
-#ifdef _DEBUG
-#include <iostream>
-#endif
-
 //Número de botones que tiene un ratón.
 const int NUM_MOUSE_BUTTONS = 3;
 
