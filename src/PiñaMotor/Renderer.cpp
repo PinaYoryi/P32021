@@ -2,7 +2,7 @@
 #include "OgreSceneManager.h"
 #include "OgreMesh.h"
 #include "OgreEntity.h"
-#include "OgreInstance.h"
+#include "OgreMotor.h"
 #include "Entity.h"
 #include "Transform.h"
 
@@ -14,8 +14,8 @@ bool Renderer::init(const std::map<std::string, std::string>& mapa){
 	// _ogreNode.attachedObject(_ogreEntity);
 	//if(_material!="")
 	//_ogreEntity.setMaterialName(_material)
-	_ogreEntity = OgreInstance::GetInstance()->getmSM()->createEntity("Sinbad.mesh");
-	_ogreNode = OgreInstance::GetInstance()->getmSM()->getRootSceneNode()->createChildSceneNode("nSimbad");
+	_ogreEntity = OgreMotor::GetInstance()->getSceneManager()->createEntity("Sinbad.mesh");
+	_ogreNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode("nSimbad");
 	_ogreNode->attachObject(_ogreEntity);
 	_ogreNode->setScale(20, 20, 20);
 	_ogreNode->setPosition(20, 20, 20);

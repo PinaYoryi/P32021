@@ -28,8 +28,7 @@ struct IndexOf<T, TypeList<TOther, Ts...>> : std::integral_constant<std::size_t,
 
 };
 
-using ComponentsList = TypeList<Transform, Renderer, Camera>;
-using ComponentsList = TypeList<Transform,Renderer,Animation>;
+using ComponentsList = TypeList<Transform,Renderer,Animation, Camera>;
 constexpr std::size_t numOfComponents = ComponentsList::size;
 
 template<typename T, typename TList>

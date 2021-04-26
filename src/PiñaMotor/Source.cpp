@@ -87,53 +87,36 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
         
        
 
-        app.getSceneManager()->setAmbientLight(Ogre::ColourValue(0.2, 0.2, 0.2, 1.0));
         //Aquí acaba el test
         OgreMotor::GetInstance()->getSceneManager()->setAmbientLight(Ogre::ColourValue(0.2, 0.2, 0.2, 1.0));
 
         //Empieza el test del componente renderer
-        ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform> cpm;
         ComponentFactoryRegistrations::ComponentFactoryRegistration<Renderer> cpm2;
         ComponentFactoryRegistrations::ComponentFactoryRegistration<Animation> cpm3;
         Entity* ent = new Entity();
         ent->addComponent<Renderer>();
-         ent->addComponent<Animation>();
+        ent->addComponent<Animation>();
         ent->getComponent<Transform>()->setScale({ 20,20,20 });
         Animation* an = ent->getComponent<Animation>();
-        app.addInputListener(an);
+        OgreMotor::GetInstance()->addInputListener(an);
         //app.getRoot()->startRendering();
         int i = 1;   
         an->changeAnimation("Dance");
 
         while (true) {
-            app.getRoot()->renderOneFrame();
-            Vector3<float> v = ent->getComponent<Transform>()->position();
+            camera->render();
             ent->render();
-            if(i%250==0)
-                 an->changeAnimation(std::vector<std::string> { "RunBase", "RunTop" /*,"yht"*/ });
-
+            Vector3<float> v = ent->getComponent<Transform>()->position();
+            if (i % 250 == 0)
+                an->changeAnimation(std::vector<std::string> { "RunBase", "RunTop" /*,"yht"*/ });
             else if (i % 200 == 0) {
-               // an->changeAnimation("Dance");
+                // an->changeAnimation("Dance");
                 an->setLoop(false);
             }
-            /*else if(i%70==0)
-                 an->changeAnimation(std::vector<std::string> { "Dance", "RunTop" });*/
-
-            
-
-            i++;
-            //ent->getComponent<Transform>()->setPosition(v.x+1.0f, v.y, v.z);
+            OgreMotor::GetInstance()->getRoot()->renderOneFrame();
+            ++i;
         }
         delete ent;
-        //Ogre::Entity* simbadEnt = OgreMotor::GetInstance()->getSceneManager()->createEntity("Sinbad.mesh");
-        //Ogre::SceneNode* simbadNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode("nSimbad");
-        //simbadNode->attachObject(simbadEnt);
-        //simbadNode->setScale(20, 20, 20);   
-
-        while (true) {
-            camera->render();
-            OgreMotor::GetInstance()->getRoot()->renderOneFrame();
-        }
         OgreMotor::close(); 
     }
     catch (Ogre::Exception& e) {

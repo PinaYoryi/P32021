@@ -27,7 +27,7 @@ public:
 	void setBackgroundColor(Vector3<> color);
 	void setBackgroundColor(float r, float g, float b);
 protected:
-	void Render() override;
+	void render() override;
 
 	Ogre::Viewport* _viewport;
 	Ogre::Camera* _cam;

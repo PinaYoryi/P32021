@@ -13,6 +13,8 @@ public:
 	/// </summary>
 	static OgreInstance* GetInstance();
 
+	static bool Init();
+
 	/// <summary>
 	/// Devuelve un puntero a la ventana creada
 	/// </summary>

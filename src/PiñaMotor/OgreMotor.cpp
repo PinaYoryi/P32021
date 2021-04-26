@@ -101,8 +101,6 @@ void OgreMotor::shutdown() {
 		SDL_QuitSubSystem(SDL_INIT_VIDEO);
 		_mWindow._native = nullptr;
 	}
-
-	delete OgreInstance::GetInstance();
 }
 
 void OgreMotor::setup() {
@@ -120,10 +118,6 @@ void OgreMotor::setup() {
 
 	_mSM = _mRoot->createSceneManager();
 	_mShaderGenerator->addSceneManager(_mSM);
-
-	//le pasamos el scene manager a OgreInstace porque lo usan muchos componentes
-	OgreInstance::Init();
-	OgreInstance::GetInstance()->setmSM(_mSM);
 }
 
 bool OgreMotor::oneTimeConfig() {
@@ -175,6 +169,10 @@ void OgreMotor::setWindowGrab(bool _grab) {
 }
 
 bool OgreMotor::frameRenderingQueued(const Ogre::FrameEvent& evt) {
+	for (std::set<InputListener*>::iterator it = mInputListeners.begin(); it != mInputListeners.end(); ++it)
+	{
+		(*it)->frameRendered(evt);
+	}
 	return true;
 }
 
@@ -301,5 +299,45 @@ void OgreMotor::createNewScene() {
 	_mSM = _mRoot->createSceneManager();
 
 	_mShaderGenerator->addSceneManager(_mSM);
-	OgreInstance::GetInstance()->setmSM(_mSM);
 }
+
+#pragma region metodos de RTShader para poder renderizar
+bool OgreMotor::initialiseRTShaderSystem()
+{
+	if (Ogre::RTShader::ShaderGenerator::initialize())
+	{
+		_mShaderGenerator = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
+		// Core shader libs not found -> shader generating will fail.
+		if (mRTShaderLibPath.empty())
+			return false;
+		// Create and register the material manager listener if it doesn't exist yet.
+		if (!_mMaterialMgrListener) {
+			_mMaterialMgrListener = new SGTechniqueResolverListener(_mShaderGenerator);
+			Ogre::MaterialManager::getSingleton().addListener(_mMaterialMgrListener);
+		}
+	}
+
+	return true;
+}
+void OgreMotor::destroyRTShaderSystem()
+{
+	// Restore default scheme.
+	Ogre::MaterialManager::getSingleton().setActiveScheme(Ogre::MaterialManager::DEFAULT_SCHEME_NAME);
+
+	// Unregister the material manager listener.
+	if (_mMaterialMgrListener != nullptr)
+	{
+		Ogre::MaterialManager::getSingleton().removeListener(_mMaterialMgrListener);
+		delete _mMaterialMgrListener;
+		_mMaterialMgrListener = nullptr;
+	}
+
+	// Destroy RTShader system.
+	if (_mShaderGenerator != nullptr)
+	{
+		Ogre::RTShader::ShaderGenerator::destroy();
+		_mShaderGenerator = nullptr;
+	}
+}
+
+#pragma endregion

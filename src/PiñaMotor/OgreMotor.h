@@ -260,23 +260,6 @@ protected:
 	// Inicializa el render system y recursos
 	void initApp();
 
-	// Crea el root de OGRE
-	virtual void createRoot();
-
-	// Inicia el context tras la configuraci�n
-	virtual void setup();
-
 	void closeApp();
-
-	//  I use the config dialog here,
-	//but you can also restore from a config file. Note that this only happens
-	//when you start the context, and not when you reset it.
-	
-	/// <summary>
-	/// Configura los settins de incio de OGRE
-	/// S�lo ocurre al inciar el context, no al resetearlo
-	/// </summary>
-	/// <returns>Si ha podido inicializar la configuraci�n</returns>
-	virtual bool oneTimeConfig();
 };
 
