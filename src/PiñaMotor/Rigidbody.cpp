@@ -8,8 +8,6 @@ Rigidbody::~Rigidbody() {
 
 bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 
-	btScalar mass = 0.0f;
-	btDefaultMotionState* ms = new btDefaultMotionState();
 	//btCollisionShape* cs =
 
 	/*auto search = mapa.find()
@@ -20,8 +18,14 @@ bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 		std::cout << "Not found\n";
 	}*/
 
+	// PROVISIONAL
+	btScalar mass = 0.0f;
+	btDefaultMotionState* ms = new btDefaultMotionState();
+	Quaternion qt = Quaternion(0.0, 0.0, 0.0, 0.0);
+	_trans = new Transform(Vector3<float>(0, 0, 0), qt, Vector3<float>(1, 1, 1));
 	_btRb = new btRigidBody(mass, ms, nullptr);
-	
+	setPosition(_trans->position());
+
 	return true;
 }
 
@@ -30,7 +34,7 @@ void Rigidbody::Update() {
 
 		if (!_active)
 			return;
-		
+
 		setPosition(_trans->position());
 	}
 }
