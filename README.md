@@ -1,8 +1,6 @@
 # Pina Yoryi 🍍
 
-Piña Motor es un motor de videojuegos en tres dimensiones multipropósito, que utiliza el motor gráfico de Ogre, el motor físico de Bullet y el motor de audio de [link](#FMOD)
-
-Fuente: https://www.iteramos.com/pregunta/10116/-como-se-crea-y-se-enlaza-a-un-ancla-con-nombre-en-multimarkdown-
+Piña Motor es un motor de videojuegos en tres dimensiones multipropósito, que utiliza el motor gráfico de Ogre, el motor físico de Bullet y el motor de audio de [FMOD](#FMOD)
 
 ## Comenzando 🚀
 
