@@ -114,7 +114,7 @@ El motor permite crear elementos que existan fuera de la escena, en una interfaz
 
 **FÍSICA**
 
-Usamos una librería externa de física, que va a tratar los eventos relacionados con aceleraciones, inercias, momentos, detección de colisiones, etc. Usando una librería nos aseguramos de que los cálculos físicos son correctos y están unificados y son compatibles entre sí. Decidimos usar [Bullet v3.0.9](http://github.com_blank).
+Usamos una librería externa de física, que va a tratar los eventos relacionados con aceleraciones, inercias, momentos, detección de colisiones, etc. Usando una librería nos aseguramos de que los cálculos físicos son correctos y están unificados y son compatibles entre sí. Decidimos usar [Bullet v3.0.9](https://github.com/bulletphysics/bullet3/releases).
 
 **BULLET**
 
