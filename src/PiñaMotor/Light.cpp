@@ -7,10 +7,6 @@
 #include <OgreSceneManager.h>
 #include <OgreRenderWindow.h>
 
-Light::Light() {
-
-}
-
 bool Light::init(const std::map<std::string, std::string>& mapa) {
 	_light = OgreMotor::GetInstance()->getSceneManager()->createLight("lightName");
 	_lightNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode("lightNode"/*_myEntity->getName()*/);
