@@ -56,27 +56,27 @@ void Audio::update() {
 }
 
 FMOD::Channel* Audio::playSound(const char* name, float volume, bool loop) {
-    FMOD::Channel* channel;
+    //FMOD::Channel* channel;
     try {
         FMOD::Sound* sound;        
         _result = _system->createSound(name, FMOD_DEFAULT, 0, &sound);
         errorCheck(_result);
         _sounds[name]=sound;
 
-        _result = _system->playSound(_sounds[name] ,0, false, &channel);
+        _result = _system->playSound(_sounds[name] ,0, false, &_channel);
         errorCheck(_result);
 
-        _result = channel->setVolume(volume);
+        _result = _channel->setVolume(volume);
         errorCheck(_result);
 
         if (loop) {
-            _result = channel->setMode(FMOD_LOOP_NORMAL);
+            _result = _channel->setMode(FMOD_LOOP_NORMAL);
             errorCheck(_result);
         }
 
-        _result = channel->setPaused(false);
+        _result = _channel->setPaused(false);
         errorCheck(_result);
-        return channel;
+        return _channel;
     }
     catch (std::exception& e) {
         std::cout << e.what() << std::endl;

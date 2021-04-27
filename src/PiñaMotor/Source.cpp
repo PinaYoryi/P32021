@@ -3,6 +3,7 @@
 #include "Transform.h"
 #include "ComponentFactoryRegistration.h"
 #include "Application.h"
+#include "Input.h"
 #include "Audio.h"
 #include "AudioListener.h"
 #include "AudioSource.h"
@@ -37,11 +38,22 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
     //}
     //SDL_DestroyWindow(window);
     //SDL_Quit();
-
+   
     Audio* audiop=new Audio();
     audiop->init();
-    audiop->playSound("talking.wav", 1, true);
-    audiop->update();
+   // audiop->fadeIn();
+    audiop->playSound("talking.wav", 0.1, true);
+    audiop->fadeIn();
+    audiop->setPitch(1);
+    //audiop->setVolume(0.1);
+    //audiop->fadeIn();
+    //audiop->togglePause();
+    //audiop->update();
+    while (true)
+    {
+        //audiop->update();
+        //audiop->togglePause();
+    }
    /* Application app;
     try {
         app.initApp();
