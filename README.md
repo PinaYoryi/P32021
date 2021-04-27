@@ -171,10 +171,6 @@ Son ficheros de texto con instrucciones para el shell (el CMD) para que haga cos
 
 Puedes encontrar mucho más de cómo utilizar este proyecto en nuestra [Wiki](https://github.com/tu/proyecto/wiki)
 
-## Versionado 📌
-
-Usamos [SemVer](http://semver.org/) para el versionado. Para todas las versiones disponibles, mira los [tags en este repositorio](https://github.com/tu/proyecto/tags).
-
 ## Autores ✒️
 
 * **Martínez Martínez** pamart24@ucm.es
