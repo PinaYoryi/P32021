@@ -8,29 +8,32 @@ class Light : public Component
 {
 public:
 	enum LightType { Point, Directional, Spotlight };
+	
 	Light();
 	bool init(const std::map<std::string, std::string>& mapa) override;
 
+	LightType getType();
 	float getLinearAttenuation() { return _light->getAttenuationLinear(); }
 	float getConstantAttenuation() { return _light->getAttenuationConstant(); }
 	float getQuadraticAttenuation() { return _light->getAttenuationQuadric(); }
-	Vector4<> getAttenuation();
+	Vector4<> getAttenuation() { return _light->getAttenuation(); }
 	bool getCastShadows() { return _light->getCastShadows(); }
-	Vector4<> getLightDiffuse();
-	Vector4<> getLightAmbient();
-	LightType getProjectionType();
+	Vector4<> getLightDiffuse() { return _light->getDiffuseColour(); }
+	Vector4<> getLightSpecular() { return _light->getSpecularColour(); }
+	float getSpotlightInnerAngle() { return _light->getSpotlightInnerAngle().valueDegrees();  };
+	float getSpotlightOuterAngle() { return _light->getSpotlightOuterAngle().valueDegrees(); };
 
-	/*void setNearClipPlane(float clip) { _light->setNearClipDistance(clip); }
-	void setFarClipPlane(float clip) { _light->setFarClipDistance(clip); }
-	void setAspectRatio(bool autoAspectRatio, float aspectRatio = 1.0f);
-	void setFOVY(float fov);
-	void setProjectionType(ProjectionType type);
-	void setViewport(Vector2<> pos, Vector2<> size);
-	void setBackgroundColor(Vector3<> color);
-	void setBackgroundColor(float r, float g, float b);*/
+	void setType(LightType type);
+	void setAttenuation(Vector4<> att);
+	void setCastShadows(bool toggle) { _light->setCastShadows(toggle); }
+	void setLightDiffuse(Vector4<> diff);
+	void setLightSpecular(Vector4<> diff);
+	void setSpotlightInnerAngle(float deg);
+	void setSpotlightOuterAngle(float deg);
 protected:
-	void Render() override;
+	void render() override;
 
 	Ogre::Light* _light;
 	Ogre::SceneNode* _lightNode;
+private:
 };

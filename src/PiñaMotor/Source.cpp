@@ -16,6 +16,7 @@
 #include "OgreInstance.h"
 #include "Camera.h"
 #include "OgreEntity.h"
+#include "Light.h"
 
 #include "Renderer.h"
 #include <btBulletDynamicsCommon.h>
@@ -40,6 +41,7 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
         // Aquí empieza el test de la cámara
         ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform> cpm;
         ComponentFactoryRegistrations::ComponentFactoryRegistration<Camera> cp3;
+        ComponentFactoryRegistrations::ComponentFactoryRegistration<Light> cpl;
 
         Entity* camera = new Entity();
         camera->addComponent<Camera>();
@@ -47,22 +49,33 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
         camera->getComponent<Camera>()->setFarClipPlane(10000);
         camera->getComponent<Camera>()->setAspectRatio(true);
 
-        camera->getComponent<Transform>()->setPosition(0, 0, 1000);
+        camera->getComponent<Transform>()->setPosition(0, 0, 25);
         camera->getComponent<Transform>()->setRotation(0, 0, 0);
 
         camera->getComponent<Camera>()->setBackgroundColor(1.0f, 0.5f, 0.3137f);
         //Aquí acaba el test
+        //Test de luz
 
-        Ogre::Light* luz = OgreMotor::GetInstance()->getSceneManager()->createLight("Luz");
-        luz->setType(Ogre::Light::LT_DIRECTIONAL);
-        luz->setDiffuseColour(0.0, 0.0, 0.0);
+        Entity* light = new Entity();
+        light->addComponent<Light>();
+        
+        Light* lComp = light->getComponent<Light>();
+        lComp->setType(Light::LightType::Spotlight);
+        lComp->setLightDiffuse(Vector4<>(1.0, 1.0, 1.0, 1.0));
+        lComp->setSpotlightInnerAngle(90);
+        lComp->setSpotlightOuterAngle(180);
+
+        light->getComponent<Transform>()->setPosition(0, 50, 0);
+        light->getComponent<Transform>()->setRotation(270, 0, 0);
+    
+        /*Ogre::Light* luz = OgreMotor::GetInstance()->getSceneManager()->createLight("Luz");
+        luz->setType(Ogre::Light::LT_SPOTLIGHT);
+        luz->setDiffuseColour(1.0, 1.0, 1.0);
 
         Ogre::SceneNode* lightNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode("Luz");
         lightNode->attachObject(luz);
-        lightNode->setDirection(Ogre::Vector3(0, -1, -1));
-
-        
-       
+        lightNode->setPosition(0, 100, 0);
+        lightNode->setDirection(Ogre::Vector3(0, -1, 0));*/
 
         //Aquí acaba el test
         OgreMotor::GetInstance()->getSceneManager()->setAmbientLight(Ogre::ColourValue(0.2, 0.2, 0.2, 1.0));
@@ -73,7 +86,6 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
         Entity* ent = new Entity();
         ent->addComponent<Renderer>();
         ent->addComponent<Animation>();
-        ent->getComponent<Transform>()->setScale({ 20,20,20 });
         Animation* an = ent->getComponent<Animation>();
         OgreMotor::GetInstance()->addInputListener(an);
         //app.getRoot()->startRendering();
@@ -82,6 +94,7 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
 
         while (true) {
             camera->render();
+            light->render();
             ent->render();
             Vector3<float> v = ent->getComponent<Transform>()->position();
             if (i % 250 == 0)
