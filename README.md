@@ -1,6 +1,6 @@
 # Pina Yoryi 🍍
 
-Piña Motor es un motor de videojuegos en tres dimensiones multipropósito, que utiliza el motor gráfico de [OGRE](#RENDERIZADO), el motor físico de [BULLET](#BULLET) y el motor de audio de [FMOD](#FMOD)
+Piña Motor es un motor de videojuegos en tres dimensiones multipropósito, que utiliza el motor gráfico de [OGRE](#OGRE), el motor físico de [BULLET](#BULLET) y el motor de audio de [FMOD](#FMOD)
 
 ## Comenzando 🚀
 
@@ -126,7 +126,7 @@ La librería externa de audio que da soporte a diferentes extensiones, más de u
 
 * FMOD: Se utilizará porque reproduce y mezcla sonidos de diversos formatos en varios sistemas operativos.  Su licencia permite que el software no destinado a la distribución comercial utilice FMOD de forma gratuita, al igual que Ogre y Bullet, lo cual es conveniente para este proyecto.
 
-**RENDERIZADO**
+**RENDERIZADO** <a name="OGRE"></a> 
 
 Para el renderizado en pantalla de las entidades y efectos se va a usar una vez más una librería externa. Por motivos similares a los casos anteriores, vamos a usar [_OGRE_](https://www.ogre3d.org/) por su versatilidad y por ser de uso gratuito en el caso de este proyecto.
 
@@ -136,68 +136,36 @@ Ogre (es la base del motor, se encarga de la parte gráfica de este) es un motor
 * SDL
 Ogre incluye la librería de [SDL2](https://www.libsdl.org/), que aparte de ser necesaria para Ogre también se utilizará, por ejemplo, para tratar los inputs del motor.
 
+**PIPELINE**
+
+El proceso para la creación e implementación de una historia es la siguiente:
+
+* Se fragmenta el proyecto a realizar en historias, que se etiquetan en base a sus características (si están relacionadas con Ogre, Bullet… por ejemplo) y a su proyecto (motor, primer juego, segundo juego...)
+* Se puntúa la historia siguiendo el principio de la mayoría simple siguiendo en cierto modo el sistema del scrum póker, pero simplificado por conveniencia (sin usar cartas). * * Una vez puntuadas se dejan en el Icebox.
+* Los integrantes del grupo se asignan de forma individual o colectiva historias de forma autónoma y llevan a cabo el desarrollo. Una vez terminan, crean una rama nueva para su historia, hacen commit en ella y hacen deliver.
+* El elegido de la asignación de revisiones avisa a dos integrantes para que lleven a cabo esta tarea, uno revisa que el código sigue un estándar establecido y el otro la funcionalidad, y una vez hecho esto se pasa la historia a accept/reject.
+* Si ambas revisiones son válidas, se hace merge a main y se acepta la historia, si se rechaza se intenta arreglar y se revisa de nuevo. En casos excepcionales se podría descartar la historia.
+
 
 ### Pre-requisitos 📋
 
-_Que cosas necesitas para instalar el software y como instalarlas_
-
-```
-Da un ejemplo
-```
+* Para el control de versiones utilizaremos Git (GitHub).
+* Para el código usaremos Visual Studio Community 2019.
+* Para la organización y saber las tareas a hacer usaremos PivotalTracker.
+* Cmake ??????????????????????????????
+* Inclusión de librerias y recursos.
 
 ### Instalación 🔧
 
-_Una serie de ejemplos paso a paso que te dice lo que debes ejecutar para tener un entorno de desarrollo ejecutandose_
+Mediante fichero generados por lotes _.bat_ se. De ese modo se puede compilar y generar el proyecto de motor, y ejecutarlo en modo _Release_ y _Debug_.
 
-_Dí cómo será ese paso_
-
-```
-Da un ejemplo
-```
-
-_Y repite_
-
-```
-hasta finalizar
-```
-
-_Finaliza con un ejemplo de cómo obtener datos del sistema o como usarlos para una pequeña demo_
-
-## Ejecutando las pruebas ⚙️
-
-_Explica como ejecutar las pruebas automatizadas para este sistema_
-
-### Analice las pruebas end-to-end 🔩
-
-_Explica que verifican estas pruebas y por qué_
-
-```
-Da un ejemplo
-```
-
-### Y las pruebas de estilo de codificación ⌨️
-
-_Explica que verifican estas pruebas y por qué_
-
-```
-Da un ejemplo
-```
-
-## Despliegue 📦
-
-_Agrega notas adicionales sobre como hacer deploy_
+Son ficheros de texto con instrucciones para el shell (el CMD) para que haga cosas automáticamente sin tener que ir escribiendo comando tras comando. Es lo mismo que los scripts del shell para Windows. 
 
 ## Construido con 🛠️
-
-_Menciona las herramientas que utilizaste para crear tu proyecto_
 
 * [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - El framework web usado
 * [Maven](https://maven.apache.org/) - Manejador de dependencias
 * [ROME](https://rometools.github.io/rome/) - Usado para generar RSS
-
-## Contribuyendo 🖇️
-
-Por favor lee el [CONTRIBUTING.md](https://gist.github.com/villanuevand/xxxxxx) para detalles de nuestro código de conducta, y el proceso para enviarnos pull requests.
 
 ## Wiki 📖
 
@@ -209,14 +177,9 @@ Usamos [SemVer](http://semver.org/) para el versionado. Para todas las versiones
 
 ## Autores ✒️
 
-_Menciona a todos aquellos que ayudaron a levantar el proyecto desde sus inicios_
-
-* **Andrés Villanueva** - *Trabajo Inicial* - [villanuevand](https://github.com/villanuevand)
-* **Fulanito Detal** - *Documentación* - [fulanitodetal](#fulanito-de-tal)
-
-También puedes mirar la lista de todos los [contribuyentes](https://github.com/your/project/contributors) quíenes han participado en este proyecto. 
+* **Andrés Villanueva**
+* **Fulanito Detal**
 
 ## Licencia 📄
 
-Este proyecto está bajo la Licencia (Tu Licencia) - mira el archivo [LICENSE.md](LICENSE.md) para detalles
 
