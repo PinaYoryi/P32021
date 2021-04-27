@@ -167,9 +167,6 @@ Son ficheros de texto con instrucciones para el shell (el CMD) para que haga cos
 * [_OGRE_](https://www.ogre3d.org/)
 * [SDL2](https://www.libsdl.org/)
 *  [FMOD](https://www.fmod.com/)
-## Wiki 📖
-
-Puedes encontrar mucho más de cómo utilizar este proyecto en nuestra [Wiki](https://github.com/tu/proyecto/wiki)
 
 ## Autores ✒️
 
