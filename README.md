@@ -48,7 +48,7 @@ El motor está estructurado en entidades y componentes. Las entidades son objeto
 
 * DROPDOWN: Depende de _Transform_ y _Renderer_. Detecta eventos de teclado o ratón; es un desplegable tipo lista de botones.
 
-*BOTÓN : Parte de la interfaz de usuario. Depende de _UITransform_ y Renderer. Detecta eventos de teclado o ratón.
+* BOTÓN : Parte de la interfaz de usuario. Depende de _UITransform_ y Renderer. Detecta eventos de teclado o ratón.
 
 * SISTEMA DE PARTÍCULAS: Se da la opción de crear un sistema de partícula a partir de un archivo _.particle_.
 
