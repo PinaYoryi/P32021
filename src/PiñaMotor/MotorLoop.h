@@ -33,8 +33,8 @@ public:
 	void stopLoop();
 
 protected:
-	Entity* _ent; 
-	Entity* _cam;
+	Entity* _ent; //<------Esto es placeholder de la escena que crea SceneManager
+	Entity* _cam; //<------Esto es placeholder de la escena que crea SceneManager
 
 	static MotorLoop* _singleton;
 
@@ -73,8 +73,7 @@ protected:
 	void updateTime();
 
 
-	//PRUEBA
-	void placeholderScene();
+	void placeholderScene(); //<------Esto es placeholder de la escena que crea SceneManager
 
 
 

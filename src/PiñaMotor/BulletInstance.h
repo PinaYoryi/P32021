@@ -1,12 +1,6 @@
 ﻿#pragma once
 #include <btBulletDynamicsCommon.h>
 
-#undef main
-
-#ifdef _DEBUG
-#include <iostream>
-#endif
-
 class BulletInstance {
 public:
 	/// <summary>

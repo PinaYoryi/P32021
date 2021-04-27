@@ -1,6 +1,7 @@
 #include "Initialize.h"
-#include "OgreMotor.h"
 #include "MotorLoop.h"
+#include "OgreMotor.h"
+#include "BulletInstance.h"
 
 Initialize::Initialize() {
     startOgre();
@@ -39,10 +40,15 @@ void Initialize::stopOgre() {
 
 #pragma region Bullet
 void Initialize::startBullet() {
-    //bullet.initApp();
+    try {
+        BulletInstance::Init();
+    }
+    catch (Ogre::Exception& e) {
+        Ogre::LogManager::getSingleton().logMessage("An exception has occured: " + e.getFullDescription() + "\n");
+    }
 }
 void Initialize::stopBullet() {
-    //bullet.closeApp();
+    delete BulletInstance::GetInstance();
 }
 #pragma endregion
 
