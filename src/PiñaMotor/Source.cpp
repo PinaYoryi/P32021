@@ -78,7 +78,7 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
         Entity* ent = new Entity();//suelo
         ent->addComponent<Renderer>();
         //ent->addComponent<Animation>();
-        ent->getComponent<Transform>()->setScale({ 10,0.1,10 });
+        ent->getComponent<Transform>()->setScale({ 100,1,100 });
         ent->getComponent<Transform>()->setPosition({ 0, 0, 0 });
         ent->addComponent<Rigidbody>();
         //ent->getComponent<Rigidbody>()->setMass(6, { 0,0,0 });
@@ -97,18 +97,27 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
 
         ent2->addComponent<Rigidbody>();
         ent2->getComponent<Rigidbody>()->updateTransform();
-
+        Input::Init();
         while (true) {
+            Input::GetInstance()->update();
+            if (Input::GetInstance()->keyDown(SDL_SCANCODE_SPACE)) {
+                ent2->getComponent<Rigidbody>()->addForce({ 10000,200000,0 });
+            }
+
             BulletInstance::GetInstance()->update();
             camera->render();
             ent->render();
             ent2->render();
+            //ent2->getComponent<Rigidbody>()->update();
+            //ent->getComponent<Rigidbody>()->update();
             /*if (i % 250 == 0)
                 an->changeAnimation(std::vector<std::string> { "RunBase", "RunTop"  });
             else if (i % 200 == 0) {
                 // an->changeAnimation("Dance");
                 an->setLoop(false);
             }*/
+
+
             OgreMotor::GetInstance()->getRoot()->renderOneFrame();
 
             ++i;

@@ -4,6 +4,25 @@
 #include "Transform.h"
 BulletInstance* BulletInstance::_bulletInstance = nullptr;
 
+BulletInstance::BulletInstance() {
+	// 1
+	_broadphase = new btDbvtBroadphase();
+
+	// 2
+	_collisionConfiguration = new btDefaultCollisionConfiguration();
+	_dispatcher = new btCollisionDispatcher(_collisionConfiguration);
+
+	// 3
+	_solver = new btSequentialImpulseConstraintSolver();
+
+	// 4
+	_world = new btDiscreteDynamicsWorld(_dispatcher, _broadphase, _solver, _collisionConfiguration);
+
+	// 5
+	_world->setGravity(btVector3(0, -19.6, 0));
+
+};
+
 BulletInstance::~BulletInstance() {
 	delete _world;
 	delete _solver;
@@ -51,22 +70,3 @@ void BulletInstance::update()
 
 
 
-
-BulletInstance::BulletInstance(){
-	// 1
-	_broadphase = new btDbvtBroadphase();
-
-	// 2
-	_collisionConfiguration = new btDefaultCollisionConfiguration();
-	_dispatcher = new btCollisionDispatcher(_collisionConfiguration);
-
-	// 3
-	_solver = new btSequentialImpulseConstraintSolver();
-
-	// 4
-	_world = new btDiscreteDynamicsWorld(_dispatcher, _broadphase, _solver, _collisionConfiguration);
-
-	// 5
-	_world->setGravity(btVector3(0, -9.8, 0));
-
-};

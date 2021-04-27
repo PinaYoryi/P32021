@@ -11,7 +11,7 @@ bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 
 	//quitar
 	_trans = _myEntity->getComponent<Transform>();
-	btCollisionShape* newRigidShape = new btBoxShape(btVector3(1.0f, 1.0f, 1.0f));
+	btCollisionShape* newRigidShape = new btBoxShape(_trans->scale());
 
 	//set the initial position and transform. For this demo, we set the tranform to be none
 	btTransform startTransform;
@@ -21,19 +21,20 @@ bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 	//set the mass of the object. a mass of "0" means that it is an immovable object
 	btScalar mass;
 	if (cont == 0)
-		mass = 0.0f;
-	else mass = 26.0f;
+		mass = 0.0f;//estatico
+	else mass = 54.0f;
 	btVector3 localInertia(0, 0, 0);
 
 	startTransform.setOrigin(_trans->position());
-	//newRigidShape->calculateLocalInertia(mass, localInertia);
+	newRigidShape->calculateLocalInertia(mass, localInertia);
 
 	//actually contruvc the body and add it to the dynamics world
 	btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
-
+	
 	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, newRigidShape, localInertia);
 	_btRb = new btRigidBody(rbInfo);
-	_btRb->setRestitution(1);
+	_btRb->setRestitution(0.2);
+
 	updateTransform();
 	_btRb->setMassProps(mass, localInertia);
 	_btRb->setUserPointer(_myEntity->getComponent<Transform>());
