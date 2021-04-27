@@ -23,6 +23,8 @@
 #include "Vector2.h"
 #include "Quaternion.h"
 #include "Animation.h"
+#include "Rigidbody.h"
+
 
 #include "vector"
 #include "iostream"
@@ -36,7 +38,8 @@ WinMain(HINSTANCE zhInstance, HINSTANCE prevInstance, LPSTR lpCmdLine, int nCmdS
 _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Leaks
     try {
         OgreMotor::init("Motor de Ogre");
-
+        BulletInstance::Init();
+        //BulletInstance::bul
         // Aquí empieza el test de la cámara
         ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform> cpm;
         ComponentFactoryRegistrations::ComponentFactoryRegistration<Camera> cp3;
@@ -69,6 +72,7 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
 
         //Empieza el test del componente renderer
         ComponentFactoryRegistrations::ComponentFactoryRegistration<Renderer> cpm2;
+        ComponentFactoryRegistrations::ComponentFactoryRegistration<Rigidbody> cpm4;
         ComponentFactoryRegistrations::ComponentFactoryRegistration<Animation> cpm3;
         Entity* ent = new Entity();
         ent->addComponent<Renderer>();
@@ -79,7 +83,7 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
         //app.getRoot()->startRendering();
         int i = 1;   
         an->changeAnimation("Dance");
-
+        ent->addComponent<Rigidbody>();
         while (true) {
             camera->render();
             ent->render();

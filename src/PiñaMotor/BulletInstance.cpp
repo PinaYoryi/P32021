@@ -36,4 +36,5 @@ BulletInstance::BulletInstance(){
 
 	// 5
 	_world->setGravity(btVector3(0, -9.8, 0));
+
 };

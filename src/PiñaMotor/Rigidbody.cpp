@@ -1,5 +1,5 @@
 #include "Rigidbody.h"
-
+#include "Entity.h"
 
 Rigidbody::~Rigidbody() {
 	delete _btRb; _btRb = nullptr;
@@ -19,10 +19,10 @@ bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 	}*/
 
 	// PROVISIONAL
-	btScalar mass = 0.0f;
+	btScalar mass = 9.0f;
 	btDefaultMotionState* ms = new btDefaultMotionState();
 	Quaternion qt = Quaternion(0.0, 0.0, 0.0, 0.0);
-	_trans = new Transform(Vector3<float>(0, 0, 0), qt, Vector3<float>(1, 1, 1));
+	_trans = _myEntity->getComponent<Transform>();
 	_btRb = new btRigidBody(mass, ms, nullptr);
 	setPosition(_trans->position());
 

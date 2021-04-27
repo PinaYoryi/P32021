@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <btBulletDynamicsCommon.h>
-
+#include <vector>
+#include <map>
 #undef main
 
 #ifdef _DEBUG
@@ -56,4 +57,6 @@ private:
 	btCollisionDispatcher* _dispatcher = nullptr;
 	btSequentialImpulseConstraintSolver* _solver = nullptr;
 	btDiscreteDynamicsWorld* _world = nullptr;
+	std::vector<btCollisionShape*> collisionShapes;
+	std::map<std::string, btRigidBody*> physicsAccessors;
 };
