@@ -25,17 +25,30 @@ bool Light::init(const std::map<std::string, std::string>& mapa) {
 	return true;
 }
 
-Vector4<> Light::getAttenuation() 
-{
+Vector4<> Light::getAttenuation() {
 	Ogre::Vector4 val = _light->getAttenuation();
 	return Vector4<>(val.x, val.y, val.z, val.w);
+}
+
+Vector4<> Light::getLightDiffuse() {
+	Ogre::ColourValue val = _light->getDiffuseColour();
+	return Vector4<>(val.r, val.g, val.b, val.a);
+}
+
+Vector4<> Light::getLightAmbient() {
+	Ogre::ColourValue val = _light->getSpecularColour();
+	return Vector4<>(val.r, val.g, val.b, val.a);
+}
+
+Light::LightType Light::getProjectionType() {
+
 }
 
 void Light::Render() {
 	Transform* tr;
 	if ((tr = _myEntity->getComponent<Transform>()) != nullptr) {
-		_camNode->setPosition(tr->position().x, tr->position().y, tr->position().z);
-		_camNode->setScale(tr->scale().x, tr->scale().y, tr->scale().z);
-		_camNode->setOrientation(tr->rotation());
+		_lightNode->setPosition(tr->position().x, tr->position().y, tr->position().z);
+		_lightNode->setScale(tr->scale().x, tr->scale().y, tr->scale().z);
+		_lightNode->setOrientation(tr->rotation());
 	}
 }
