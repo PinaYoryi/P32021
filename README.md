@@ -124,7 +124,7 @@ Bullet es la librería más conveniente para este motor debido a que es efectiva
 
 La librería externa de audio que da soporte a diferentes extensiones, más de una pista de audio, a cargar, reproducir, pausar y parar el o los audios que están sonando. La librería a usar es FMOD que es la que más nos conviene para este proyecto porque, al igual que Bullet, es software libre y gratuito, que nos facilita la implementación de sonidos en el motor.
 
-* FMOD: Se utilizará porque reproduce y mezcla sonidos de diversos formatos en varios sistemas operativos.  Su licencia permite que el software no destinado a la distribución comercial utilice FMOD de forma gratuita, al igual que Ogre y Bullet, lo cual es conveniente para este proyecto.
+* [FMOD](https://www.fmod.com/): Se utilizará porque reproduce y mezcla sonidos de diversos formatos en varios sistemas operativos.  Su licencia permite que el software no destinado a la distribución comercial utilice FMOD de forma gratuita, al igual que Ogre y Bullet, lo cual es conveniente para este proyecto.
 
 **RENDERIZADO** <a name="OGRE"></a> 
 
@@ -163,10 +163,10 @@ Son ficheros de texto con instrucciones para el shell (el CMD) para que haga cos
 
 ## Construido con 🛠️
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - El framework web usado
-* [Maven](https://maven.apache.org/) - Manejador de dependencias
-* [ROME](https://rometools.github.io/rome/) - Usado para generar RSS
-
+* [Bullet v3.0.9](https://github.com/bulletphysics/bullet3/releases).
+* [_OGRE_](https://www.ogre3d.org/)
+* [SDL2](https://www.libsdl.org/)
+*  [FMOD](https://www.fmod.com/)
 ## Wiki 📖
 
 Puedes encontrar mucho más de cómo utilizar este proyecto en nuestra [Wiki](https://github.com/tu/proyecto/wiki)
@@ -177,9 +177,16 @@ Usamos [SemVer](http://semver.org/) para el versionado. Para todas las versiones
 
 ## Autores ✒️
 
-* **Andrés Villanueva**
-* **Fulanito Detal**
+* **Martínez Martínez** pamart24@ucm.es
+* **Daniel Cortijo Gamboa** dcortijo@ucm.es
+* **Eloy Moreno Cortijo** eloymore@ucm.es
+* **Andrés de la Cuesta López** ancues02@ucm.es
+* **Daniel González Cerdeiras** daniel20@ucm.es
+* **Georgi Mednikov** gmedniko@ucm.es
+* **Óscar Fernández Romano** oscafe01@ucm.es
+* **Jesús Fernández Cobos** jesusf05@ucm.es
+* **José Sánchez Lobato** jossan10@ucm.es
 
 ## Licencia 📄
-
+?????????????????????????????????????????
 
