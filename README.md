@@ -1,6 +1,6 @@
 # Pina Yoryi 🍍
 
-Piña Motor es un motor de videojuegos en tres dimensiones multipropósito, que utiliza el motor gráfico de Ogre, el motor físico de Bullet y el motor de audio de [FMOD](#FMOD)
+Piña Motor es un motor de videojuegos en tres dimensiones multipropósito, que utiliza el motor gráfico de [OGRE](#RENDERIZADO), el motor físico de [BULLET](#BULLET) y el motor de audio de [FMOD](#FMOD)
 
 ## Comenzando 🚀
 
@@ -116,7 +116,7 @@ El motor permite crear elementos que existan fuera de la escena, en una interfaz
 
 Usamos una librería externa de física, que va a tratar los eventos relacionados con aceleraciones, inercias, momentos, detección de colisiones, etc. Usando una librería nos aseguramos de que los cálculos físicos son correctos y están unificados y son compatibles entre sí. Decidimos usar [Bullet v3.0.9](https://github.com/bulletphysics/bullet3/releases).
 
-**BULLET**
+**BULLET** <a name="BULLET"></a> 
 
 Bullet es la librería más conveniente para este motor debido a que es efectiva, habiendo sido usada con éxito en grandes proyectos como Blender y es software libre de código abierto que además es relativamente sencillo de implementar
 
@@ -126,6 +126,15 @@ La librería externa de audio que da soporte a diferentes extensiones, más de u
 
 * FMOD: Se utilizará porque reproduce y mezcla sonidos de diversos formatos en varios sistemas operativos.  Su licencia permite que el software no destinado a la distribución comercial utilice FMOD de forma gratuita, al igual que Ogre y Bullet, lo cual es conveniente para este proyecto.
 
+**RENDERIZADO**
+
+Para el renderizado en pantalla de las entidades y efectos se va a usar una vez más una librería externa. Por motivos similares a los casos anteriores, vamos a usar [_OGRE_](https://www.ogre3d.org/) por su versatilidad y por ser de uso gratuito en el caso de este proyecto.
+
+* OGRE
+Ogre (es la base del motor, se encarga de la parte gráfica de este) es un motor gráfico en tres dimensiones que permite la integración de otras librerías ajenas a este. A pesar de ser puramente un motor de renderizado, cuenta con características convenientes, como clases propias de vectores y matrices, por ejemplo, manejo de memoria, etc.
+
+* SDL
+Ogre incluye la librería de [SDL2](https://www.libsdl.org/), que aparte de ser necesaria para Ogre también se utilizará, por ejemplo, para tratar los inputs del motor.
 
 
 ### Pre-requisitos 📋
