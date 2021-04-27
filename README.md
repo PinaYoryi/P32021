@@ -62,37 +62,64 @@ El motor está estructurado en entidades y componentes. Las entidades son objeto
 
 Son una lista de entidades con una jerarquía de Padre-Hijo, un mundo físico y una serie de objetos que se encargan de ser una interfaz con el motor, como Input o SceneManager. 
 
-SCENEMANAGER
-Es un objeto, al igual que Input, es un Singleton. Tiene métodos para cargar y descargar escenas. Tiene dos listas con las entidades que hay en la escena, la diferencia entre éstas es que una lista guarda las entidades que no hay que borrar cuando se cambia entre escenas.
-LUA
-Usamos lenguaje LUA para interpretar los distintos niveles de cada videojuego. Usaremos el intérprete de LUA 5.4.2  para interpretar las escenas codificadas y cargarlas en tiempo de ejecución. El formato de los archivos de escena utiliza el estándar JSON, con objetos JavaScript para representar las entidades de la escena.
-PREFAB
-Los prefabs son como una escena que no tienen las propiedades de la misma, y son solamente una entidad. Tienen una id única por tipo de prefab que se puede usar para referenciarlos entre prefabs o entidades de escenas.
+**SCENEMANAGER**
 
-IA
+Es un objeto, al igual que Input, es un Singleton. Tiene métodos para cargar y descargar escenas. Tiene dos listas con las entidades que hay en la escena, la diferencia entre éstas es que una lista guarda las entidades que no hay que borrar cuando se cambia entre escenas.
+
+**LUA**
+
+Usamos lenguaje LUA para interpretar los distintos niveles de cada videojuego. Usaremos el intérprete de _LUA 5.4.2_  para interpretar las escenas codificadas y cargarlas en tiempo de ejecución. El formato de los archivos de escena utiliza el estándar _JSON_, con objetos _JavaScript_ para representar las entidades de la escena.
+
+**PREFAB**
+
+Los prefabs son como una escena que no tienen las propiedades de la misma, y son solamente una entidad. Tienen una **id** única por tipo de prefab que se puede usar para referenciarlos entre prefabs o entidades de escenas.
+
+**IA**
+
 Codificamos nuestra inteligencia artificial integrada en el motor, para dotar de comportamientos básicos de inteligencia a las entidades mediante componentes que tienen desarrollados dichos comportamientos.
 
- TRASLADARSE SIN PATHFINDER
+**TRASLADARSE SIN PATHFINDER**
+
 Permite trasladar a la entidad que se quiera de un punto a otro, aunque solo se da la opción de ser en línea recta, sin evitar obstáculos. Dadas las dos posiciones, encuentra el vector dirección y se mueve en dicho sentido a una velocidad.
- ORIENTARSE
+
+**ORIENTARSE**
+
 Permite orientar a la entidad que se quiera para que mire a un punto concreto. Dada una velocidad máxima de rotación, calcula cuánto ha de girarse y realiza el giro durante el periodo de tiempo apropiado.
 
-LOOP
-Es el bucle principal que hay en el motor. Input-Fixed Update-Update-Render. Este bucle recorre todas las entidades invocando a sus respectivos métodos con el mismo nombre.
+**LOOP**
 
-START
+Es el bucle principal que hay en el motor. _Input-Fixed_ _Update-Update-Render_. Este bucle recorre todas las entidades invocando a sus respectivos métodos con el mismo nombre.
+
+**START**
+
 A este método se le llama la primera vez que se instancia un componente. Cada componente tiene su propio método Start y son independientes entre sí.
-INPUT
+
+**INPUT**
 Este método es privado para los desarrolladores que utilicen el motor, se encarga de actualizar las estructuras de entrada que proporciona el motor al desarrollador. Se llama una vez en cada frame para detectar si hay input.
-UPDATE
+
+**UPDATE**
+
 A este método se le llama una vez cada frame a cada entidad de la escena, y estas a cada componente suyo, actualizando sus valores conforme pasa el tiempo y las entidades actúan.
-FIXED UPDATE
+
+**FIXED UPDATE**
+
 Es una actualización que ocurre tras una cierta cantidad de tiempo real fija; lo que implica que puede ocurrir en un rango de cero a varias veces en un frame. Este método es recomendable utilizarlo para actualizaciones físicas, o actualizaciones que ocurran cada cierto tiempo real.
-RENDER
+
+**RENDER**
 Este método se llama una vez cada frame, y es privado para el desarrollador del motor. Se encarga de hacer llamadas al motor gráfico renderizando todos los objetos de la escena.
 
-INTERFAZ
+**INTERFAZ**
+
 El motor permite crear elementos que existan fuera de la escena, en una interfaz, haciendo que de esta forma se encuentren siempre en la cámara superpuestas a los demás elementos.
+
+**FÍSICA**
+
+Usamos una librería externa de física, que va a tratar los eventos relacionados con aceleraciones, inercias, momentos, detección de colisiones, etc. Usando una librería nos aseguramos de que los cálculos físicos son correctos y están unificados y son compatibles entre sí. Decidimos usar [Bullet v3.0.9](http://github.com_blank).
+
+**BULLET**
+
+Bullet es la librería más conveniente para este motor debido a que es efectiva, habiendo sido usada con éxito en grandes proyectos como Blender y es software libre de código abierto que además es relativamente sencillo de implementar
+
 
 
 
