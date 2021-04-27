@@ -3,6 +3,9 @@
 #include "Transform.h"
 #include "ComponentFactoryRegistration.h"
 #include "Application.h"
+#include "Audio.h"
+#include "AudioListener.h"
+#include "AudioSource.h"
 
 #if (defined _DEBUG) || !(defined _WIN32) //<-- Ya no lo tenemos en teor�a
 int main() {
@@ -35,7 +38,11 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
     //SDL_DestroyWindow(window);
     //SDL_Quit();
 
-    Application app;
+    Audio* audiop=new Audio();
+    audiop->init();
+    audiop->playSound("talking.wav", 1, true);
+    audiop->update();
+   /* Application app;
     try {
         app.initApp();
         app.getRoot()->startRendering();

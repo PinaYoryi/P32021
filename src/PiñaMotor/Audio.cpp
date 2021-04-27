@@ -9,7 +9,7 @@
 Audio* Audio::_audioInstance = nullptr;
 
 Audio::Audio() {
-    _sounds = std::map<std::string, FMOD::Sound*>();
+    _sounds = std::map<const char*, FMOD::Sound*>();
 }
 
 Audio::~Audio() {
@@ -17,8 +17,8 @@ Audio::~Audio() {
         for (auto sound : _sounds)
             sound.second->release();
 
-        const auto result = _system->release();
-        errorCheck(result);
+        const auto _result = _system->release();
+        errorCheck(_result);
     }
     catch (std::exception& e) {
         std::cout << e.what() << std::endl;
@@ -34,10 +34,11 @@ Audio* Audio::getInstance() {
 
 void Audio::init() {
     try {
-        FMOD_RESULT result = FMOD::System_Create(&_system);
-        errorCheck(result);
-        result = _system->getMasterChannelGroup(&_channelGroup);
-        errorCheck(result);
+        _result = FMOD::System_Create(&_system);
+        errorCheck(_result);
+        _result = _system->init(128, FMOD_INIT_NORMAL,0);
+        _result = _system->getMasterChannelGroup(&_channelGroup);
+        errorCheck(_result);
     }
     catch (std::exception& e) {
         std::cout << e.what() << std::endl;
@@ -46,30 +47,35 @@ void Audio::init() {
 
 void Audio::update() {
     try {
-        FMOD_RESULT result = _system->update();
-        errorCheck(result);
+        _result = _system->update();
+        errorCheck(_result);
     }
     catch (std::exception& e) {
         std::cout << e.what() << std::endl;
     }
 }
 
-FMOD::Channel* Audio::playSound(const std::string name, float volume, bool loop) {
+FMOD::Channel* Audio::playSound(const char* name, float volume, bool loop) {
     FMOD::Channel* channel;
     try {
-        FMOD_RESULT result = _system->playSound(getInstance()->getSound(name), nullptr, false, &channel);
-        errorCheck(result);
+        FMOD::Sound* sound;        
+        _result = _system->createSound(name, FMOD_DEFAULT, 0, &sound);
+        errorCheck(_result);
+        _sounds[name]=sound;
 
-        result = channel->setVolume(volume);
-        errorCheck(result);
+        _result = _system->playSound(_sounds[name] ,0, false, &channel);
+        errorCheck(_result);
+
+        _result = channel->setVolume(volume);
+        errorCheck(_result);
 
         if (loop) {
-            result = channel->setMode(FMOD_LOOP_NORMAL);
-            errorCheck(result);
+            _result = channel->setMode(FMOD_LOOP_NORMAL);
+            errorCheck(_result);
         }
 
-        result = channel->setPaused(false);
-        errorCheck(result);
+        _result = channel->setPaused(false);
+        errorCheck(_result);
         return channel;
     }
     catch (std::exception& e) {
@@ -80,8 +86,8 @@ FMOD::Channel* Audio::playSound(const std::string name, float volume, bool loop)
 
 void Audio::stopSound(FMOD::Channel* channel) {
     try {
-        FMOD_RESULT result = channel->stop();
-        errorCheck(result);
+        _result = channel->stop();
+        errorCheck(_result);
     }
     catch (std::exception& e) {
         std::cout << e.what() << std::endl;
@@ -91,24 +97,24 @@ void Audio::stopSound(FMOD::Channel* channel) {
 
 void Audio::fadeIn() {
     unsigned long long parentclock;
-    FMOD_RESULT res = _channel->getDSPClock(NULL, &parentclock);
-    res = _channel->addFadePoint(parentclock, 0.0f);
-    res = _channel->addFadePoint(parentclock + 500000, 1.0f);
+    _result = _channel->getDSPClock(NULL, &parentclock);
+    _result = _channel->addFadePoint(parentclock, 0.0f);
+    _result = _channel->addFadePoint(parentclock + 500000, 1.0f);
 }
 
 void Audio::fadeOut() {
     unsigned long long parentclock;
-    FMOD_RESULT res = _channel->getDSPClock(NULL, &parentclock);
+    _result = _channel->getDSPClock(NULL, &parentclock);
     float vol;
     _channel->getVolume(&vol);
-    res = _channel->addFadePoint(parentclock, vol);
-    res = _channel->addFadePoint(parentclock + 500000, 0.0f);
+    _result = _channel->addFadePoint(parentclock, vol);
+    _result = _channel->addFadePoint(parentclock + 500000, 0.0f);
 }
 
 void Audio::setPitch(float i) {
     try {
-        FMOD_RESULT result;
-        result = _channel->setPitch(i);
+       
+        _result = _channel->setPitch(i);
     }
     catch (std::exception& e) {
         std::cout << e.what() << std::endl;
@@ -123,21 +129,21 @@ void Audio::togglePause() {
 
 void Audio::setVolume(float volume) const {
     try {
-        const auto result = _channelGroup->setVolume(volume);
+        const auto _result = _channelGroup->setVolume(volume);
     }
     catch (std::exception& e) {
         std::cerr << e.what() << std::endl;
     }
 }
 
-FMOD::Sound* Audio::getSound(const std::string name) {
+FMOD::Sound* Audio::getSound(const char* name) {
     return _sounds[name];
 }
 
 const float Audio::getVolume() const {
     float volume;
     try {
-        const auto result = _channelGroup->getVolume(&volume);
+        const auto _result = _channelGroup->getVolume(&volume);
         return volume;
     }
     catch (std::exception& e) {
