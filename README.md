@@ -120,11 +120,11 @@ Usamos una librería externa de física, que va a tratar los eventos relacionado
 
 Bullet es la librería más conveniente para este motor debido a que es efectiva, habiendo sido usada con éxito en grandes proyectos como Blender y es software libre de código abierto que además es relativamente sencillo de implementar
 
-**AUDIO**
+<a name="FMOD">**AUDIO**</a>
 
 La librería externa de audio que da soporte a diferentes extensiones, más de una pista de audio, a cargar, reproducir, pausar y parar el o los audios que están sonando. La librería a usar es FMOD que es la que más nos conviene para este proyecto porque, al igual que Bullet, es software libre y gratuito, que nos facilita la implementación de sonidos en el motor.
 
-* <a name="FMOD">FMOD</a>: Se utilizará porque reproduce y mezcla sonidos de diversos formatos en varios sistemas operativos.  Su licencia permite que el software no destinado a la distribución comercial utilice FMOD de forma gratuita, al igual que Ogre y Bullet, lo cual es conveniente para este proyecto.
+* FMOD: Se utilizará porque reproduce y mezcla sonidos de diversos formatos en varios sistemas operativos.  Su licencia permite que el software no destinado a la distribución comercial utilice FMOD de forma gratuita, al igual que Ogre y Bullet, lo cual es conveniente para este proyecto.
 
 
 
