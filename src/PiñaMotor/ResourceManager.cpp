@@ -40,8 +40,7 @@ void ResourceManager::loadAudio() {
 	}
 }
 
-std::string truncate(std::string str, size_t width)
-{
+std::string truncate(std::string str, size_t width) {
 	if (str.length() > width)
 		return str.substr(0, width);
 	return str;

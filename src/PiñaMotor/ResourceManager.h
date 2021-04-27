@@ -32,7 +32,7 @@ public:
 protected:
 	static ResourceManager* _singleton;
 
-	//Diccionarios que relacionan nombres usables de resources con sus direcciones.
+	// Diccionarios que relacionan nombres usables de resources con sus direcciones.
 	std::map<std::string, std::string> _audio, _textures;
 	std::string texturesPath = "..\\assets\\textures";
 	std::string audioPath = "..\\assets\\audio";
