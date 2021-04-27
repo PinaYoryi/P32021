@@ -6,21 +6,21 @@ Piña Motor es un motor de videojuegos en tres dimensiones multipropósito, que 
 
 Existe una única instancia de Input en el motor, utilizando el patrón de Singleton.
 
-**E/S**: Detectamos la entrada de tanto teclado como ratón mediante SDL. 
+**E/S**: Detectamos la entrada de tanto teclado como ratón mediante _SDL_. 
 
-**LECTURA ARCHIVOS**: Utilizamos LUA para la lectura de los archivos: mapas, audio, etc para posteriormente pasar los datos al núcleo del motor.
+**LECTURA ARCHIVOS**: Utilizamos _LUA_ para la lectura de los archivos: mapas, audio, etc para posteriormente pasar los datos al núcleo del motor.
 
-**GRÁFICOS**: Usamos Ogre para renderizar los gráficos generados e imágenes. 
+**GRÁFICOS**: Usamos _Ogre_ para renderizar los gráficos generados e imágenes. 
 
-**ENTIDADES:** Unidad Objeto Motor. Tienen una lista de componentes que les dan comportamiento (y un componente forzado: Transform); interacción con el loop del juego, que hacen que itere por todos los componentes que tenga añadidos llamando a sus respectivos métodos.
+**ENTIDADES:** Unidad Objeto Motor. Tienen una lista de componentes que les dan comportamiento (y un componente forzado: _Transform_); interacción con el loop del juego, que hacen que itere por todos los componentes que tenga añadidos llamando a sus respectivos métodos.
 
 **COMPONENTES**: El motor está estructurado en entidades y componentes. Las entidades son objetos sin función que lo que hacen es llamar a su lista de componentes. Los componentes son clases con funciones que se asignan a las entidades.
 
-**TRANSFORM**: Manejo de posición, rotación y escala de las entidades. Tiene métodos para mover, rotar y escalar. Las entidades comienzan con este componente incluido al crearlas. Asociado al Parent.
+**TRANSFORM**: Manejo de posición, rotación y escala de las entidades. Tiene métodos para mover, rotar y escalar. Las entidades comienzan con este componente incluido al crearlas. Asociado al _Parent_.
 
-**UITRANSFORM**: Componente exclusivo de Transform 2D utilizado para incluir entidades en la interfaz de usuario. Hereda todas las funcionalidades descritas y sirve para que se coloque desde ese punto relativo de la pantalla. Los atributos tienen como unidades los píxeles de la pantalla o, en caso del ancla, están normalizadas, de forma que (0,0) está en la esquina inferior izquierda.
+**UITRANSFORM**: Componente exclusivo de _Transform_ (2D) utilizado para incluir entidades en la interfaz de usuario. Hereda todas las funcionalidades descritas y sirve para que se coloque desde ese punto relativo de la pantalla. Los atributos tienen como unidades los píxeles de la pantalla o, en caso del ancla, están normalizadas, de forma que (0,0) está en la esquina inferior izquierda.
 
-**RIGIDBODY**: Determina si la Entidad es afectada por la físicas (Bullet): velocidades y aceleraciones (fuerzas, graviedad y fricción); dependiente de Transform.
+**RIGIDBODY**: Determina si la _Entidad_ es afectada por la físicas (_Bullet_): velocidades y aceleraciones (fuerzas, graviedad y fricción); dependiente de _Transform_.
 
 **RENDERER**: Comunica con Ogre y renderiza mallas y texturas; actualizado frame a frame. Dependiente de Transform. 
 
@@ -38,7 +38,7 @@ Existe una única instancia de Input en el motor, utilizando el patrón de Singl
 
 **DROPDOWN**: Depende de Transform y Renderer. Detecta eventos de teclado o ratón; es un desplegable tipo lista de botones.
 
-**BOTÓN**: Parte de la interfaz de usuario. Depende de UITransform y Renderer. Detecta eventos de teclado o ratón.
+**BOTÓN**: Parte de la interfaz de usuario. Depende de _UITransform_ y Renderer. Detecta eventos de teclado o ratón.
 
 **SISTEMA DE PARTÍCULAS**: Se da la opción de crear un sistema de partícula a partir de un archivo .particle.
 
