@@ -7,6 +7,21 @@ Rigidbody::~Rigidbody() {
 }
 
 bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
+
+	btScalar mass = 0.0f;
+	btDefaultMotionState* ms = new btDefaultMotionState();
+	//btCollisionShape* cs =
+
+	/*auto search = mapa.find()
+	if (search != mapa.end()) {
+		std::cout << "Found " << search->first << " " << search->second << '\n';
+	}
+	else {
+		std::cout << "Not found\n";
+	}*/
+
+	_btRb = new btRigidBody(mass, ms, nullptr);
+	
 	return true;
 }
 
