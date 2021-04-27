@@ -124,7 +124,7 @@ Bullet es la librería más conveniente para este motor debido a que es efectiva
 
 La librería externa de audio que da soporte a diferentes extensiones, más de una pista de audio, a cargar, reproducir, pausar y parar el o los audios que están sonando. La librería a usar es FMOD que es la que más nos conviene para este proyecto porque, al igual que Bullet, es software libre y gratuito, que nos facilita la implementación de sonidos en el motor.
 
-* #FMOD: Se utilizará porque reproduce y mezcla sonidos de diversos formatos en varios sistemas operativos.  Su licencia permite que el software no destinado a la distribución comercial utilice FMOD de forma gratuita, al igual que Ogre y Bullet, lo cual es conveniente para este proyecto.
+* # FMOD: Se utilizará porque reproduce y mezcla sonidos de diversos formatos en varios sistemas operativos.  Su licencia permite que el software no destinado a la distribución comercial utilice FMOD de forma gratuita, al igual que Ogre y Bullet, lo cual es conveniente para este proyecto.
 
 
 
