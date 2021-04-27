@@ -95,6 +95,7 @@ Es el bucle principal que hay en el motor. _Input-Fixed_ _Update-Update-Render_.
 A este método se le llama la primera vez que se instancia un componente. Cada componente tiene su propio método Start y son independientes entre sí.
 
 **INPUT**
+
 Este método es privado para los desarrolladores que utilicen el motor, se encarga de actualizar las estructuras de entrada que proporciona el motor al desarrollador. Se llama una vez en cada frame para detectar si hay input.
 
 **UPDATE**
