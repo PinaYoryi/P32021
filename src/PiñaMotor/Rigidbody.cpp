@@ -1,42 +1,54 @@
 #include "Rigidbody.h"
 #include "Entity.h"
-
+#include "BulletInstance.h"
+#include "Transform.h"
 Rigidbody::~Rigidbody() {
 	delete _btRb; _btRb = nullptr;
-	delete _trans; _trans = nullptr;
+	//delete _trans; _trans = nullptr;
 }
 
 bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 
-	//btCollisionShape* cs =
-
-	/*auto search = mapa.find()
-	if (search != mapa.end()) {
-		std::cout << "Found " << search->first << " " << search->second << '\n';
-	}
-	else {
-		std::cout << "Not found\n";
-	}*/
-
-	// PROVISIONAL
-	btScalar mass = 9.0f;
-	btDefaultMotionState* ms = new btDefaultMotionState();
-	Quaternion qt = Quaternion(0.0, 0.0, 0.0, 0.0);
+	//quitar
 	_trans = _myEntity->getComponent<Transform>();
-	_btRb = new btRigidBody(mass, ms, nullptr);
-	setPosition(_trans->position());
+	btCollisionShape* newRigidShape = new btBoxShape(btVector3(1.0f, 1.0f, 1.0f));
 
+	//set the initial position and transform. For this demo, we set the tranform to be none
+	btTransform startTransform;
+	startTransform.setIdentity();
+	startTransform.setRotation(_trans->rotation());
+
+	//set the mass of the object. a mass of "0" means that it is an immovable object
+	btScalar mass;
+	if (cont == 0)
+		mass = 0.0f;
+	else mass = 26.0f;
+	btVector3 localInertia(0, 0, 0);
+
+	startTransform.setOrigin(_trans->position());
+	//newRigidShape->calculateLocalInertia(mass, localInertia);
+
+	//actually contruvc the body and add it to the dynamics world
+	btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
+
+	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, newRigidShape, localInertia);
+	_btRb = new btRigidBody(rbInfo);
+	_btRb->setRestitution(1);
+	updateTransform();
+	_btRb->setMassProps(mass, localInertia);
+	_btRb->setUserPointer(_myEntity->getComponent<Transform>());
+	BulletInstance::GetInstance()->getWorld()->addRigidBody(_btRb);
+	BulletInstance::GetInstance()->addCollisionShape(newRigidShape);
+
+	//quitar
+	cont++;
 	return true;
 }
 
-void Rigidbody::Update() {
-	if (_trans != nullptr) {
 
-		if (!_active)
-			return;
-
-		setPosition(_trans->position());
-	}
+void Rigidbody::update() {
+	if (_trans != nullptr && _active)
+		updateTransform();
 }
 
 void Rigidbody::addForce(Vector3<float> force, Vector3<float> relativePos) {
@@ -44,33 +56,25 @@ void Rigidbody::addForce(Vector3<float> force, Vector3<float> relativePos) {
 		return;
 
 	if (relativePos == Vector3<float>(0.0f, 0.0f, 0.0f))
-		_btRb->applyCentralForce((btVector3(
-			btScalar(force.x), btScalar(force.y), btScalar(force.z))));
+		_btRb->applyCentralForce(force);
 	else
-		_btRb->applyForce(
-			(btVector3(btScalar(force.x), btScalar(force.y),
-				btScalar(force.z))),
-			(btVector3(btScalar(relativePos.x), btScalar(relativePos.y),
-				btScalar(relativePos.z))));
+		_btRb->applyForce(force, relativePos);
 }
 
 Vector3<float> Rigidbody::getLinearVelocity() {
 
-	Vector3<float> linV(0.0f, 0.0f, 0.0f);
 	if (!_active) {
-		return linV;
+		throw "Cannot return linear velocity of disabled rigidbody";
 	}
 	const btVector3 v = _btRb->getLinearVelocity();
-	linV.x = v.x(); linV.y = v.y(); linV.z = v.z();
 
-	return linV;
+	return { v.x(), v.y(), v.z() };
 }
 
 void Rigidbody::setGravity(Vector3<float> gravity) {
 	if (!_active)
 		return;
-	_btRb->setGravity(btVector3(btScalar(gravity.x), btScalar(gravity.x),
-		btScalar(gravity.x)));
+	_btRb->setGravity(gravity);
 }
 
 void Rigidbody::setTrigger(bool trigger) {
@@ -108,23 +112,16 @@ void Rigidbody::setLinearVelocity(Vector3<float> vector) {
 	if (!_active)
 		return;
 
-	_btRb->setLinearVelocity(btVector3(vector.x, vector.y, vector.z));
+	_btRb->setLinearVelocity(vector);
 }
 
-void Rigidbody::setPosition(const Ogre::Vector3 newPos) {
-	if (!_active)
-		return;
+void Rigidbody::updateTransform() {
 	btTransform initialTransform;
-	initialTransform.setOrigin(btVector3(newPos.x, newPos.y, newPos.z));
-	initialTransform.setRotation(_btRb->getOrientation());
-
+	initialTransform.setOrigin(_trans->position());
+	initialTransform.setRotation(_trans->rotation());
 	_btRb->setWorldTransform(initialTransform);
 }
 
 void Rigidbody::setMass(float mass, const btVector3& inertia) {
 	_btRb->setMassProps(mass, inertia);
-}
-
-void Rigidbody::setImpulse(const btVector3& impulse) {
-	_btRb->applyCentralImpulse(impulse);
 }

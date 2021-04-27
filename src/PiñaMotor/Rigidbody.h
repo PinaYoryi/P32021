@@ -12,6 +12,7 @@
 #include <BulletCollision/NarrowPhaseCollision/btGjkPairDetector.h>
 #include <BulletCollision/NarrowPhaseCollision/btPointCollector.h>
 
+static int cont = 0;
 
 class Rigidbody : public Component
 {
@@ -21,7 +22,7 @@ public:
 	~Rigidbody();
 
 	virtual bool init(const std::map<std::string, std::string>& mapa) override;
-	virtual void Update();
+	virtual void update();
 
 	// GETTERS
 	// Devuelve si es un disparador
@@ -56,7 +57,7 @@ public:
 
 	// SETTERS
 	// Aplica la fuerza en la posicion relativa
-	void addForce(Vector3<float> force, Vector3<float> relativePos);
+	void addForce(Vector3<float> force, Vector3<float> relativePos = { 0, 0, 0 });
 
 	// Determina la friccion aplicada
 	void setFriction(float friction) {
@@ -78,11 +79,8 @@ public:
 	// Define la velicidad
 	void setLinearVelocity(Vector3<float> vector);
 
-	// Define impulso
-	void setImpulse(const btVector3& impulse);
-
-	// Modifica la posicion
-	void setPosition(const Ogre::Vector3 newPos);
+	// Actualiza el transform de bullet respecto a la clase Transform
+	void updateTransform();
 
 	// Modifica propiedades de la masa
 	void setMass(float mass, const btVector3& inertia);
@@ -97,5 +95,5 @@ private:
 	bool _kinematic = false;
 	bool _static = false;
 	bool _collision = false;
+	//btCollisionShape* newRigidShape = nullptr;
 };
-

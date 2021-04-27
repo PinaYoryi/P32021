@@ -24,7 +24,7 @@
 #include "Quaternion.h"
 #include "Animation.h"
 #include "Rigidbody.h"
-
+#include "OgreMeshManager.h"
 
 #include "vector"
 #include "iostream"
@@ -39,7 +39,8 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
     try {
         OgreMotor::init("Motor de Ogre");
         BulletInstance::Init();
-        //BulletInstance::bul
+
+        
         // Aquí empieza el test de la cámara
         ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform> cpm;
         ComponentFactoryRegistrations::ComponentFactoryRegistration<Camera> cp3;
@@ -50,8 +51,8 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
         camera->getComponent<Camera>()->setFarClipPlane(10000);
         camera->getComponent<Camera>()->setAspectRatio(true);
 
-        camera->getComponent<Transform>()->setPosition(0, 0, 1000);
-        camera->getComponent<Transform>()->setRotation(0, 0, 0);
+        camera->getComponent<Transform>()->setPosition(0, 150, 1000);
+        camera->getComponent<Transform>()->setRotation(-10, 0, 0);
 
         camera->getComponent<Camera>()->setBackgroundColor(1.0f, 0.5f, 0.3137f);
         //Aquí acaba el test
@@ -74,27 +75,42 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
         ComponentFactoryRegistrations::ComponentFactoryRegistration<Renderer> cpm2;
         ComponentFactoryRegistrations::ComponentFactoryRegistration<Rigidbody> cpm4;
         ComponentFactoryRegistrations::ComponentFactoryRegistration<Animation> cpm3;
-        Entity* ent = new Entity();
+        Entity* ent = new Entity();//suelo
         ent->addComponent<Renderer>();
-        ent->addComponent<Animation>();
-        ent->getComponent<Transform>()->setScale({ 20,20,20 });
-        Animation* an = ent->getComponent<Animation>();
+        //ent->addComponent<Animation>();
+        ent->getComponent<Transform>()->setScale({ 10,0.1,10 });
+        ent->getComponent<Transform>()->setPosition({ 0, 0, 0 });
+        ent->addComponent<Rigidbody>();
+        //ent->getComponent<Rigidbody>()->setMass(6, { 0,0,0 });
+        ent->getComponent<Rigidbody>()->updateTransform();
+
+        Entity* ent2 = new Entity();
+        ent2->addComponent<Renderer>();
+        ent2->addComponent<Animation>();
+        Animation* an = ent2->getComponent<Animation>();
         OgreMotor::GetInstance()->addInputListener(an);
         //app.getRoot()->startRendering();
         int i = 1;   
         an->changeAnimation("Dance");
-        ent->addComponent<Rigidbody>();
+        ent2->getComponent<Transform>()->setScale({ 10,10,10 });
+        ent2->getComponent<Transform>()->setPosition({ 0, 300, 0 });
+
+        ent2->addComponent<Rigidbody>();
+        ent2->getComponent<Rigidbody>()->updateTransform();
+
         while (true) {
+            BulletInstance::GetInstance()->update();
             camera->render();
             ent->render();
-            Vector3<float> v = ent->getComponent<Transform>()->position();
-            if (i % 250 == 0)
-                an->changeAnimation(std::vector<std::string> { "RunBase", "RunTop" /*,"yht"*/ });
+            ent2->render();
+            /*if (i % 250 == 0)
+                an->changeAnimation(std::vector<std::string> { "RunBase", "RunTop"  });
             else if (i % 200 == 0) {
                 // an->changeAnimation("Dance");
                 an->setLoop(false);
-            }
+            }*/
             OgreMotor::GetInstance()->getRoot()->renderOneFrame();
+
             ++i;
         }
         delete ent;

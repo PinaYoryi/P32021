@@ -1,6 +1,7 @@
 #pragma once
 #include "Vector3.h"
 #include "Matrix3.h"
+#include <btBulletDynamicsCommon.h>
 
 class Quaternion {
 public:
@@ -69,6 +70,9 @@ public:
 		return output;
 	};
 #endif // _DEBUG
+
+	//Parsear de Quaternion a btQuaternion
+	operator btQuaternion() const { return btQuaternion(v.x, v.y, v.z, s); }
 
 	operator Ogre::Quaternion() const;
 	

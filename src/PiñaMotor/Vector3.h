@@ -3,6 +3,8 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <OgreVector.h>
+#include <btBulletDynamicsCommon.h>
+
 using namespace std;
 
 /*
@@ -146,7 +148,8 @@ public:
 
 	//Parsear de Vector3 a Ogre::Vector3
 	operator Ogre::Vector3() const { return Ogre::Vector3((float)x, (float)y, (float)z); }
-
+	//Parsear de Vector3 a Ogre::Vector3
+	operator btVector3() const { return btVector3((float)x, (float)y, (float)z); }
 
 	// Vectores predefinidos
 	static const Vector3<T> up() { return Vector3<T>((T)0, (T)1, (T)0); }

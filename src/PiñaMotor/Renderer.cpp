@@ -14,11 +14,22 @@ bool Renderer::init(const std::map<std::string, std::string>& mapa){
 	// _ogreNode.attachedObject(_ogreEntity);
 	//if(_material!="")
 	//_ogreEntity.setMaterialName(_material)
-	_ogreEntity = OgreMotor::GetInstance()->getSceneManager()->createEntity("Sinbad.mesh");
-	_ogreNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode("nSimbad");
-	_ogreNode->attachObject(_ogreEntity);
-	_ogreNode->setScale(20, 20, 20);
-	_ogreNode->setPosition(20, 20, 20);
+	if (name == 0) {
+		_ogreEntity = OgreMotor::GetInstance()->getSceneManager()->createEntity("cube.mesh");
+		_ogreNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode("nSimbad" + name);
+		name++;
+		_ogreNode->attachObject(_ogreEntity);
+		_ogreNode->setScale(20, 20, 20);
+		_ogreNode->setPosition(20, 20, 20);
+	}
+	else if (name == 1) {
+		_ogreEntity = OgreMotor::GetInstance()->getSceneManager()->createEntity("Sinbad.mesh");
+		_ogreNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode("nSimbad" + name);
+		name++;
+		_ogreNode->attachObject(_ogreEntity);
+		_ogreNode->setScale(200, 20, 200);
+		_ogreNode->setPosition(20, 20, 20);
+	}
 	return true;
 }
 void Renderer::setVisible(bool visible) {
