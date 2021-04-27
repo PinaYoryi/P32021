@@ -1,6 +1,9 @@
 #pragma once
 #include <map>
 #include <string>
+#include <filesystem>
+
+static const std::string RESOURCES_PATH = "..\\assets\\resources";
 
 class ResourceManager {
 public:
@@ -28,26 +31,23 @@ public:
 	/// Si no lanza excepción.
 	/// </summary>
 	std::string audio(std::string name);
+	std::map<std::string, std::string> _audio, _textures;
 
 protected:
 	static ResourceManager* _singleton;
 
 	//Diccionarios que relacionan nombres usables de resources con sus direcciones.
-	std::map<std::string, std::string> _audio, _textures;
-	std::string texturesPath = "..\\assets\\textures";
-	std::string audioPath = "..\\assets\\audio";
 
 	/// <summary>
-	/// Carga todas las texturas que se encuentren en la carpeta "assets/textures" y las guarda en su diccionario.
-	/// Las direcciones se relacionan con el nombre del archivo en cuestion sin extension.
+	/// Mira de forma recursiva las carpetas en la dirección RESOURCES_PATH.
+	/// Cuando encuentra archivos llama a loadAsset para intentar añadirlos al manager.
 	/// </summary>
-	void loadTextures();
+	void searchDir(std::filesystem::path path);
 
 	/// <summary>
-	/// Carga todas los audios que se encuentren en la carpeta "assets/audio" y las guarda en su diccionario.
-	/// Las direcciones se relacionan con el nombre del archivo en cuestion sin extension.
+	/// Comprueba los tipos de un archivo dado con direccion path y si el tipo es soportado lo añade al manager.
 	/// </summary>
-	void loadAudio();
+	void loadAsset(std::filesystem::path path, size_t end, size_t pathLenght);
 
 	ResourceManager() {}
 };
