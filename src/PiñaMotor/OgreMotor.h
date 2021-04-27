@@ -8,7 +8,7 @@
 #include <OgrePlugin.h>
 #include <OgreFileSystemLayer.h>
 #include <OgreFrameListener.h>
-#include <SDL.h> 
+#include <SDL.h>  
 #undef main
 
 #pragma region clase de ogre Bites para poder renderizar
@@ -119,22 +119,23 @@ struct NativeWindowPair
 /// </summary>
 class OgreMotor : public Ogre::FrameListener {
 public:
-	explicit OgreMotor(const Ogre::String& appName = OGRE_VERSION_NAME);
-
 	virtual ~OgreMotor();
+
+	static OgreMotor* GetInstance();
+
+	static bool init(const Ogre::String& appName = OGRE_VERSION_NAME);
+
+	// Cierra la aplicaci�n, guarda la configuraci�n y hace shutdowm
+	static bool close();
 
 	// Obtiene la RenderWindow
 	Ogre::RenderWindow* getRenderWindow() const { return _mWindow._render; }
 
 	Ogre::Root* getRoot() const { return _mRoot; }
 
-	// Inicializa el render system y recursos
-	void initApp();
+	Ogre::SceneManager* getSceneManager() { return _mSM; }
 
-	// Cierra la aplicaci�n, guarda la configuraci�n y hace shutdowm
-	void closeApp();
-
-	// Interfaz de callbacks basada en ApplicationContext
+#pragma region Callbacks
 	virtual bool frameStarted(const Ogre::FrameEvent& evt) { pollEvents(); return true; }
 
 	virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
@@ -150,6 +151,7 @@ public:
 	virtual void windowClosed(Ogre::RenderWindow* rw) {}
 
 	virtual void windowFocusChange(Ogre::RenderWindow* rw) {}
+#pragma endregion
 
 	
 	//Initialize the RT Shader system.	
@@ -203,8 +205,6 @@ public:
 	/// <returns>La ventana creada</returns>
 	virtual NativeWindowPair createWindow(const Ogre::String& name);
 
-	Ogre::SceneManager* getSceneManager() { return _mSM; }
-	
 	// Borra todos los nodos de la escena, re-inicializa el root y el sceneManager
 	void createNewScene();
 
@@ -219,6 +219,7 @@ public:
 	void removeInputListener(InputListener* lis) { mInputListeners.erase(lis); };
 
 protected:
+	static OgreMotor* _instance;
 	// OGRE root
 	Ogre::Root* _mRoot;   
 	// Ventana
@@ -251,5 +252,14 @@ protected:
 	std::set<InputListener*> mInputListeners;
 #pragma endregion
 
+
+	bool _ogreWasInit = false;
+
+	OgreMotor(const Ogre::String& appName = OGRE_VERSION_NAME);
+
+	// Inicializa el render system y recursos
+	void initApp();
+
+	void closeApp();
 };
 

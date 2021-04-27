@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "OgreSceneManager.h"
+#include "OgreRenderWindow.h"
 #include "OgreRoot.h"
 #include <iostream>
 
@@ -12,12 +13,15 @@ public:
 	/// </summary>
 	static OgreInstance* GetInstance();
 
-	/// <summary>
-	/// Inicializa la clase OgreInstance con los parametros dados si no se ha inicializado antes.
-	/// Devuelve true si se inicializa por primera vez y false si ya hab�a sido inicializada.
-	/// Todo: Implementar los parametros a inicializar.
-	/// </summary>
 	static bool Init();
+
+	/// <summary>
+	/// Devuelve un puntero a la ventana creada
+	/// </summary>
+	/// <returns></returns>
+	Ogre::RenderWindow* getRenderWindow() {
+		return _renderWindow;
+	}
 
 	/// <summary>
 	/// devuelve un puntero de mSM que es el sceneManager
@@ -37,5 +41,5 @@ public:
 protected:
 	static OgreInstance* _singleton;
 	Ogre::SceneManager* _mSM = nullptr;
-
+	Ogre::RenderWindow* _renderWindow = nullptr;
 };

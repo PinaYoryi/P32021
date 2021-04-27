@@ -10,7 +10,7 @@ bool Animation::init(const std::map<std::string, std::string>& mapa) {
 	if (_myEntity->hasComponent<Renderer>()) {
 		_ogreEnt=_myEntity->getComponent<Renderer>()->getOgreEntity();
 		try {
-			_myAnimations.push_back(_ogreEnt->getAnimationState("Dan4ttr52ce"));
+			_myAnimations.push_back(_ogreEnt->getAnimationState("Dance"));
 			_myAnimations[0]->setEnabled(true);
 			_loop = true;
 			_myAnimations[0]->setLoop(_loop);
