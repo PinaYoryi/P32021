@@ -7,7 +7,7 @@ Piña Motor es un motor de videojuegos en tres dimensiones multipropósito, que 
 Existe una única instancia de Input en el motor, utilizando el patrón de Singleton.
 
 
-*E/S*: Detectamos la entrada de tanto teclado como ratón mediante SDL. 
+**E/S**: Detectamos la entrada de tanto teclado como ratón mediante SDL. 
 
 
 
