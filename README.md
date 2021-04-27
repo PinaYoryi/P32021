@@ -165,9 +165,13 @@ Son ficheros de texto con instrucciones para el shell (el CMD) para que haga cos
 ## Construido con 🛠️
 
 * [Bullet v3.0.9](https://github.com/bulletphysics/bullet3/releases).
-* [_OGRE_](https://www.ogre3d.org/)
-* [SDL2](https://www.libsdl.org/)
-*  [FMOD](https://www.fmod.com/)
+* [_OGRE_](https://www.ogre3d.org/).
+* [SDL2](https://www.libsdl.org/).
+* [FMOD](https://www.fmod.com/).
+* Visual Studio Code.
+* Microsoft Visual Studio.
+* Editores de texto.
+* [LUA](https://www.lua.org/download.html)
 
 ## Autores ✒️
 
