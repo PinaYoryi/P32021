@@ -25,6 +25,12 @@ void Entity::update() {
 	}
 }
 
+void Entity::fixedUpdate() {
+	for (auto& c : compUnique) {
+		if (c) c->fixedUpdate();
+	}
+}
+
 void Entity::render() {
 	for (auto& c : compUnique) {
 		 c->render();

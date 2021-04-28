@@ -26,10 +26,11 @@ void MotorLoop::startLoop() {
 	if (_loop == true) return;
 	initLoop();
 	while (_loop) {
+		std::vector<Entity*> ent = SceneManager::GetInstance()->getEntities();
 		stepInput();
-		stepFixedUpdate();
-		stepUpdate();
-		stepRender();
+		stepFixedUpdate(ent);
+		stepUpdate(ent);
+		stepRender(ent);
 		OgreMotor::GetInstance()->getRoot()->renderOneFrame();
 	}
 }
@@ -47,21 +48,23 @@ void MotorLoop::stepInput() {
     Input::GetInstance()->update();
 }
 
-void MotorLoop::stepUpdate() {
-    for (Entity* e : SceneManager::GetInstance()->getEntities())
+void MotorLoop::stepUpdate(std::vector<Entity*> ent) {
+    for (Entity* e : ent)
         e->update();
 }
 
-void MotorLoop::stepFixedUpdate() {
+void MotorLoop::stepFixedUpdate(std::vector<Entity*> ent) {
 	updateTime();
 	while (_accumulatedTime > FIXED_UPDATE_TIME) {
+		for (Entity* e : ent)
+			e->fixedUpdate();
         BulletInstance::GetInstance()->update();
 		_accumulatedTime -= FIXED_UPDATE_TIME;
 	}
 }
 
-void MotorLoop::stepRender() {
-    for (Entity* e : SceneManager::GetInstance()->getEntities())
+void MotorLoop::stepRender(std::vector<Entity*> ent) {
+    for (Entity* e : ent)
         e->render();
 }
 

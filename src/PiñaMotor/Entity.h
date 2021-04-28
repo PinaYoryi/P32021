@@ -59,6 +59,8 @@ public:
 
 	void update();
 
+	void fixedUpdate();
+
 	void render();
 
 private:
