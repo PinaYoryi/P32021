@@ -21,14 +21,14 @@ public:
 	static ResourceManager* Init();
 
 	/// <summary>
-	/// Devuelve la dirección de la textura con el nombre name.
-	/// Si no lanza excepción.
+	/// Devuelve la direcciï¿½n de la textura con el nombre name.
+	/// Si no lanza excepciï¿½n.
 	/// </summary>
 	std::string texture(std::string name);
 
 	/// <summary>
-	/// Devuelve la dirección de la audio con el nombre name.
-	/// Si no lanza excepción.
+	/// Devuelve la direcciï¿½n de la audio con el nombre name.
+	/// Si no lanza excepciï¿½n.
 	/// </summary>
 	std::string audio(std::string name);
 	std::map<std::string, std::string> _audio, _textures;
@@ -39,13 +39,13 @@ protected:
 	//Diccionarios que relacionan nombres usables de resources con sus direcciones.
 
 	/// <summary>
-	/// Mira de forma recursiva las carpetas en la dirección RESOURCES_PATH.
-	/// Cuando encuentra archivos llama a loadAsset para intentar añadirlos al manager.
+	/// Mira de forma recursiva las carpetas en la direcciï¿½n RESOURCES_PATH.
+	/// Cuando encuentra archivos llama a loadAsset para intentar aï¿½adirlos al manager.
 	/// </summary>
 	void searchDir(std::filesystem::path path);
 
 	/// <summary>
-	/// Comprueba los tipos de un archivo dado con direccion path y si el tipo es soportado lo añade al manager.
+	/// Comprueba los tipos de un archivo dado con direccion path y si el tipo es soportado lo aï¿½ade al manager.
 	/// </summary>
 	void loadAsset(std::filesystem::path path, size_t end, size_t pathLenght);
 
