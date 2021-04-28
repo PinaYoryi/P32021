@@ -2,17 +2,20 @@
 #include "Entity.h"
 #include "BulletInstance.h"
 #include "Transform.h"
+
 Rigidbody::~Rigidbody() {
 	delete _btRb; _btRb = nullptr;
+	delete _myMotionState; _myMotionState = nullptr;
 	//delete _trans; _trans = nullptr;
 }
 
 bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 
 	//quitar
+	
 	_trans = _myEntity->getComponent<Transform>();
-	btCollisionShape* newRigidShape = new btBoxShape(_trans->scale());
-
+	
+	btCollisionShape* newRigidShape = new btBoxShape(5 * _trans->scale());
 	//set the initial position and transform. For this demo, we set the tranform to be none
 	btTransform startTransform;
 	startTransform.setIdentity();
@@ -29,18 +32,20 @@ bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 	newRigidShape->calculateLocalInertia(mass, localInertia);
 
 	//actually contruvc the body and add it to the dynamics world
-	btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
-	
-	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, newRigidShape, localInertia);
+	_myMotionState = new btDefaultMotionState(startTransform);
+
+	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, _myMotionState, newRigidShape, localInertia);
 	_btRb = new btRigidBody(rbInfo);
 	_btRb->setRestitution(0.2);
-
-	updateTransform();
+	_btRb->setCollisionFlags(1);
+	//updateTransform();
 	_btRb->setMassProps(mass, localInertia);
+
 	_btRb->setUserPointer(_myEntity->getComponent<Transform>());
+	
 	BulletInstance::GetInstance()->getWorld()->addRigidBody(_btRb);
 	BulletInstance::GetInstance()->addCollisionShape(newRigidShape);
-
+	
 	//quitar
 	cont++;
 	return true;
@@ -55,7 +60,8 @@ void Rigidbody::update() {
 void Rigidbody::addForce(Vector3<float> force, Vector3<float> relativePos) {
 	if (!_active)
 		return;
-
+	//para que si lleva un tiempo quieto, deje de estar dormido y reaccione a las fuerzas
+	_btRb->setActivationState(ACTIVE_TAG);
 	if (relativePos == Vector3<float>(0.0f, 0.0f, 0.0f))
 		_btRb->applyCentralForce(force);
 	else

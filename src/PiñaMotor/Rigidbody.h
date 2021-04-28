@@ -90,6 +90,7 @@ protected:
 private:
 
 	btRigidBody* _btRb = nullptr;
+	btDefaultMotionState* _myMotionState;
 	Transform* _trans = nullptr;
 	bool _trigger = false;
 	bool _kinematic = false;

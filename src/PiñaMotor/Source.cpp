@@ -39,7 +39,6 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
     try {
         OgreMotor::init("Motor de Ogre");
         BulletInstance::Init();
-
         
         // Aquí empieza el test de la cámara
         ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform> cpm;
@@ -51,8 +50,8 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
         camera->getComponent<Camera>()->setFarClipPlane(10000);
         camera->getComponent<Camera>()->setAspectRatio(true);
 
-        camera->getComponent<Transform>()->setPosition(0, 150, 1000);
-        camera->getComponent<Transform>()->setRotation(-10, 0, 0);
+        camera->getComponent<Transform>()->setPosition(0, 0, 1000);
+        camera->getComponent<Transform>()->setRotation(0, 0, 0);
 
         camera->getComponent<Camera>()->setBackgroundColor(1.0f, 0.5f, 0.3137f);
         //Aquí acaba el test
@@ -78,11 +77,11 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
         Entity* ent = new Entity();//suelo
         ent->addComponent<Renderer>();
         //ent->addComponent<Animation>();
-        ent->getComponent<Transform>()->setScale({ 100,1,100 });
+        ent->getComponent<Transform>()->setScale({ 100,0.01,10 });
         ent->getComponent<Transform>()->setPosition({ 0, 0, 0 });
         ent->addComponent<Rigidbody>();
         //ent->getComponent<Rigidbody>()->setMass(6, { 0,0,0 });
-        ent->getComponent<Rigidbody>()->updateTransform();
+       // ent->getComponent<Rigidbody>()->updateTransform();
 
         Entity* ent2 = new Entity();
         ent2->addComponent<Renderer>();
@@ -93,7 +92,7 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
         int i = 1;   
         an->changeAnimation("Dance");
         ent2->getComponent<Transform>()->setScale({ 10,10,10 });
-        ent2->getComponent<Transform>()->setPosition({ 0, 300, 0 });
+        ent2->getComponent<Transform>()->setPosition({ 0, 40, 0 });
 
         ent2->addComponent<Rigidbody>();
         ent2->getComponent<Rigidbody>()->updateTransform();
@@ -101,9 +100,20 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
         while (true) {
             Input::GetInstance()->update();
             if (Input::GetInstance()->keyDown(SDL_SCANCODE_SPACE)) {
-                ent2->getComponent<Rigidbody>()->addForce({ 10000,200000,0 });
+                ent2->getComponent<Rigidbody>()->addForce({ 0,200000,0 });
+                ent2->getComponent<Rigidbody>()->setTrigger(true);
             }
+            else if (Input::GetInstance()->keyDown(SDL_SCANCODE_W)) {
+                ent2->getComponent<Rigidbody>()->addForce({ 0,200000,0 });
+                ent2->getComponent<Rigidbody>()->setTrigger(false);
 
+            }
+            else if (Input::GetInstance()->keyDown(SDL_SCANCODE_A)) {
+                ent2->getComponent<Rigidbody>()->addForce({ -100000,0,0 });
+            }
+            else if (Input::GetInstance()->keyDown(SDL_SCANCODE_D)) {
+                ent2->getComponent<Rigidbody>()->addForce({ 100000,0,0 });
+            }
             BulletInstance::GetInstance()->update();
             camera->render();
             ent->render();
@@ -123,8 +133,11 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
             ++i;
         }
         delete ent;
+        delete ent2;
         delete camera;
         OgreMotor::close(); 
+        delete BulletInstance::GetInstance();
+
     }
     catch (Ogre::Exception& e) {
         Ogre::LogManager::getSingleton().logMessage("An exception has occured: " + e.getFullDescription() + "\n");
