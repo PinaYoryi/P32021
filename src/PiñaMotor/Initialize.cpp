@@ -16,10 +16,10 @@ Initialize::Initialize() {
 }
 
 Initialize::~Initialize() {
-    delete MotorLoop::GetInstance();
     stopOgre();
     stopBullet();
     stopFMOD();
+    delete MotorLoop::GetInstance();
 }
 
 #pragma region Ogre

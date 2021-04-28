@@ -1,5 +1,7 @@
 ﻿#pragma once
+
 #include <btBulletDynamicsCommon.h>
+#include <vector>
 
 class BulletInstance {
 public:

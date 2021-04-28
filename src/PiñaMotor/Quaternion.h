@@ -1,7 +1,7 @@
 #pragma once
 #include "Vector3.h"
 #include "Matrix3.h"
-#include <btBulletDynamicsCommon.h>
+#include "LinearMath/btQuaternion.h"
 
 class Quaternion {
 public:

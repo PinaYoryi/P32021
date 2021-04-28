@@ -33,8 +33,10 @@ public:
 	void stopLoop();
 
 protected:
+	Entity* _camera; //<------Esto es placeholder de la escena que crea SceneManager
 	Entity* _ent; //<------Esto es placeholder de la escena que crea SceneManager
-	Entity* _cam; //<------Esto es placeholder de la escena que crea SceneManager
+	Entity* _ent2;
+	Entity* _ent3;
 
 	static MotorLoop* _singleton;
 
@@ -45,7 +47,7 @@ protected:
 
 	//Lista de entidades
 
-	MotorLoop() : _ent(nullptr), _cam(nullptr) {}; //<------Esto es placeholder de la escena que crea SceneManager
+	MotorLoop() : _camera(nullptr), _ent(nullptr), _ent2(nullptr), _ent3(nullptr) {}; //<------Esto es placeholder de la escena que crea SceneManager
 
 	/// <summary>
 	/// Prepara la clase para inicializar el bucle principal del motor.
@@ -73,9 +75,8 @@ protected:
 	void updateTime();
 
 
-	void placeholderScene(); //<------Esto es placeholder de la escena que crea SceneManager
 
-
+	void placeholderScene();
 
 #pragma region Getters/Setters
 public:

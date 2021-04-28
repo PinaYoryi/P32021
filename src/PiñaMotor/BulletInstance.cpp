@@ -1,4 +1,6 @@
 #include "BulletInstance.h"
+#include "Transform.h"
+#include "MotorLoop.h"
 
 BulletInstance* BulletInstance::_bulletInstance = nullptr;
 
@@ -16,10 +18,10 @@ BulletInstance::~BulletInstance() {
 		delete it;
 	}
 	delete _world;
-	delete _solver;
+	delete _broadphase;
 	delete _collisionConfiguration;
 	delete _dispatcher;
-	delete _broadphase;
+	delete _solver;
 }
 
 BulletInstance* BulletInstance::GetInstance() {
@@ -33,7 +35,7 @@ bool BulletInstance::Init() {
 
 void BulletInstance::update()
 {
-	_world->stepSimulation(1.0f / 60.0f); //suppose you have 60 frames per second
+	_world->stepSimulation(FIXED_UPDATE_TIME);
 	//_world->debugDrawWorld();//poner solo si queremos debugear el mundo de bullet, hay que hacer mas cosas aparte
 	for (int i = 0; i < _collisionShapes.size(); i++) {
 		btCollisionObject* obj = _world->getCollisionObjectArray()[i];

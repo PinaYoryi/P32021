@@ -1,14 +1,6 @@
 #include "Rigidbody.h"
-#include "Entity.h"
 #include "BulletInstance.h"
-#include "Transform.h"
-
-#include <btBulletDynamicsCommon.h> 
-#include <btBulletCollisionCommon.h>
-#include <BulletDynamics/Dynamics/btRigidBody.h>
-#include <BulletCollision/NarrowPhaseCollision/btGjkEpaPenetrationDepthSolver.h>
-#include <BulletCollision/NarrowPhaseCollision/btGjkPairDetector.h>
-#include <BulletCollision/NarrowPhaseCollision/btPointCollector.h>
+#include "Entity.h"
 
 Rigidbody::~Rigidbody() {
 	delete _btRb; _btRb = nullptr;
@@ -16,44 +8,33 @@ Rigidbody::~Rigidbody() {
 }
 
 bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
-
 	_trans = _myEntity->getComponent<Transform>();	
-	btCollisionShape* newRigidShape = new btBoxShape(5 * _trans->scale());
-	//set the initial position and transform. For this demo, we set the tranform to be none
+	btCollisionShape* newRigidShape = new btBoxShape(OGRE_BULLET_RATIO * _trans->scale());
 	btTransform startTransform;
 	startTransform.setIdentity();
 	startTransform.setRotation(_trans->rotation());
 
-	//set the mass of the object. a mass of "0" means that it is an immovable object
-	btScalar mass;
-	if (cont == 0)
-		mass = 0.0f;//estatico
-	else mass = 54.0f;
+	btScalar mass = DEFAULT_MASS;
 	btVector3 localInertia(0, 0, 0);
 
 	startTransform.setOrigin(_trans->position());
 	newRigidShape->calculateLocalInertia(mass, localInertia);
 
-	//actually contruvc the body and add it to the dynamics world
 	_myMotionState = new btDefaultMotionState(startTransform);
 
 	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, _myMotionState, newRigidShape, localInertia);
 	_btRb = new btRigidBody(rbInfo);
-	_btRb->setRestitution(0.2);
-	_btRb->setCollisionFlags(1);
-	//updateTransform();
+	_btRb->setRestitution(DEFAULT_RESTITUTION);
+	_btRb->setCollisionFlags(DEFAULT_COLLISION_FLAGS);
 	_btRb->setMassProps(mass, localInertia);
 
 	_btRb->setUserPointer(_myEntity->getComponent<Transform>());
 	
 	BulletInstance::GetInstance()->getWorld()->addRigidBody(_btRb);
 	BulletInstance::GetInstance()->addCollisionShape(newRigidShape);
-	
-	//quitar
-	cont++;
+
 	return true;
 }
-
 
 void Rigidbody::update() {
 	if (_trans != nullptr && _active)
@@ -72,7 +53,6 @@ void Rigidbody::addForce(Vector3<float> force, Vector3<float> relativePos) {
 }
 
 Vector3<float> Rigidbody::getLinearVelocity() {
-
 	if (!_active) {
 		throw "Cannot return linear velocity of disabled rigidbody";
 	}
@@ -108,14 +88,18 @@ void Rigidbody::setKinematic(bool kinematic) {
 	_kinematic = kinematic;
 }
 
-void Rigidbody::setStatic(bool static_) {
-	if (_static)
+void Rigidbody::setStatic(bool isStatic) {
+	if (isStatic) {
 		_btRb->setCollisionFlags(_btRb->getCollisionFlags() |
 			btCollisionObject::CF_STATIC_OBJECT);
-	else
+		setMass(0.0f);
+	}
+	else {
 		_btRb->setCollisionFlags(_btRb->getCollisionFlags() &
 			~btCollisionObject::CF_STATIC_OBJECT);
-	_static = static_;
+		setMass(DEFAULT_MASS);
+	}
+	_static = isStatic;
 }
 
 void Rigidbody::setLinearVelocity(Vector3<float> vector) {
@@ -132,6 +116,6 @@ void Rigidbody::updateTransform() {
 	_btRb->setWorldTransform(initialTransform);
 }
 
-void Rigidbody::setMass(float mass, const btVector3& inertia ) {
+void Rigidbody::setMass(float mass, const btVector3& inertia) {
 	_btRb->setMassProps(mass, inertia);
 }

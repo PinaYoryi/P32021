@@ -1,16 +1,20 @@
 #pragma once
 
-#include "Component.h"
-#include "Vector3.h"
 #include "Transform.h"
+#include "Vector3.h"
+#include <btBulletDynamicsCommon.h> 
 
-static int cont = 0;
+const int DEFAULT_COLLISION_FLAGS = 1;
+const float DEFAULT_MASS = 54.0f;
+const float DEFAULT_RESTITUTION = 0.2f;
+
+const float OGRE_BULLET_RATIO = 5; //TODO: Esto molaría no hacerlo
 
 class Rigidbody : public Component
 {
 public:
 
-	Rigidbody() {}
+	Rigidbody() : _btRb(nullptr), _myMotionState(nullptr), _trans(nullptr) {}
 	~Rigidbody();
 
 	virtual bool init(const std::map<std::string, std::string>& mapa) override;
@@ -66,7 +70,7 @@ public:
 	void setKinematic(bool kinematic);
 
 	// Define si body sera estatico
-	void setStatic(bool static_);
+	void setStatic(bool isStatic);
 
 	// Define la velicidad
 	void setLinearVelocity(Vector3<float> vector);
@@ -77,10 +81,7 @@ public:
 	// Modifica propiedades de la masa
 	void setMass(float mass, const btVector3& inertia = { 0,0,0 });
 
-protected:
-
 private:
-
 	btRigidBody* _btRb = nullptr;//es e rigidbody como tal
 	btDefaultMotionState* _myMotionState;//es el "transform" inicial de bullet 
 	Transform* _trans = nullptr;
