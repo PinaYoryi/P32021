@@ -151,7 +151,6 @@ El proceso para la creación e implementación de una historia es la siguiente:
 * Para el control de versiones utilizaremos Git (GitHub).
 * Para el código usaremos Visual Studio Community 2019.
 * Para la organización y saber las tareas a hacer usaremos PivotalTracker.
-* Cmake ??????????????????????????????
 * Inclusión de librerias y recursos.
 
 ### Instalación 🔧
