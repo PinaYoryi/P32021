@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "OgreMotor.h"
-#include "Entity.h" //<------Esto es placeholder de la escena que crea SceneManager
+#include "SceneManager.h"
 
 //Unidad de tiempo tras la cual se actualizan las físicas.
 const float FIXED_UPDATE_TIME = 0.02f;
@@ -33,11 +33,6 @@ public:
 	void stopLoop();
 
 protected:
-	Entity* _camera; //<------Esto es placeholder de la escena que crea SceneManager
-	Entity* _ent; //<------Esto es placeholder de la escena que crea SceneManager
-	Entity* _ent2;
-	Entity* _ent3;
-
 	static MotorLoop* _singleton;
 
 	bool _loop = false;
@@ -47,36 +42,32 @@ protected:
 
 	//Lista de entidades
 
-	MotorLoop() : _camera(nullptr), _ent(nullptr), _ent2(nullptr), _ent3(nullptr) {}; //<------Esto es placeholder de la escena que crea SceneManager
+	MotorLoop() {}; //<------Esto es placeholder de la escena que crea SceneManager
 
 	/// <summary>
 	/// Prepara la clase para inicializar el bucle principal del motor.
 	/// </summary>
 	void initLoop();
 	/// <summary>
-	/// Lee los inputs que se den en el frame. Devuelve false en caso de error.
+	/// Lee los inputs que se den en el frame.
 	/// </summary>
-	bool stepInput();
+	void stepInput();
 	/// <summary>
-	/// Actualiza los componentes físicos. Devuelve false en caso de error.
+	/// Actualiza los componentes físicos.
 	/// </summary>
-	bool stepFixedUpdate();
+	void stepFixedUpdate();
 	/// <summary>
-	/// Actualiza los componentes lógicos. Devuelve false en caso de error.
+	/// Actualiza los componentes lógicos.
 	/// </summary>
-	bool stepUpdate();
+	void stepUpdate();
 	/// <summary>
-	/// Renderiza en pantalla lo componentes con esta propiedad. Devuelve false en caso de error.
+	/// Renderiza en pantalla lo componentes con esta propiedad.
 	/// </summary>
-	bool stepRender();
+	void stepRender();
 	/// <summary>
 	/// Actualiza deltaTime y acumula el tiempo real transpirado para la ejecución de FixedUpdate
 	/// </summary>
 	void updateTime();
-
-
-
-	void placeholderScene();
 
 #pragma region Getters/Setters
 public:

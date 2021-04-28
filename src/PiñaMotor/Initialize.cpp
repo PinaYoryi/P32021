@@ -2,14 +2,15 @@
 #include "MotorLoop.h"
 #include "OgreMotor.h"
 #include "BulletInstance.h"
+#include "SceneManager.h"
 
 Initialize::Initialize() {
     startOgre();
     startBullet();
     startFMOD();
 
-    //SceneManager::Init();
-    //SceneManager::loadScene();
+    SceneManager::Init();
+    SceneManager::GetInstance()->loadScene();
 
     MotorLoop::Init();
     MotorLoop::GetInstance()->startLoop();
@@ -20,6 +21,7 @@ Initialize::~Initialize() {
     stopBullet();
     stopFMOD();
     delete MotorLoop::GetInstance();
+    delete SceneManager::GetInstance();
 }
 
 #pragma region Ogre
