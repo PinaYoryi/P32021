@@ -22,37 +22,37 @@ Unidad Objeto Motor. Tienen una lista de componentes que les dan comportamiento 
 
 **COMPONENTES**: 
 
-El motor está estructurado en entidades y componentes. Las entidades son objetos sin función que lo que hacen es llamar a su lista de componentes. Los componentes son clases con funciones que se asignan a las entidades.
+Al motor se le puede añadir entidades y a éstas componentes. Las entidades son objetos sin función que lo que hacen es llamar a su lista de componentes, dotándoles de funcionalidad. Los componentes son clases con funciones que se asignan a las entidades.
 
 * TRANSFORM: Manejo de posición, rotación y escala de las entidades. Tiene métodos para mover, rotar y escalar. Las entidades comienzan con este componente incluido al crearlas. Asociado al _Parent_.
 
 * UITRANSFORM: Componente exclusivo de _Transform_ (2D) utilizado para incluir entidades en la interfaz de usuario. Hereda todas las funcionalidades descritas y sirve para que se coloque desde ese punto relativo de la pantalla. Los atributos tienen como unidades los píxeles de la pantalla o, en caso del ancla, están normalizadas, de forma que (0,0) está en la esquina inferior izquierda.
 
-* RIGIDBODY: Determina si la _Entidad_ es afectada por la físicas (_Bullet_): velocidades y aceleraciones (fuerzas, graviedad y fricción); dependiente de _Transform_.
+* RIGIDBODY: Determina si la _Entidad_ es afectada por la físicas (_Bullet_): velocidades y aceleraciones (fuerzas, gravedad y fricción); dependiente de _Transform_.
 
 * RENDERER: Comunica con _Ogre_ y renderiza mallas y texturas; actualizado frame a frame. Dependiente de _Transform_. 
 
-* COLISIÓN: Interfaz del sistema de colisiones de _Bullet_. Si intersección: se hacen llamadas a los métodos de colisión o activador en ambas entidades. Depende de _Transform_. 
+* COLISIÓN: Interfaz del sistema de colisiones de _Bullet_. Si hay intersección: se hacen llamadas a los métodos de colisión o activador en ambas entidades. Depende de _Transform_. 
 
 * IA: La tenencia de este componente dota a la entidad de la _IA_ básica del motor. Depende de _Transform_, _Rigidbody_. Tiene atributos para la velocidad de rotación, de movimiento, aceleración angular y lineal.
 
 * CÁMARA: Muestra el mundo. Depende de _Transform_. La posición (0,0) de la cámara se corresponde con la posición de arriba a la izquierda de la pantalla. Se puede modificar su viewport y su resolución.
 
-* TEXTO: Renderiza cualquier cadena de caracteres que quieras en la posición que quieras. Forma parte de la interfaz de usuario. Se puede modificar su fuente, tamaño, color tanto de los caracteres como del resaltado y alineación (izquierda, central o derecha).
+* TEXTO: Renderiza cualquier cadena de caracteres que se quiera en una posición fijada a través de _UITransform_. Forma parte de la interfaz de usuario. Se puede modificar su fuente, tamaño, color tanto de los caracteres como del resaltado y alineación (izquierda, central o derecha).
 
 * IMAGEN: Renderiza una imagen. Se puede modificar su tamaño y posición. Acepta diversos formatos como _.png_ y _.jpg_.
 
 * ANIMACIÓN: Se encarga de realizar las animaciones que se quiera. Se da la opción de transicionar entre diferentes animaciones que previamente se han creado, realizarse en bucle o una sola vez, elegir la animación por defecto y parar de animar.
 
-* DROPDOWN: Depende de _Transform_ y _Renderer_. Detecta eventos de teclado o ratón; es un desplegable tipo lista de botones.
+* DROPDOWN: Depende de _UITransform_ y _Renderer_. Detecta eventos de teclado o ratón; es un desplegable tipo lista de botones.
 
-* BOTÓN : Parte de la interfaz de usuario. Depende de _UITransform_ y Renderer. Detecta eventos de teclado o ratón.
+* BOTÓN : Parte de la interfaz de usuario. Depende de _UITransform_ y _Renderer_. Detecta eventos de teclado o ratón.
 
-* SISTEMA DE PARTÍCULAS: Se da la opción de crear un sistema de partícula a partir de un archivo _.particle_.
+* SISTEMA DE PARTÍCULAS: Se da la opción de crear un sistema de partículas a partir de un archivo _.particle_.
 
 * AUDIO SOURCE: Carga un archivo de audio y, utilizando _FMOD_, lo reproduce según diferentes atributos: espacial o global, volumen de reproducción, loop, etc. Tiene métodos de acceso y modificación de sus atributos.
 
-* AUDIO LISTENER: Utiliza la posición de Transform para averiguar si debe escuchar o no los diferentes sonidos que se crean en sus posiciones. Los sonidos globales los escucha siempre que estén reproduciendo.
+* AUDIO LISTENER: Utiliza la posición de _Transform_ para averiguar si debe escuchar o no los diferentes sonidos que se crean en sus posiciones. Los sonidos globales los escucha siempre que estén reproduciendo.
 
 * LIGHT: Uso de _OGRE_. Permite seleccionar el tipo de luz: direccional, de punto, foco…, la intensidad, color, sombras que genera.
 
@@ -139,7 +139,7 @@ Ogre incluye la librería de [SDL2](https://www.libsdl.org/), que aparte de ser 
 
 El proceso para la creación e implementación de una historia es la siguiente:
 
-* Se fragmenta el proyecto a realizar en historias, que se etiquetan en base a sus características (si están relacionadas con Ogre, Bullet… por ejemplo) y a su proyecto (motor, primer juego, segundo juego...)
+* Se fragmenta el proyecto a realizar en historias, que se etiquetan en base a sus características (si están relacionadas con Ogre, Bullet… por ejemplo) y a su proyecto (motor, primer juego o segundo juego)
 * Se puntúa la historia siguiendo el principio de la mayoría simple siguiendo en cierto modo el sistema del scrum póker, pero simplificado por conveniencia (sin usar cartas). * * Una vez puntuadas se dejan en el Icebox.
 * Los integrantes del grupo se asignan de forma individual o colectiva historias de forma autónoma y llevan a cabo el desarrollo. Una vez terminan, crean una rama nueva para su historia, hacen commit en ella y hacen deliver.
 * El elegido de la asignación de revisiones avisa a dos integrantes para que lleven a cabo esta tarea, uno revisa que el código sigue un estándar establecido y el otro la funcionalidad, y una vez hecho esto se pasa la historia a accept/reject.
@@ -172,7 +172,7 @@ Son ficheros de texto con instrucciones para el shell (el CMD) para que haga cos
 
 ## Autores ✒️
 
-* **Martínez Martínez** pamart24@ucm.es
+* **Paula Martínez Martínez** pamart24@ucm.es
 * **Daniel Cortijo Gamboa** dcortijo@ucm.es
 * **Eloy Moreno Cortijo** eloymore@ucm.es
 * **Andrés de la Cuesta López** ancues02@ucm.es
