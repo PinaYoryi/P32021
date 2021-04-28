@@ -49,10 +49,10 @@ void ResourceManager::searchDir(std::filesystem::path path) {
 	std::cout << "End Search in: " << path << "\n";
 }
 
-void ResourceManager::loadAsset(std::filesystem::path path, size_t end, size_t pathLenght) {
+void ResourceManager::loadAsset(std::filesystem::path path, size_t end, size_t pathLength) {
 	std::string extension = path.string().substr(end);
 	std::cout << extension << "\n";
-	std::string name = path.string().substr(pathLenght + 1);
+	std::string name = path.string().substr(pathLength + 1);
 	if (extension == ".wav" || extension == ".ogg" || extension == ".mp3")
 		_audio.insert(std::pair<std::string, std::string>(name, path.string()));
 	else if (extension == ".png" || extension == ".jpg" || extension == ".bmp")
