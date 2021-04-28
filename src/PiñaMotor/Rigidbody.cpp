@@ -3,6 +3,13 @@
 #include "BulletInstance.h"
 #include "Transform.h"
 
+#include <btBulletDynamicsCommon.h> 
+#include <btBulletCollisionCommon.h>
+#include <BulletDynamics/Dynamics/btRigidBody.h>
+#include <BulletCollision/NarrowPhaseCollision/btGjkEpaPenetrationDepthSolver.h>
+#include <BulletCollision/NarrowPhaseCollision/btGjkPairDetector.h>
+#include <BulletCollision/NarrowPhaseCollision/btPointCollector.h>
+
 Rigidbody::~Rigidbody() {
 	delete _btRb; _btRb = nullptr;
 	delete _myMotionState; _myMotionState = nullptr;
@@ -129,6 +136,6 @@ void Rigidbody::updateTransform() {
 	_btRb->setWorldTransform(initialTransform);
 }
 
-void Rigidbody::setMass(float mass, const btVector3& inertia) {
+void Rigidbody::setMass(float mass, const btVector3& inertia ) {
 	_btRb->setMassProps(mass, inertia);
 }

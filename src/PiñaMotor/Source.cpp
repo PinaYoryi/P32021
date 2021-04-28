@@ -101,18 +101,16 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
             Input::GetInstance()->update();
             if (Input::GetInstance()->keyDown(SDL_SCANCODE_SPACE)) {
                 ent2->getComponent<Rigidbody>()->addForce({ 0,200000,0 });
-                ent2->getComponent<Rigidbody>()->setTrigger(true);
+                //ent2->getComponent<Rigidbody>()->setMass(1000,{0, 0, 0});
             }
-            else if (Input::GetInstance()->keyDown(SDL_SCANCODE_W)) {
-                ent2->getComponent<Rigidbody>()->addForce({ 0,200000,0 });
-                ent2->getComponent<Rigidbody>()->setTrigger(false);
-
-            }
+            
             else if (Input::GetInstance()->keyDown(SDL_SCANCODE_A)) {
                 ent2->getComponent<Rigidbody>()->addForce({ -100000,0,0 });
+
             }
             else if (Input::GetInstance()->keyDown(SDL_SCANCODE_D)) {
                 ent2->getComponent<Rigidbody>()->addForce({ 100000,0,0 });
+
             }
             BulletInstance::GetInstance()->update();
             camera->render();

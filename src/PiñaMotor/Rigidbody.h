@@ -4,14 +4,6 @@
 #include "Vector3.h"
 #include "Transform.h"
 
-#include <string>
-#include <btBulletDynamicsCommon.h> 
-#include <btBulletCollisionCommon.h>
-#include <BulletDynamics/Dynamics/btRigidBody.h>
-#include <BulletCollision/NarrowPhaseCollision/btGjkEpaPenetrationDepthSolver.h>
-#include <BulletCollision/NarrowPhaseCollision/btGjkPairDetector.h>
-#include <BulletCollision/NarrowPhaseCollision/btPointCollector.h>
-
 static int cont = 0;
 
 class Rigidbody : public Component
@@ -83,18 +75,17 @@ public:
 	void updateTransform();
 
 	// Modifica propiedades de la masa
-	void setMass(float mass, const btVector3& inertia);
+	void setMass(float mass, const btVector3& inertia = { 0,0,0 });
 
 protected:
 
 private:
 
-	btRigidBody* _btRb = nullptr;
-	btDefaultMotionState* _myMotionState;
+	btRigidBody* _btRb = nullptr;//es e rigidbody como tal
+	btDefaultMotionState* _myMotionState;//es el "transform" inicial de bullet 
 	Transform* _trans = nullptr;
 	bool _trigger = false;
 	bool _kinematic = false;
 	bool _static = false;
 	bool _collision = false;
-	//btCollisionShape* newRigidShape = nullptr;
 };
