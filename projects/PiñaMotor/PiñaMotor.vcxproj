@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\PiñaMotor\Initialize.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\OgreMotor.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\BoxCollider.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\BulletInstance.cpp" />
@@ -32,7 +33,6 @@
     <ClCompile Include="..\..\src\PiñaMotor\Input.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\MotorLoop.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Quaternion.cpp" />
-    <ClCompile Include="..\..\src\PiñaMotor\OgreInstance.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Renderer.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Rigidbody.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Source.cpp" />
@@ -40,6 +40,7 @@
     <ClCompile Include="..\..\src\PiñaMotor\Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\src\PiñaMotor\Initialize.h" />
     <ClInclude Include="..\..\src\PiñaMotor\LuaReader.h" />
     <ClInclude Include="..\..\src\PiñaMotor\OgreMotor.h" />
     <ClInclude Include="..\..\src\PiñaMotor\BoxCollider.h" />
@@ -52,7 +53,6 @@
     <ClInclude Include="..\..\src\PiñaMotor\Matrix3.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Matrix4.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Quaternion.h" />
-    <ClInclude Include="..\..\src\PiñaMotor\OgreInstance.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Renderer.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Input.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Rigidbody.h" />

@@ -1,7 +1,4 @@
 #include "BulletInstance.h"
-#include "MotorLoop.h"
-#include "OgreSceneNode.h"
-#include "Transform.h"
 
 BulletInstance* BulletInstance::_bulletInstance = nullptr;
 

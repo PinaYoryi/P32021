@@ -3,9 +3,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <OgreVector.h>
-#include <btBulletDynamicsCommon.h>
-
-using namespace std;
+#include "LinearMath/btVector3.h"
 
 /*
 *	Se declara toda la clase en el .h para evitar problemas de link.
@@ -139,7 +137,7 @@ public:
 	Vector3<T>& operator/=(const T val) { x /= val; y /= val; z /= val; return *this; }
 	Vector3<T> operator/(const T val) const { return Vector3<T>(x, y, z) /= val; }
 #ifdef _DEBUG
-	friend ostream& operator<<(ostream& output, const Vector3<T>& v) {
+	friend std::ostream& operator<<(std::ostream& output, const Vector3<T>& v) {
 		output << "(" << v.x << ", " << v.y << ", " << v.z << ")" << "\n";
 		return output;
 	};
