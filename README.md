@@ -1,6 +1,6 @@
 # Pina Yoryi 🍍
 
-Piña Motor es un motor de videojuegos en tres dimensiones multipropósito, que utiliza el motor gráfico de [OGRE](#OGRE), el motor físico de [BULLET](#BULLET) y el motor de audio de [FMOD](#FMOD) y la lectura mediante [LUA](#LUA).
+Piña Motor es un motor de videojuegos en tres dimensiones multipropósito. Utiliza el motor gráfico de [OGRE](#OGRE), el motor físico de [BULLET](#BULLET) y el motor de audio de [FMOD](#FMOD); la lectura mediante [LUA](#LUA) y para el GUI utiliza la biblioteca de interfaz gráfica [CEGUI](#CEGUI)
 
 ## Comenzando 🚀
 
@@ -107,9 +107,9 @@ Es una actualización que ocurre tras una cierta cantidad de tiempo real fija; l
 **RENDER**
 Este método se llama una vez cada frame, y es privado para el desarrollador del motor. Se encarga de hacer llamadas al motor gráfico renderizando todos los objetos de la escena.
 
-**INTERFAZ**
+**INTERFAZ** <a name="CEGUI"></a>
 
-El motor permite crear elementos que existan fuera de la escena, en una interfaz, haciendo que de esta forma se encuentren siempre en la cámara superpuestas a los demás elementos.
+El motor permite crear elementos que existan fuera de la escena, en una interfaz, haciendo que de esta forma se encuentren siempre en la cámara superpuestas a los demás elementos. Para el uso de elementos gráficos de interacción, como puede ser el GUI, utilizaremos la libreria de interfaz gráfica CEGUI.
 
 **FÍSICA**
 
@@ -169,6 +169,7 @@ Son ficheros de texto con instrucciones para el shell (el CMD) para que haga cos
 * Microsoft Visual Studio.
 * Editores de texto.
 * [LUA](https://www.lua.org/download.html)
+* [CEGUI](http://cegui.org.uk/content/getting-started).
 
 ## Autores ✒️
 
