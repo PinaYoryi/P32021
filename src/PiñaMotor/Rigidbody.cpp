@@ -13,15 +13,11 @@
 Rigidbody::~Rigidbody() {
 	delete _btRb; _btRb = nullptr;
 	delete _myMotionState; _myMotionState = nullptr;
-	//delete _trans; _trans = nullptr;
 }
 
 bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 
-	//quitar
-	
-	_trans = _myEntity->getComponent<Transform>();
-	
+	_trans = _myEntity->getComponent<Transform>();	
 	btCollisionShape* newRigidShape = new btBoxShape(5 * _trans->scale());
 	//set the initial position and transform. For this demo, we set the tranform to be none
 	btTransform startTransform;

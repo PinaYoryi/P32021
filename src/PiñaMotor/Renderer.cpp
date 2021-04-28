@@ -14,6 +14,7 @@ bool Renderer::init(const std::map<std::string, std::string>& mapa){
 	// _ogreNode.attachedObject(_ogreEntity);
 	//if(_material!="")
 	//_ogreEntity.setMaterialName(_material)
+
 	if (name == 0) {
 		_ogreEntity = OgreMotor::GetInstance()->getSceneManager()->createEntity("cube.mesh");
 		_ogreNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode("nSimbad" + name);
@@ -22,7 +23,7 @@ bool Renderer::init(const std::map<std::string, std::string>& mapa){
 		_ogreNode->setScale(20, 20, 20);
 		_ogreNode->setPosition(20, 20, 20);
 	}
-	else if (name == 1) {
+	else  {
 		_ogreEntity = OgreMotor::GetInstance()->getSceneManager()->createEntity("Sinbad.mesh");
 		_ogreNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode("nSimbad" + name);
 		name++;
