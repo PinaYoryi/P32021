@@ -5,7 +5,7 @@ class Entity;
 
 //clase abstracta de todos los componentes
 class Component {
-	friend  Entity;
+	friend Entity;
 
 public:
 	virtual bool init(const std::map<std::string, std::string>& mapa) = 0;

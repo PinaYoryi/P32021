@@ -4,15 +4,13 @@
 #include "Transform.h"
 
 
-Entity::Entity() : _name("Entity")
+Entity::Entity() : _name("Entity"), _id()
 {
-	addComponent<Transform>(std::map<std::string,std::string>());
 	
 }
 
-Entity::Entity(char* entityName) : _name(entityName)
+Entity::Entity(char* entityName, int id) : _name(entityName), _id(id)
 {
-	addComponent<Transform>();
 }
 
 Entity::~Entity() {

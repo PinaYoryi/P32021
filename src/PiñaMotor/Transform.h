@@ -12,13 +12,9 @@ public:
 		Parent
 	};
 
-	Transform(Vector3<float> position, Quaternion rotation, Vector3<float> scale, Transform* parent = nullptr);
+	Transform() : _scale ( 1, 1, 1 ) {}
 
-	Transform() :_scale ( 1, 1, 1 ){}
-
-	bool init(const std::map<std::string, std::string>& mapa) override {
-		return true;
-	}
+	bool init(const std::map<std::string, std::string>& mapa) override;
 
 	void translate(float x, float y, float z);
 	void rotate(float xAngle, float yAngle, float zAngle, Space relativeTo = Space::Self);

@@ -2,29 +2,28 @@
 #include "Component.h"
 #include "ecs.h"
 #include "ComponentFactory.h"
+#include <map>
 using namespace std;
 
 class Entity {
 public:
 	Entity();
-	Entity(char* entityName);
+	Entity(char* entityName, int id);
 
 	~Entity();
 
-	template<typename T, typename ... TArgs>
-	Component* addComponent(TArgs &&...args) {
+	template<typename T>
+	Component* addComponent(const std::map<std::string, std::string>& map) {
 		Component* t = ComponentFactory::getInstance().getComponent(indexOf<T, ComponentsList>);
 		t->_myEntity = this;//ponemos la entidad en el componente
 		std::unique_ptr<Component> upt (t);
 		compUnique.push_back(std::move(upt));
 		_compArray[indexOf<T, ComponentsList>] = t;
-		std::map<std::string, std::string> map;
 		
-		// TODO: Que se cargue el diccionario con los args
 		if (t->init(map)) {
 			return t;
 		}
-		cout << "Error carga componente\n";
+		throw "Error de carga de componente con el indice " + indexOf<T, ComponentsList>; // TODO: Hacer un sistema de excepciones
 	}
 
 	template<typename T>
@@ -63,6 +62,8 @@ public:
 
 private:
 	const char* _name;
+
+	int _id;
 	//aqui estaran los componentes de esta entidad
 	std::vector<unique_ptr<Component>> compUnique;
 	//aqui estaran todos los posibles punteros a componentes existentes

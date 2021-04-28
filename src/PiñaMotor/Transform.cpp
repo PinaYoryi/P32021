@@ -1,20 +1,40 @@
 #include "Transform.h"
 #include "Entity.h"
+#include <string>
 
-Transform::Transform(Vector3<float> position, Quaternion rotation, Vector3<float> scale, Transform* parent) :
-	_parent(parent), _position(position), _rotation(rotation), _scale(scale) {
-	if (parent == nullptr) {
+bool Transform::init(const std::map<std::string, std::string>& mapa) {
+	if (mapa.find("position") == mapa.end() || mapa.find("rotation") == mapa.end() || mapa.find("scale") == mapa.end()) return false;
+
+	std::string s = mapa.at("position");
+	std::string x = s.substr(0, s.find(","));
+	std::string y = s.substr(x.length() + 1, s.find(","));
+	std::string z = s.substr(y.length() + x.length() + 2, s.find(","));
+	_position = { std::stof(x), std::stof(z), std::stof(y) };
+
+	s = mapa.at("rotation");
+	x = s.substr(0, s.find(","));
+	y = s.substr(x.length() + 1, s.find(","));
+	z = s.substr(y.length() + x.length() + 2, s.find(","));
+	_position = { std::stof(x), std::stof(z), std::stof(y) };
+
+	s = mapa.at("scale");
+	x = s.substr(0, s.find(","));
+	y = s.substr(x.length() + 1, s.find(","));
+	z = s.substr(y.length() + x.length() + 2, s.find(","));
+	_position = { std::stof(x), std::stof(z), std::stof(y) };
+
+	if (_parent == nullptr) {
 		_localPosition = _position;
 		_localRotation = _rotation;
 		_localScale = _scale;
 
 	}
 	else {
-		_localPosition = inverseTransformDirection(parent->position());
-		_localRotation = inverseTransformRotation(parent->rotation());
-		_localScale = inverseTransformDirection(parent->scale());
+		_localPosition = inverseTransformDirection(_parent->position());
+		_localRotation = inverseTransformRotation(_parent->rotation());
+		_localScale = inverseTransformDirection(_parent->scale());
 	}
-
+	return true;
 }
 
 void Transform::translate(float x, float y, float z) {

@@ -24,6 +24,8 @@
 #include "Quaternion.h"
 #include "Animation.h"
 
+#include "LuaReader.h"
+
 #include "vector"
 #include "iostream"
 #if (defined _DEBUG) || !(defined _WIN32) //<-- Ya no lo tenemos en teor�a
@@ -35,67 +37,70 @@ WinMain(HINSTANCE zhInstance, HINSTANCE prevInstance, LPSTR lpCmdLine, int nCmdS
 #endif
 _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Leaks
     try {
-        OgreMotor::init("Motor de Ogre");
+        //OgreMotor::init("Motor de Ogre");
 
-        // Aquí empieza el test de la cámara
-        ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform> cpm;
-        ComponentFactoryRegistrations::ComponentFactoryRegistration<Camera> cp3;
+        //// Aquí empieza el test de la cámara
+        //ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform> cpm;
+        //ComponentFactoryRegistrations::ComponentFactoryRegistration<Camera> cp3;
 
-        Entity* camera = new Entity();
-        camera->addComponent<Camera>();
-        camera->getComponent<Camera>()->setNearClipPlane(1);
-        camera->getComponent<Camera>()->setFarClipPlane(10000);
-        camera->getComponent<Camera>()->setAspectRatio(true);
+        //Entity* camera = new Entity();
+        //camera->addComponent<Camera>();
+        //camera->getComponent<Camera>()->setNearClipPlane(1);
+        //camera->getComponent<Camera>()->setFarClipPlane(10000);
+        //camera->getComponent<Camera>()->setAspectRatio(true);
 
-        camera->getComponent<Transform>()->setPosition(0, 0, 1000);
-        camera->getComponent<Transform>()->setRotation(0, 0, 0);
+        //camera->getComponent<Transform>()->setPosition(0, 0, 1000);
+        //camera->getComponent<Transform>()->setRotation(0, 0, 0);
 
-        camera->getComponent<Camera>()->setBackgroundColor(1.0f, 0.5f, 0.3137f);
-        //Aquí acaba el test
+        //camera->getComponent<Camera>()->setBackgroundColor(1.0f, 0.5f, 0.3137f);
+        ////Aquí acaba el test
 
-        Ogre::Light* luz = OgreMotor::GetInstance()->getSceneManager()->createLight("Luz");
-        luz->setType(Ogre::Light::LT_DIRECTIONAL);
-        luz->setDiffuseColour(0.0, 0.0, 0.0);
+        //Ogre::Light* luz = OgreMotor::GetInstance()->getSceneManager()->createLight("Luz");
+        //luz->setType(Ogre::Light::LT_DIRECTIONAL);
+        //luz->setDiffuseColour(0.0, 0.0, 0.0);
 
-        Ogre::SceneNode* lightNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode("Luz");
-        lightNode->attachObject(luz);
-        lightNode->setDirection(Ogre::Vector3(0, -1, -1));
+        //Ogre::SceneNode* lightNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode("Luz");
+        //lightNode->attachObject(luz);
+        //lightNode->setDirection(Ogre::Vector3(0, -1, -1));
 
-        
+        //
        
 
-        //Aquí acaba el test
-        OgreMotor::GetInstance()->getSceneManager()->setAmbientLight(Ogre::ColourValue(0.2, 0.2, 0.2, 1.0));
+        ////Aquí acaba el test
+        //OgreMotor::GetInstance()->getSceneManager()->setAmbientLight(Ogre::ColourValue(0.2, 0.2, 0.2, 1.0));
 
-        //Empieza el test del componente renderer
-        ComponentFactoryRegistrations::ComponentFactoryRegistration<Renderer> cpm2;
-        ComponentFactoryRegistrations::ComponentFactoryRegistration<Animation> cpm3;
-        Entity* ent = new Entity();
-        ent->addComponent<Renderer>();
-        ent->addComponent<Animation>();
-        ent->getComponent<Transform>()->setScale({ 20,20,20 });
-        Animation* an = ent->getComponent<Animation>();
-        OgreMotor::GetInstance()->addInputListener(an);
-        //app.getRoot()->startRendering();
-        int i = 1;   
-        an->changeAnimation("Dance");
+        ////Empieza el test del componente renderer
+        //ComponentFactoryRegistrations::ComponentFactoryRegistration<Renderer> cpm2;
+        //ComponentFactoryRegistrations::ComponentFactoryRegistration<Animation> cpm3;
+        //Entity* ent = new Entity();
+        //ent->addComponent<Renderer>();
+        //ent->addComponent<Animation>();
+        //ent->getComponent<Transform>()->setScale({ 20,20,20 });
+        //Animation* an = ent->getComponent<Animation>();
+        //OgreMotor::GetInstance()->addInputListener(an);
+        ////app.getRoot()->startRendering();
+        //int i = 1;   
+        //an->changeAnimation("Dance");
 
-        while (true) {
-            camera->render();
-            ent->render();
-            Vector3<float> v = ent->getComponent<Transform>()->position();
-            if (i % 250 == 0)
-                an->changeAnimation(std::vector<std::string> { "RunBase", "RunTop" /*,"yht"*/ });
-            else if (i % 200 == 0) {
-                // an->changeAnimation("Dance");
-                an->setLoop(false);
-            }
-            OgreMotor::GetInstance()->getRoot()->renderOneFrame();
-            ++i;
-        }
-        delete ent;
-        delete camera;
-        OgreMotor::close(); 
+        //while (true) {
+        //    camera->render();
+        //    ent->render();
+        //    Vector3<float> v = ent->getComponent<Transform>()->position();
+        //    if (i % 250 == 0)
+        //        an->changeAnimation(std::vector<std::string> { "RunBase", "RunTop" /*,"yht"*/ });
+        //    else if (i % 200 == 0) {
+        //        // an->changeAnimation("Dance");
+        //        an->setLoop(false);
+        //    }
+        //    OgreMotor::GetInstance()->getRoot()->renderOneFrame();
+        //    ++i;
+        //}
+        //delete ent;
+        //delete camera;
+        //OgreMotor::close(); 
+
+        ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform> cpm;
+        readFile();
     }
     catch (Ogre::Exception& e) {
         Ogre::LogManager::getSingleton().logMessage("An exception has occured: " + e.getFullDescription() + "\n");
