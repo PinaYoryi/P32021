@@ -1,6 +1,6 @@
 # Pina Yoryi 🍍
 
-Piña Motor es un motor de videojuegos en tres dimensiones multipropósito, que utiliza el motor gráfico de [OGRE](#OGRE), el motor físico de [BULLET](#BULLET) y el motor de audio de [FMOD](#FMOD)
+Piña Motor es un motor de videojuegos en tres dimensiones multipropósito, que utiliza el motor gráfico de [OGRE](#OGRE), el motor físico de [BULLET](#BULLET) y el motor de audio de [FMOD](#FMOD) y la lectura mediante [LUA](LUA).
 
 ## Comenzando 🚀
 
@@ -8,7 +8,7 @@ Piña Motor es un motor de videojuegos en tres dimensiones multipropósito, que 
 
 Detectamos la entrada de tanto teclado como ratón mediante _SDL_. 
 
-**LECTURA ARCHIVOS**
+**LECTURA ARCHIVOS** <a name="LUA"></a>
 
 Utilizamos _LUA_ para la lectura de los archivos: mapas, audio, etc para posteriormente pasar los datos al núcleo del motor.
 
