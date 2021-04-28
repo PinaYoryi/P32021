@@ -55,7 +55,7 @@ void ResourceManager::loadAsset(std::filesystem::path path, size_t end, size_t p
 	std::string name = path.string().substr(pathLenght + 1);
 	if (extension == ".wav" || extension == ".ogg" || extension == ".mp3")
 		_audio.insert(std::pair<std::string, std::string>(name, path.string()));
-	else if (extension == ".png" || extension == ".jpg")
+	else if (extension == ".png" || extension == ".jpg" || extension == ".bmp")
 		_textures.insert(std::pair<std::string, std::string>(name, path.string()));
 
 	std::cout << name << "\n";
