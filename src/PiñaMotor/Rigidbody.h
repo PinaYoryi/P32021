@@ -2,7 +2,9 @@
 
 #include "Transform.h"
 #include "Vector3.h"
-#include <btBulletDynamicsCommon.h> 
+#include "BulletCollision/CollisionShapes/btCollisionShape.h"
+#include "BulletDynamics/Dynamics/btRigidBody.h"
+#include "LinearMath/btDefaultMotionState.h"
 
 const int DEFAULT_COLLISION_FLAGS = 1;
 const float DEFAULT_MASS = 54.0f;

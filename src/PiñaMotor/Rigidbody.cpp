@@ -23,7 +23,7 @@ bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 	_myMotionState = new btDefaultMotionState(startTransform);
 
 	// Establecemos la masa
-	btScalar _mass = DEFAULT_MASS;
+	float _mass = DEFAULT_MASS;
 
 	// Por defecto no tiene inercia
 	btVector3 localInertia(0, 0, 0);
