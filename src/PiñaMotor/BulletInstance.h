@@ -4,7 +4,7 @@
 #include "Vector3.h"
 #include <vector>
 
-const Vector3<> DEFAULT_GRAVITY = { 0.0f, -20.0f, 0.0f };
+const Vector3<> DEFAULT_GRAVITY = { 0.0f, -9.8f, 0.0f };
 
 class BulletInstance {
 public:

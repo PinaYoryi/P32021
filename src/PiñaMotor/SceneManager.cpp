@@ -86,7 +86,7 @@ bool SceneManager::loadScene() {
     lComp->setSpotlightOuterAngle(180);
     lComp->setAttenuation(Vector4<>(100, 0.001, 0.001, 0.001));
 
-    light->getComponent<Transform>()->setPosition(10, 20, 0);
+    light->getComponent<Transform>()->setPosition(0, 20, 0);
     light->getComponent<Transform>()->setRotation(270, 0, 0);
     SceneManager::GetInstance()->addEntity(light);
 
@@ -111,16 +111,16 @@ bool SceneManager::loadScene() {
     Animation* an = ent2->getComponent<Animation>();
     OgreMotor::GetInstance()->addInputListener(an);
     an->changeAnimation("Dance");
-    ent2->getComponent<Transform>()->setScale({ 1, 1, 1 });
-    ent2->getComponent<Transform>()->setPosition({ 0, 0, 0 });
+    ent2->getComponent<Transform>()->setScale({ 0.1, 0.1, 0.1 });
+    ent2->getComponent<Transform>()->setPosition({ 0, 100, 0 });
     ent2->addComponent<Rigidbody>();
     SceneManager::GetInstance()->addEntity(ent2);
 
     Entity* ent3 = new Entity();
     ent3->addComponent<Renderer>();
-    ent3->getComponent<Transform>()->setScale({ 1, 1, 1 });
-    ent3->getComponent<Transform>()->setPosition({ 10, 200, 0 });
-    ent3->getComponent<Transform>()->setRotation(90, 0, 0);
+    ent3->getComponent<Transform>()->setScale({ 0.1, 0.1, 0.1 });
+    ent3->getComponent<Transform>()->setPosition({ 0, 200, 0 });
+    ent3->getComponent<Transform>()->setRotation(0, 0, 0);
     ent3->addComponent<Rigidbody>();
     SceneManager::GetInstance()->addEntity(ent3);
 

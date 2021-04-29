@@ -9,7 +9,7 @@ Rigidbody::~Rigidbody() {
 
 bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 	_trans = _myEntity->getComponent<Transform>();	
-	btCollisionShape* newRigidShape = new btBoxShape(OGRE_BULLET_RATIO * _trans->scale());
+	_btCs = new btBoxShape(OGRE_BULLET_RATIO * _trans->scale());
 	btTransform startTransform;
 	startTransform.setIdentity();
 	startTransform.setRotation(_trans->rotation());
@@ -18,20 +18,17 @@ bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 	btVector3 localInertia(0, 0, 0);
 
 	startTransform.setOrigin(_trans->position());
-	newRigidShape->calculateLocalInertia(mass, localInertia);
+	_btCs->calculateLocalInertia(mass, localInertia);
 
 	_myMotionState = new btDefaultMotionState(startTransform);
 
-	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, _myMotionState, newRigidShape, localInertia);
+	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, _myMotionState, _btCs, localInertia);
 	_btRb = new btRigidBody(rbInfo);
 	_btRb->setRestitution(DEFAULT_RESTITUTION);
 	_btRb->setCollisionFlags(DEFAULT_COLLISION_FLAGS);
 	_btRb->setMassProps(mass, localInertia);
-
-	_btRb->setUserPointer(_myEntity->getComponent<Transform>());
 	
 	BulletInstance::GetInstance()->getWorld()->addRigidBody(_btRb);
-	BulletInstance::GetInstance()->addCollisionShape(newRigidShape);
 
 	return true;
 }
@@ -39,6 +36,25 @@ bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 void Rigidbody::update() {
 	if (_trans != nullptr && _active)
 		updateTransform();
+}
+
+
+void Rigidbody::createShape(ShapeTypes type)
+{
+	switch (type)
+	{
+	case ShapeTypes::Box:
+		_btCs = new btBoxShape(_trans->scale());
+		break;
+	case ShapeTypes::Sphere:
+		_btCs = new btSphereShape(_trans->scale().x);
+		break;
+	case ShapeTypes::Capsule:
+		_btCs = new btCapsuleShape(_trans->scale().x, _trans->scale().y);
+		break;
+	default:
+		break;
+	}
 }
 
 void Rigidbody::addForce(Vector3<float> force, Vector3<float> relativePos) {
@@ -110,10 +126,14 @@ void Rigidbody::setLinearVelocity(Vector3<float> vector) {
 }
 
 void Rigidbody::updateTransform() {
-	btTransform initialTransform;
-	initialTransform.setOrigin(_trans->position());
-	initialTransform.setRotation(_trans->rotation());
-	_btRb->setWorldTransform(initialTransform);
+	
+	btTransform trans;
+	_btRb->getMotionState()->getWorldTransform(trans);
+			
+	btQuaternion orientation = trans.getRotation();
+	_trans->setPosition(trans.getOrigin().getX(), trans.getOrigin().getY(), trans.getOrigin().getZ());
+	_trans->setRotation(Quaternion(orientation.getW(), orientation.getX(), orientation.getY(), orientation.getZ()));
+			
 }
 
 void Rigidbody::setMass(float mass, const btVector3& inertia) {

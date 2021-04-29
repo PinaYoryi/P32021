@@ -8,7 +8,9 @@ const int DEFAULT_COLLISION_FLAGS = 1;
 const float DEFAULT_MASS = 54.0f;
 const float DEFAULT_RESTITUTION = 0.2f;
 
-const float OGRE_BULLET_RATIO = 5; //TODO: Esto molaría no hacerlo
+const float OGRE_BULLET_RATIO = 50; //TODO: Esto molaría no hacerlo
+
+enum class ShapeTypes { Box, Sphere, Capsule };
 
 class Rigidbody : public Component
 {
@@ -19,6 +21,9 @@ public:
 
 	virtual bool init(const std::map<std::string, std::string>& mapa) override;
 	virtual void update();
+
+
+	void createShape(ShapeTypes type);
 
 	// GETTERS
 	// Devuelve si es un disparador
@@ -83,7 +88,8 @@ public:
 
 private:
 	btRigidBody* _btRb = nullptr;//es e rigidbody como tal
-	btDefaultMotionState* _myMotionState;//es el "transform" inicial de bullet 
+	btDefaultMotionState* _myMotionState = nullptr;//es el "transform" inicial de bullet 
+	btCollisionShape* _btCs = nullptr;
 	Transform* _trans = nullptr;
 	bool _trigger = false;
 	bool _kinematic = false;
