@@ -43,6 +43,7 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
     audiop->init();
    // audiop->fadeIn();
     audiop->playSound("talking.wav", 0.1, true);
+    audiop->playSound("piano.ogg", 0.5, true);
     audiop->fadeIn();
     audiop->setPitch(1);
     //audiop->setVolume(0.1);
