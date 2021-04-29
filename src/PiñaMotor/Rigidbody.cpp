@@ -32,13 +32,13 @@ bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 	// Creamos la configuracion del Rigidbody
 	btRigidBody::btRigidBodyConstructionInfo rbInfo(_mass, _myMotionState, _btCs, localInertia);
 
-	// Lo creamos a partir de la información dada
+	// Lo creamos a partir de la informaciï¿½n dada
 	_btRb = new btRigidBody(rbInfo);
 	_btRb->setRestitution(DEFAULT_RESTITUTION);
 	_btRb->setCollisionFlags(DEFAULT_COLLISION_FLAGS);
 	_btRb->setMassProps(_mass, localInertia);
 	
-	// Se añade al mundo de la simulación física
+	// Se aï¿½ade al mundo de la simulaciï¿½n fï¿½sica
 	BulletInstance::GetInstance()->getWorld()->addRigidBody(_btRb);
 
 	return true;
@@ -50,7 +50,7 @@ void Rigidbody::update() {
 }
 
 void Rigidbody::updateTransform() {
-	// Coge el transform del rigidbody tras la simulación física de este frame
+	// Coge el transform del rigidbody tras la simulaciï¿½n fï¿½sica de este frame
 	btTransform trans;
 	_btRb->getMotionState()->getWorldTransform(trans);
 	btQuaternion orientation = trans.getRotation();
