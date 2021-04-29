@@ -12,12 +12,12 @@ local mapa = {
         mesh="ball.mesh",
         material="red.mat",
         visible="true"
-      },
-      animation={
-        animations="Dance,Run",
-        playing="true",
-        loop="true"
-      }
+      }--,
+      --animation={
+      --  animations="Dance,Run",
+      --  playing="true",
+      --  loop="true"
+      --}
     }
   },
   {
@@ -38,11 +38,11 @@ local mapa = {
         proyection="0",
         viewport="0,0,500,500",
         color="1.0,0.5,0.3137"
-      },
-      audiosource={
-        volume="0.3",
-        spacial="1"
-      }
+      }--,
+      --audiosource={
+      --  volume="0.3",
+      --  spacial="1"
+      --}
     }
   }
 }
