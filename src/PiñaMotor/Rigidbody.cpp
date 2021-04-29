@@ -3,6 +3,7 @@
 #include "Entity.h"
 
 Rigidbody::~Rigidbody() {
+	delete _btCs; _btCs = nullptr;
 	delete _btRb; _btRb = nullptr;
 	delete _myMotionState; _myMotionState = nullptr;
 }

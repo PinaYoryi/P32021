@@ -118,6 +118,7 @@ void OgreMotor::setup() {
 	_mRoot->showConfigDialog(NULL);
 
 	_mSM = _mRoot->createSceneManager();
+	_mSM->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
 	_mShaderGenerator->addSceneManager(_mSM);
 }
 
