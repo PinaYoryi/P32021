@@ -31,10 +31,10 @@ public:
 	/// Si no lanza excepci�n.
 	/// </summary>
 	std::string audio(std::string name);
-	std::map<std::string, std::string> _audio, _textures;
 
 protected:
 	static ResourceManager* _singleton;
+	std::map<std::string, std::string> _audio, _textures;
 
 	//Diccionarios que relacionan nombres usables de resources con sus direcciones.
 
