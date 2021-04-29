@@ -75,6 +75,9 @@
     <ClCompile Include="..\..\src\PiñaMotor\Rigidbody.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\PiñaMotor\Light.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\PiñaMotor\Camera.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
@@ -165,6 +168,12 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\PiñaMotor\ResourceManager.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\PiñaMotor\Light.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\PiñaMotor\Vector4.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
