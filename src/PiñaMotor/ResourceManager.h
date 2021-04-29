@@ -32,9 +32,15 @@ public:
 	/// </summary>
 	std::string audio(std::string name);
 
+	/// <summary>
+	/// Devuelve la direcci�n de la audio con el nombre name.
+	/// Si no lanza excepci�n.
+	/// </summary>
+	std::string scene(std::string name);
+
 protected:
 	static ResourceManager* _singleton;
-	std::map<std::string, std::string> _audio, _textures;
+	std::map<std::string, std::string> _audio, _textures, _scenes;
 
 	//Diccionarios que relacionan nombres usables de resources con sus direcciones.
 

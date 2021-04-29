@@ -16,13 +16,19 @@ ResourceManager* ResourceManager::Init() {
 
 std::string ResourceManager::texture(std::string name) {
 	auto it = _textures.find(name);
-	if (it == _textures.end()) throw "No se ha encontrado la textura" + name;
+	if (it == _textures.end()) throw "No se ha encontrado la textura " + name; //ToDo: Hacer excepciones de verdad
 	return it->second;
 }
 
 std::string ResourceManager::audio(std::string name) {
 	auto it = _audio.find(name);
-	if (it == _audio.end()) throw "No se ha encontrado el audio" + name;
+	if (it == _audio.end()) throw "No se ha encontrado el audio " + name;
+	return it->second;
+}
+
+std::string ResourceManager::scene(std::string name) {
+	auto it = _scenes.find(name);
+	if (it == _scenes.end()) throw "No se ha encontrado la escena " + name;
 	return it->second;
 }
 
@@ -44,4 +50,6 @@ void ResourceManager::loadAsset(std::filesystem::path path, size_t end, size_t p
 		_audio.insert(std::pair<std::string, std::string>(name, path.string()));
 	else if (extension == ".png" || extension == ".jpg" || extension == ".bmp")
 		_textures.insert(std::pair<std::string, std::string>(name, path.string()));
+	else if (extension == ".lua")
+		_scenes.insert(std::pair<std::string, std::string>(name, path.string()));
 }
