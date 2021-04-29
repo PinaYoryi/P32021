@@ -91,7 +91,6 @@ private:
 	btRigidBody* _btRb = nullptr;		// Es el rigidbody
 	btDefaultMotionState* _myMotionState = nullptr;//es el "transform" inicial de bullet 
 	Transform* _trans = nullptr;
-	btScalar _mass;
 	bool _trigger = false;
 	bool _kinematic = false;
 	bool _static = false;

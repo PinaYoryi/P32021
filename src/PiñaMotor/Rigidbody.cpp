@@ -23,7 +23,7 @@ bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 	_myMotionState = new btDefaultMotionState(startTransform);
 
 	// Establecemos la masa
-	_mass = DEFAULT_MASS;
+	btScalar _mass = DEFAULT_MASS;
 
 	// Por defecto no tiene inercia
 	btVector3 localInertia(0, 0, 0);
@@ -68,7 +68,7 @@ void Rigidbody::createShape(ShapeTypes type)
 		_btCs = new btBoxShape(_trans->scale() * OGRE_BULLET_RATIO);
 		break;
 	case ShapeTypes::Sphere:
-		_btCs = new btSphereShape(_trans->scale().x);
+		_btCs = new btSphereShape(_trans->scale().x * OGRE_BULLET_RATIO);
 		break;
 	case ShapeTypes::Capsule:
 		_btCs = new btCapsuleShape(_trans->scale().x, _trans->scale().y);
