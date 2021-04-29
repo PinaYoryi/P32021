@@ -2,10 +2,10 @@
 
 
 AudioSource::AudioSource() {
-	_system = Audio::getInstance()->getSystemFMOD();
+	_system = Audio::GetInstance()->getSystemFMOD();
 }
 
-void AudioSource::playSound(const std::string name) {
+void AudioSource::playSound2D(const std::string name) {
 
 }
 

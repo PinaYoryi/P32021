@@ -5,10 +5,16 @@
 
 class Audio {
 public:
+
 	Audio();
-	static Audio* getInstance();
-	void init();
+
+	static Audio* GetInstance();
+
+	static bool Init();
+
 	void update();
+
+	~Audio();
 
 	/// <summary>
 	/// Añade un sonido/musica y lo ejcuta, name es la direccion o nombre del archivo, 
@@ -62,8 +68,7 @@ public:
 	FMOD::System* getSystemFMOD() { return _system; }
 
 private:
-	
-	~Audio();
+
 
 	void errorCheck(FMOD_RESULT result);
 

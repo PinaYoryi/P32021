@@ -3,6 +3,7 @@
 #include "OgreMotor.h"
 #include "BulletInstance.h"
 #include "SceneManager.h"
+#include "Audio.h"
 
 Initialize::Initialize() {
     startOgre();
@@ -29,8 +30,8 @@ void Initialize::startOgre() {
     try {
         OgreMotor::Init("Motoraso");
     }
-    catch (Ogre::Exception& e) {
-        Ogre::LogManager::getSingleton().logMessage("An exception has occured: " + e.getFullDescription() + "\n");
+    catch (const std::exception&) {
+        throw "Fallo Ogre";
     }
 }
 
@@ -45,8 +46,8 @@ void Initialize::startBullet() {
     try {
         BulletInstance::Init();
     }
-    catch (Ogre::Exception& e) {
-        Ogre::LogManager::getSingleton().logMessage("An exception has occured: " + e.getFullDescription() + "\n");
+    catch (const std::exception&){
+        throw "Fallo Bullet";
     }
 }
 void Initialize::stopBullet() {
@@ -57,9 +58,15 @@ void Initialize::stopBullet() {
 
 #pragma region FMOD
 void Initialize::startFMOD() {
-    //FMOD.initApp();
+    try{
+        Audio::Init();
+    }
+    catch (const std::exception&){
+        throw "Fallo FMOD";
+    }
+   
 }
 void Initialize::stopFMOD() {
-    //FMOD.closeApp();
+    delete Audio::GetInstance();
 }
 #pragma endregion

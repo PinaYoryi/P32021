@@ -13,13 +13,13 @@ public:
 		return true;
 	}
 
-	void setPosition(Vector3<float> position) { _position.x = position.getX(); _position.y = position.getY(); _position.z = position.getZ();};
+	void setPosition(Vector3<float> position) { _position.x = position.x; _position.y = position.y; _position.z = position.z;};
 	Vector3<float> getPosition() { return Vector3<float>(_position.x,_position.y,_position.z); };
 
-	void setVelocity(Vector3<float> velocity) { _velocity.x = velocity.getX(); _velocity.y = velocity.getY(); _velocity.z = velocity.getZ(); };
+	void setVelocity(Vector3<float> velocity) { _velocity.x = velocity.x; _velocity.y = velocity.y; _velocity.z = velocity.z; };
 	Vector3<float> getVelocity() { return Vector3<float>(_velocity.x, _velocity.y, _velocity.z); };
 
-	void Update() override;
+	void update() override;
 
 private:
 	Audio* _instance;

@@ -14,7 +14,7 @@ public:
 		return true;
 	}
 
-	void playSound(const std::string name);
+	void playSound2D(const std::string name);
 	void pauseSound(const std::string name);
 	void stopSound(const std::string name);
 
@@ -22,7 +22,7 @@ public:
 	void addNewSound(const std::string name);
 	void createSound3D(char* name);
 
-	void setPosition(Vector3<float> position) { _position.x = position.getX(); _position.x = position.getX(); _position.x = position.getX(); };
+	void setPosition(Vector3<float> position) { _position.x = position.x; _position.y = position.y; _position.z = position.z; };
 	Vector3<float> getPosition() { return Vector3<float>(_position.x, _position.y, _position.z); };
 
 private:
