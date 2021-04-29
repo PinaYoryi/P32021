@@ -15,6 +15,7 @@
 #include "Camera.h"
 #include "Rigidbody.h"
 #include "Light.h"
+#include "AudioSource.h"
 
 
 SceneManager* SceneManager::_singleton = nullptr;
@@ -95,6 +96,7 @@ bool SceneManager::loadScene() {
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Renderer> cpm2;
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Rigidbody> cpm4;
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Animation> cpm3;
+    ComponentFactoryRegistrations::ComponentFactoryRegistration<AudioSource> cpm5;
 
     Entity* ent = new Entity();
     ent->addComponent<Renderer>();
@@ -118,9 +120,11 @@ bool SceneManager::loadScene() {
 
     Entity* ent3 = new Entity();
     ent3->addComponent<Renderer>();
+    ent3->addComponent<AudioSource>();
     ent3->getComponent<Transform>()->setScale({ 1, 1, 1 });
     ent3->getComponent<Transform>()->setPosition({ 10, 200, 0 });
     ent3->getComponent<Transform>()->setRotation(90, 0, 0);
+    ent3->getComponent<AudioSource>()->playSound2D("talking.wav", 0.1, true);
     ent3->addComponent<Rigidbody>();
     SceneManager::GetInstance()->addEntity(ent3);
 

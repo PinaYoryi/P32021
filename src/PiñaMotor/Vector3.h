@@ -4,6 +4,7 @@
 #include <math.h>
 #include <OgreVector.h>
 #include "LinearMath/btVector3.h"
+#include "fmod_common.h"
 
 /*
 *	Se declara toda la clase en el .h para evitar problemas de link.
@@ -146,9 +147,10 @@ public:
 
 	//Parsear de Vector3 a Ogre::Vector3
 	operator Ogre::Vector3() const { return Ogre::Vector3((float)x, (float)y, (float)z); }
-	//Parsear de Vector3 a Ogre::Vector3
+	//Parsear de Vector3 a Bullet::Vector3
 	operator btVector3() const { return btVector3((float)x, (float)y, (float)z); }
-
+	//Parsear de Vector3 a FMOD_VECTOR
+	operator FMOD_VECTOR() const{ return FMOD_VECTOR((float)x,(float)y,(float)z); }
 	// Vectores predefinidos
 	static const Vector3<T> up() { return Vector3<T>((T)0, (T)1, (T)0); }
 	static const Vector3<T> down() { return Vector3<T>((T)0, (T)-1, (T)0); }

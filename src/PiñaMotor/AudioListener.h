@@ -24,8 +24,8 @@ public:
 private:
 	Audio* _instance;
 	FMOD::System* _system;
-	FMOD_VECTOR _position;
-	FMOD_VECTOR _velocity;
-	FMOD_VECTOR _forward;
-	FMOD_VECTOR _up;
+	Vector3<float> _position;
+	Vector3<float> _velocity;
+	Vector3<float> _forward;
+	Vector3<float> _up;
 };

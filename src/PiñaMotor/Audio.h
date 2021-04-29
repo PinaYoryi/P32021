@@ -65,7 +65,14 @@ public:
 	/// <summary>
 	/// Devuelve el system de fmod para utilizarlo en otros archivos(AudioListener/AudioSource).
 	/// </summary>
-	FMOD::System* getSystemFMOD() { return _system; }
+	FMOD::System* getSystemFMOD() { return _system; };
+
+	/// <summary>
+	/// Devuelve el result de fmod para utilizarlo en otros archivos(AudioListener/AudioSource).
+	/// </summary>
+	 FMOD_RESULT getResult() { return _result; }
+
+	 void addSound();
 
 private:
 

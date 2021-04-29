@@ -146,6 +146,12 @@ const float Audio::getVolume() const {
 	}
 }
 
+
+
+void Audio::addSound(){
+
+}
+
 void Audio::errorCheck(FMOD_RESULT result) {
 	if (result != FMOD_RESULT::FMOD_OK)
 		throw std::exception(FMOD_ErrorString(result));
