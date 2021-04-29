@@ -7,18 +7,22 @@
 #include "Transform.h"
 
 bool Renderer::init(const std::map<std::string, std::string>& mapa){
-	//_mesh=map.mesh;
-	//_material=map.material;
-	//_ogreNode = OgreInstance::getInstance()->getmSM()->getRootSceneNode()->createChildSceneNode("nombredel nodo");
-	//_ogreEntity = _ogreEntity->createEntity(_mesh);
-	// _ogreNode.attachedObject(_ogreEntity);
-	//if(_material!="")
-	//_ogreEntity.setMaterialName(_material)
-	_ogreEntity = OgreMotor::GetInstance()->getSceneManager()->createEntity("Sinbad.mesh");
-	_ogreNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode("nSimbad");
+	if (mapa.find("mesh") == mapa.end() || mapa.find("material") == mapa.end() || mapa.find("visible") == mapa.end()) return false;
+	
+	std::string me = mapa.at("mesh");
+	setMesh(me);
+
+	std::string ma = mapa.at("material");
+	setMaterial(ma);
+
+	std::string vi = mapa.at("visible");
+	if (vi == "true") setVisible(true);
+	else if (vi == "false") setVisible(false);
+	else return false;
+
+	_ogreNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode(_myEntity->getName());
 	_ogreNode->attachObject(_ogreEntity);
-	_ogreNode->setScale(20, 20, 20);
-	_ogreNode->setPosition(20, 20, 20);
+
 	return true;
 }
 void Renderer::setVisible(bool visible) {

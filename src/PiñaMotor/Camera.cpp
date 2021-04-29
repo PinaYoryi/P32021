@@ -12,16 +12,47 @@ Camera::Camera() {
 }
 
 bool Camera::init(const std::map<std::string, std::string>& mapa) {
-	_cam = OgreMotor::GetInstance()->getSceneManager()->createCamera("camName");
-	_camNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode("camNode"/*_myEntity->getName()*/);
+	if (mapa.find("near") == mapa.end() || mapa.find("far") == mapa.end() || mapa.find("autoaspect") == mapa.end() || mapa.find("aspect") == mapa.end() ||
+		mapa.find("fov") == mapa.end() || mapa.find("proyection") == mapa.end() || mapa.find("viewport") == mapa.end() || mapa.find("color") == mapa.end()) return false;
+	
+	_cam = OgreMotor::GetInstance()->getSceneManager()->createCamera(_myEntity->getName());
+	_camNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode(_myEntity->getName());
 	_viewport = OgreMotor::GetInstance()->getRenderWindow()->addViewport(_cam);
-	_camNode->attachObject(_cam);
+	_camNode->attachObject(_cam);	
 
+	std::string s = mapa.at("near");
+	setNearClipPlane(std::stof(s));
 
-	// Quitar cuando tengamos inicializacion
-	setNearClipPlane(0.1); 
-	setFarClipPlane(10000);
-	setAspectRatio(true);
+	s = mapa.at("far");
+	setNearClipPlane(std::stof(s));
+
+	bool b;
+	s = mapa.at("autoaspect");
+	if (s == "true") b = true;
+	else if (s == "false") b = false;
+	else return false;
+
+	std::string s = mapa.at("aspect");
+	setAspectRatio(b, std::stof(s));
+
+	s = mapa.at("fov");
+	setFOVY(std::stof(s));
+
+	s = mapa.at("proyection");
+	setProjectionType((Camera::ProjectionType)(std::stoi(s)));
+
+	s = mapa.at("viewport");
+	std::string x = s.substr(0, s.find(","));
+	std::string y = s.substr(x.length() + 1, s.find(","));
+	std::string z = s.substr(y.length() + x.length() + 2, s.find(","));
+	std::string w = s.substr(z.length() + y.length() + x.length() + 3, s.find(","));
+	setViewport(Vector2<>(std::stof(x), std::stof(y)), Vector2<>(std::stof(z), std::stof(w)));
+
+	s = mapa.at("color");
+	std::string x = s.substr(0, s.find(","));
+	std::string y = s.substr(x.length() + 1, s.find(","));
+	std::string z = s.substr(y.length() + x.length() + 2, s.find(","));
+	setBackgroundColor(std::stof(x), std::stof(y), std::stof(z));
 
 	return true;
 }
