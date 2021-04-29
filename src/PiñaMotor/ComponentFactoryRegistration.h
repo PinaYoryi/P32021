@@ -9,8 +9,8 @@
 namespace ComponentFactoryRegistrations {
 	template<typename T> class ComponentFactoryRegistration {
 	public:
-		ComponentFactoryRegistration() {
-			ComponentFactory::getInstance().registerGenerator(indexOf<T,ComponentsList>, []()
+		ComponentFactoryRegistration(std::string compName) {
+			ComponentFactory::getInstance().registerGenerator(indexOf<T,ComponentsList>, compName, []()
 				{
 					return static_cast<Component*>(new T());
 				}

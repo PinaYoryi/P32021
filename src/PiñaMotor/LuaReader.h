@@ -46,7 +46,7 @@ void readFile(std::string file = "myscript.lua") {
 		int id = lua_tonumber(l, -1);
 		lua_pop(l, 1);
 
-		Entity* ent = new Entity(name, id);
+		Entity* ent = new Entity(name, id); // TODO: Meter esta entidad en la lista de entidadades
 
 		// Components
 		// Calls a similar while loop, creating a set<string, string> with each pair
@@ -68,7 +68,8 @@ void readFile(std::string file = "myscript.lua") {
 				lua_pop(l, 1);
 			}
 
-			if(std::strcmp(compName, "transform") == 0) ent->addComponent<Transform>(compMap);
+			// Función de traducción
+			ent->addComponent(compName, compMap); // TODO: Mirar si es correcto este acercamiento al addComponent o es mejor usar Templates y magia (al parecer)
 			lua_pop(l, 1);
 		}
 		lua_pop(l, 1);

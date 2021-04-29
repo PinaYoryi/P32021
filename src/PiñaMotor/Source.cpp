@@ -37,7 +37,6 @@ WinMain(HINSTANCE zhInstance, HINSTANCE prevInstance, LPSTR lpCmdLine, int nCmdS
 #endif
 _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Leaks
     try {
-        //OgreMotor::init("Motor de Ogre");
 
         //// Aquí empieza el test de la cámara
         //ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform> cpm;
@@ -97,10 +96,17 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
         //}
         //delete ent;
         //delete camera;
-        //OgreMotor::close(); 
 
-        ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform> cpm;
+        ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform> cpm("transform");
+        ComponentFactoryRegistrations::ComponentFactoryRegistration<Renderer> cpm2("renderer");
+        OgreMotor::init("Motor de Ogre");
+
         readFile();
+
+        ComponentFactoryRegistrations::ComponentFactoryRegistration<Camera> cpm3("camera");
+
+        while (true) {}
+        OgreMotor::close();
     }
     catch (Ogre::Exception& e) {
         Ogre::LogManager::getSingleton().logMessage("An exception has occured: " + e.getFullDescription() + "\n");

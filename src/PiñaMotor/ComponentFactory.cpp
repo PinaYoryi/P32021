@@ -16,7 +16,17 @@ Component* ComponentFactory::getComponent(size_t index)
 	return nullptr;
 }
 
-bool ComponentFactory::registerGenerator(size_t index, const componentInstanceGenerator& instGenerator)
+Component* ComponentFactory::getComponent(std::string name)
 {
-	return _mGenerators.insert(std::make_pair(index, instGenerator)).second;
+	return getComponent(_mCompNames[name]);
+}
+
+size_t ComponentFactory::getComponentIndex(std::string name)
+{
+	return _mCompNames[name];
+}
+
+bool ComponentFactory::registerGenerator(size_t index, std::string compName, const componentInstanceGenerator& instGenerator)
+{
+	return _mGenerators.insert(std::make_pair(index, instGenerator)).second && _mCompNames.insert(std::make_pair(compName, index)).second;
 }
