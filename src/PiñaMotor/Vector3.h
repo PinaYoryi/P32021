@@ -146,7 +146,7 @@ public:
 
 	//Parsear de Vector3 a Ogre::Vector3
 	operator Ogre::Vector3() const { return Ogre::Vector3((float)x, (float)y, (float)z); }
-	//Parsear de Vector3 a Ogre::Vector3
+	//Parsear de Vector3 a btVector3 (Bullet)
 	operator btVector3() const { return btVector3((float)x, (float)y, (float)z); }
 
 	// Vectores predefinidos

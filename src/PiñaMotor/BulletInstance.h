@@ -32,14 +32,13 @@ public:
 	inline btCollisionDispatcher* getDispatcher() const { return _dispatcher; }
 	inline btSequentialImpulseConstraintSolver* getSolver() const { return _solver; }
 	inline btDiscreteDynamicsWorld* getWorld() const { return _world; }
-	inline std::vector<btCollisionShape*> getCollisionShapes() { return _collisionShapes; }
+
 	// Setters
 	inline void setBroadphase(btBroadphaseInterface* newBroadphase) { _broadphase = newBroadphase; }
 	inline void setCollisionConfiguration(btDefaultCollisionConfiguration* newCollisionConfiguration) { _collisionConfiguration = newCollisionConfiguration; }
 	inline void setDispatcher(btCollisionDispatcher* newDispatcher) { _dispatcher = newDispatcher; }
 	inline void setSolver(btSequentialImpulseConstraintSolver* newSolver) { _solver = newSolver; }
 	inline void setWorld(btDiscreteDynamicsWorld* newWorld) { _world = newWorld; }
-	inline void addCollisionShape(btCollisionShape* btCS) { _collisionShapes.push_back(btCS); }
 
 	void update();
 protected:
@@ -57,6 +56,4 @@ private:
 	btCollisionDispatcher* _dispatcher = nullptr;
 	btSequentialImpulseConstraintSolver* _solver = nullptr;
 	btDiscreteDynamicsWorld* _world = nullptr;
-	std::vector<btCollisionShape*> _collisionShapes;
-	//std::map<std::string, btRigidBody*> _physicsAccessors;
 };

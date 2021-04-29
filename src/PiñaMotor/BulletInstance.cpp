@@ -5,6 +5,7 @@
 BulletInstance* BulletInstance::_bulletInstance = nullptr;
 
 BulletInstance::BulletInstance() {
+	// Configuración de Bullet
 	_broadphase = new btDbvtBroadphase();
 	_collisionConfiguration = new btDefaultCollisionConfiguration();
 	_dispatcher = new btCollisionDispatcher(_collisionConfiguration);
@@ -14,14 +15,11 @@ BulletInstance::BulletInstance() {
 };
 
 BulletInstance::~BulletInstance() {
-	for (auto it : _collisionShapes) {
-		delete it;
-	}
-	delete _world;
-	delete _broadphase;
-	delete _collisionConfiguration;
-	delete _dispatcher;
-	delete _solver;
+	if(_world) delete _world;
+	if(_broadphase) delete _broadphase;
+	if(_collisionConfiguration) delete _collisionConfiguration;
+	if(_dispatcher) delete _dispatcher;
+	if(_solver) delete _solver;
 }
 
 BulletInstance* BulletInstance::GetInstance() {
@@ -37,6 +35,3 @@ void BulletInstance::update()
 {
 	_world->stepSimulation(FIXED_UPDATE_TIME);
 }
-
-
-

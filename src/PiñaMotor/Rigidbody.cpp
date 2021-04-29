@@ -3,31 +3,42 @@
 #include "Entity.h"
 
 Rigidbody::~Rigidbody() {
-	delete _btRb; _btRb = nullptr;
-	delete _myMotionState; _myMotionState = nullptr;
+	if (_btCs) delete _btCs; _btCs = nullptr;
+	if (_btRb) delete _btRb; _btRb = nullptr;
+	if(_myMotionState) delete _myMotionState; _myMotionState = nullptr;
 }
 
 bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
+	// Cogemos el puntero del componente Transform 
 	_trans = _myEntity->getComponent<Transform>();	
-	_btCs = new btBoxShape(OGRE_BULLET_RATIO * _trans->scale());
+
+	// Creamos el Shape
+	createShape(ShapeTypes::Box);
+
+	// Creamos un Transform de Bullet a partir del componente Transform
 	btTransform startTransform;
 	startTransform.setIdentity();
-	startTransform.setRotation(_trans->rotation());
-
-	btScalar mass = DEFAULT_MASS;
-	btVector3 localInertia(0, 0, 0);
-
 	startTransform.setOrigin(_trans->position());
-	_btCs->calculateLocalInertia(mass, localInertia);
-
+	startTransform.setRotation(_trans->rotation());
 	_myMotionState = new btDefaultMotionState(startTransform);
 
-	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, _myMotionState, _btCs, localInertia);
+	// Establecemos la masa
+	_mass = DEFAULT_MASS;
+
+	// Por defecto no tiene inercia
+	btVector3 localInertia(0, 0, 0);
+	_btCs->calculateLocalInertia(_mass, localInertia);
+
+	// Creamos la configuracion del Rigidbody
+	btRigidBody::btRigidBodyConstructionInfo rbInfo(_mass, _myMotionState, _btCs, localInertia);
+
+	// Lo creamos a partir de la información dada
 	_btRb = new btRigidBody(rbInfo);
 	_btRb->setRestitution(DEFAULT_RESTITUTION);
 	_btRb->setCollisionFlags(DEFAULT_COLLISION_FLAGS);
-	_btRb->setMassProps(mass, localInertia);
+	_btRb->setMassProps(_mass, localInertia);
 	
+	// Se añade al mundo de la simulación física
 	BulletInstance::GetInstance()->getWorld()->addRigidBody(_btRb);
 
 	return true;
@@ -38,13 +49,23 @@ void Rigidbody::update() {
 		updateTransform();
 }
 
+void Rigidbody::updateTransform() {
+	// Coge el transform del rigidbody tras la simulación física de este frame
+	btTransform trans;
+	_btRb->getMotionState()->getWorldTransform(trans);
+	btQuaternion orientation = trans.getRotation();
+
+	// Modifica el componente Transform del objeto
+	_trans->setPosition(trans.getOrigin().getX(), trans.getOrigin().getY(), trans.getOrigin().getZ());
+	_trans->setRotation(Quaternion(orientation.getW(), orientation.getX(), orientation.getY(), orientation.getZ()));	
+}
 
 void Rigidbody::createShape(ShapeTypes type)
 {
 	switch (type)
 	{
 	case ShapeTypes::Box:
-		_btCs = new btBoxShape(_trans->scale());
+		_btCs = new btBoxShape(_trans->scale() * OGRE_BULLET_RATIO);
 		break;
 	case ShapeTypes::Sphere:
 		_btCs = new btSphereShape(_trans->scale().x);
@@ -123,17 +144,6 @@ void Rigidbody::setLinearVelocity(Vector3<float> vector) {
 		return;
 
 	_btRb->setLinearVelocity(vector);
-}
-
-void Rigidbody::updateTransform() {
-	
-	btTransform trans;
-	_btRb->getMotionState()->getWorldTransform(trans);
-			
-	btQuaternion orientation = trans.getRotation();
-	_trans->setPosition(trans.getOrigin().getX(), trans.getOrigin().getY(), trans.getOrigin().getZ());
-	_trans->setRotation(Quaternion(orientation.getW(), orientation.getX(), orientation.getY(), orientation.getZ()));
-			
 }
 
 void Rigidbody::setMass(float mass, const btVector3& inertia) {

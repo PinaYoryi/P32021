@@ -87,10 +87,11 @@ public:
 	void setMass(float mass, const btVector3& inertia = { 0,0,0 });
 
 private:
-	btRigidBody* _btRb = nullptr;//es e rigidbody como tal
+	btCollisionShape* _btCs = nullptr;	// La forma de la collisionBox
+	btRigidBody* _btRb = nullptr;		// Es el rigidbody
 	btDefaultMotionState* _myMotionState = nullptr;//es el "transform" inicial de bullet 
-	btCollisionShape* _btCs = nullptr;
 	Transform* _trans = nullptr;
+	btScalar _mass;
 	bool _trigger = false;
 	bool _kinematic = false;
 	bool _static = false;
