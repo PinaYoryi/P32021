@@ -32,7 +32,7 @@ bool Camera::init(const std::map<std::string, std::string>& mapa) {
 	else if (s == "false") b = false;
 	else return false;
 
-	std::string s = mapa.at("aspect");
+	s = mapa.at("aspect");
 	setAspectRatio(b, std::stof(s));
 
 	s = mapa.at("fov");
@@ -49,9 +49,9 @@ bool Camera::init(const std::map<std::string, std::string>& mapa) {
 	setViewport(Vector2<>(std::stof(x), std::stof(y)), Vector2<>(std::stof(z), std::stof(w)));
 
 	s = mapa.at("color");
-	std::string x = s.substr(0, s.find(","));
-	std::string y = s.substr(x.length() + 1, s.find(","));
-	std::string z = s.substr(y.length() + x.length() + 2, s.find(","));
+	x = s.substr(0, s.find(","));
+	y = s.substr(x.length() + 1, s.find(","));
+	z = s.substr(y.length() + x.length() + 2, s.find(","));
 	setBackgroundColor(std::stof(x), std::stof(y), std::stof(z));
 
 	return true;

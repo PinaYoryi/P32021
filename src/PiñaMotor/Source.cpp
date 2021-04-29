@@ -99,13 +99,14 @@ _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF); // Check Memory Le
 
         ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform> cpm("transform");
         ComponentFactoryRegistrations::ComponentFactoryRegistration<Renderer> cpm2("renderer");
+        ComponentFactoryRegistrations::ComponentFactoryRegistration<Camera> cpm3("camera");
         OgreMotor::init("Motor de Ogre");
 
         readFile();
 
-        ComponentFactoryRegistrations::ComponentFactoryRegistration<Camera> cpm3("camera");
-
-        while (true) {}
+        while (true) {
+            OgreMotor::GetInstance()->getRoot()->renderOneFrame();
+        }
         OgreMotor::close();
     }
     catch (Ogre::Exception& e) {
