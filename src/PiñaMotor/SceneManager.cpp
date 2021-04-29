@@ -109,7 +109,7 @@ bool SceneManager::loadScene() {
     Entity* ent2 = new Entity();
     ent2->addComponent<Renderer>();
     ent2->getComponent<Transform>()->setScale({ 0.01, 0.1, 0.05 });
-    ent2->getComponent<Transform>()->setPosition({ -20, 30, 0 });
+    ent2->getComponent<Transform>()->setPosition({ -20, 300, 0 });
     ent2->addComponent<Rigidbody>();
     SceneManager::GetInstance()->addEntity(ent2);
 

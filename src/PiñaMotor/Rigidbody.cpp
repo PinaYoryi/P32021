@@ -14,7 +14,7 @@ bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 
 	// Creamos el Shape
 	createShape(ShapeTypes::Box);
-
+	
 	// Creamos un Transform de Bullet a partir del componente Transform
 	btTransform startTransform;
 	startTransform.setIdentity();
@@ -54,7 +54,6 @@ void Rigidbody::updateTransform() {
 	btTransform trans;
 	_btRb->getMotionState()->getWorldTransform(trans);
 	btQuaternion orientation = trans.getRotation();
-
 	// Modifica el componente Transform del objeto
 	_trans->setPosition(trans.getOrigin().getX(), trans.getOrigin().getY(), trans.getOrigin().getZ());
 	_trans->setRotation(Quaternion(orientation.getW(), orientation.getX(), orientation.getY(), orientation.getZ()));	
@@ -71,7 +70,7 @@ void Rigidbody::createShape(ShapeTypes type)
 		_btCs = new btSphereShape(_trans->scale().x * OGRE_BULLET_RATIO);
 		break;
 	case ShapeTypes::Capsule:
-		_btCs = new btCapsuleShape(_trans->scale().x, _trans->scale().y);
+		_btCs = new btCapsuleShape(_trans->scale().x * OGRE_BULLET_RATIO, _trans->scale().y * OGRE_BULLET_RATIO);
 		break;
 	default:
 		break;
