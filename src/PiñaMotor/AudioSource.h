@@ -17,7 +17,7 @@ public:
 	}
 	
 	void playSound2D(const char* name, float volume, bool loop);
-	void playSound3D(const char* name);
+	void playSound3D(const char* name, float volume, bool loop);
 	void pauseSound(const char* name);
 	void stopSound(const char* name);
 	void fadeIn();

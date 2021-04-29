@@ -6,12 +6,14 @@ AudioSource::AudioSource() {
 
 	_system = Audio::GetInstance()->getSystemFMOD();
 	_result = Audio::GetInstance()->getResult();
+	_channel = nullptr;
+	_sound = nullptr;
 }
 
 void AudioSource::playSound2D(const char* name, float volume, bool loop) {
 	try {
-		_system = Audio::GetInstance()->getSystemFMOD();
-		_result = Audio::GetInstance()->getResult();
+		//_system = Audio::GetInstance()->getSystemFMOD();
+		//_result = Audio::GetInstance()->getResult();
 		FMOD::Sound* sound;
 		_result = _system->createSound(name, FMOD_DEFAULT, 0, &sound);
 		errorCheck(_result);
@@ -36,9 +38,31 @@ void AudioSource::playSound2D(const char* name, float volume, bool loop) {
 	}
 }
 
-void AudioSource::playSound3D(const char* name)
+void AudioSource::playSound3D(const char* name, float volume, bool loop)
 {
+	try {
+		FMOD::Sound* sound;
+		_result = _system->createSound(name, FMOD_3D, 0, &sound);
+		errorCheck(_result);
 
+
+		_result = _system->playSound(sound, 0, false, &_channel);
+		errorCheck(_result);
+
+		_result = _channel->setVolume(volume);
+		errorCheck(_result);
+
+		if (loop) {
+			_result = _channel->setMode(FMOD_LOOP_NORMAL);
+			errorCheck(_result);
+		}
+
+		_result = _channel->setPaused(false);
+		errorCheck(_result);
+	}
+	catch (std::exception& e) {
+		std::cout << e.what() << std::endl;
+	}
 }
 
 void AudioSource::pauseSound(const char* name) {
