@@ -1,33 +1,24 @@
-#include <time.h>
 #include "MotorLoop.h"
+#include <time.h>
+#include "Input.h"
+#include "BulletInstance.h"
+#include <OgreRoot.h>
 
 MotorLoop* MotorLoop::_singleton = nullptr;
+
+MotorLoop::~MotorLoop() {
+    delete Input::GetInstance();
+}
 
 MotorLoop* MotorLoop::GetInstance() {
 	return _singleton;
 }
 
 bool MotorLoop::Init() {
+    Input::Init();
 	if (_singleton != nullptr) return false;
 	_singleton = new MotorLoop(); return true;
 }
-#pragma region Entidades
-
-bool MotorLoop::addEntity() {
-	//Comprueba si existe la entidad.
-	//Si existe, return false.
-	//Si no existe, la a�ade y return true.
-	return true;
-}
-
-bool MotorLoop::removeEntity() {
-	//Comprueba si existe la entidad.
-	//Si existe, la quita y return true.
-	//Si no existe, return false.
-	return true;
-}
-
-#pragma endregion
 
 #pragma region Loop
 
@@ -35,17 +26,13 @@ void MotorLoop::startLoop() {
 	if (_loop == true) return;
 	initLoop();
 	while (_loop) {
+		std::vector<Entity*> ent = SceneManager::GetInstance()->getEntities();
 		stepInput();
-		stepFixedUpdate();
-		stepUpdate();
-		stepRender();
-#ifdef _DEBUG
-		std::cout << "Iteracion del bucle\n";
-#endif
+		stepFixedUpdate(ent);
+		stepUpdate(ent);
+		stepRender(ent);
+		OgreMotor::GetInstance()->getRoot()->renderOneFrame();
 	}
-#ifdef _DEBUG
-	std::cout << "Detenido bucle\n";
-#endif
 }
 
 void MotorLoop::stopLoop() {
@@ -55,34 +42,30 @@ void MotorLoop::stopLoop() {
 void MotorLoop::initLoop() {
 	_loop = true;
 	_accumulatedTime = 0;
-	_lastTime = clock();
-#ifdef _DEBUG
-	std::cout << "Inicializando bucle\n";
-#endif
 }
 
-bool MotorLoop::stepInput() {
-	//for (Entidad en lista) e->input();
-	return true;
+void MotorLoop::stepInput() {
+    Input::GetInstance()->update();
 }
 
-bool MotorLoop::stepUpdate() {
-	//for (Entidad en lista) e->update();
-	return true;
+void MotorLoop::stepUpdate(std::vector<Entity*> ent) {
+    for (Entity* e : ent)
+        e->update();
 }
 
-bool MotorLoop::stepFixedUpdate() {
+void MotorLoop::stepFixedUpdate(std::vector<Entity*> ent) {
 	updateTime();
 	while (_accumulatedTime > FIXED_UPDATE_TIME) {
-		//for (Entidad en lista) e->fixedUpdate();
+		for (Entity* e : ent)
+			e->fixedUpdate();
+        BulletInstance::GetInstance()->update();
 		_accumulatedTime -= FIXED_UPDATE_TIME;
 	}
-	return true;
 }
 
-bool MotorLoop::stepRender() {
-	//for (Entidad en lista) e->render();
-	return true;
+void MotorLoop::stepRender(std::vector<Entity*> ent) {
+    for (Entity* e : ent)
+        e->render();
 }
 
 void MotorLoop::updateTime() {
@@ -91,5 +74,4 @@ void MotorLoop::updateTime() {
 	_accumulatedTime += _deltaTime;
 	_lastTime = currentTime;
 }
-
 #pragma endregion

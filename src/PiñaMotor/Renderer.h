@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
 #include "OgreSceneNode.h"
+static int name = 0;
 
 class Renderer : public Component {
 public:

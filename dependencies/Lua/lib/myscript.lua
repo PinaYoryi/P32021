@@ -10,7 +10,7 @@ local mapa = {
       },
       renderer={
         mesh="ball.mesh",
-        material="red.mat",
+        material="",
         visible="true"
       }--,
       --animation={

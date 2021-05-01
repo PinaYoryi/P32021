@@ -6,6 +6,8 @@ class Transform;
 class Renderer;
 class Camera;
 class Animation;
+class Rigidbody;
+class Light;
 
 //TODO: Comentar
 template<typename ...Ts>
@@ -28,7 +30,7 @@ struct IndexOf<T, TypeList<TOther, Ts...>> : std::integral_constant<std::size_t,
 
 };
 
-using ComponentsList = TypeList<Transform,Renderer,Animation, Camera>;
+using ComponentsList = TypeList<Transform, Renderer, Animation, Camera, Rigidbody, Light>;
 constexpr std::size_t numOfComponents = ComponentsList::size;
 
 template<typename T, typename TList>

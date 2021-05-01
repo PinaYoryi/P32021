@@ -7,6 +7,7 @@
 #include "Entity.h"
 #include <map>
 #include <string>
+#include "SceneManager.h"
 
 static const luaL_Reg lualibs[] = {
 		{ "base",       luaopen_base },
@@ -46,7 +47,8 @@ void readFile(std::string file = "myscript.lua") {
 		int id = lua_tonumber(l, -1);
 		lua_pop(l, 1);
 
-		Entity* ent = new Entity(name, id); // TODO: Meter esta entidad en la lista de entidadades
+		Entity* ent = new Entity(name, id);
+		SceneManager::GetInstance()->addEntity(ent);
 
 		// Components
 		// Calls a similar while loop, creating a set<string, string> with each pair
@@ -69,11 +71,10 @@ void readFile(std::string file = "myscript.lua") {
 			}
 
 			// Función de traducción
-			ent->addComponent(compName, compMap); // TODO: Mirar si es correcto este acercamiento al addComponent o es mejor usar Templates y magia (al parecer)
+			ent->addComponent(compName, compMap);
 			lua_pop(l, 1);
 		}
 		lua_pop(l, 1);
-
 		// Entity is no longer here, only key to be removed by lua_next
 		lua_pop(l, 1);
 	}

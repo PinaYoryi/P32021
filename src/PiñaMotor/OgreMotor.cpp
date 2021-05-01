@@ -24,14 +24,14 @@ OgreMotor::OgreMotor(const Ogre::String& appName) {
 
 OgreMotor::~OgreMotor() {
 	delete _mFSLayer;
-	if (_ogreWasInit) close();
+	if (_ogreWasInit) Close();
 }
 
 OgreMotor* OgreMotor::GetInstance() {
 	return _instance;
 }
 
-bool OgreMotor::init(const Ogre::String& appName) {
+bool OgreMotor::Init(const Ogre::String& appName) {
 	if (_instance != nullptr) 
 		return false;
 
@@ -49,7 +49,7 @@ void OgreMotor::initApp() {
 	_ogreWasInit = true;
 }
 
-bool OgreMotor::close() {
+bool OgreMotor::Close() {
 	if (_instance)
 		_instance->closeApp();
 	else
@@ -118,6 +118,7 @@ void OgreMotor::setup() {
 	_mRoot->showConfigDialog(NULL);
 
 	_mSM = _mRoot->createSceneManager();
+	_mSM->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
 	_mShaderGenerator->addSceneManager(_mSM);
 }
 

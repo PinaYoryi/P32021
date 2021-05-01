@@ -1,72 +1,106 @@
 #include "Rigidbody.h"
-
+#include "BulletInstance.h"
+#include "Entity.h"
 
 Rigidbody::~Rigidbody() {
-	delete _btRb; _btRb = nullptr;
-	delete _trans; _trans = nullptr;
+	if (_btCs) delete _btCs; _btCs = nullptr;
+	if (_btRb) delete _btRb; _btRb = nullptr;
+	if(_myMotionState) delete _myMotionState; _myMotionState = nullptr;
 }
 
 bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
+	// Cogemos el puntero del componente Transform 
+	_trans = _myEntity->getComponent<Transform>();	
 
-	btScalar mass = 0.0f;
-	btDefaultMotionState* ms = new btDefaultMotionState();
-	//btCollisionShape* cs =
-
-	/*auto search = mapa.find()
-	if (search != mapa.end()) {
-		std::cout << "Found " << search->first << " " << search->second << '\n';
-	}
-	else {
-		std::cout << "Not found\n";
-	}*/
-
-	_btRb = new btRigidBody(mass, ms, nullptr);
+	// Creamos el Shape
+	createShape(ShapeTypes::Box);
 	
+	// Creamos un Transform de Bullet a partir del componente Transform
+	btTransform startTransform;
+	startTransform.setIdentity();
+	startTransform.setOrigin(_trans->position());
+	startTransform.setRotation(_trans->rotation());
+	_myMotionState = new btDefaultMotionState(startTransform);
+
+	// Establecemos la masa
+	float _mass = DEFAULT_MASS;
+
+	// Por defecto no tiene inercia
+	btVector3 localInertia(0, 0, 0);
+	_btCs->calculateLocalInertia(_mass, localInertia);
+
+	// Creamos la configuracion del Rigidbody
+	btRigidBody::btRigidBodyConstructionInfo rbInfo(_mass, _myMotionState, _btCs, localInertia);
+
+	// Lo creamos a partir de la informaci�n dada
+	_btRb = new btRigidBody(rbInfo);
+	_btRb->setRestitution(DEFAULT_RESTITUTION);
+	_btRb->setCollisionFlags(DEFAULT_COLLISION_FLAGS);
+	_btRb->setMassProps(_mass, localInertia);
+	
+	// Se a�ade al mundo de la simulaci�n f�sica
+	BulletInstance::GetInstance()->getWorld()->addRigidBody(_btRb);
+
 	return true;
 }
 
-void Rigidbody::Update() {
-	if (_trans != nullptr) {
+void Rigidbody::update() {
+	if (_trans != nullptr && _active)
+		updateTransform();
+}
 
-		if (!_active)
-			return;
-		
-		setPosition(_trans->position());
+void Rigidbody::updateTransform() {
+	// Coge el transform del rigidbody tras la simulaci�n f�sica de este frame
+	btTransform trans;
+	_btRb->getMotionState()->getWorldTransform(trans);
+	btQuaternion orientation = trans.getRotation();
+	// Modifica el componente Transform del objeto
+	_trans->setPosition(trans.getOrigin().getX(), trans.getOrigin().getY(), trans.getOrigin().getZ());
+	_trans->setRotation(Quaternion(orientation.getW(), orientation.getX(), orientation.getY(), orientation.getZ()));	
+}
+
+void Rigidbody::createShape(ShapeTypes type)
+{
+	switch (type)
+	{
+	case ShapeTypes::Box:
+		_btCs = new btBoxShape(_trans->scale() * OGRE_BULLET_RATIO);
+		break;
+	case ShapeTypes::Sphere:
+		_btCs = new btSphereShape(_trans->scale().x * OGRE_BULLET_RATIO);
+		break;
+	case ShapeTypes::Capsule:
+		_btCs = new btCapsuleShape(_trans->scale().x * OGRE_BULLET_RATIO, _trans->scale().y * OGRE_BULLET_RATIO);
+		break;
+	default:
+		break;
 	}
 }
 
 void Rigidbody::addForce(Vector3<float> force, Vector3<float> relativePos) {
 	if (!_active)
 		return;
-
+	//para que si lleva un tiempo quieto, deje de estar dormido y reaccione a las fuerzas
+	_btRb->setActivationState(ACTIVE_TAG);
 	if (relativePos == Vector3<float>(0.0f, 0.0f, 0.0f))
-		_btRb->applyCentralForce((btVector3(
-			btScalar(force.x), btScalar(force.y), btScalar(force.z))));
+		_btRb->applyCentralForce(force);
 	else
-		_btRb->applyForce(
-			(btVector3(btScalar(force.x), btScalar(force.y),
-				btScalar(force.z))),
-			(btVector3(btScalar(relativePos.x), btScalar(relativePos.y),
-				btScalar(relativePos.z))));
+		_btRb->applyForce(force, relativePos);
 }
 
 Vector3<float> Rigidbody::getLinearVelocity() {
-
-	Vector3<float> linV(0.0f, 0.0f, 0.0f);
 	if (!_active) {
-		return linV;
+		throw "Cannot return linear velocity of disabled rigidbody";
 	}
 	const btVector3 v = _btRb->getLinearVelocity();
-	linV.x = v.x(); linV.y = v.y(); linV.z = v.z();
 
-	return linV;
+	return { v.x(), v.y(), v.z() };
 }
 
 void Rigidbody::setGravity(Vector3<float> gravity) {
 	if (!_active)
 		return;
-	_btRb->setGravity(btVector3(btScalar(gravity.x), btScalar(gravity.x),
-		btScalar(gravity.x)));
+	_btRb->setGravity(gravity);
 }
 
 void Rigidbody::setTrigger(bool trigger) {
@@ -90,37 +124,27 @@ void Rigidbody::setKinematic(bool kinematic) {
 	_kinematic = kinematic;
 }
 
-void Rigidbody::setStatic(bool static_) {
-	if (_static)
+void Rigidbody::setStatic(bool isStatic) {
+	if (isStatic) {
 		_btRb->setCollisionFlags(_btRb->getCollisionFlags() |
 			btCollisionObject::CF_STATIC_OBJECT);
-	else
+		setMass(0.0f);
+	}
+	else {
 		_btRb->setCollisionFlags(_btRb->getCollisionFlags() &
 			~btCollisionObject::CF_STATIC_OBJECT);
-	_static = static_;
+		setMass(DEFAULT_MASS);
+	}
+	_static = isStatic;
 }
 
 void Rigidbody::setLinearVelocity(Vector3<float> vector) {
 	if (!_active)
 		return;
 
-	_btRb->setLinearVelocity(btVector3(vector.x, vector.y, vector.z));
-}
-
-void Rigidbody::setPosition(const Ogre::Vector3 newPos) {
-	if (!_active)
-		return;
-	btTransform initialTransform;
-	initialTransform.setOrigin(btVector3(newPos.x, newPos.y, newPos.z));
-	initialTransform.setRotation(_btRb->getOrientation());
-
-	_btRb->setWorldTransform(initialTransform);
+	_btRb->setLinearVelocity(vector);
 }
 
 void Rigidbody::setMass(float mass, const btVector3& inertia) {
 	_btRb->setMassProps(mass, inertia);
-}
-
-void Rigidbody::setImpulse(const btVector3& impulse) {
-	_btRb->applyCentralImpulse(impulse);
 }

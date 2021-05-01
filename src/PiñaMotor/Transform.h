@@ -74,7 +74,7 @@ private:
 	void getParentData();
 
 	Transform* _parent = nullptr;
-	list<Transform*> _vChild;
+	std::list<Transform*> _vChild;
 
 	// En funcion del mundo (global)
 	Vector3<float> _position;

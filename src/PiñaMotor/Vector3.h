@@ -3,7 +3,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <OgreVector.h>
-using namespace std;
+#include "LinearMath/btVector3.h"
 
 /*
 *	Se declara toda la clase en el .h para evitar problemas de link.
@@ -137,7 +137,7 @@ public:
 	Vector3<T>& operator/=(const T val) { x /= val; y /= val; z /= val; return *this; }
 	Vector3<T> operator/(const T val) const { return Vector3<T>(x, y, z) /= val; }
 #ifdef _DEBUG
-	friend ostream& operator<<(ostream& output, const Vector3<T>& v) {
+	friend std::ostream& operator<<(std::ostream& output, const Vector3<T>& v) {
 		output << "(" << v.x << ", " << v.y << ", " << v.z << ")" << "\n";
 		return output;
 	};
@@ -146,7 +146,8 @@ public:
 
 	//Parsear de Vector3 a Ogre::Vector3
 	operator Ogre::Vector3() const { return Ogre::Vector3((float)x, (float)y, (float)z); }
-
+	//Parsear de Vector3 a btVector3 (Bullet)
+	operator btVector3() const { return btVector3((float)x, (float)y, (float)z); }
 
 	// Vectores predefinidos
 	static const Vector3<T> up() { return Vector3<T>((T)0, (T)1, (T)0); }

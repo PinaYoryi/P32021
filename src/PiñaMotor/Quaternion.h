@@ -1,6 +1,7 @@
 #pragma once
 #include "Vector3.h"
 #include "Matrix3.h"
+#include "LinearMath/btQuaternion.h"
 
 class Quaternion {
 public:
@@ -64,11 +65,14 @@ public:
 	Quaternion operator*(const float value) const;
 
 #ifdef _DEBUG
-	friend ostream& operator<<(ostream& output, const Quaternion& q) {
+	friend std::ostream& operator<<(std::ostream& output, const Quaternion& q) {
 		output << "(" << q.s << ", " << q.v.x << ", " << q.v.y << ", " << q.v.z << ")" << "\n";
 		return output;
 	};
 #endif // _DEBUG
+
+	//Parsear de Quaternion a btQuaternion
+	operator btQuaternion() const { return btQuaternion(v.x, v.y, v.z, s); }
 
 	operator Ogre::Quaternion() const;
 	

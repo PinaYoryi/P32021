@@ -19,7 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\PiñaMotor\Initialize.cpp" />
+    <ClCompile Include="..\..\src\PiñaMotor\Light.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\OgreMotor.cpp" />
+    <ClCompile Include="..\..\src\PiñaMotor\Audio.cpp" />
+    <ClCompile Include="..\..\src\PiñaMotor\AudioListener.cpp" />
+    <ClCompile Include="..\..\src\PiñaMotor\AudioSource.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\BoxCollider.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\BulletInstance.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Animation.cpp" />
@@ -32,16 +37,22 @@
     <ClCompile Include="..\..\src\PiñaMotor\Input.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\MotorLoop.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Quaternion.cpp" />
-    <ClCompile Include="..\..\src\PiñaMotor\OgreInstance.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Renderer.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Rigidbody.cpp" />
+    <ClCompile Include="..\..\src\PiñaMotor\SceneManager.cpp" />
+    <ClCompile Include="..\..\src\PiñaMotor\ResourceManager.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Source.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Transform.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\src\PiñaMotor\Initialize.h" />
+    <ClInclude Include="..\..\src\PiñaMotor\Light.h" />
     <ClInclude Include="..\..\src\PiñaMotor\LuaReader.h" />
     <ClInclude Include="..\..\src\PiñaMotor\OgreMotor.h" />
+    <ClInclude Include="..\..\src\PiñaMotor\Audio.h" />
+    <ClInclude Include="..\..\src\PiñaMotor\AudioListener.h" />
+    <ClInclude Include="..\..\src\PiñaMotor\AudioSource.h" />
     <ClInclude Include="..\..\src\PiñaMotor\BoxCollider.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Camera.h" />
     <ClInclude Include="..\..\src\PiñaMotor\BulletInstance.h" />
@@ -52,16 +63,18 @@
     <ClInclude Include="..\..\src\PiñaMotor\Matrix3.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Matrix4.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Quaternion.h" />
-    <ClInclude Include="..\..\src\PiñaMotor\OgreInstance.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Renderer.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Input.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Rigidbody.h" />
+    <ClInclude Include="..\..\src\PiñaMotor\SceneManager.h" />
+    <ClInclude Include="..\..\src\PiñaMotor\ResourceManager.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Transform.h" />
     <ClInclude Include="..\..\src\PiñaMotor\ecs.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Entity.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Vector2.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Vector3.h" />
     <ClInclude Include="..\..\src\PiñaMotor\MotorLoop.h" />
+    <ClInclude Include="..\..\src\PiñaMotor\Vector4.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -189,8 +202,11 @@ compilar.bat</Command>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+
       <AdditionalIncludeDirectories>$(SolutionDir)dependencies\Ogre\Src\Components\RTShaderSystem\include;$(SolutionDir)dependencies\Ogre\Build\SDL2-2.0.10\include;$(SolutionDir)dependencies\Ogre\Build\include;$(SolutionDir)dependencies\Ogre\Src\OgreMain\include;$(SolutionDir)dependencies\Fmod\include;$(SolutionDir)dependencies\Bullet\src\src\;$(SolutionDir)dependencies\Bullet\build\src\;%(AdditionalIncludeDirectories);$(SolutionDir)dependencies\Lua\include\</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -202,6 +218,10 @@ compilar.bat</Command>
       <Command>cd ../../dependencies
 compilar.bat</Command>
     </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>cd ../../assets
+OgreResources.bat</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -213,6 +233,7 @@ compilar.bat</Command>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)dependencies\Ogre\Src\Components\RTShaderSystem\include;$(SolutionDir)dependencies\Ogre\Build\SDL2-2.0.10\include;$(SolutionDir)dependencies\Ogre\Build\include;$(SolutionDir)dependencies\Ogre\Src\OgreMain\include;$(SolutionDir)dependencies\Fmod\include;$(SolutionDir)dependencies\Bullet\src\src\;$(SolutionDir)dependencies\Bullet\build\src\;$(SolutionDir)dependencies\Lua\include\;%(AdditionalIncludeDirectories);$(SolutionDir)dependencies\Lua\include\</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -226,6 +247,10 @@ compilar.bat</Command>
       <Command>cd ../../dependencies
 compilar.bat</Command>
     </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>cd ../../assets
+OgreResources.bat</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

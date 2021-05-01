@@ -1,11 +1,10 @@
 ﻿#pragma once
+
 #include <btBulletDynamicsCommon.h>
+#include "Vector3.h"
+#include <vector>
 
-#undef main
-
-#ifdef _DEBUG
-#include <iostream>
-#endif
+const Vector3<> DEFAULT_GRAVITY = { 0.0f, -9.8f, 0.0f };
 
 class BulletInstance {
 public:
@@ -41,6 +40,7 @@ public:
 	inline void setSolver(btSequentialImpulseConstraintSolver* newSolver) { _solver = newSolver; }
 	inline void setWorld(btDiscreteDynamicsWorld* newWorld) { _world = newWorld; }
 
+	void update();
 protected:
 	/// <summary>
 	/// Inicia los elementos del motor de físicas

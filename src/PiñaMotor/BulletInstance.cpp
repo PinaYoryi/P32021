@@ -1,14 +1,25 @@
 #include "BulletInstance.h"
+#include "Transform.h"
 #include "MotorLoop.h"
 
 BulletInstance* BulletInstance::_bulletInstance = nullptr;
 
+BulletInstance::BulletInstance() {
+	// Configuración de Bullet
+	_broadphase = new btDbvtBroadphase();
+	_collisionConfiguration = new btDefaultCollisionConfiguration();
+	_dispatcher = new btCollisionDispatcher(_collisionConfiguration);
+	_solver = new btSequentialImpulseConstraintSolver();
+	_world = new btDiscreteDynamicsWorld(_dispatcher, _broadphase, _solver, _collisionConfiguration);
+	_world->setGravity(DEFAULT_GRAVITY);
+};
+
 BulletInstance::~BulletInstance() {
-	delete _world;
-	delete _solver;
-	delete _collisionConfiguration;
-	delete _dispatcher;
-	delete _broadphase;
+	if(_world) delete _world;
+	if(_broadphase) delete _broadphase;
+	if(_collisionConfiguration) delete _collisionConfiguration;
+	if(_dispatcher) delete _dispatcher;
+	if(_solver) delete _solver;
 }
 
 BulletInstance* BulletInstance::GetInstance() {
@@ -20,20 +31,7 @@ bool BulletInstance::Init() {
 	_bulletInstance = new BulletInstance(); return true;
 }
 
-BulletInstance::BulletInstance(){
-	// 1
-	_broadphase = new btDbvtBroadphase();
-
-	// 2
-	_collisionConfiguration = new btDefaultCollisionConfiguration();
-	_dispatcher = new btCollisionDispatcher(_collisionConfiguration);
-
-	// 3
-	_solver = new btSequentialImpulseConstraintSolver();
-
-	// 4
-	_world = new btDiscreteDynamicsWorld(_dispatcher, _broadphase, _solver, _collisionConfiguration);
-
-	// 5
-	_world->setGravity(btVector3(0, -9.8, 0));
-};
+void BulletInstance::update()
+{
+	_world->stepSimulation(FIXED_UPDATE_TIME);
+}
