@@ -16,7 +16,7 @@ bool Renderer::init(const std::map<std::string, std::string>& mapa){
 
 	_ogreNode->attachObject(_ogreEntity);
 	std::string ma = mapa.at("material");
-	setMaterial(ma);
+	if(ma != "") setMaterial(ma);
 
 	std::string vi = mapa.at("visible");
 	if (vi == "true") setVisible(true);
