@@ -24,7 +24,7 @@ bool Camera::init(const std::map<std::string, std::string>& mapa) {
 	setNearClipPlane(std::stof(s));
 
 	s = mapa.at("far");
-	setNearClipPlane(std::stof(s));
+	setFarClipPlane(std::stof(s));
 
 	bool b;
 	s = mapa.at("autoaspect");
