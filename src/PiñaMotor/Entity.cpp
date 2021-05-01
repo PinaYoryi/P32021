@@ -10,7 +10,7 @@ Entity::Entity() : _name("Entity")
 	
 }
 
-Entity::Entity(char* entityName) : _name(entityName)
+Entity::Entity(std::string entityName) : _name(entityName)
 {
 	addComponent<Transform>();
 }

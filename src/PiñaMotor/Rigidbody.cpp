@@ -13,6 +13,9 @@ bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 	_trans = _myEntity->getComponent<Transform>();	
 
 	// Creamos el Shape
+	if(_myEntity->getName() == "sphere")
+		createShape(ShapeTypes::Sphere);
+	else
 	createShape(ShapeTypes::Box);
 	
 	// Creamos un Transform de Bullet a partir del componente Transform
@@ -64,10 +67,13 @@ void Rigidbody::createShape(ShapeTypes type)
 	switch (type)
 	{
 	case ShapeTypes::Box:
-		_btCs = new btBoxShape(_trans->scale() * OGRE_BULLET_RATIO);
+		if(_myEntity->getName()!="Sinbad")
+			_btCs = new btBoxShape(_trans->scale() * OGRE_BULLET_RATIO);
+		else
+			_btCs = new btBoxShape(_trans->scale() * 5);
 		break;
 	case ShapeTypes::Sphere:
-		_btCs = new btSphereShape(_trans->scale().x * OGRE_BULLET_RATIO);
+		_btCs = new btSphereShape(_trans->scale().x * 100);
 		break;
 	case ShapeTypes::Capsule:
 		_btCs = new btCapsuleShape(_trans->scale().x * OGRE_BULLET_RATIO, _trans->scale().y * OGRE_BULLET_RATIO);

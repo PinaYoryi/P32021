@@ -5,6 +5,7 @@
 #include "OgreMotor.h"
 #include "Entity.h"
 #include "Transform.h"
+#include "Rigidbody.h"
 
 bool Renderer::init(const std::map<std::string, std::string>& mapa){
 	//_mesh=map.mesh;
@@ -14,23 +15,30 @@ bool Renderer::init(const std::map<std::string, std::string>& mapa){
 	// _ogreNode.attachedObject(_ogreEntity);
 	//if(_material!="")
 	//_ogreEntity.setMaterialName(_material)
-
-	if (name == 0) {
+	Transform* _trans = _myEntity->getComponent<Transform>();
+	if (name == 0 || name >=3) {
 		_ogreEntity = OgreMotor::GetInstance()->getSceneManager()->createEntity("cube.mesh");
 		_ogreNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode("nSimbad" + name);
 		name++;
 		_ogreNode->attachObject(_ogreEntity);
-		_ogreNode->setScale(20, 20, 20);
-		_ogreNode->setPosition(20, 20, 20);
+		_ogreNode->setScale(_trans->scale());
+		_ogreNode->setPosition(_trans->position());
 	}
-	else  {
-		_ogreEntity = OgreMotor::GetInstance()->getSceneManager()->createEntity("cube.mesh");
+	else  if (name==1){
+		_ogreEntity = OgreMotor::GetInstance()->getSceneManager()->createEntity("sphere.mesh");
 		_ogreNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode("nSimbad" + to_string(name));
 		name++;
 		_ogreNode->attachObject(_ogreEntity);
-		_ogreNode->setScale(1, 1, 1);
-		//_ogreNode->setScale(0.01, 0.01, 0.01);
-		_ogreNode->setPosition(20, 20, 20);
+		_ogreNode->setScale(_trans->scale());
+		_ogreNode->setPosition(_trans->position());
+	}
+	else {
+		_ogreEntity = OgreMotor::GetInstance()->getSceneManager()->createEntity("Sinbad.mesh");
+		_ogreNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode("nSimbad" + to_string(name));
+		name++;
+		_ogreNode->attachObject(_ogreEntity);
+		_ogreNode->setScale(_trans->scale());
+		_ogreNode->setPosition(_trans->position());
 	}
 	return true;
 }
@@ -75,7 +83,16 @@ void Renderer::setMesh(Ogre::MeshPtr mesh) {
 
 void Renderer::render() {
 	if (_visible) {
-		if (_myEntity->hasComponent<Transform>()) {
+
+
+		/*if (_myEntity->hasComponent<Rigidbody>()) {
+			Rigidbody* tr = _myEntity->getComponent<Rigidbody>();
+			_ogreNode->setPosition(tr->getbT()->getWorldTransform().getOrigin().getX(), tr->getbT()->getWorldTransform().getOrigin().getY(), tr->getbT()->getWorldTransform().getOrigin().getZ());
+			//_ogreNode->setScale(tr->getbT()->sc);
+			_ogreNode->setOrientation(tr->getbT()->getOrientation().getW(), tr->getbT()->getOrientation().getX(), tr->getbT()->getOrientation().getY(), tr->getbT()->getOrientation().getZ());
+		}
+
+		else*/ if (_myEntity->hasComponent<Transform>()) {
 			Transform* tr = _myEntity->getComponent<Transform>();
 			_ogreNode->setPosition(tr->position().x, tr->position().y, tr->position().z);
 			_ogreNode->setScale(tr->scale().x, tr->scale().y, tr->scale().z);

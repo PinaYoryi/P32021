@@ -87,6 +87,8 @@ public:
 
 	// Modifica propiedades de la masa
 	void setMass(float mass, const btVector3& inertia = { 0,0,0 });
+	btRigidBody* getbT(){ return  _btRb;}
+	
 
 private:
 	btCollisionShape* _btCs = nullptr;	// La forma de la collisionBox
