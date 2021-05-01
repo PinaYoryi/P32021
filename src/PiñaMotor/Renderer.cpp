@@ -25,6 +25,7 @@ bool Renderer::init(const std::map<std::string, std::string>& mapa){
 
 	return true;
 }
+
 void Renderer::setVisible(bool visible) {
 	_visible = visible;
 	_ogreNode->setVisible(visible);
