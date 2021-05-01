@@ -26,7 +26,7 @@ public:
 		throw "Error de carga de componente con el indice " + indexOf<T, ComponentsList>; // TODO: Hacer un sistema de excepciones
 	}
 
-	Component* addComponent(const std::string& compName, const std::map<std::string, std::string>& map) { // TODO: Mirar si esto esta bien hecho
+	Component* addComponent(const std::string& compName, const std::map<std::string, std::string>& map) {
 		Component* t = ComponentFactory::getInstance().getComponent(compName);
 		t->_myEntity = this;//ponemos la entidad en el componente
 		std::unique_ptr<Component> upt(t);
