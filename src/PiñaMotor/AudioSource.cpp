@@ -102,8 +102,7 @@ void AudioSource::fadeOut(){
 	_result = _channel->addFadePoint(parentclock + 500000, 0.0f);
 }
 
-void AudioSource::setPitch(float i)
-{
+void AudioSource::setPitch(float i){
 	try {
 
 		_result = _channel->setPitch(i);
@@ -113,15 +112,13 @@ void AudioSource::setPitch(float i)
 	}
 }
 
-void AudioSource::togglePause()
-{
+void AudioSource::togglePause(){
 	bool paused;
 	_channel->getPaused(&paused);
 	_channel->setPaused(!paused);
 }
 
-void AudioSource::setVolume(float volume) const
-{
+void AudioSource::setVolume(float volume) const{
 	try {
 		const auto _result = _channel->setVolume(volume);
 	}
@@ -130,8 +127,7 @@ void AudioSource::setVolume(float volume) const
 	}
 }
 
-float AudioSource::getVolume()
-{
+float AudioSource::getVolume(){
 	float volume;
 	try {
 		const auto _result = _channel->getVolume(&volume);
@@ -149,8 +145,7 @@ void AudioSource::addNewSound(const char* name) {
 
 void AudioSource::createSound3D(char* name ) {
     FMOD_RESULT result = _system->createSound(name, (FMOD_MODE)(FMOD_3D), 0, &_sound);
-    if (result != FMOD_OK)
-    {
+    if (result != FMOD_OK){
        (result);
     }
 }
