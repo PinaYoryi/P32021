@@ -61,7 +61,9 @@ void SceneManager::deleteEntities(bool all) {
     if (all) for (Entity* p : _permanentEntities) delete p;
 }
 
-bool SceneManager::loadScene() {
+bool SceneManager::loadScene(std::string sceneName) {
+    //TODO: if () throw "A non-existant scene has been called to be loaded";
+
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform> cpm;
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Camera> cp3;
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Light> cpl;
