@@ -22,6 +22,7 @@ void AudioSource::addNewSound(const std::string name) {
 }
 
 void AudioSource::createSound3D(char* name ) {
+    if (!_active) return;
     FMOD_RESULT result = _system->createSound(name, (FMOD_MODE)(FMOD_3D), 0, &_sound);
     if (result != FMOD_OK)
     {

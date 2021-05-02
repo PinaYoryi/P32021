@@ -129,6 +129,7 @@ bool Animation::changeAnimation(std::vector<std::string> animationsNames) {
 }
 
 void Animation::frameRendered(const Ogre::FrameEvent& evt) {
+	if (!_active) return;
 	for(auto i:_myAnimations)
 		i->addTime(evt.timeSinceLastFrame);
 }

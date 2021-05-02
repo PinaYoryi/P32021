@@ -49,6 +49,7 @@ void Light::setSpotlightOuterAngle(float deg) {
 }
 
 void Light::render() {
+	if (!_active) return;
 	Transform* tr;
 	if ((tr = _myEntity->getComponent<Transform>()) != nullptr) {
 		_lightNode->setPosition(tr->position().x, tr->position().y, tr->position().z);

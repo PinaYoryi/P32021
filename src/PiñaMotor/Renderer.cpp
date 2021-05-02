@@ -74,6 +74,7 @@ void Renderer::setMesh(Ogre::MeshPtr mesh) {
 }
 
 void Renderer::render() {
+	if (!_active) return;
 	if (_visible) {
 		if (_myEntity->hasComponent<Transform>()) {
 			Transform* tr = _myEntity->getComponent<Transform>();
