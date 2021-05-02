@@ -17,7 +17,7 @@ public:
 		return true;
 	}
 	
-	void update();
+	virtual void update() override;
 
 	/// <summary>
 	/// Añade un sonido/musica y lo ejcuta, name es la direccion o nombre del archivo, 
@@ -25,7 +25,7 @@ public:
 	/// </summary>
 	void playSound2D(const char* name, float volume, bool loop);
 
-	void playSound3D(const char* name, float volume, bool loop);
+	void playSound3D(const char* name, float volume, bool loop, Vector3<float> position, Vector3<float> velocity);
 
 	void pauseSound(const char* name);
 

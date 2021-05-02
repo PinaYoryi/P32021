@@ -131,7 +131,7 @@ bool SceneManager::loadScene() {
     ent3->getComponent<AudioListener>()->set3DAtributes(Vector3<float>(1, 0, 0),Vector3<float>(1, 0, 0));
     ent3->getComponent<AudioSource>()->setPosition(Vector3<float>(0,0,0));
     ent3->getComponent<AudioSource>()->setVelocity(Vector3<float>(0, 0, 0));
-    ent3->getComponent<AudioSource>()->playSound3D("talking.wav", 0.1, true);
+    ent3->getComponent<AudioSource>()->playSound3D("talking.wav", 0.1, true, Vector3<float>(-5, 0, 0), Vector3<float>(1, 0, 0));
     ent3->addComponent<Rigidbody>();
     SceneManager::GetInstance()->addEntity(ent3);
 

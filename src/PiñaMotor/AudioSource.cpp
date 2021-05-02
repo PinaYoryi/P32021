@@ -13,7 +13,7 @@ AudioSource::AudioSource() {
 void AudioSource::update()
 {
 	try {
-		_result = _system->update();
+		_system->update();
 		errorCheck(_result);
 	}
 	catch (std::exception& e) {
@@ -49,7 +49,7 @@ void AudioSource::playSound2D(const char* name, float volume, bool loop) {
 	}
 }
 
-void AudioSource::playSound3D(const char* name, float volume, bool loop)
+void AudioSource::playSound3D(const char* name, float volume, bool loop,Vector3<float> position,Vector3<float> velocity)
 {
 	try {
 		FMOD::Sound* sound;
@@ -57,16 +57,18 @@ void AudioSource::playSound3D(const char* name, float volume, bool loop)
 		errorCheck(_result);
 
 		_result = sound->set3DMinMaxDistance(0.5f * DISTANCE_FACTOR, 5000.0f * DISTANCE_FACTOR);
+		errorCheck(_result);
 
 		_result = _system->playSound(sound, 0, false, &_channel);
 		errorCheck(_result);
-		p.x = -10;
-		p.y = 0;
-		p.z = 0;
-		v.x = 1;
-		v.y = 0;
-		v.z = 0;
-		_result = _channel->set3DAttributes(&p,&v);
+
+		p.x = position.x;
+		p.y = position.y;
+		p.z = position.z;
+		v.x = velocity.x;
+		v.y = velocity.y;
+		v.z = velocity.z;
+		_result = _channel->set3DAttributes(&p, &v);
 		errorCheck(_result);
 
 		_result = _channel->setVolume(volume);

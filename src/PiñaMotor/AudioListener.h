@@ -27,9 +27,12 @@ public:
 	void setForward(Vector3<float> forward) { _forward.x = forward.x; _forward.y = forward.y; _forward.z = forward.z; };
 	Vector3<float> getForward() { return Vector3<float>(_forward.x, _forward.y, _forward.z); };
 
-	void update() override;
+	virtual void update() override;
 
 private:
+	void errorCheck(FMOD_RESULT result);
+
+	FMOD_RESULT _result;
 	FMOD_VECTOR v;
 	FMOD_VECTOR p;
 	FMOD_VECTOR f;

@@ -14,6 +14,8 @@ Audio::Audio() {
 	errorCheck(_result);
 	_result = _system->init(128, FMOD_INIT_NORMAL, 0);
 	_result = _system->set3DSettings(1.0,DISTANCE_FACTOR, 1.0f);
+	_result = _system->set3DNumListeners(1);
+	errorCheck(_result);
 	_result = _system->getMasterChannelGroup(&_channelGroup);
 	errorCheck(_result);
 	_sounds = std::map<const char*, FMOD::Sound*>();
@@ -42,7 +44,7 @@ bool Audio::Init() {
 
 void Audio::update() {
 	try {
-		_result = _system->update();
+		_system->update();
 		errorCheck(_result);
 	}
 	catch (std::exception& e) {

@@ -3,6 +3,7 @@
 #include "Input.h"
 #include "BulletInstance.h"
 #include <OgreRoot.h>
+#include "Audio.h"
 
 MotorLoop* MotorLoop::_singleton = nullptr;
 
@@ -59,6 +60,7 @@ void MotorLoop::stepFixedUpdate(std::vector<Entity*> ent) {
 		for (Entity* e : ent)
 			e->fixedUpdate();
         BulletInstance::GetInstance()->update();
+		Audio::GetInstance()->update();
 		_accumulatedTime -= FIXED_UPDATE_TIME;
 	}
 }
