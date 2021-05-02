@@ -1,22 +1,35 @@
 #include "AudioListener.h"
 
-AudioListener::AudioListener(Vector3<float> position, Vector3<float> velocity) {
+AudioListener::AudioListener() {
 
+}
+
+void AudioListener::set3DAtributes(Vector3<float> position, Vector3<float> velocity)
+{
     _system = Audio::GetInstance()->getSystemFMOD();
+  
+    p.x = 0;
+    p.y = 0;
+    p.z = 0;
 
-    _position.x = position.x;
-    _position.y = position.y;
-    _position.z = position.z;
+    v.x = 0;
+    v.y = 0;
+    v.z = 0;
 
-    _velocity.x = velocity.x;
-    _velocity.y = velocity.y;
-    _velocity.z = velocity.z;
-    
+    f.x = 0;
+    f.y = 0;
+    f.z = 0;
+
+    u.x = 0;
+    u.y = 0;
+    u.z = 0;
+
     if (_system != nullptr)
-        _system->set3DListenerAttributes(0, &FMOD_VECTOR(_position), &FMOD_VECTOR(_velocity),&FMOD_VECTOR(_forward),&FMOD_VECTOR(_up));
+        _system->set3DListenerAttributes(0, &p, &v, &f, &u);
 }
 
 void AudioListener::update() {
     if (_system != nullptr)
-        _system->set3DListenerAttributes(0, &FMOD_VECTOR(_position), &FMOD_VECTOR(_velocity), &FMOD_VECTOR(_forward), &FMOD_VECTOR(_up));
+        _system->set3DListenerAttributes(0, &p, &v, &f, &u);
+  
 }

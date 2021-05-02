@@ -5,7 +5,7 @@
 #include "Vector3.h"
 #include "Audio.h"
 
-const float DISTANCE_FACTOR = 1;
+
 
 class AudioSource : public Component {
 public:
@@ -17,6 +17,8 @@ public:
 		return true;
 	}
 	
+	void update();
+
 	/// <summary>
 	/// Añade un sonido/musica y lo ejcuta, name es la direccion o nombre del archivo, 
 	/// volume el volumen de dicho sonido y loop por si se quiere ejecutar en bucle
@@ -73,7 +75,8 @@ public:
 private:
 	
 	void errorCheck(FMOD_RESULT result);
-
+	FMOD_VECTOR v;
+	FMOD_VECTOR p;
 	Vector3<float> _position;
 	Vector3<float> _velocity;
 	FMOD::System* _system;

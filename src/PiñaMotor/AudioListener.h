@@ -6,12 +6,14 @@
 
 class AudioListener : public Component {
 public:
-	AudioListener(Vector3<float> position = { 0.0f, 0.0f, 0.0f }, Vector3<float> velocity = { 0.0f, 0.0f, 0.0f });
+	AudioListener();
 	~AudioListener() {};
 
 	bool init(const std::map<std::string, std::string>& mapa) override {
 		return true;
 	}
+
+	void set3DAtributes(Vector3<float> position, Vector3<float> velocity);
 
 	void setPosition(Vector3<float> position) { _position.x = position.x; _position.y = position.y; _position.z = position.z;};
 	Vector3<float> getPosition() { return Vector3<float>(_position.x,_position.y,_position.z); };
@@ -28,7 +30,10 @@ public:
 	void update() override;
 
 private:
-
+	FMOD_VECTOR v;
+	FMOD_VECTOR p;
+	FMOD_VECTOR f;
+	FMOD_VECTOR u;
 	FMOD::System* _system;
 	Vector3<float> _position;
 	Vector3<float> _velocity;

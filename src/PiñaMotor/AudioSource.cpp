@@ -10,6 +10,17 @@ AudioSource::AudioSource() {
 	_sound = nullptr;
 }
 
+void AudioSource::update()
+{
+	try {
+		_result = _system->update();
+		errorCheck(_result);
+	}
+	catch (std::exception& e) {
+		std::cout << e.what() << std::endl;
+	}
+}
+
 void AudioSource::playSound2D(const char* name, float volume, bool loop) {
 	try {
 		//_system = Audio::GetInstance()->getSystemFMOD();
@@ -49,8 +60,13 @@ void AudioSource::playSound3D(const char* name, float volume, bool loop)
 
 		_result = _system->playSound(sound, 0, false, &_channel);
 		errorCheck(_result);
-
-		_result = _channel->set3DAttributes(&FMOD_VECTOR(_position),&FMOD_VECTOR(_velocity));
+		p.x = -10;
+		p.y = 0;
+		p.z = 0;
+		v.x = 1;
+		v.y = 0;
+		v.z = 0;
+		_result = _channel->set3DAttributes(&p,&v);
 		errorCheck(_result);
 
 		_result = _channel->setVolume(volume);
