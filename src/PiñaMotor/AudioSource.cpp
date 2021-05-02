@@ -45,8 +45,12 @@ void AudioSource::playSound3D(const char* name, float volume, bool loop)
 		_result = _system->createSound(name, FMOD_3D, 0, &sound);
 		errorCheck(_result);
 
+		_result = sound->set3DMinMaxDistance(0.5f * DISTANCE_FACTOR, 5000.0f * DISTANCE_FACTOR);
 
 		_result = _system->playSound(sound, 0, false, &_channel);
+		errorCheck(_result);
+
+		_result = _channel->set3DAttributes(&FMOD_VECTOR(_position),&FMOD_VECTOR(_velocity));
 		errorCheck(_result);
 
 		_result = _channel->setVolume(volume);
@@ -96,6 +100,47 @@ void AudioSource::fadeOut(){
 	_channel->getVolume(&vol);
 	_result = _channel->addFadePoint(parentclock, vol);
 	_result = _channel->addFadePoint(parentclock + 500000, 0.0f);
+}
+
+void AudioSource::setPitch(float i)
+{
+	try {
+
+		_result = _channel->setPitch(i);
+	}
+	catch (std::exception& e) {
+		std::cout << e.what() << std::endl;
+	}
+}
+
+void AudioSource::togglePause()
+{
+	bool paused;
+	_channel->getPaused(&paused);
+	_channel->setPaused(!paused);
+}
+
+void AudioSource::setVolume(float volume) const
+{
+	try {
+		const auto _result = _channel->setVolume(volume);
+	}
+	catch (std::exception& e) {
+		std::cerr << e.what() << std::endl;
+	}
+}
+
+float AudioSource::getVolume()
+{
+	float volume;
+	try {
+		const auto _result = _channel->getVolume(&volume);
+		return volume;
+	}
+	catch (std::exception& e) {
+		std::cerr << e.what() << std::endl;
+		return 0;
+	}
 }
 
 void AudioSource::addNewSound(const char* name) {
