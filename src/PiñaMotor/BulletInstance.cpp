@@ -5,13 +5,7 @@
 BulletInstance* BulletInstance::_bulletInstance = nullptr;
 
 BulletInstance::BulletInstance() {
-	// Configuración de Bullet
-	_broadphase = new btDbvtBroadphase();
-	_collisionConfiguration = new btDefaultCollisionConfiguration();
-	_dispatcher = new btCollisionDispatcher(_collisionConfiguration);
-	_solver = new btSequentialImpulseConstraintSolver();
-	_world = new btDiscreteDynamicsWorld(_dispatcher, _broadphase, _solver, _collisionConfiguration);
-	_world->setGravity(DEFAULT_GRAVITY);
+	
 };
 
 BulletInstance::~BulletInstance() {
@@ -28,7 +22,24 @@ BulletInstance* BulletInstance::GetInstance() {
 
 bool BulletInstance::Init() {
 	if (_bulletInstance != nullptr) return false;
-	_bulletInstance = new BulletInstance(); return true;
+	_bulletInstance = new BulletInstance();
+	_bulletInstance->initResources();
+	return true;
+}
+
+void BulletInstance::initResources() {
+	// Configuración de Bullet
+	try {
+		_broadphase = new btDbvtBroadphase();
+		_collisionConfiguration = new btDefaultCollisionConfiguration();
+		_dispatcher = new btCollisionDispatcher(_collisionConfiguration);
+		_solver = new btSequentialImpulseConstraintSolver();
+		_world = new btDiscreteDynamicsWorld(_dispatcher, _broadphase, _solver, _collisionConfiguration);
+		_world->setGravity(DEFAULT_GRAVITY);
+	}
+	catch (std::exception& e) {
+		std::cout << e.what() << std::endl;
+	}
 }
 
 void BulletInstance::update()

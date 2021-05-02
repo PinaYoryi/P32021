@@ -9,13 +9,6 @@
 Audio* Audio::_audioInstance = nullptr;
 
 Audio::Audio() {
-
-	_result = FMOD::System_Create(&_system);
-	errorCheck(_result);
-	_result = _system->init(128, FMOD_INIT_NORMAL, 0);
-	_result = _system->getMasterChannelGroup(&_channelGroup);
-	errorCheck(_result);
-	_sounds = std::map<const char*, FMOD::Sound*>();
 }
 
 Audio::~Audio() {
@@ -36,7 +29,23 @@ Audio* Audio::GetInstance() {
 bool Audio::Init() {
 
 	if (_audioInstance != nullptr) return false;
-	_audioInstance = new Audio(); return true;
+	_audioInstance = new Audio();
+	_audioInstance->initResources();
+	return true;
+}
+
+void Audio::initResources() {
+	try {
+		_result = FMOD::System_Create(&_system);
+		errorCheck(_result);
+		_result = _system->init(128, FMOD_INIT_NORMAL, 0);
+		_result = _system->getMasterChannelGroup(&_channelGroup);
+		errorCheck(_result);
+		_sounds = std::map<const char*, FMOD::Sound*>();
+	}
+	catch (std::exception& e) {
+		std::cout << e.what() << std::endl;
+	}
 }
 
 void Audio::update() {
@@ -50,7 +59,6 @@ void Audio::update() {
 }
 
 FMOD::Channel* Audio::playSound(const char* name, float volume, bool loop) {
-	//FMOD::Channel* channel;
 	try {
 		FMOD::Sound* sound;
 		_result = _system->createSound(name, FMOD_DEFAULT, 0, &sound);

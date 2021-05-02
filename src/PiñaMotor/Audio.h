@@ -68,7 +68,7 @@ public:
 	FMOD::System* getSystemFMOD() { return _system; }
 
 private:
-
+	void initResources();
 
 	void errorCheck(FMOD_RESULT result);
 

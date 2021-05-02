@@ -24,7 +24,8 @@ bool MotorLoop::Init() {
 
 void MotorLoop::startLoop() {
 	if (_loop == true) return;
-	initLoop();
+	_loop = true;
+	_accumulatedTime = 0;
 	while (_loop) {
 		std::vector<Entity*> ent = SceneManager::GetInstance()->getEntities();
 		stepInput();
@@ -37,11 +38,6 @@ void MotorLoop::startLoop() {
 
 void MotorLoop::stopLoop() {
 	_loop = false;
-}
-
-void MotorLoop::initLoop() {
-	_loop = true;
-	_accumulatedTime = 0;
 }
 
 void MotorLoop::stepInput() {

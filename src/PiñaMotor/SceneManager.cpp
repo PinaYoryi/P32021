@@ -62,7 +62,7 @@ void SceneManager::deleteEntities(bool all) {
 }
 
 bool SceneManager::loadScene(std::string sceneName) {
-    //TODO: if () throw "A non-existant scene has been called to be loaded";
+    if (false) throw "A non-existant scene has been called to be loaded"; //TODO: Esto tiene que ir
 
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform> cpm;
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Camera> cp3;

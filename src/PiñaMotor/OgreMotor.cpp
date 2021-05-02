@@ -14,7 +14,6 @@ OgreMotor* OgreMotor::_instance = nullptr;
 
 OgreMotor::OgreMotor(const Ogre::String& appName) {
 	_mAppName = appName;
-	_mFSLayer = new Ogre::FileSystemLayer(_mAppName);
 	_mRoot = nullptr;
 	_mFirstRun = true;
 
@@ -41,10 +40,16 @@ bool OgreMotor::Init(const Ogre::String& appName) {
 }
 
 void OgreMotor::initApp() {
-	createRoot();
+	try {
+		_mFSLayer = new Ogre::FileSystemLayer(_mAppName);
+		createRoot();
 
 	if (oneTimeConfig())
 		setup();
+	}
+	catch (std::exception& e) {
+		std::cout << e.what() << std::endl;
+	}
 
 	_ogreWasInit = true;
 }
@@ -59,11 +64,16 @@ bool OgreMotor::Close() {
 }
 
 void OgreMotor::closeApp() {
-	if (_mRoot != nullptr)
-	{
-		_mRoot->saveConfig();
+	try {
+		if (_mRoot != nullptr)
+		{
+			_mRoot->saveConfig();
+		}
+		shutdown();
 	}
-	shutdown();
+	catch (std::exception& e) {
+		std::cout << e.what() << std::endl;
+	}
 	delete _mRoot;
 	_mRoot = nullptr;
 	_ogreWasInit = false;

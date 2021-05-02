@@ -49,6 +49,8 @@ protected:
 
 	static BulletInstance* _bulletInstance;
 
+	void initResources();
+
 private:
 	// Atributos necesarios para el motor bullet
 	btBroadphaseInterface* _broadphase = nullptr;
