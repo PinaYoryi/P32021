@@ -38,12 +38,12 @@ void readFile(std::string file = "myscript.lua") {
 	lua_getfield(l, -1, "ambient");
 	std::string s = lua_tostring(l, -1);
 	std::string::size_type sz = 0, sa = 0;
-	OgreMotor::GetInstance()->getSceneManager()->setAmbientLight(Ogre::ColourValue(std::stof(s, &sz), std::stof(s.substr(sz), &sa),  std::stof(s.substr(sz + sa))));
+	OgreMotor::GetInstance()->getSceneManager()->setAmbientLight(Ogre::ColourValue(std::stof(s, &sz), std::stof(s.substr(sz + 1), &sa), std::stof(s.substr(sz + sa + 2))));
 	lua_pop(l, 1);
 
 	lua_getfield(l, -1, "gravity");
 	s = lua_tostring(l, -1);
-	BulletInstance::GetInstance()->getWorld()->setGravity({ std::stof(s, &sz), std::stof(s.substr(sz), &sa),  std::stof(s.substr(sz + sa)) });
+	BulletInstance::GetInstance()->getWorld()->setGravity({ std::stof(s, &sz), std::stof(s.substr(sz + 1), &sa), std::stof(s.substr(sz + sa + 2)) });
 	lua_pop(l, 1);
 
 	lua_getfield(l, -1, "entities");

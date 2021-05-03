@@ -4,24 +4,20 @@
 
 bool Transform::init(const std::map<std::string, std::string>& mapa) {
 	if (mapa.find("position") == mapa.end() || mapa.find("rotation") == mapa.end() || mapa.find("scale") == mapa.end()) return false;
+	std::string::size_type sz = 0, sa = 0;
 
 	std::string s = mapa.at("position");
-	std::string x = s.substr(0, s.find(","));
-	std::string y = s.substr(x.length() + 1, s.find(","));
-	std::string z = s.substr(y.length() + x.length() + 2, s.find(","));
-	_position = { std::stof(x), std::stof(y), std::stof(z) };
+	float a = std::stof(s, &sz);
+	float b = std::stof(s.substr(sz), &sa);
+	float c = std::stof(s.substr(sz + sa));
+	_position = { std::stof(s, &sz), std::stof(s.substr(sz + 1), &sa), std::stof(s.substr(sz + sa + 2)) };
 
 	s = mapa.at("rotation");
-	x = s.substr(0, s.find(","));
-	y = s.substr(x.length() + 1, s.find(","));
-	z = s.substr(y.length() + x.length() + 2, s.find(","));
-	_rotation = Quaternion::Euler(Vector3<>(std::stof(x), std::stof(y), std::stof(z)));
+	_rotation = Quaternion::Euler({ std::stof(s, &sz), std::stof(s.substr(sz + 1), &sa), std::stof(s.substr(sz + sa + 2)) });
 
 	s = mapa.at("scale");
-	x = s.substr(0, s.find(","));
-	y = s.substr(x.length() + 1, s.find(","));
-	z = s.substr(y.length() + x.length() + 2, s.find(","));
-	_scale = { std::stof(x), std::stof(y), std::stof(z) };
+	_scale = { std::stof(s, &sz), std::stof(s.substr(sz + 1), &sa), std::stof(s.substr(sz + sa + 2)) };
+
 
 	if (_parent == nullptr) {
 		_localPosition = _position;
