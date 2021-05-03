@@ -10,8 +10,10 @@ int WINAPI
 WinMain(HINSTANCE zhInstance, HINSTANCE prevInstance, LPSTR lpCmdLine, int nCmdShow) {
 #endif
 
-    PinaMotor motor;
-    motor.init("Motoraso");
-    motor.launch("Archivo chulo de LUA");
+    PinaMotor* motor = new PinaMotor();
+    motor->init("Motoraso");
+    motor->launch("Archivo chulo de LUA");
+    motor->close();
+    delete motor;
     return 0;
 }

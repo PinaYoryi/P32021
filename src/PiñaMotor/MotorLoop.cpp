@@ -7,16 +7,11 @@
 
 MotorLoop* MotorLoop::_singleton = nullptr;
 
-MotorLoop::~MotorLoop() {
-    delete Input::GetInstance();
-}
-
 MotorLoop* MotorLoop::GetInstance() {
 	return _singleton;
 }
 
 bool MotorLoop::Init() {
-    Input::Init();
 	if (_singleton != nullptr) return false;
 	_singleton = new MotorLoop(); return true;
 }

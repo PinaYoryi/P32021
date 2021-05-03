@@ -48,7 +48,7 @@ void OgreMotor::initApp() {
 		setup();
 	}
 	catch (std::exception& e) {
-		std::cout << e.what() << std::endl;
+		throw e.what();
 	}
 
 	_ogreWasInit = true;

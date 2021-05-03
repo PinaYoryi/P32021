@@ -4,15 +4,20 @@
 class PinaMotor {
 public:
 	PinaMotor() {};
-	~PinaMotor();
+	~PinaMotor() {};
 
 	/// <summary>
 	/// Inicia el motor. Arranca los motores de renderizado, físicas y sonido.
 	/// </summary>
-	void init(std::string windowName);
+	bool init(std::string windowName);
 
 	/// <summary>
 	/// Carga la escena inicial del juego a partir del archivo dado y cede el control al loop principal.
 	/// </summary>
-	void launch(std::string sceneName);
+	bool launch(std::string sceneName);
+
+	/// <summary>
+	/// Cierra los recursos creados por la clase.
+	/// </summary>
+	void close();
 };

@@ -1,5 +1,5 @@
 #include "SceneManager.h"
-
+#include "ResourceManager.h"
 
 //PRUEBA
 #include "ComponentFactoryRegistration.h"
@@ -66,8 +66,10 @@ void SceneManager::deleteEntities(bool all) {
 }
 
 bool SceneManager::loadScene(std::string sceneName) {
-    if (false) throw "A non-existant scene has been called to be loaded"; //TODO: Esto tiene que ir
+    deleteEntities();
+    //std::string scene = ResourceManager::GetInstance()->scene(sceneName);
 
+    //Escena hardcodeada mientras no hay lectura en Lua
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform> cpm;
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Camera> cp3;
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Light> cpl;
