@@ -42,12 +42,8 @@ protected:
 
 	//Lista de entidades
 
-	MotorLoop() {}; //<------Esto es placeholder de la escena que crea SceneManager
+	MotorLoop() {};
 
-	/// <summary>
-	/// Prepara la clase para inicializar el bucle principal del motor.
-	/// </summary>
-	void initLoop();
 	/// <summary>
 	/// Lee los inputs que se den en el frame.
 	/// </summary>

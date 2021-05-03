@@ -41,7 +41,7 @@ public:
 	 void addSound();
 
 private:
-
+	void initResources();
 
 	void errorCheck(FMOD_RESULT result);
 

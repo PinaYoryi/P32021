@@ -36,7 +36,7 @@ public:
 	/// </summary>
 	std::vector<Entity*> getEntities();
 
-	bool loadScene();
+	bool loadScene(std::string sceneName);
 
 	/// <summary>
 	/// Elimina las entidades en las listas.

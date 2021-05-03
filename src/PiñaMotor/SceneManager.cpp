@@ -64,7 +64,9 @@ void SceneManager::deleteEntities(bool all) {
     if (all) for (Entity* p : _permanentEntities) delete p;
 }
 
-bool SceneManager::loadScene() {
+bool SceneManager::loadScene(std::string sceneName) {
+    if (false) throw "A non-existant scene has been called to be loaded"; //TODO: Esto tiene que ir
+
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform> cpm;
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Camera> cp3;
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Light> cpl;
@@ -89,7 +91,7 @@ bool SceneManager::loadScene() {
     lComp->setSpotlightOuterAngle(180);
     lComp->setAttenuation(Vector4<>(100, 0.001, 0.001, 0.001));
 
-    light->getComponent<Transform>()->setPosition(10, 20, 0);
+    light->getComponent<Transform>()->setPosition(0, 20, 0);
     light->getComponent<Transform>()->setRotation(270, 0, 0);
     SceneManager::GetInstance()->addEntity(light);
 
@@ -105,6 +107,7 @@ bool SceneManager::loadScene() {
     ent->addComponent<Renderer>();
     ent->getComponent<Transform>()->setScale({ 100, 0.01, 10 });
     ent->getComponent<Transform>()->setPosition({ 0, 0, 0 });
+    ent->getComponent<Transform>()->setRotation(0, 0, 0);
     ent->addComponent<Rigidbody>();
     Rigidbody* rg = ent->getComponent<Rigidbody>();
     SceneManager::GetInstance()->addEntity(ent);
@@ -112,30 +115,83 @@ bool SceneManager::loadScene() {
 
     Entity* ent2 = new Entity();
     ent2->addComponent<Renderer>();
-    ent2->addComponent<Animation>();
-    Animation* an = ent2->getComponent<Animation>();
-    OgreMotor::GetInstance()->addInputListener(an);
-    an->changeAnimation("Dance");
-    ent2->getComponent<Transform>()->setScale({ 1, 1, 1 });
-    ent2->getComponent<Transform>()->setPosition({ 0, 0, 0 });
+    ent2->getComponent<Transform>()->setScale({ 0.01, 0.1, 0.05 });
+    ent2->getComponent<Transform>()->setPosition({ -20, 300, 0 });
     ent2->addComponent<Rigidbody>();
     SceneManager::GetInstance()->addEntity(ent2);
 
-    Entity* ent3 = new Entity();
-    ent3->addComponent<Renderer>();
-    ent3->addComponent<AudioSource>();
-    ent3->addComponent<AudioListener>();
-    ent3->getComponent<Transform>()->setScale({ 1, 1, 1 });
-    ent3->getComponent<Transform>()->setPosition({ 10, 200, 0 });
-    ent3->getComponent<Transform>()->setRotation(90, 0, 0);
-    ent3->getComponent<AudioListener>()->set3DAtributes(Vector3<float>(1, 0, 0),Vector3<float>(1, 0, 0));
-    ent3->getComponent<AudioListener>()->setPosition({0,0,0});
-    ent3->getComponent<AudioListener>()->setVelocity({ (-(0.2 * 1 / 33.33)), 0,0 });
-    ent3->getComponent<AudioSource>()->setPosition(Vector3<float>(0,0,0));
-    ent3->getComponent<AudioSource>()->setVelocity(Vector3<float>(0, 0, 0));
-    ent3->getComponent<AudioSource>()->playSound3D("talking.wav", 0.1, true, Vector3<float>(-7, 0, 0), Vector3<float>(1, 0, 0));
-    ent3->addComponent<Rigidbody>();
-    SceneManager::GetInstance()->addEntity(ent3);
+    Entity* ficha = new Entity();
+    ficha->addComponent<Renderer>();
+    ficha->getComponent<Transform>()->setScale({ 0.01, 0.1, 0.05 });
+    ficha->getComponent<Transform>()->setPosition({ -15, 0.0, 0.0 });
+    ficha->addComponent<Rigidbody>();
+    SceneManager::GetInstance()->addEntity(ficha);
+
+    Entity* ficha2 = new Entity();
+    ficha2->addComponent<Renderer>();
+    ficha2->getComponent<Transform>()->setScale({ 0.01, 0.1, 0.05 });
+    ficha2->getComponent<Transform>()->setPosition({ -10, 0.0, 0.0 });
+    ficha2->addComponent<Rigidbody>();
+    SceneManager::GetInstance()->addEntity(ficha2);
+
+    Entity* ficha3 = new Entity();
+    ficha3->addComponent<Renderer>();
+    ficha3->getComponent<Transform>()->setScale({ 0.01, 0.1, 0.05 });
+    ficha3->getComponent<Transform>()->setPosition({ -5, 0.0, 0.0 });
+    ficha3->addComponent<Rigidbody>();
+    SceneManager::GetInstance()->addEntity(ficha3);
+
+    Entity* ficha4 = new Entity();
+    ficha4->addComponent<Renderer>();
+    ficha4->getComponent<Transform>()->setScale({ 0.01, 0.1, 0.05 });
+    ficha4->getComponent<Transform>()->setPosition({ 0, 0.0, 0.0 });
+    ficha4->addComponent<Rigidbody>();
+    SceneManager::GetInstance()->addEntity(ficha4);
+
+    Entity* ficha5 = new Entity();
+    ficha5->addComponent<Renderer>();
+    ficha5->getComponent<Transform>()->setScale({ 0.01, 0.1, 0.05 });
+    ficha5->getComponent<Transform>()->setPosition({ 5, 0.0, 0.0 });
+    ficha5->addComponent<Rigidbody>();
+    SceneManager::GetInstance()->addEntity(ficha5);
+
+    Entity* ficha6 = new Entity();
+    ficha6->addComponent<Renderer>();
+    ficha6->getComponent<Transform>()->setScale({ 0.01, 0.1, 0.05 });
+    ficha6->getComponent<Transform>()->setPosition({ 10, 0.0, 0.0 });
+    ficha6->addComponent<Rigidbody>();
+    SceneManager::GetInstance()->addEntity(ficha6);
+
+    Entity* ficha7 = new Entity();
+    ficha7->addComponent<Renderer>();
+    ficha7->getComponent<Transform>()->setScale({ 0.01, 0.1, 0.05 });
+    ficha7->getComponent<Transform>()->setPosition({ 15, 0.0, 0.0 });
+    ficha7->addComponent<Rigidbody>();
+    SceneManager::GetInstance()->addEntity(ficha7);
+
+    Entity* ficha8 = new Entity();
+    ficha8->addComponent<Renderer>();
+    ficha8->getComponent<Transform>()->setScale({ 0.01, 0.1, 0.05 });
+    ficha8->getComponent<Transform>()->setPosition({ 20, 0.0, 0.0 });
+    ficha8->addComponent<Rigidbody>();
+    ficha8->addComponent<AudioSource>();
+    ficha8->getComponent<AudioSource>()->setPosition(ficha8->getComponent<Transform>()->position());
+    ficha8->getComponent<AudioSource>()->setVelocity(Vector3<float>(0, 0, 0));
+    ficha8->getComponent<AudioSource>()->playSound3D("talking.wav", 0.1, true, Vector3<float>(-7, 0, 0), Vector3<float>(1, 0, 0));
+    ficha8->addComponent<AudioListener>();
+    ficha8->getComponent<AudioListener>()->set3DAtributes(ficha8->getComponent<Transform>()->position(), Vector3<float>(1, 0, 0));
+    ficha8->getComponent<AudioListener>()->setPosition(ficha8->getComponent<Transform>()->position());
+    ficha8->getComponent<AudioListener>()->setVelocity({ (-(0.2 * 1 / 33.33)), 0,0 });
+    SceneManager::GetInstance()->addEntity(ficha8);
+
+
+    //Entity* ent3 = new Entity();
+    //ent3->addComponent<Renderer>();
+    //ent3->getComponent<Transform>()->setScale({ 0.1, 0.1, 0.1 });
+    //ent3->getComponent<Transform>()->setPosition({ 0, 200, 0 });
+    //ent3->getComponent<Transform>()->setRotation(0, 0, 0);
+    //ent3->addComponent<Rigidbody>();
+    //SceneManager::GetInstance()->addEntity(ent3);
 
     return true;
 }

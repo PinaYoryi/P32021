@@ -60,6 +60,7 @@ void Camera::setBackgroundColor(float r, float g, float b) {
 }
 
 void Camera::render() {
+	if (!_active) return;
 	Transform* tr;
 	if ((tr = _myEntity->getComponent<Transform>()) != nullptr) {
 		_camNode->setPosition(tr->position().x, tr->position().y, tr->position().z);

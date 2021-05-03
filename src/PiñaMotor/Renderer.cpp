@@ -24,11 +24,12 @@ bool Renderer::init(const std::map<std::string, std::string>& mapa){
 		_ogreNode->setPosition(20, 20, 20);
 	}
 	else  {
-		_ogreEntity = OgreMotor::GetInstance()->getSceneManager()->createEntity("Sinbad.mesh");
-		_ogreNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode("nSimbad" + name);
+		_ogreEntity = OgreMotor::GetInstance()->getSceneManager()->createEntity("cube.mesh");
+		_ogreNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode("nSimbad" + to_string(name));
 		name++;
 		_ogreNode->attachObject(_ogreEntity);
-		_ogreNode->setScale(200, 20, 200);
+		_ogreNode->setScale(1, 1, 1);
+		//_ogreNode->setScale(0.01, 0.01, 0.01);
 		_ogreNode->setPosition(20, 20, 20);
 	}
 	return true;
@@ -73,6 +74,7 @@ void Renderer::setMesh(Ogre::MeshPtr mesh) {
 }
 
 void Renderer::render() {
+	if (!_active) return;
 	if (_visible) {
 		if (_myEntity->hasComponent<Transform>()) {
 			Transform* tr = _myEntity->getComponent<Transform>();
