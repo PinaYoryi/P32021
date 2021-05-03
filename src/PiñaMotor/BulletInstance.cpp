@@ -50,10 +50,11 @@ void BulletInstance::update()
 		const btCollisionObject* objectB = contactManifold->getBody1();
 		const btRigidBody* rigidBodyB = btRigidBody::upcast(objectB);
 
-		// Cogemos nuestros Rigidbodys para decirle lo pertinente (si es la primera vez que colisiona o lleva mas veces)
+		// Cogemos nuestras entidades para decirles lo pertinente (si es la primera vez que colisiona o lleva mas veces)
 		Entity* entA =static_cast<Entity*>(rigidBodyA->getUserPointer());
 		Entity* entB = static_cast<Entity*>(rigidBodyB->getUserPointer());
-
+		//Analizamos la colision de la Entidad A
+		//Ya habia colisionado anteriormente
 		if (find(entA)) {
 			if (entA->getComponent<Rigidbody>()->isTrigger()) {
 				for (auto comp = entA->getComponents()->begin(); comp != entA->getComponents()->end(); comp++)
@@ -63,7 +64,7 @@ void BulletInstance::update()
 				for (auto comp = entA->getComponents()->begin(); comp != entA->getComponents()->end(); comp++)
 					comp->get()->onCollisionStay();
 			}
-		}
+		}//primera vez que colisiona
 		else {
 			if (entA->getComponent<Rigidbody>()->isTrigger()) {
 				for (auto comp = entA->getComponents()->begin(); comp != entA->getComponents()->end(); comp++)
@@ -75,6 +76,9 @@ void BulletInstance::update()
 			}
 			_collisions.push_back(entA);
 		}
+
+		//Analizamos la colision de la Entidad A
+		//Ya habia colisionado anteriormente
 		if (find(entB)) {
 			if (entB->getComponent<Rigidbody>()->isTrigger()) {
 				for (auto comp = entB->getComponents()->begin(); comp != entB->getComponents()->end(); comp++)
@@ -84,7 +88,7 @@ void BulletInstance::update()
 				for (auto comp = entB->getComponents()->begin(); comp != entB->getComponents()->end(); comp++)
 					comp->get()->onCollisionStay();
 			}
-		}
+		}//primera vez que colisiona
 		else {
 			if (entB->getComponent<Rigidbody>()->isTrigger()) {
 				for (auto comp = entB->getComponents()->begin(); comp != entB->getComponents()->end(); comp++)
@@ -128,15 +132,15 @@ void BulletInstance::endCollision()
 			const btCollisionObject* objectB = contactManifold->getBody1();
 			const btRigidBody* rigidBodyB = btRigidBody::upcast(objectB);
 
-			// Cogemos nuestros Rigidbodys para decirle lo pertinente 
+			// Cogemos nuestras entidades para decirles lo pertinente 
 			Entity* entA = static_cast<Entity*>(rigidBodyA->getUserPointer());
 			Entity* entB = static_cast<Entity*>(rigidBodyB->getUserPointer());
 
-			//si ya lo tenemos en nuestro vector de rigidbodys que han colisionado anteriormente dejamos de buscar 
+			//si ya lo tenemos en nuestro vector de entidades que han colisionado anteriormente dejamos de buscar 
 			if (_collisions[j] == entA || _collisions[j] == entB)
 				find_ = true;
 		}
-		//vemos si el rigidbody esta o no en las colisiones de este frame, si no lo esta se avisa que ha acabado la colision
+		//vemos si la entidad esta o no en las colisiones de este frame, si no lo esta se avisa que ha acabado la colision
 		if (!find_) {
 			if (_collisions[j]->getComponent<Rigidbody>()->isTrigger()) {
 				for (auto comp = _collisions[j]->getComponents()->begin(); comp != _collisions[j]->getComponents()->end(); comp++)

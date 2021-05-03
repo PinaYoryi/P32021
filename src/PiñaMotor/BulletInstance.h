@@ -61,7 +61,7 @@ private:
 	std::vector<Entity*> _collisions;
 
 	/// <summary>
-	/// Analiza si en el vector "_collisions" esta ya ese rigidbody, para saber si empieza o continua una colision
+	/// Analiza si en el vector "_collisions" esta ya esa entidad, para saber si empieza o continua una colision
 	/// </summary>
 	bool find(Entity* rg);
 
