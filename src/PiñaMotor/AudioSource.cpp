@@ -25,12 +25,12 @@ void AudioSource::update()
 	}
 }
 
-void AudioSource::playSound2D(const char* name, float volume, bool loop) {
+void AudioSource::playSound2D(const std::string name, float volume, bool loop) {
 	try {
 		//_system = Audio::GetInstance()->getSystemFMOD();
 		//_result = Audio::GetInstance()->getResult();
 		FMOD::Sound* sound;
-		_result = _system->createSound(name, FMOD_DEFAULT, 0, &sound);
+		_result = _system->createSound(name.c_str(), FMOD_DEFAULT, 0, &sound);
 		errorCheck(_result);
 		//_sounds[name] = sound;
 
@@ -53,10 +53,10 @@ void AudioSource::playSound2D(const char* name, float volume, bool loop) {
 	}
 }
 
-void AudioSource::playSound3D(const char* name, float volume, bool loop,Vector3<float> position,Vector3<float> velocity){
+void AudioSource::playSound3D(const std::string name, float volume, bool loop,Vector3<float> position,Vector3<float> velocity){
 	try {
 		FMOD::Sound* sound;
-		_result = _system->createSound(name, FMOD_3D, 0, &sound);
+		_result = _system->createSound(name.c_str(), FMOD_3D, 0, &sound);
 		errorCheck(_result);
 
 		_result = sound->set3DMinMaxDistance(0.5f * DISTANCE_FACTOR, 5000.0f * DISTANCE_FACTOR);
@@ -84,13 +84,8 @@ void AudioSource::playSound3D(const char* name, float volume, bool loop,Vector3<
 	}
 }
 
-void AudioSource::pauseSound(const char* name) {
-	bool paused;
-	_channel->getPaused(&paused);
-	_channel->setPaused(!paused);
-}
 
-void AudioSource::stopSound(const char* name) {
+void AudioSource::stopSound(const std::string name) {
 	try {
 		_result = _channel->stop();
 		errorCheck(_result);
@@ -154,17 +149,6 @@ float AudioSource::getVolume(){
 	}
 }
 
-void AudioSource::addNewSound(const char* name) {
-
-}
-
-void AudioSource::createSound3D(char* name ) {
-    if (!_active) return;
-    FMOD_RESULT result = _system->createSound(name, (FMOD_MODE)(FMOD_3D), 0, &_sound);
-    if (result != FMOD_OK){
-       (result);
-    }
-}
 
 void AudioSource::errorCheck(FMOD_RESULT result) {
 	if (result != FMOD_RESULT::FMOD_OK)

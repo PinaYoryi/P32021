@@ -18,6 +18,7 @@
 #include "AudioSource.h"
 #include "AudioListener.h"
 #include "Vector3.h"
+#include "ResourceManager.h"
 
 
 SceneManager* SceneManager::_singleton = nullptr;
@@ -130,7 +131,7 @@ bool SceneManager::loadScene(std::string sceneName) {
     ficha->getComponent<Transform>()->setPosition({ -15, 0.0, 0.0 });
     ficha->addComponent<Rigidbody>();
     ficha->addComponent<AudioSource>();
-    ficha->getComponent<AudioSource>()->playSound3D("talking.wav", 0.1, true, ficha->getComponent<Transform>()->position(), Vector3<float>(1, 0, 0));
+    ficha->getComponent<AudioSource>()->playSound3D(ResourceManager::GetInstance()->audio("talking.wav"), 0.1, true, ficha->getComponent<Transform>()->position(), Vector3<float>(1, 0, 0));
     SceneManager::GetInstance()->addEntity(ficha);
 
     Entity* ficha2 = new Entity();
