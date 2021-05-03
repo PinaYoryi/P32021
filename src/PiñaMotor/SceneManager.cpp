@@ -118,6 +118,10 @@ bool SceneManager::loadScene(std::string sceneName) {
     ent2->getComponent<Transform>()->setScale({ 0.01, 0.1, 0.05 });
     ent2->getComponent<Transform>()->setPosition({ -20, 300, 0 });
     ent2->addComponent<Rigidbody>();
+    ent2->addComponent<AudioListener>();
+    ent2->getComponent<AudioListener>()->set3DAtributes(ent2->getComponent<Transform>()->position(), Vector3<float>(0, 0, 0));
+    ent2->getComponent<AudioListener>()->setPosition(ent2->getComponent<Transform>()->position());
+    ent2->getComponent<AudioListener>()->setVelocity({ (-(0.2 * 1 / 33.33)), 0,0 });
     SceneManager::GetInstance()->addEntity(ent2);
 
     Entity* ficha = new Entity();
@@ -125,6 +129,8 @@ bool SceneManager::loadScene(std::string sceneName) {
     ficha->getComponent<Transform>()->setScale({ 0.01, 0.1, 0.05 });
     ficha->getComponent<Transform>()->setPosition({ -15, 0.0, 0.0 });
     ficha->addComponent<Rigidbody>();
+    ficha->addComponent<AudioSource>();
+    ficha->getComponent<AudioSource>()->playSound3D("talking.wav", 0.1, true, ficha->getComponent<Transform>()->position(), Vector3<float>(1, 0, 0));
     SceneManager::GetInstance()->addEntity(ficha);
 
     Entity* ficha2 = new Entity();
@@ -174,14 +180,6 @@ bool SceneManager::loadScene(std::string sceneName) {
     ficha8->getComponent<Transform>()->setScale({ 0.01, 0.1, 0.05 });
     ficha8->getComponent<Transform>()->setPosition({ 20, 0.0, 0.0 });
     ficha8->addComponent<Rigidbody>();
-    ficha8->addComponent<AudioSource>();
-    ficha8->getComponent<AudioSource>()->setPosition(ficha8->getComponent<Transform>()->position());
-    ficha8->getComponent<AudioSource>()->setVelocity(Vector3<float>(0, 0, 0));
-    ficha8->getComponent<AudioSource>()->playSound3D("talking.wav", 0.1, true, Vector3<float>(-7, 0, 0), Vector3<float>(1, 0, 0));
-    ficha8->addComponent<AudioListener>();
-    ficha8->getComponent<AudioListener>()->set3DAtributes(ficha8->getComponent<Transform>()->position(), Vector3<float>(1, 0, 0));
-    ficha8->getComponent<AudioListener>()->setPosition(ficha8->getComponent<Transform>()->position());
-    ficha8->getComponent<AudioListener>()->setVelocity({ (-(0.2 * 1 / 33.33)), 0,0 });
     SceneManager::GetInstance()->addEntity(ficha8);
 
 

@@ -1,5 +1,6 @@
 #include "AudioListener.h"
 #include"fmod_errors.h"
+#include "Entity.h"
 
 AudioListener::AudioListener() {
 }
@@ -7,8 +8,9 @@ AudioListener::AudioListener() {
 bool AudioListener::init(const std::map<std::string, std::string>& mapa){
     _system = Audio::GetInstance()->getSystemFMOD();
     _result = Audio::GetInstance()->getResult();
+    _trans = _myEntity->getComponent<Transform>();
 
-    _p = { 0,0,0 };
+    _p = _trans->position();
     _v = { 0,0,0 };
     _f = { 0,0,1 };
     _u = { 0,1,0 };
@@ -30,9 +32,7 @@ void AudioListener::set3DAtributes(Vector3<float> position, Vector3<float> veloc
 void AudioListener::update() {
  
 
-    _p.x += _v.x;
-    _p.y += _v.y;
-    _p.z += _v.z;
+    _p= _trans->position();
 
     if (_system != nullptr) {
         _result = _system->set3DListenerAttributes(0, &(FMOD_VECTOR)_p, &(FMOD_VECTOR)_v, &(FMOD_VECTOR)_f, &(FMOD_VECTOR)_u);

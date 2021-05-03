@@ -3,6 +3,7 @@
 #include <fmod.hpp>
 #include "Vector3.h"
 #include "Audio.h"
+#include "Transform.h"
 
 class AudioListener : public Component {
 public:
@@ -58,6 +59,7 @@ private:
 	void errorCheck(FMOD_RESULT result);
 
 	FMOD_RESULT _result;
+	Transform* _trans = nullptr;
 
 	Vector3<float> _p;
 	Vector3<float> _f;
