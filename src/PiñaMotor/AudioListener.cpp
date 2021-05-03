@@ -2,10 +2,9 @@
 #include"fmod_errors.h"
 #include "Entity.h"
 
-AudioListener::AudioListener() {
-}
+AudioListener::AudioListener() { }
 
-bool AudioListener::init(const std::map<std::string, std::string>& mapa){
+bool AudioListener::init(const std::map<std::string, std::string>& mapa) {
     _system = Audio::GetInstance()->getSystemFMOD();
     _result = Audio::GetInstance()->getResult();
     _trans = _myEntity->getComponent<Transform>();
@@ -17,25 +16,23 @@ bool AudioListener::init(const std::map<std::string, std::string>& mapa){
     return true;
 }
 
-void AudioListener::set3DAtributes(Vector3<float> position, Vector3<float> velocity){
+void AudioListener::set3DAtributes(Vector3<float> position, Vector3<float> velocity) {
     _p.x = position.x;
     _p.y = position.y;
     _p.z = position.z;
 
-
      if (_system != nullptr) {
-         _result = _system->set3DListenerAttributes(0, &(FMOD_VECTOR)_p, &(FMOD_VECTOR)_v, &(FMOD_VECTOR)_f, &(FMOD_VECTOR)_u);
+         _result = _system->set3DListenerAttributes(0, &_p, &_v, &_f, &_u);
          errorCheck(_result);
      }
 }
 
 void AudioListener::update() {
  
-
     _p= _trans->position();
 
     if (_system != nullptr) {
-        _result = _system->set3DListenerAttributes(0, &(FMOD_VECTOR)_p, &(FMOD_VECTOR)_v, &(FMOD_VECTOR)_f, &(FMOD_VECTOR)_u);
+        _result = _system->set3DListenerAttributes(0, &_p, &_v, &_f, &_u);
         errorCheck(_result);
     }
     _result = _system->update();
@@ -43,7 +40,7 @@ void AudioListener::update() {
   
 }
 
-void AudioListener::errorCheck(FMOD_RESULT result){
+void AudioListener::errorCheck(FMOD_RESULT result) {
     if (result != FMOD_RESULT::FMOD_OK)
         throw std::exception(FMOD_ErrorString(result));
 }

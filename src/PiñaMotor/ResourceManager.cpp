@@ -15,7 +15,7 @@ ResourceManager* ResourceManager::Init() {
 std::string ResourceManager::texture(std::string name) {
 	auto it = _textures.find(name);
 	if (it != _textures.end()) return it->second;
-	it = _textures.find("Default");
+	it = _textures.find("Default.png");
 	if (it != _textures.end()) return it->second;
 	throw "Could not find texture requested or the default one";
 }
@@ -23,7 +23,7 @@ std::string ResourceManager::texture(std::string name) {
 std::string ResourceManager::audio(std::string name) {
 	auto it = _audio.find(name);
 	if (it != _audio.end()) return it->second;
-	it = _audio.find("Default");
+	it = _audio.find("Default.mp3");
 	if (it != _audio.end()) return it->second;
 	throw "Could not find audio requested or the default one";
 }

@@ -76,8 +76,8 @@ public:
 private:
 	
 	void errorCheck(FMOD_RESULT result);
-	Vector3<float> _position;
-	Vector3<float> _velocity;
+	FMOD_VECTOR _position;
+	FMOD_VECTOR _velocity;
 	FMOD::System* _system;
 	FMOD_RESULT _result;
 	FMOD::Sound* _sound;

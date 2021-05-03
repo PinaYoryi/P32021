@@ -61,10 +61,10 @@ private:
 	FMOD_RESULT _result;
 	Transform* _trans = nullptr;
 
-	Vector3<float> _p;
-	Vector3<float> _f;
-	Vector3<float> _u;
-	Vector3<float> _v;
+	FMOD_VECTOR _p;
+	FMOD_VECTOR _f;
+	FMOD_VECTOR _u;
+	FMOD_VECTOR _v;
 	FMOD::System* _system;
 
 
