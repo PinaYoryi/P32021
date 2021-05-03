@@ -1,8 +1,8 @@
 ﻿#pragma once
-
 #include <btBulletDynamicsCommon.h>
 #include "Vector3.h"
 #include <vector>
+#include "Rigidbody.h"
 
 const Vector3<> DEFAULT_GRAVITY = { 0.0f, -9.8f, 0.0f };
 
@@ -56,4 +56,17 @@ private:
 	btCollisionDispatcher* _dispatcher = nullptr;
 	btSequentialImpulseConstraintSolver* _solver = nullptr;
 	btDiscreteDynamicsWorld* _world = nullptr;
+
+	//vector donde guardamos los rigidbodys que han colisionado en ultimo frame
+	std::vector<Rigidbody*> _collisions;
+
+	/// <summary>
+	/// Analiza si en el vector "_collisions" esta ya ese rigidbody, para saber si empieza o continua una colision
+	/// </summary>
+	bool find(Rigidbody* rg);
+
+	/// <summary>
+	/// Analiza si ha acabado una colision para avisar al TriggerEnd()/CollisionEnd()
+	/// </summary>
+	void endCollision();
 };
