@@ -59,10 +59,8 @@ void Rigidbody::updateTransform() {
 	_trans->setRotation(Quaternion(orientation.getW(), orientation.getX(), orientation.getY(), orientation.getZ()));	
 }
 
-void Rigidbody::createShape(ShapeTypes type)
-{
-	switch (type)
-	{
+void Rigidbody::createShape(ShapeTypes type) {
+	switch (type) {
 	case ShapeTypes::Box:
 		_btCs = new btBoxShape(_trans->scale() * OGRE_BULLET_RATIO);
 		break;
