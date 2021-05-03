@@ -150,7 +150,8 @@ public:
 	//Parsear de Vector3 a Bullet::Vector3
 	operator btVector3() const { return btVector3((float)x, (float)y, (float)z); }
 	//Parsear de Vector3 a FMOD_VECTOR
-	operator FMOD_VECTOR() const{ return FMOD_VECTOR((float)x,(float)y,(float)z); }
+	operator FMOD_VECTOR() const {/* return FMOD_VECTOR(/(float)x,(float)y,(float)z); */
+		FMOD_VECTOR v; v.x = (float)x; v.y = (float)y; v.z = (float)z; return v;}
 	// Vectores predefinidos
 	static const Vector3<T> up() { return Vector3<T>((T)0, (T)1, (T)0); }
 	static const Vector3<T> down() { return Vector3<T>((T)0, (T)-1, (T)0); }

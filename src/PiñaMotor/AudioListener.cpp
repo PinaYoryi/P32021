@@ -2,44 +2,40 @@
 #include"fmod_errors.h"
 
 AudioListener::AudioListener() {
-
 }
 
-void AudioListener::set3DAtributes(Vector3<float> position, Vector3<float> velocity)
-{
+bool AudioListener::init(const std::map<std::string, std::string>& mapa){
     _system = Audio::GetInstance()->getSystemFMOD();
-    _result= Audio::GetInstance()->getResult();
+    _result = Audio::GetInstance()->getResult();
 
-    p.x = 0;
-    p.y = 0;
-    p.z = 0;
+    _p = { 0,0,0 };
+    _v = { 0,0,0 };
+    _f = { 0,0,1 };
+    _u = { 0,1,0 };
+    return true;
+}
 
-    v.x = -(0.2 * 1 / 33.33);
-    v.y = 0;
-    v.z = 0;
+void AudioListener::set3DAtributes(Vector3<float> position, Vector3<float> velocity){
+    _p.x = position.x;
+    _p.y = position.y;
+    _p.z = position.z;
 
-    f.x = 0;
-    f.y = 0;
-    f.z = 1;
-
-    u.x = 0;
-    u.y = 1;
-    u.z = 0;
 
      if (_system != nullptr) {
-         _result = _system->set3DListenerAttributes(0, &p, &v, &f, &u);
+         _result = _system->set3DListenerAttributes(0, &(FMOD_VECTOR)_p, &(FMOD_VECTOR)_v, &(FMOD_VECTOR)_f, &(FMOD_VECTOR)_u);
          errorCheck(_result);
      }
 }
 
 void AudioListener::update() {
-    p.x += v.x;
+ 
 
-    v.x = -(0.2 * 1 / 33.33);
-    v.y = 0;
-    v.z = 0;
+    _p.x += _v.x;
+    _p.y += _v.y;
+    _p.z += _v.z;
+
     if (_system != nullptr) {
-        _result = _system->set3DListenerAttributes(0, &p, &v, &f, &u);
+        _result = _system->set3DListenerAttributes(0, &(FMOD_VECTOR)_p, &(FMOD_VECTOR)_v, &(FMOD_VECTOR)_f, &(FMOD_VECTOR)_u);
         errorCheck(_result);
     }
     _result = _system->update();
@@ -47,8 +43,7 @@ void AudioListener::update() {
   
 }
 
-void AudioListener::errorCheck(FMOD_RESULT result)
-{
+void AudioListener::errorCheck(FMOD_RESULT result){
     if (result != FMOD_RESULT::FMOD_OK)
         throw std::exception(FMOD_ErrorString(result));
 }

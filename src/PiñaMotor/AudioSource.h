@@ -13,9 +13,8 @@ public:
 
 	~AudioSource() {};
 
-	bool init(const std::map<std::string, std::string>& mapa) override {
-		return true;
-	}
+	bool init(const std::map<std::string, std::string>& mapa) override;
+
 	
 	virtual void update() override;
 
@@ -25,10 +24,20 @@ public:
 	/// </summary>
 	void playSound2D(const char* name, float volume, bool loop);
 
+	/// <summary>
+	/// Añade un sonido/musica y lo ejcuta en una posicion en concreto determinada por el parametro position, name es la direccion o nombre del archivo, 
+	/// volume el volumen de dicho sonido y loop por si se quiere ejecutar en bucle
+	/// </summary>
 	void playSound3D(const char* name, float volume, bool loop, Vector3<float> position, Vector3<float> velocity);
 
+	/// <summary>
+	/// pausa un sonido
+	/// </summary>
 	void pauseSound(const char* name);
 
+	/// <summary>
+	/// para un sonido
+	/// </summary>
 	void stopSound(const char* name);
 
 	/// <summary>
@@ -75,8 +84,6 @@ public:
 private:
 	
 	void errorCheck(FMOD_RESULT result);
-	FMOD_VECTOR v;
-	FMOD_VECTOR p;
 	Vector3<float> _position;
 	Vector3<float> _velocity;
 	FMOD::System* _system;

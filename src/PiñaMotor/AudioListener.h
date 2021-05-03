@@ -9,23 +9,48 @@ public:
 	AudioListener();
 	~AudioListener() {};
 
-	bool init(const std::map<std::string, std::string>& mapa) override {
-		return true;
-	}
+	bool init(const std::map<std::string, std::string>& mapa) override;
 
+	/// <summary>
+	///
+	/// </summary>
 	void set3DAtributes(Vector3<float> position, Vector3<float> velocity);
 
-	void setPosition(Vector3<float> position) { _position.x = position.x; _position.y = position.y; _position.z = position.z;};
-	Vector3<float> getPosition() { return Vector3<float>(_position.x,_position.y,_position.z); };
+	/// <summary>
+	/// metodo set para asignar una posicion
+	/// </summary>
+	void setPosition(Vector3<float> position) { _p.x = position.x; _p.y = position.y; _p.z = position.z;};
+	/// <summary>
+	/// metodo get para la posicion
+	/// </summary>
+	Vector3<float> getPosition() { return Vector3<float>(_p.x,_p.y,_p.z); };
 
-	void setVelocity(Vector3<float> velocity) { _velocity.x = velocity.x; _velocity.y = velocity.y; _velocity.z = velocity.z; };
-	Vector3<float> getVelocity() { return Vector3<float>(_velocity.x, _velocity.y, _velocity.z); };
+	/// <summary>
+	/// metodo set para asignar una velocidad
+	/// </summary>
+	void setVelocity(Vector3<float> velocity) { _v.x = velocity.x; _v.y = velocity.y; _v.z = velocity.z; };
+	/// <summary>
+	/// metodo get para la velocidad
+	/// </summary>
+	Vector3<float> getVelocity() { return Vector3<float>(_v.x, _v.y, _v.z); };
 
-	void setUp(Vector3<float> up) { _up.x = up.x; _up.y = up.y; _up.z = up.z; };
-	Vector3<float> getUp() { return Vector3<float>(_up.x, _up.y, _up.z); };
+	/// <summary>
+	/// metodo set para asignar una direccion vertical
+	/// </summary>
+	void setUp(Vector3<float> up) { _u.x = up.x; _u.y = up.y; _u.z = up.z; };
+	/// <summary>
+	/// metodo get para una direccion vertical
+	/// </summary>
+	Vector3<float> getUp() { return Vector3<float>(_u.x, _u.y, _u.z); };
 
-	void setForward(Vector3<float> forward) { _forward.x = forward.x; _forward.y = forward.y; _forward.z = forward.z; };
-	Vector3<float> getForward() { return Vector3<float>(_forward.x, _forward.y, _forward.z); };
+	/// <summary>
+	/// metodo set para asignar una direccion horizontal
+	/// </summary>
+	void setForward(Vector3<float> forward) { _f.x = forward.x; _f.y = forward.y; _f.z = forward.z; };
+	/// <summary>
+	/// metodo get para una direccion horizontal
+	/// </summary>
+	Vector3<float> getForward() { return Vector3<float>(_f.x, _f.y, _f.z); };
 
 	virtual void update() override;
 
@@ -33,13 +58,12 @@ private:
 	void errorCheck(FMOD_RESULT result);
 
 	FMOD_RESULT _result;
-	FMOD_VECTOR v;
-	FMOD_VECTOR p;
-	FMOD_VECTOR f;
-	FMOD_VECTOR u;
+
+	Vector3<float> _p;
+	Vector3<float> _f;
+	Vector3<float> _u;
+	Vector3<float> _v;
 	FMOD::System* _system;
-	Vector3<float> _position;
-	Vector3<float> _velocity;
-	Vector3<float> _forward;
-	Vector3<float> _up;
+
+
 };
