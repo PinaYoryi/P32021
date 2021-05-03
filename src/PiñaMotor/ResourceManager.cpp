@@ -1,6 +1,4 @@
 #include "ResourceManager.h"
-#include <iostream>
-
 
 ResourceManager* ResourceManager::_singleton = nullptr;
 
@@ -16,25 +14,28 @@ ResourceManager* ResourceManager::Init() {
 
 std::string ResourceManager::texture(std::string name) {
 	auto it = _textures.find(name);
-	if (it == _textures.end()) throw "No se ha encontrado la textura " + name; //ToDo: Hacer excepciones de verdad
-	return it->second;
+	if (it != _textures.end()) return it->second;
+	it = _textures.find("Default");
+	if (it != _textures.end()) return it->second;
+	throw "Could not find texture requested or the default one";
 }
 
 std::string ResourceManager::audio(std::string name) {
 	auto it = _audio.find(name);
-	if (it == _audio.end()) throw "No se ha encontrado el audio " + name;
-	return it->second;
+	if (it != _audio.end()) return it->second;
+	it = _audio.find("Default");
+	if (it != _audio.end()) return it->second;
+	throw "Could not find audio requested or the default one";
 }
 
 std::string ResourceManager::scene(std::string name) {
 	auto it = _scenes.find(name);
-	if (it == _scenes.end()) throw "No se ha encontrado la escena " + name;
+	if (it == _scenes.end()) throw "Non-existant scene has been called: " + name;
 	return it->second;
 }
 
 void ResourceManager::searchDir(std::filesystem::path path) {
 	for (const auto& entry : std::filesystem::directory_iterator(path)) {
-		std::cout << entry.path() << "\n";
 		size_t lastindex = entry.path().string().find_last_of(".");
 		if (lastindex == 1)
 			searchDir(entry.path());

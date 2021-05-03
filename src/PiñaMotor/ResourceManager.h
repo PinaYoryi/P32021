@@ -7,8 +7,7 @@ static const std::string RESOURCES_PATH = "..\\assets\\resources";
 
 class ResourceManager {
 public:
-	~ResourceManager() {
-	}
+	~ResourceManager() {}
 
 	/// <summary>
 	/// Devuelve una instancia de la clase. Nullptr si no esta inicializada.

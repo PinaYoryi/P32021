@@ -24,12 +24,15 @@ public:
 		if (t->init(map)) {
 			return t;
 		}
-		cout << "Error carga componente\n";
+		throw "Could not create component: " + indexOf<T, ComponentsList>;
 	}
 
 	template<typename T>
 	T* getComponent() {
-		return static_cast<T*>(_compArray[indexOf<T, ComponentsList>]);
+		try {
+			return static_cast<T*>(_compArray[indexOf<T, ComponentsList>]);
+		}
+		catch (...) { throw "Could not find component: " + indexOf<T, ComponentsList>; }
 	}
 
 	template<typename T>

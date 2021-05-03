@@ -38,7 +38,7 @@ void BulletInstance::initResources() {
 		_world->setGravity(DEFAULT_GRAVITY);
 	}
 	catch (std::exception& e) {
-		std::cout << e.what() << std::endl;
+		throw e.what();
 	}
 }
 

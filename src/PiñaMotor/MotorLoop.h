@@ -8,7 +8,7 @@ const float FIXED_UPDATE_TIME = 0.02f;
 
 class MotorLoop {
 public:
-	~MotorLoop();
+	~MotorLoop() {};
 
 	/// <summary>
 	/// Devuelve una instancia de la clase. Devuelve nullptr por defecto si no se ha inicializado.
