@@ -40,7 +40,7 @@ bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 	_btRb->setRestitution(1);
 	_btRb->setCollisionFlags(DEFAULT_COLLISION_FLAGS);
 	_btRb->setMassProps(_mass, localInertia);
-	_btRb->setUserPointer(this);
+	_btRb->setUserPointer(_myEntity);
 	// Se a�ade al mundo de la simulaci�n f�sica
 	BulletInstance::GetInstance()->getWorld()->addRigidBody(_btRb);
 
@@ -155,44 +155,3 @@ void Rigidbody::setMass(float mass, const btVector3& inertia) {
 	_btRb->setMassProps(mass, inertia);
 }
 
-void Rigidbody::onCollisionStart()
-{
-#if (defined _DEBUG)
-	std::cout << " Empiezo a colisionar\n";
-#endif
-}
-
-void Rigidbody::onCollisionStay()
-{
-#if (defined _DEBUG)
-	std::cout << "Sigo Colisionando\n";
-#endif
-}
-
-void Rigidbody::onCollisionEnd()
-{
-#if (defined _DEBUG)
-	std::cout << " Dejo de colisionar\n";
-#endif
-}
-
-void Rigidbody::onTriggerStart()
-{
-#if (defined _DEBUG)
-	std::cout << " Empiezo a triggerear\n";
-#endif
-}
-
-void Rigidbody::onTriggerStay()
-{
-#if (defined _DEBUG)
-	std::cout << "Sigo Triggereando\n";
-#endif
-}
-
-void Rigidbody::onTriggerEnd()
-{
-#if (defined _DEBUG)
-	std::cout << " Dejo de triggerear\n";
-#endif
-}

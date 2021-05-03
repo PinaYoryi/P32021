@@ -89,16 +89,6 @@ public:
 	void setMass(float mass, const btVector3& inertia = { 0,0,0 });
 	btRigidBody* getbT(){ return  _btRb;}
 
-
-
-	virtual void onCollisionStart() override;
-	virtual void onCollisionStay() override;
-	virtual void onCollisionEnd() override;
-
-	virtual void onTriggerStart() override;
-	virtual void onTriggerStay() override;
-	virtual void onTriggerEnd() override;
-
 	
 private:
 	btCollisionShape* _btCs = nullptr;	// La forma de la collisionBox

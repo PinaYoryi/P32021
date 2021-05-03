@@ -63,6 +63,8 @@ public:
 
 	void render();
 
+	std::vector<unique_ptr<Component>>* getComponents() { return &compUnique; }
+
 private:
 	std::string _name;
 	//aqui estaran los componentes de esta entidad
