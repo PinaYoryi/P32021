@@ -23,7 +23,7 @@ std::string ResourceManager::texture(std::string name) {
 std::string ResourceManager::audio(std::string name) {
 	auto it = _audio.find(name);
 	if (it != _audio.end()) return it->second;
-	it = _audio.find("Default.mp3");
+	it = _audio.find("Default.ogg");
 	if (it != _audio.end()) return it->second;
 	throw "Could not find audio requested or the default one";
 }
