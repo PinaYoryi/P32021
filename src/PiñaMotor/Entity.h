@@ -7,7 +7,7 @@ using namespace std;
 class Entity {
 public:
 	Entity();
-	Entity(char* entityName);
+	Entity(std::string entityName);
 
 	~Entity();
 
@@ -58,7 +58,7 @@ public:
 		return deleted;
 	}
 
-	const char* getName() { return _name; }
+	const std::string getName() { return _name; }
 
 	void update();
 
@@ -66,8 +66,10 @@ public:
 
 	void render();
 
+	std::vector<unique_ptr<Component>>* getComponents() { return &compUnique; }
+
 private:
-	const char* _name;
+	std::string _name;
 	//aqui estaran los componentes de esta entidad
 	std::vector<unique_ptr<Component>> compUnique;
 	//aqui estaran todos los posibles punteros a componentes existentes

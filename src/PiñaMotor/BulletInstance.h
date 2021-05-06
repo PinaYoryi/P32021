@@ -1,8 +1,8 @@
 ﻿#pragma once
-
 #include <btBulletDynamicsCommon.h>
 #include "Vector3.h"
 #include <vector>
+#include "Entity.h"
 
 const Vector3<> DEFAULT_GRAVITY = { 0.0f, -9.8f, 0.0f };
 
@@ -58,4 +58,18 @@ private:
 	btCollisionDispatcher* _dispatcher = nullptr;
 	btSequentialImpulseConstraintSolver* _solver = nullptr;
 	btDiscreteDynamicsWorld* _world = nullptr;
+
+	//vector donde guardamos un pair con dos entidades, que representa una colision del frame anterior
+	std::vector<std::pair<Entity*,Entity*>> _collisions;
+
+	/// <summary>
+	/// Analiza si en el vector "_collisions" si hay un pair con esas dos entidades
+	/// tanto en ese orden (A-B) como en el inverso (B-A)
+	/// </summary>
+	bool find(Entity* entA,Entity* entB);
+
+	/// <summary>
+	/// Analiza si ha acabado una colision para avisar al TriggerEnd()/CollisionEnd()
+	/// </summary>
+	void endCollision();
 };

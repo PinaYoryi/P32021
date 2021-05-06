@@ -73,7 +73,10 @@ bool SceneManager::loadScene(std::string sceneName) {
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform> cpm;
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Camera> cp3;
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Light> cpl;
-
+    ComponentFactoryRegistrations::ComponentFactoryRegistration<Renderer> cpm2;
+    ComponentFactoryRegistrations::ComponentFactoryRegistration<Rigidbody> cpm4;
+    ComponentFactoryRegistrations::ComponentFactoryRegistration<Animation> cpm3;
+    
     Entity* camera = new Entity();
     camera->addComponent<Camera>();
     camera->getComponent<Camera>()->setNearClipPlane(1);
@@ -127,7 +130,7 @@ bool SceneManager::loadScene(std::string sceneName) {
     ent2->getComponent<AudioListener>()->setVelocity({ (-(0.2 * 1 / 33.33)), 0,0 });
     SceneManager::GetInstance()->addEntity(ent2);
 
-    Entity* ficha = new Entity();
+    /*Entity* ficha = new Entity();
     ficha->addComponent<Renderer>();
     ficha->getComponent<Transform>()->setScale({ 0.01, 0.1, 0.05 });
     ficha->getComponent<Transform>()->setPosition({ -15, 0.0, 0.0 });
@@ -155,9 +158,9 @@ bool SceneManager::loadScene(std::string sceneName) {
     ficha4->getComponent<Transform>()->setScale({ 0.01, 0.1, 0.05 });
     ficha4->getComponent<Transform>()->setPosition({ 0, 0.0, 0.0 });
     ficha4->addComponent<Rigidbody>();
-    SceneManager::GetInstance()->addEntity(ficha4);
+    SceneManager::GetInstance()->addEntity(ficha4);*/
 
-    Entity* ficha5 = new Entity();
+   /* Entity* ficha5 = new Entity();
     ficha5->addComponent<Renderer>();
     ficha5->getComponent<Transform>()->setScale({ 0.01, 0.1, 0.05 });
     ficha5->getComponent<Transform>()->setPosition({ 5, 0.0, 0.0 });
@@ -169,21 +172,21 @@ bool SceneManager::loadScene(std::string sceneName) {
     ficha6->getComponent<Transform>()->setScale({ 0.01, 0.1, 0.05 });
     ficha6->getComponent<Transform>()->setPosition({ 10, 0.0, 0.0 });
     ficha6->addComponent<Rigidbody>();
-    SceneManager::GetInstance()->addEntity(ficha6);
+    SceneManager::GetInstance()->addEntity(ficha6);*/
 
-    Entity* ficha7 = new Entity();
-    ficha7->addComponent<Renderer>();
-    ficha7->getComponent<Transform>()->setScale({ 0.01, 0.1, 0.05 });
-    ficha7->getComponent<Transform>()->setPosition({ 15, 0.0, 0.0 });
-    ficha7->addComponent<Rigidbody>();
-    SceneManager::GetInstance()->addEntity(ficha7);
+    //Entity* ficha7 = new Entity();
+    //ficha7->addComponent<Renderer>();
+    //ficha7->getComponent<Transform>()->setScale({ 0.01, 0.1, 0.05 });
+    //ficha7->getComponent<Transform>()->setPosition({ 15, 0.0, 0.0 });
+    //ficha7->addComponent<Rigidbody>();
+    //SceneManager::GetInstance()->addEntity(ficha7);
 
-    Entity* ficha8 = new Entity();
-    ficha8->addComponent<Renderer>();
-    ficha8->getComponent<Transform>()->setScale({ 0.01, 0.1, 0.05 });
-    ficha8->getComponent<Transform>()->setPosition({ 20, 0.0, 0.0 });
-    ficha8->addComponent<Rigidbody>();
-    SceneManager::GetInstance()->addEntity(ficha8);
+    //Entity* ficha8 = new Entity();
+    //ficha8->addComponent<Renderer>();
+    //ficha8->getComponent<Transform>()->setScale({ 0.01, 0.1, 0.05 });
+    //ficha8->getComponent<Transform>()->setPosition({ 20, 0.0, 0.0 });
+    //ficha8->addComponent<Rigidbody>();
+    //SceneManager::GetInstance()->addEntity(ficha8);
 
 
     //Entity* ent3 = new Entity();

@@ -69,6 +69,7 @@ public:
 	// Transforma la posicion x, y, z del espacio global al espacio local
 	Vector3<float> inverseTransformDirection(float x, float y, float z);
 
+
 private:
 	// A�ade a un hijo a la lista
 	void setChild(Transform* child) { _vChild.push_back(child); }

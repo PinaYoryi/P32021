@@ -13,6 +13,9 @@ bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 	_trans = _myEntity->getComponent<Transform>();	
 
 	// Creamos el Shape
+	if(_myEntity->getName() == "sphere")
+		createShape(ShapeTypes::Sphere);
+	else
 	createShape(ShapeTypes::Box);
 	
 	// Creamos un Transform de Bullet a partir del componente Transform
@@ -34,10 +37,10 @@ bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 
 	// Lo creamos a partir de la informaci�n dada
 	_btRb = new btRigidBody(rbInfo);
-	_btRb->setRestitution(DEFAULT_RESTITUTION);
+	_btRb->setRestitution(1);
 	_btRb->setCollisionFlags(DEFAULT_COLLISION_FLAGS);
 	_btRb->setMassProps(_mass, localInertia);
-	
+	_btRb->setUserPointer(_myEntity);
 	// Se a�ade al mundo de la simulaci�n f�sica
 	BulletInstance::GetInstance()->getWorld()->addRigidBody(_btRb);
 
@@ -62,10 +65,13 @@ void Rigidbody::updateTransform() {
 void Rigidbody::createShape(ShapeTypes type) {
 	switch (type) {
 	case ShapeTypes::Box:
-		_btCs = new btBoxShape(_trans->scale() * OGRE_BULLET_RATIO);
+		if(_myEntity->getName()!="Sinbad")
+			_btCs = new btBoxShape(_trans->scale() * OGRE_BULLET_RATIO);
+		else
+			_btCs = new btBoxShape(_trans->scale() * 5);
 		break;
 	case ShapeTypes::Sphere:
-		_btCs = new btSphereShape(_trans->scale().x * OGRE_BULLET_RATIO);
+		_btCs = new btSphereShape(_trans->scale().x * 100);
 		break;
 	case ShapeTypes::Capsule:
 		_btCs = new btCapsuleShape(_trans->scale().x * OGRE_BULLET_RATIO, _trans->scale().y * OGRE_BULLET_RATIO);
@@ -146,3 +152,4 @@ void Rigidbody::setLinearVelocity(Vector3<float> vector) {
 void Rigidbody::setMass(float mass, const btVector3& inertia) {
 	_btRb->setMassProps(mass, inertia);
 }
+

@@ -24,7 +24,6 @@
     <ClCompile Include="..\..\src\PiñaMotor\Audio.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\AudioListener.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\AudioSource.cpp" />
-    <ClCompile Include="..\..\src\PiñaMotor\BoxCollider.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\BulletInstance.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Animation.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Camera.cpp" />
@@ -52,7 +51,6 @@
     <ClInclude Include="..\..\src\PiñaMotor\Audio.h" />
     <ClInclude Include="..\..\src\PiñaMotor\AudioListener.h" />
     <ClInclude Include="..\..\src\PiñaMotor\AudioSource.h" />
-    <ClInclude Include="..\..\src\PiñaMotor\BoxCollider.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Camera.h" />
     <ClInclude Include="..\..\src\PiñaMotor\BulletInstance.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Animation.h" />

@@ -39,9 +39,6 @@
     <ClCompile Include="..\..\src\PiñaMotor\OgreMotor.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\PiñaMotor\BoxCollider.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\PiñaMotor\BulletInstance.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
@@ -129,9 +126,6 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\PiñaMotor\OgreMotor.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\PiñaMotor\BoxCollider.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\PiñaMotor\BulletInstance.h">
