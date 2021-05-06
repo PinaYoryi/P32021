@@ -68,7 +68,7 @@ void BulletInstance::update()
 			}
 			if (entB->getComponent<Rigidbody>()->isTrigger()) {
 				for (auto comp = entB->getComponents()->begin(); comp != entB->getComponents()->end(); comp++)
-					comp->get()->onTriggerStay(entB);
+					comp->get()->onTriggerStay(entA);
 			}
 			else {
 				for (auto comp = entB->getComponents()->begin(); comp != entB->getComponents()->end(); comp++)
