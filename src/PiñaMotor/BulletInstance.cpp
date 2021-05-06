@@ -57,41 +57,36 @@ void BulletInstance::update()
 		Entity* entB = static_cast<Entity*>(rigidBodyB->getUserPointer());
 
 		//Ya habia colisionado anteriormente
-		if (find(entA,entB)) {			
-			if (entA->getComponent<Rigidbody>()->isTrigger()) {
-				for (auto comp = entA->getComponents()->begin(); comp != entA->getComponents()->end(); comp++)
-					comp->get()->onTriggerStay(entB);
-			}
-			else {				
+		if (find(entA,entB)) {			//si ninguno de los dos cuerpos es trigger, se lanza onCollisionStay
+			if (!entA->getComponent<Rigidbody>()->isTrigger() && !entB->getComponent<Rigidbody>()->isTrigger()) {
 				for (auto comp = entA->getComponents()->begin(); comp != entA->getComponents()->end(); comp++)
 					comp->get()->onCollisionStay(entB);
-			}
-			if (entB->getComponent<Rigidbody>()->isTrigger()) {
-				for (auto comp = entB->getComponents()->begin(); comp != entB->getComponents()->end(); comp++)
-					comp->get()->onTriggerStay(entA);
-			}
-			else {
+
 				for (auto comp = entB->getComponents()->begin(); comp != entB->getComponents()->end(); comp++)
 					comp->get()->onCollisionStay(entA);
 			}
+			else {				
+				for (auto comp = entA->getComponents()->begin(); comp != entA->getComponents()->end(); comp++)
+					comp->get()->onTriggerStay(entB);
+				for (auto comp = entB->getComponents()->begin(); comp != entB->getComponents()->end(); comp++)
+					comp->get()->onTriggerStay(entA);
+			}
+			
 		}//primera vez que colisiona
 		else {
-			if (entA->getComponent<Rigidbody>()->isTrigger()) {
+			if (!entA->getComponent<Rigidbody>()->isTrigger() && !entB->getComponent<Rigidbody>()->isTrigger()) {
 				for (auto comp = entA->getComponents()->begin(); comp != entA->getComponents()->end(); comp++)
-					comp->get()->onTriggerStart(entB);
+					comp->get()->onCollisionStart(entB);
+
+				for (auto comp = entB->getComponents()->begin(); comp != entB->getComponents()->end(); comp++)
+					comp->get()->onCollisionStart(entA);
 			}
 			else {
 				for (auto comp = entA->getComponents()->begin(); comp != entA->getComponents()->end(); comp++)
-					comp->get()->onCollisionStart(entB);
-			}
-			if (entB->getComponent<Rigidbody>()->isTrigger()) {
+					comp->get()->onTriggerStart(entB);
 				for (auto comp = entB->getComponents()->begin(); comp != entB->getComponents()->end(); comp++)
 					comp->get()->onTriggerStart(entA);
 			}
-			else {
-				for (auto comp = entB->getComponents()->begin(); comp != entB->getComponents()->end(); comp++)
-					comp->get()->onCollisionStart(entA);
-			}			
 			_collisions.push_back({ entA,entB });
 		}		
 	}
@@ -136,22 +131,20 @@ void BulletInstance::endCollision()
 		}
 		//vemos si la entidad esta o no en las colisiones de este frame, si no lo esta se avisa que ha acabado la colision
 		if (!find_) {
-			if (_collisions[j].first->getComponent<Rigidbody>()->isTrigger()) {
-				for (auto comp = _collisions[j].first->getComponents()->begin(); comp != _collisions[j].first->getComponents()->end(); comp++)
-					comp->get()->onTriggerEnd(_collisions[j].second);
-			}
-			else {
+			//si ninguno de los dos cuerpos es trigger
+			if (!_collisions[j].first->getComponent<Rigidbody>()->isTrigger() && !_collisions[j].second->getComponent<Rigidbody>()->isTrigger()) {
 				for (auto comp = _collisions[j].first->getComponents()->begin(); comp != _collisions[j].first->getComponents()->end(); comp++)
 					comp->get()->onCollisionEnd(_collisions[j].second);
-			}
-			if (_collisions[j].second->getComponent<Rigidbody>()->isTrigger()) {
-				for (auto comp = _collisions[j].second->getComponents()->begin(); comp != _collisions[j].second->getComponents()->end(); comp++)
-					comp->get()->onTriggerEnd(_collisions[j].first);
-			}
-			else {
 				for (auto comp = _collisions[j].second->getComponents()->begin(); comp != _collisions[j].second->getComponents()->end(); comp++)
 					comp->get()->onCollisionEnd(_collisions[j].first);
 			}
+			else {
+				for (auto comp = _collisions[j].first->getComponents()->begin(); comp != _collisions[j].first->getComponents()->end(); comp++)
+					comp->get()->onTriggerEnd(_collisions[j].second);
+				for (auto comp = _collisions[j].second->getComponents()->begin(); comp != _collisions[j].second->getComponents()->end(); comp++)
+					comp->get()->onTriggerEnd(_collisions[j].first);
+			}
+			
 			_collisions.erase(_collisions.begin() + j);
 		}
 				 

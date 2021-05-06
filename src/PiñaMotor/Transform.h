@@ -3,6 +3,7 @@
 #include "Vector3.h"
 #include <list>
 #include "Quaternion.h"
+#include "Entity.h"
 class Transform : public Component {
 public:
 	enum class Space {
@@ -14,7 +15,25 @@ public:
 	Transform(Vector3<float> position, Quaternion rotation, Vector3<float> scale, Transform* parent = nullptr);
 
 	Transform() :_scale ( 1, 1, 1 ){}
-	
+	virtual void onCollisionStart(Entity* other) override {
+		std::cout << "Empiezo Colision con " << other->getName() << std::endl;
+	}
+	virtual void onCollisionStay(Entity* other) override {
+		std::cout << "Estoy colisionando con " << other->getName() << std::endl;
+	}
+	virtual void onCollisionEnd(Entity* other) override {
+		std::cout << "Termino colision con " << other->getName() << std::endl;
+	}
+
+	virtual void onTriggerStart(Entity* other) override {
+		std::cout << "Empiezo Trigger con " << other->getName() << std::endl;
+	}
+	virtual void onTriggerStay(Entity* other) override {
+		std::cout << "Estoy Triggereando con " << other->getName() << std::endl;
+	}
+	virtual void onTriggerEnd(Entity* other) override {
+		std::cout << "Termino Triggerear con " << other->getName() << std::endl;
+	}
 	bool init(const std::map<std::string, std::string>& mapa) override {
 		return true;
 	}

@@ -113,7 +113,7 @@ bool SceneManager::loadScene() {
    ent2->addComponent<Rigidbody>();
    ent2->getComponent<Rigidbody>()->setTrigger(true);
    SceneManager::GetInstance()->addEntity(ent2);
-   std::string n = "Sinbad";
+  /* std::string n = "Sinbad";
    Entity* ent3 = new Entity(n);
    ent3->getComponent<Transform>()->setScale({ 1, 1, 1 });
    ent3->getComponent<Transform>()->setPosition({ 0, 0, 0 });
@@ -127,7 +127,7 @@ bool SceneManager::loadScene() {
    ent4->getComponent<Transform>()->setPosition({ -30, 100, 0 });
    ent4->addComponent<Renderer>();
    ent4->addComponent<Rigidbody>();
-   SceneManager::GetInstance()->addEntity(ent4);
+   SceneManager::GetInstance()->addEntity(ent4);*/
 
 
     //Entity* ent = new Entity();
