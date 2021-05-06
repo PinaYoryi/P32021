@@ -57,11 +57,12 @@ private:
 	btSequentialImpulseConstraintSolver* _solver = nullptr;
 	btDiscreteDynamicsWorld* _world = nullptr;
 
-	//vector donde guardamos los rigidbodys que han colisionado en ultimo frame
+	//vector donde guardamos un pair con dos entidades, que representa una colision del frame anterior
 	std::vector<std::pair<Entity*,Entity*>> _collisions;
 
 	/// <summary>
-	/// Analiza si en el vector "_collisions" esta ya esa entidad, para saber si empieza o continua una colision
+	/// Analiza si en el vector "_collisions" si hay un pair con esas dos entidades
+	/// tanto en ese orden (A-B) como en el inverso (B-A)
 	/// </summary>
 	bool find(Entity* entA,Entity* entB);
 

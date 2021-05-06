@@ -108,15 +108,15 @@ bool SceneManager::loadScene() {
 
    Entity* ent2 = new Entity("sphere");
    ent2->getComponent<Transform>()->setScale({ 0.1, 0.1, 0.1 });
-   ent2->getComponent<Transform>()->setPosition({ 20, 150, 0 });
+   ent2->getComponent<Transform>()->setPosition({ 0, 150, 0 });
    ent2->addComponent<Renderer>();
    ent2->addComponent<Rigidbody>();
    ent2->getComponent<Rigidbody>()->setTrigger(true);
    SceneManager::GetInstance()->addEntity(ent2);
    std::string n = "Sinbad";
-  /* Entity* ent3 = new Entity(n);
+   Entity* ent3 = new Entity(n);
    ent3->getComponent<Transform>()->setScale({ 1, 1, 1 });
-   ent3->getComponent<Transform>()->setPosition({ 0, 150, 0 });
+   ent3->getComponent<Transform>()->setPosition({ 0, 0, 0 });
    ent3->addComponent<Renderer>();
    ent3->addComponent<Rigidbody>();
    SceneManager::GetInstance()->addEntity(ent3);
@@ -127,7 +127,7 @@ bool SceneManager::loadScene() {
    ent4->getComponent<Transform>()->setPosition({ -30, 100, 0 });
    ent4->addComponent<Renderer>();
    ent4->addComponent<Rigidbody>();
-   SceneManager::GetInstance()->addEntity(ent4);*/
+   SceneManager::GetInstance()->addEntity(ent4);
 
 
     //Entity* ent = new Entity();
@@ -154,40 +154,40 @@ bool SceneManager::loadScene() {
     //ficha->addComponent<Rigidbody>();
     //SceneManager::GetInstance()->addEntity(ficha);
 
-    //Entity* ficha2 = new Entity();
-    //ficha2->addComponent<Renderer>();
-    //ficha2->getComponent<Transform>()->setScale({ 0.01, 0.1, 0.05 });
-    //ficha2->getComponent<Transform>()->setPosition({ -10, 0.0, 0.0 });
-    //ficha2->addComponent<Rigidbody>();
-    //SceneManager::GetInstance()->addEntity(ficha2);
+    /*Entity* ficha2 = new Entity();
+    ficha2->addComponent<Renderer>();
+    ficha2->getComponent<Transform>()->setScale({ 0.01, 0.1, 0.05 });
+    ficha2->getComponent<Transform>()->setPosition({ -10, 0.0, 0.0 });
+    ficha2->addComponent<Rigidbody>();
+    SceneManager::GetInstance()->addEntity(ficha2);
 
-    //Entity* ficha3 = new Entity();
-    //ficha3->addComponent<Renderer>();
-    //ficha3->getComponent<Transform>()->setScale({ 0.01, 0.1, 0.05 });
-    //ficha3->getComponent<Transform>()->setPosition({ -5, 0.0, 0.0 });
-    //ficha3->addComponent<Rigidbody>();
-    //SceneManager::GetInstance()->addEntity(ficha3);
+    Entity* ficha3 = new Entity();
+    ficha3->addComponent<Renderer>();
+    ficha3->getComponent<Transform>()->setScale({ 0.01, 0.1, 0.05 });
+    ficha3->getComponent<Transform>()->setPosition({ -5, 0.0, 0.0 });
+    ficha3->addComponent<Rigidbody>();
+    SceneManager::GetInstance()->addEntity(ficha3);
 
-    //Entity* ficha4 = new Entity();
-    //ficha4->addComponent<Renderer>();
-    //ficha4->getComponent<Transform>()->setScale({ 0.01, 0.1, 0.05 });
-    //ficha4->getComponent<Transform>()->setPosition({ 0, 0.0, 0.0 });
-    //ficha4->addComponent<Rigidbody>();
-    //SceneManager::GetInstance()->addEntity(ficha4);
+    Entity* ficha4 = new Entity();
+    ficha4->addComponent<Renderer>();
+    ficha4->getComponent<Transform>()->setScale({ 0.01, 0.1, 0.05 });
+    ficha4->getComponent<Transform>()->setPosition({ 0, 0.0, 0.0 });
+    ficha4->addComponent<Rigidbody>();
+    SceneManager::GetInstance()->addEntity(ficha4);*/
 
-    //Entity* ficha5 = new Entity();
-    //ficha5->addComponent<Renderer>();
-    //ficha5->getComponent<Transform>()->setScale({ 0.01, 0.1, 0.05 });
-    //ficha5->getComponent<Transform>()->setPosition({ 5, 0.0, 0.0 });
-    //ficha5->addComponent<Rigidbody>();
-    //SceneManager::GetInstance()->addEntity(ficha5);
+   /* Entity* ficha5 = new Entity();
+    ficha5->addComponent<Renderer>();
+    ficha5->getComponent<Transform>()->setScale({ 0.01, 0.1, 0.05 });
+    ficha5->getComponent<Transform>()->setPosition({ 5, 0.0, 0.0 });
+    ficha5->addComponent<Rigidbody>();
+    SceneManager::GetInstance()->addEntity(ficha5);
 
-    //Entity* ficha6 = new Entity();
-    //ficha6->addComponent<Renderer>();
-    //ficha6->getComponent<Transform>()->setScale({ 0.01, 0.1, 0.05 });
-    //ficha6->getComponent<Transform>()->setPosition({ 10, 0.0, 0.0 });
-    //ficha6->addComponent<Rigidbody>();
-    //SceneManager::GetInstance()->addEntity(ficha6);
+    Entity* ficha6 = new Entity();
+    ficha6->addComponent<Renderer>();
+    ficha6->getComponent<Transform>()->setScale({ 0.01, 0.1, 0.05 });
+    ficha6->getComponent<Transform>()->setPosition({ 10, 0.0, 0.0 });
+    ficha6->addComponent<Rigidbody>();
+    SceneManager::GetInstance()->addEntity(ficha6);*/
 
     //Entity* ficha7 = new Entity();
     //ficha7->addComponent<Renderer>();

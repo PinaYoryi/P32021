@@ -3,7 +3,6 @@
 #include "Vector3.h"
 #include <list>
 #include "Quaternion.h"
-
 class Transform : public Component {
 public:
 	enum class Space {
@@ -15,7 +14,7 @@ public:
 	Transform(Vector3<float> position, Quaternion rotation, Vector3<float> scale, Transform* parent = nullptr);
 
 	Transform() :_scale ( 1, 1, 1 ){}
-
+	
 	bool init(const std::map<std::string, std::string>& mapa) override {
 		return true;
 	}
