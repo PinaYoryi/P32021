@@ -58,12 +58,12 @@ private:
 	btDiscreteDynamicsWorld* _world = nullptr;
 
 	//vector donde guardamos los rigidbodys que han colisionado en ultimo frame
-	std::vector<Entity*> _collisions;
+	std::vector<std::pair<Entity*,Entity*>> _collisions;
 
 	/// <summary>
 	/// Analiza si en el vector "_collisions" esta ya esa entidad, para saber si empieza o continua una colision
 	/// </summary>
-	bool find(Entity* rg);
+	bool find(Entity* entA,Entity* entB);
 
 	/// <summary>
 	/// Analiza si ha acabado una colision para avisar al TriggerEnd()/CollisionEnd()
