@@ -74,7 +74,6 @@ bool SceneManager::loadScene(std::string sceneName) {
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Camera> cp3;
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Light> cpl;
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Renderer> cpm2;
-    ComponentFactoryRegistrations::ComponentFactoryRegistration<Rigidbody> cpm4;
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Animation> cpm3;
     
     Entity* camera = new Entity();
@@ -103,9 +102,7 @@ bool SceneManager::loadScene(std::string sceneName) {
 
     OgreMotor::GetInstance()->getSceneManager()->setAmbientLight(Ogre::ColourValue(0.2, 0.2, 0.2, 1.0));
 
-    ComponentFactoryRegistrations::ComponentFactoryRegistration<Renderer> cpm2;
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Rigidbody> cpm4;
-    ComponentFactoryRegistrations::ComponentFactoryRegistration<Animation> cpm3;
     ComponentFactoryRegistrations::ComponentFactoryRegistration<AudioSource> cpm5;
     ComponentFactoryRegistrations::ComponentFactoryRegistration<AudioListener> cpm6;
 
