@@ -39,8 +39,7 @@ void BulletInstance::update()
 
 	//analizamos las colisiones de este frame del mundo de bullet para avisar
 	//a onTriggerStart/Stay/End o onCollisionStart/Stay/End de los componentes de las entidades
-	for (int i = 0; i < _dispatcher->getNumManifolds(); i++)
-	{
+	for (int i = 0; i < _dispatcher->getNumManifolds(); i++) {
 		// Se consigue de la colision los dos rigidbodys
 		btPersistentManifold* contactManifold = _dispatcher->getManifoldByIndexInternal(i);
 
