@@ -19,4 +19,5 @@ public:
 
 protected:
 	Transform* _trans;
+	float _pitch, _yaw;
 };

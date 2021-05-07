@@ -14,6 +14,7 @@ bool PlayerController::init(const std::map<std::string, std::string>& mapa) {
 		_trans = _myEntity->getComponent<Transform>();
 		return true;
 	}
+	_pitch = _yaw = 0;
 #if (defined _DEBUG)
 	std::cout << "Fallo al iniciar el componente PlayerController\n";
 #endif
@@ -26,7 +27,8 @@ void PlayerController::update() {
 	Ogre::RenderWindow* win = OgreMotor::GetInstance()->getRenderWindow();
 	Vector2<int> center(win->getWidth() / 2, win->getHeight() / 2);
 	Vector2<int> dir = Input::GetInstance()->getMousePos() - center; dir /= 2;
-	_trans->rotate(-dir.y, -dir.x, 0.0f);
-	//_trans->setRotation(_trans->rotation());
+	_pitch -= dir.y;
+	_yaw -= dir.x;
+	_trans->setRotation(Quaternion::Euler({_pitch, _yaw, 0}));
 	Input::GetInstance()->setMousePos(center);
 }
