@@ -18,7 +18,7 @@ bool PlayerController::init(const std::map<std::string, std::string>& mapa) {
 	}
 	_trans = _myEntity->getComponent<Transform>();
 	_pitch = _yaw = 0;
-	_sensibility = 0.5f;
+	_sensibility = 0.25f;
 
 	return true;
 }
@@ -28,7 +28,7 @@ void PlayerController::update() {
 	if (!_active) return;
 	Ogre::RenderWindow* win = OgreMotor::GetInstance()->getRenderWindow();
 	Vector2<int> center(win->getWidth() / 2, win->getHeight() / 2);
-	Vector2<int> dir = Input::GetInstance()->getMousePos() - center; dir /= 2;
+	Vector2<int> dir = Input::GetInstance()->getMousePos() - center;
 
 	_pitch -= dir.y * _sensibility;
 	if (_pitch > 90) _pitch = 90;
@@ -37,10 +37,6 @@ void PlayerController::update() {
 	_yaw -= dir.x * _sensibility;
 	if (_yaw >= 180) _yaw -= 360;
 	else if (_yaw < -180) _yaw += 360;
-
-#if (defined _DEBUG)
-	std::cout << _yaw << " " << _pitch << "\n";
-#endif
 
 	_trans->setRotation(Quaternion::Euler({ _pitch, _yaw, 0 }));
 	Input::GetInstance()->setMousePos(center);

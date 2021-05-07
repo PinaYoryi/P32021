@@ -17,7 +17,12 @@ public:
 	/// </summary>
 	void update() override;
 
+	/// <summary>
+	/// Fija la sensibilidad del movimiento de la camara
+	/// </summary>
+	void setSensibility(float sen) { _sensibility = sen; }
+
 protected:
 	Transform* _trans;
-	float _pitch, _yaw, _sensibility;;
+	float _pitch, _yaw, _sensibility;
 };
