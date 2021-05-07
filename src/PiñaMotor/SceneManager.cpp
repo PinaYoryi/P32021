@@ -116,27 +116,29 @@ bool SceneManager::loadScene(std::string sceneName) {
     SceneManager::GetInstance()->addEntity(ent);
     rg->setStatic(true);
 
-    Entity* ent2 = new Entity();
+    Entity* ent2 = new Entity("Sinbad");
     ent2->addComponent<Renderer>();
-    ent2->getComponent<Transform>()->setScale({ 0.01, 0.1, 0.05 });
-    ent2->getComponent<Transform>()->setPosition({ -20, 300, 0 });
+    ent2->getComponent<Transform>()->setScale({ 1, 1, 1});
+    ent2->getComponent<Transform>()->setPosition({ 20, 40, 0 });
     ent2->addComponent<Rigidbody>();
+    Rigidbody* rg2 = ent2->getComponent<Rigidbody>();
+     rg2->setGravity({ -2, 0,0 });
     ent2->addComponent<AudioListener>();
     ent2->getComponent<AudioListener>()->set3DAtributes(ent2->getComponent<Transform>()->position(), Vector3<float>(0, 0, 0));
     ent2->getComponent<AudioListener>()->setPosition(ent2->getComponent<Transform>()->position());
     ent2->getComponent<AudioListener>()->setVelocity({ (-(0.2 * 1 / 33.33)), 0,0 });
     SceneManager::GetInstance()->addEntity(ent2);
 
-    /*Entity* ficha = new Entity();
+    Entity* ficha = new Entity("Sinbad1");
     ficha->addComponent<Renderer>();
-    ficha->getComponent<Transform>()->setScale({ 0.01, 0.1, 0.05 });
-    ficha->getComponent<Transform>()->setPosition({ -15, 0.0, 0.0 });
+    ficha->getComponent<Transform>()->setScale({ 1, 1, 1 });
+    ficha->getComponent<Transform>()->setPosition({ -20, 30.0, 0.0 });
     ficha->addComponent<Rigidbody>();
     ficha->addComponent<AudioSource>();
     ficha->getComponent<AudioSource>()->playSound3D(ResourceManager::GetInstance()->audio("talking.wav"), 0.1, true, ficha->getComponent<Transform>()->position(), Vector3<float>(1, 0, 0));
     SceneManager::GetInstance()->addEntity(ficha);
 
-    Entity* ficha2 = new Entity();
+   /* Entity* ficha2 = new Entity();
     ficha2->addComponent<Renderer>();
     ficha2->getComponent<Transform>()->setScale({ 0.01, 0.1, 0.05 });
     ficha2->getComponent<Transform>()->setPosition({ -10, 0.0, 0.0 });

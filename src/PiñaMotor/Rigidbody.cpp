@@ -37,7 +37,7 @@ bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 
 	// Lo creamos a partir de la informaci�n dada
 	_btRb = new btRigidBody(rbInfo);
-	_btRb->setRestitution(1);
+	_btRb->setRestitution(0.1);
 	_btRb->setCollisionFlags(DEFAULT_COLLISION_FLAGS);
 	_btRb->setMassProps(_mass, localInertia);
 	_btRb->setUserPointer(_myEntity);
@@ -65,7 +65,7 @@ void Rigidbody::updateTransform() {
 void Rigidbody::createShape(ShapeTypes type) {
 	switch (type) {
 	case ShapeTypes::Box:
-		if(_myEntity->getName()!="Sinbad")
+		if(_myEntity->getName()!="Sinbad" && _myEntity->getName() != "Sinbad1")
 			_btCs = new btBoxShape(_trans->scale() * OGRE_BULLET_RATIO);
 		else
 			_btCs = new btBoxShape(_trans->scale() * 5);

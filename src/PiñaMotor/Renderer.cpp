@@ -24,14 +24,14 @@ bool Renderer::init(const std::map<std::string, std::string>& mapa){
 		_ogreNode->setScale(_trans->scale());
 		_ogreNode->setPosition(_trans->position());
 	}
-	else  if (name==1){
+	/*else  if (name==1){
 		_ogreEntity = OgreMotor::GetInstance()->getSceneManager()->createEntity("sphere.mesh");
 		_ogreNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode("nSimbad" + to_string(name));
 		name++;
 		_ogreNode->attachObject(_ogreEntity);
 		_ogreNode->setScale(_trans->scale());
 		_ogreNode->setPosition(_trans->position());
-	}
+	}*/
 	else {
 		_ogreEntity = OgreMotor::GetInstance()->getSceneManager()->createEntity("Sinbad.mesh");
 		_ogreNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode("nSimbad" + to_string(name));
