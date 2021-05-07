@@ -79,7 +79,12 @@ public:
 	/// <summary>
 	/// Devuelve la posición del ratón.
 	/// </summary>
-	Vector2<int> getMousePos(); //Todo: Actualizar a vector2
+	Vector2<int> getMousePos();
+
+	/// <summary>
+	/// Fija la posicion del raton
+	/// </summary>
+	void setMousePos(const Vector2<int> pos);
 
 protected:
 	static Input* _singleton;
