@@ -8,8 +8,9 @@ bool Transform::init(const std::map<std::string, std::string>& mapa) {
 
 	std::string s = mapa.at("position");
 	float a = std::stof(s, &sz);
-	float b = std::stof(s.substr(sz), &sa);
-	float c = std::stof(s.substr(sz + sa));
+	string temp = s.substr(sz + 1);
+	float b = std::stof(temp, &sa);
+	float c = std::stof(s.substr(sz + sa + 2));
 	_position = { std::stof(s, &sz), std::stof(s.substr(sz + 1), &sa), std::stof(s.substr(sz + sa + 2)) };
 
 	s = mapa.at("rotation");

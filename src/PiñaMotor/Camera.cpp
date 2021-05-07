@@ -14,11 +14,11 @@ Camera::Camera() {
 bool Camera::init(const std::map<std::string, std::string>& mapa) {
 	if (mapa.find("near") == mapa.end() || mapa.find("far") == mapa.end() || mapa.find("autoaspect") == mapa.end() || mapa.find("aspect") == mapa.end() ||
 		mapa.find("fov") == mapa.end() || mapa.find("proyection") == mapa.end() || mapa.find("viewport") == mapa.end() || mapa.find("color") == mapa.end()) return false;
-	
+
 	_cam = OgreMotor::GetInstance()->getSceneManager()->createCamera(_myEntity->getName());
 	_camNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode(_myEntity->getName());
 	_viewport = OgreMotor::GetInstance()->getRenderWindow()->addViewport(_cam);
-	_camNode->attachObject(_cam);	
+	_camNode->attachObject(_cam);
 
 	std::string s = mapa.at("near");
 	setNearClipPlane(std::stof(s));
@@ -42,17 +42,12 @@ bool Camera::init(const std::map<std::string, std::string>& mapa) {
 	setProjectionType((Camera::ProjectionType)(std::stoi(s)));
 
 	s = mapa.at("viewport");
-	std::string x = s.substr(0, s.find(","));
-	std::string y = s.substr(x.length() + 1, s.find(","));
-	std::string z = s.substr(y.length() + x.length() + 2, s.find(","));
-	std::string w = s.substr(z.length() + y.length() + x.length() + 3, s.find(","));
-	setViewport(Vector2<>(std::stof(x), std::stof(y)), Vector2<>(std::stof(z), std::stof(w)));
+	std::string::size_type sz = 0, sa = 0, sb = 0;
+	float a = std::stof(s, &sz), be = std::stof(s.substr(sz + 1), &sa), c = std::stof(s.substr(sz + sa + 2)), d = std::stof(s.substr(sz + sa + sb + 3));
+	setViewport({a, be }, { c, d });
 
 	s = mapa.at("color");
-	x = s.substr(0, s.find(","));
-	y = s.substr(x.length() + 1, s.find(","));
-	z = s.substr(y.length() + x.length() + 2, s.find(","));
-	setBackgroundColor(std::stof(x), std::stof(y), std::stof(z));
+	setBackgroundColor({ std::stof(s, &sz), std::stof(s.substr(sz + 1), &sa), std::stof(s.substr(sz + sa + 2)) });
 
 	return true;
 }
