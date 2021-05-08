@@ -4,7 +4,7 @@
 #include "OgreMotor.h"
 #include <OgreRenderWindow.h>
 
-PlayerController::PlayerController() : _trans(nullptr) {
+PlayerController::PlayerController() : _trans(nullptr), _sensibility(0), _pitch(0), _yaw(0) {
 }
 
 bool PlayerController::init(const std::map<std::string, std::string>& mapa) {
@@ -38,6 +38,10 @@ void PlayerController::update() {
 	if (_yaw >= 180) _yaw -= 360;
 	else if (_yaw < -180) _yaw += 360;
 
-	_trans->setRotation(Quaternion::Euler({ _pitch, _yaw, 0 }));
+#if (defined _DEBUG)
+	std::cout << _yaw << " " << _pitch << "\n";
+#endif
+
+	_trans->setLocalRotation(Quaternion::Euler({ _pitch, _yaw, 0 }));
 	Input::GetInstance()->setMousePos(center);
 }

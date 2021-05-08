@@ -79,16 +79,19 @@ bool SceneManager::loadScene(std::string sceneName) {
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Animation> cpm4;
     ComponentFactoryRegistrations::ComponentFactoryRegistration<PlayerController> cpm5;
     
+    Entity* jugador = new Entity("Jugador");
     Entity* camera = new Entity("Camara");
+    camera->getComponent<Transform>()->setParent(jugador->getComponent<Transform>());
     camera->addComponent<Camera>();
     camera->addComponent<PlayerController>();
     camera->getComponent<Camera>()->setNearClipPlane(1);
     camera->getComponent<Camera>()->setFarClipPlane(10000);
     camera->getComponent<Camera>()->setAspectRatio(true);
     camera->getComponent<Transform>()->setPosition(0, 5, 50);
-    camera->getComponent<Transform>()->setRotation(10, 0, 0);
     camera->getComponent<Camera>()->setBackgroundColor(1.0f, 0.5f, 0.3137f);
+    jugador->getComponent<Transform>()->setRotation(0, 30, 45);
     SceneManager::GetInstance()->addEntity(camera);
+    SceneManager::GetInstance()->addEntity(jugador);
 
     Entity* light = new Entity("Luz");
     light->addComponent<Light>();
