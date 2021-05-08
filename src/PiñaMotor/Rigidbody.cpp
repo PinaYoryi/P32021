@@ -1,7 +1,8 @@
 #include "Rigidbody.h"
 #include "BulletInstance.h"
 #include "Entity.h"
-
+#include "Renderer.h"
+#include "OgreEntity.h"
 Rigidbody::~Rigidbody() {
 	if (_btCs) delete _btCs; _btCs = nullptr;
 	if (_btRb) delete _btRb; _btRb = nullptr;
@@ -10,14 +11,20 @@ Rigidbody::~Rigidbody() {
 
 bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 	// Cogemos el puntero del componente Transform 
-	_trans = _myEntity->getComponent<Transform>();	
+	_trans = _myEntity->getComponent<Transform>();
 
 	// Creamos el Shape
-	if(_myEntity->getName() == "sphere")
+	if (_myEntity->getComponent<Renderer>() == nullptr) {//esto si es invisible (Ej: deathzone, meta...)
+		createShape(ShapeTypes::Box,false);		
+	}
+	else if (_myEntity->getName() == "sphere")
 		createShape(ShapeTypes::Sphere);
+	else if (_myEntity->getName() == "capsule") {
+		createShape(ShapeTypes::Capsule);
+	}
 	else
-	createShape(ShapeTypes::Box);
-	
+		createShape(ShapeTypes::Box);
+
 	// Creamos un Transform de Bullet a partir del componente Transform
 	btTransform startTransform;
 	startTransform.setIdentity();
@@ -32,14 +39,16 @@ bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 	btVector3 localInertia(0, 0, 0);
 	_btCs->calculateLocalInertia(_mass, localInertia);
 
-	// Creamos la configuracion del Rigidbody
 	btRigidBody::btRigidBodyConstructionInfo rbInfo(_mass, _myMotionState, _btCs, localInertia);
 
 	// Lo creamos a partir de la informaci�n dada
-	_btRb = new btRigidBody(rbInfo);
-	_btRb->setRestitution(0.1);
+	_btRb = new btRigidBody(rbInfo);	
+	_btRb->setRestitution(DEFAULT_RESTITUTION);
 	_btRb->setCollisionFlags(DEFAULT_COLLISION_FLAGS);
+	_btRb->setDamping(DEFAULT_LINEAR_DAMPING, DEFAULT_ANGULAR_DAMPING);
 	_btRb->setMassProps(_mass, localInertia);
+	if (_myEntity->getComponent<Renderer>() == nullptr)//lo hacemos trigger si no tiene renderer
+		setTrigger(true);
 	_btRb->setUserPointer(_myEntity);
 	// Se a�ade al mundo de la simulaci�n f�sica
 	BulletInstance::GetInstance()->getWorld()->addRigidBody(_btRb);
@@ -59,25 +68,48 @@ void Rigidbody::updateTransform() {
 	btQuaternion orientation = trans.getRotation();
 	// Modifica el componente Transform del objeto
 	_trans->setPosition(trans.getOrigin().getX(), trans.getOrigin().getY(), trans.getOrigin().getZ());
-	_trans->setRotation(Quaternion(orientation.getW(), orientation.getX(), orientation.getY(), orientation.getZ()));	
+	_trans->setRotation(Quaternion(orientation.getW(), orientation.getX(), orientation.getY(), orientation.getZ()));
 }
 
-void Rigidbody::createShape(ShapeTypes type) {
-	switch (type) {
-	case ShapeTypes::Box:
-		if(_myEntity->getName()!="Sinbad" && _myEntity->getName() != "Sinbad1")
-			_btCs = new btBoxShape(_trans->scale() * OGRE_BULLET_RATIO);
-		else
-			_btCs = new btBoxShape(_trans->scale() * 5);
+void Rigidbody::createShape(ShapeTypes type, bool renderer) {
+	if (renderer) {//si tiene renderer
+		switch (type) {
+		case ShapeTypes::Box: {//Box Shape, usa la escala del transform y utiliza parte de ogre
+			Ogre::Vector3 half = _myEntity->getComponent<Renderer>()->getOgreEntity()->getBoundingBox().getHalfSize();
+			half = Ogre::Vector3(_trans->scale().x * half.x, _trans->scale().y * half.y, _trans->scale().z * half.z);
+			_btCs = new btBoxShape(btVector3(half.x, half.y, half.z));
+		}
 		break;
-	case ShapeTypes::Sphere:
-		_btCs = new btSphereShape(_trans->scale().x * 100);
+		case ShapeTypes::Sphere: {//Sphere Shape, usa la escala en x del transform y utiliza parte de ogre
+			float half = _myEntity->getComponent<Renderer>()->getOgreEntity()->getBoundingBox().getHalfSize().x;
+			half = _trans->scale().x * half;
+			_btCs = new btSphereShape(half);
+		}
 		break;
-	case ShapeTypes::Capsule:
-		_btCs = new btCapsuleShape(_trans->scale().x * OGRE_BULLET_RATIO, _trans->scale().y * OGRE_BULLET_RATIO);
+		case ShapeTypes::Capsule: {//Capsule Shape, usa la escala en x e y del transform y utiliza parte de ogre
+			Ogre::Vector3 half = _myEntity->getComponent<Renderer>()->getOgreEntity()->getBoundingBox().getHalfSize();
+			half = Ogre::Vector3(_trans->scale().x * half.x, _trans->scale().y * half.y, _trans->scale().z * half.z);
+			_btCs = new btCapsuleShape(half.x, half.y);
+		}
 		break;
-	default:
-		break;
+		default:
+			break;
+		}
+	}
+	else {//si no tiene renderer, utiliza solo el transform y una constante que hace el shape sea del tamaño que queremos
+		switch (type) {
+		case ShapeTypes::Box:
+				_btCs = new btBoxShape(_trans->scale() * OGRE_BULLET_BOX_RATIO);
+			break;
+		case ShapeTypes::Sphere:
+			_btCs = new btSphereShape(_trans->scale().x * OGRE_BULLET_SPHERE_RATIO);
+			break;
+		case ShapeTypes::Capsule:
+			_btCs = new btCapsuleShape(_trans->scale().x * OGRE_BULLET_BOX_RATIO, _trans->scale().y * OGRE_BULLET_BOX_RATIO);
+			break;
+		default:
+			break;
+		}
 	}
 }
 

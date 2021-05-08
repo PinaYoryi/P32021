@@ -153,9 +153,7 @@ void BulletInstance::endCollision()
 				for (auto comp = _collisions[j].second->getComponents()->begin(); comp != _collisions[j].second->getComponents()->end(); comp++)
 					comp->get()->onTriggerEnd(_collisions[j].first);
 			}
-			
 			_collisions.erase(_collisions.begin() + j);
 		}
-				 
 	}
 }

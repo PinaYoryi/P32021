@@ -81,8 +81,8 @@ bool SceneManager::loadScene(std::string sceneName) {
     camera->getComponent<Camera>()->setNearClipPlane(1);
     camera->getComponent<Camera>()->setFarClipPlane(10000);
     camera->getComponent<Camera>()->setAspectRatio(true);
-    camera->getComponent<Transform>()->setPosition(0, 5, 50);
-    camera->getComponent<Transform>()->setRotation(10, 0, 0);
+    camera->getComponent<Transform>()->setPosition(0, 1, 50);
+    camera->getComponent<Transform>()->setRotation(0, 0, 0);
     camera->getComponent<Camera>()->setBackgroundColor(1.0f, 0.5f, 0.3137f);
     SceneManager::GetInstance()->addEntity(camera);
 
@@ -106,9 +106,9 @@ bool SceneManager::loadScene(std::string sceneName) {
     ComponentFactoryRegistrations::ComponentFactoryRegistration<AudioSource> cpm5;
     ComponentFactoryRegistrations::ComponentFactoryRegistration<AudioListener> cpm6;
 
-    Entity* ent = new Entity();
+    Entity* ent = new Entity("Suelo");
+    ent->getComponent<Transform>()->setScale({ 10, 0.01, 10 });
     ent->addComponent<Renderer>();
-    ent->getComponent<Transform>()->setScale({ 100, 0.01, 10 });
     ent->getComponent<Transform>()->setPosition({ 0, 0, 0 });
     ent->getComponent<Transform>()->setRotation(0, 0, 0);
     ent->addComponent<Rigidbody>();
@@ -116,27 +116,35 @@ bool SceneManager::loadScene(std::string sceneName) {
     SceneManager::GetInstance()->addEntity(ent);
     rg->setStatic(true);
 
-    Entity* ent2 = new Entity("Sinbad");
+    Entity* ficha = new Entity("Sinbad");
+    ficha->addComponent<Renderer>();
+    ficha->getComponent<Transform>()->setScale({ 1, 1, 1 });
+    ficha->getComponent<Transform>()->setPosition({ -20, 30.0, 0.0 });
+   // ficha->getComponent<Transform>()->rotate(0,0,90);
+    ficha->addComponent<Rigidbody>();
+    ficha->addComponent<AudioSource>();
+   // ficha->getComponent<AudioSource>()->playSound3D(ResourceManager::GetInstance()->audio("talking.wav"), 0.1, true, ficha->getComponent<Transform>()->position(), Vector3<float>(1, 0, 0));
+    SceneManager::GetInstance()->addEntity(ficha);
+
+    Entity* capsule = new Entity("capsule");
+    capsule->addComponent<Renderer>();
+    capsule->getComponent<Transform>()->setScale({ 0.01, 0.02, 0.01 });
+    capsule->getComponent<Transform>()->setPosition({ 0, 31.0, 4.0 });
+    //capsule->getComponent<Transform>()->rotate(90, 0, 0);
+    capsule->addComponent<Rigidbody>();
+    SceneManager::GetInstance()->addEntity(capsule);
+
+   Entity* ent2 = new Entity("sphere");
+    ent2->getComponent<Transform>()->setScale({ 0.1,0.1,0.1});
     ent2->addComponent<Renderer>();
-    ent2->getComponent<Transform>()->setScale({ 1, 1, 1});
-    ent2->getComponent<Transform>()->setPosition({ 20, 40, 0 });
+    ent2->getComponent<Transform>()->setPosition({ 0, 80, 0 });
     ent2->addComponent<Rigidbody>();
-    Rigidbody* rg2 = ent2->getComponent<Rigidbody>();
-     rg2->setGravity({ -2, 0,0 });
     ent2->addComponent<AudioListener>();
     ent2->getComponent<AudioListener>()->set3DAtributes(ent2->getComponent<Transform>()->position(), Vector3<float>(0, 0, 0));
     ent2->getComponent<AudioListener>()->setPosition(ent2->getComponent<Transform>()->position());
     ent2->getComponent<AudioListener>()->setVelocity({ (-(0.2 * 1 / 33.33)), 0,0 });
     SceneManager::GetInstance()->addEntity(ent2);
 
-    Entity* ficha = new Entity("Sinbad1");
-    ficha->addComponent<Renderer>();
-    ficha->getComponent<Transform>()->setScale({ 1, 1, 1 });
-    ficha->getComponent<Transform>()->setPosition({ -20, 30.0, 0.0 });
-    ficha->addComponent<Rigidbody>();
-    ficha->addComponent<AudioSource>();
-    ficha->getComponent<AudioSource>()->playSound3D(ResourceManager::GetInstance()->audio("talking.wav"), 0.1, true, ficha->getComponent<Transform>()->position(), Vector3<float>(1, 0, 0));
-    SceneManager::GetInstance()->addEntity(ficha);
 
    /* Entity* ficha2 = new Entity();
     ficha2->addComponent<Renderer>();

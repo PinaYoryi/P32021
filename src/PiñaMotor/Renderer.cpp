@@ -16,25 +16,25 @@ bool Renderer::init(const std::map<std::string, std::string>& mapa){
 	//if(_material!="")
 	//_ogreEntity.setMaterialName(_material)
 	Transform* _trans = _myEntity->getComponent<Transform>();
-	if (name == 0 || name >=3) {
-		_ogreEntity = OgreMotor::GetInstance()->getSceneManager()->createEntity("cube.mesh");
-		_ogreNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode("nSimbad" + name);
+	 if (_myEntity->getName() == "Sinbad"){
+		_ogreEntity = OgreMotor::GetInstance()->getSceneManager()->createEntity("Sinbad.mesh");
+		_ogreNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode("nSimbad" + to_string(name));
 		name++;
 		_ogreNode->attachObject(_ogreEntity);
 		_ogreNode->setScale(_trans->scale());
 		_ogreNode->setPosition(_trans->position());
 	}
-	/*else  if (name==1){
+	else if(_myEntity->getName() == "sphere" || _myEntity->getName() == "capsule"){
 		_ogreEntity = OgreMotor::GetInstance()->getSceneManager()->createEntity("sphere.mesh");
 		_ogreNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode("nSimbad" + to_string(name));
 		name++;
 		_ogreNode->attachObject(_ogreEntity);
 		_ogreNode->setScale(_trans->scale());
 		_ogreNode->setPosition(_trans->position());
-	}*/
+	}
 	else {
-		_ogreEntity = OgreMotor::GetInstance()->getSceneManager()->createEntity("Sinbad.mesh");
-		_ogreNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode("nSimbad" + to_string(name));
+		_ogreEntity = OgreMotor::GetInstance()->getSceneManager()->createEntity("cube.mesh");
+		_ogreNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode("nSimbad" + name);
 		name++;
 		_ogreNode->attachObject(_ogreEntity);
 		_ogreNode->setScale(_trans->scale());
