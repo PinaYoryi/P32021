@@ -18,7 +18,7 @@ bool PlayerController::init(const std::map<std::string, std::string>& mapa) {
 	}
 	_trans = _myEntity->getComponent<Transform>();
 	_pitch = _yaw = 0;
-	_sensibility = 4.0f;
+	_sensibility = 1.0f;
 
 	return true;
 }
@@ -30,7 +30,7 @@ void PlayerController::update() {
 	Vector2<int> center(win->getWidth() / 2, win->getHeight() / 2);
 	Vector2<int> dir = Input::GetInstance()->getMousePos() - center;
 
-	_pitch -= dir.y / _sensibility;
+	_pitch -= dir.y * _sensibility;
 	if (_pitch > 90) _pitch = 90;
 	else if (_pitch < -90) _pitch = -90;
 
