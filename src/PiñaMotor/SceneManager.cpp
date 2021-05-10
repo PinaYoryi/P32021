@@ -49,6 +49,7 @@ bool SceneManager::removeEntity(Entity* ent, bool permanent) {
 	if (permanent) vec = &_permanentEntities;
 	auto it = find(vec->begin(), vec->end(), ent);
 	if (it == vec->end()) return false;
+    delete *it;
 	vec->erase(it);
 }
 
@@ -174,7 +175,7 @@ bool SceneManager::loadScene(std::string sceneName) {
     ficha5->addComponent<Rigidbody>();
     SceneManager::GetInstance()->addEntity(ficha5);
 
-    Entity* ficha6 = new Entity();
+    /*Entity* ficha6 = new Entity("Ficha6");
     ficha6->addComponent<Renderer>();
     ficha6->getComponent<Transform>()->setScale({ 0.01, 0.1, 0.05 });
     ficha6->getComponent<Transform>()->setPosition({ 10, 0.0, 0.0 });
