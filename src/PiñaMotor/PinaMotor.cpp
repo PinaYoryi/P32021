@@ -33,11 +33,11 @@ bool PinaMotor::launch(std::string sceneName) {
 void PinaMotor::close() {
     //Se borran en orden inverso al de creación, excepto scenemanager, porque se deben
     //borrar primero las referencias a cuerpos en bullet y despues las entidades que los poseen.
+    if (SceneManager::GetInstance() != nullptr) delete SceneManager::GetInstance();
     if (Input::GetInstance() != nullptr) delete Input::GetInstance();
     if (ResourceManager::GetInstance() != nullptr) delete ResourceManager::GetInstance();
     if (MotorLoop::GetInstance() != nullptr) delete MotorLoop::GetInstance();
     if (Audio::GetInstance() != nullptr) delete Audio::GetInstance();
     if (BulletInstance::GetInstance() != nullptr) delete BulletInstance::GetInstance();
     if (OgreMotor::GetInstance() != nullptr) OgreMotor::Close();
-    if (SceneManager::GetInstance() != nullptr) delete SceneManager::GetInstance();
 }
