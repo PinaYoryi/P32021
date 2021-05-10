@@ -8,7 +8,8 @@ echo STARTMAKE
 rmdir /S /Q build
 mkdir build
 cd build
-..\..\Cmake\cmake-3.20.0-rc2-windows-x86_64\bin\cmake.exe -DCEGUI_BUILD_DEVIL=TRUE^
+..\..\Cmake\cmake-3.20.0-rc2-windows-x86_64\bin\cmake.exe
+ -DCEGUI_BUILD_DEVIL=TRUE^
  -DCEGUI_BUILD_CORONA=FALSE^
  -DCEGUI_BUILD_DEVIL=TRUE^
  -DCEGUI_BUILD_EFFECTS11=FALSE^
