@@ -3,7 +3,6 @@
 #include "Renderer.h"
 #include "OgreEntity.h"
 
-
 bool Animation::init(const std::map<std::string, std::string>& mapa) {
 	//TODO: rellenar init con los valores del mapa
 	//el try es necesario para que no explote la aplicacion si da algun error ogre

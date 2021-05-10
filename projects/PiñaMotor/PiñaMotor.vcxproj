@@ -36,6 +36,7 @@
     <ClCompile Include="..\..\src\PiñaMotor\Input.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\MotorLoop.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\PinaMotor.cpp" />
+    <ClCompile Include="..\..\src\PiñaMotor\PlayerController.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Quaternion.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Renderer.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Rigidbody.cpp" />
@@ -62,6 +63,7 @@
     <ClInclude Include="..\..\src\PiñaMotor\Matrix3.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Matrix4.h" />
     <ClInclude Include="..\..\src\PiñaMotor\PinaMotor.h" />
+    <ClInclude Include="..\..\src\PiñaMotor\PlayerController.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Quaternion.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Renderer.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Input.h" />
