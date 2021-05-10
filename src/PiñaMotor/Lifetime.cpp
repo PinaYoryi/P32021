@@ -9,7 +9,7 @@ bool Lifetime::init(const std::map<std::string, std::string>& mapa) {
 
 	_startTime = -1;
 	_currentTime = 0;
-	_endTime /* = key del mapa de lua */ = 10;
+	_endTime /* = key del mapa de lua */ = 5;
 
 	return true;
 }
@@ -29,7 +29,7 @@ void Lifetime::update(){
 
 		if (_currentTime >= _endTime)	// Si debe morir
 		{
-			SceneManager::GetInstance()->removeEntity(getEntity());
+			SceneManager::GetInstance()->addEntityToRemove(_myEntity);
 		}
 	}
 }

@@ -40,6 +40,10 @@ public:
 	inline void setSolver(btSequentialImpulseConstraintSolver* newSolver) { _solver = newSolver; }
 	inline void setWorld(btDiscreteDynamicsWorld* newWorld) { _world = newWorld; }
 
+	void removeCollisionEntity(Entity* ent);
+
+	
+	
 	void update();
 protected:
 	/// <summary>

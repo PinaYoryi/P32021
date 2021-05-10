@@ -7,14 +7,14 @@
 #include "Transform.h"
 #include "Rigidbody.h"
 
+Renderer::~Renderer()
+{
+	OgreMotor::GetInstance()->getSceneManager()->destroyEntity(_ogreEntity);
+	OgreMotor::GetInstance()->getSceneManager()->destroySceneNode(_ogreNode);
+}
+
 bool Renderer::init(const std::map<std::string, std::string>& mapa){
-	//_mesh=map.mesh;
-	//_material=map.material;
-	//_ogreNode = OgreInstance::getInstance()->getmSM()->getRootSceneNode()->createChildSceneNode("nombredel nodo");
-	//_ogreEntity = _ogreEntity->createEntity(_mesh);
-	// _ogreNode.attachedObject(_ogreEntity);
-	//if(_material!="")
-	//_ogreEntity.setMaterialName(_material)
+
 	Transform* _trans = _myEntity->getComponent<Transform>();
 	 if (_myEntity->getName() == "Sinbad"){
 		_ogreEntity = OgreMotor::GetInstance()->getSceneManager()->createEntity("Sinbad.mesh");
@@ -82,24 +82,14 @@ void Renderer::setMesh(Ogre::MeshPtr mesh) {
 }
 
 void Renderer::render() {
-	if (!_active) return;
-	if (_visible) {
-
-
-		/*if (_myEntity->hasComponent<Rigidbody>()) {
-			Rigidbody* tr = _myEntity->getComponent<Rigidbody>();
-			_ogreNode->setPosition(tr->getbT()->getWorldTransform().getOrigin().getX(), tr->getbT()->getWorldTransform().getOrigin().getY(), tr->getbT()->getWorldTransform().getOrigin().getZ());
-			//_ogreNode->setScale(tr->getbT()->sc);
-			_ogreNode->setOrientation(tr->getbT()->getOrientation().getW(), tr->getbT()->getOrientation().getX(), tr->getbT()->getOrientation().getY(), tr->getbT()->getOrientation().getZ());
-		}
-
-		else*/ if (_myEntity->hasComponent<Transform>()) {
-			Transform* tr = _myEntity->getComponent<Transform>();
-			_ogreNode->setPosition(tr->position().x, tr->position().y, tr->position().z);
-			_ogreNode->setScale(tr->scale().x, tr->scale().y, tr->scale().z);
-			_ogreNode->setOrientation(tr->rotation());
-		}
-	}
+	if (!_active || !_visible) return;
+	
+	if (_myEntity->hasComponent<Transform>()) {
+		Transform* tr = _myEntity->getComponent<Transform>();
+		_ogreNode->setPosition(tr->position().x, tr->position().y, tr->position().z);
+		_ogreNode->setScale(tr->scale().x, tr->scale().y, tr->scale().z);
+		_ogreNode->setOrientation(tr->rotation());
+	}	
 }
 
 

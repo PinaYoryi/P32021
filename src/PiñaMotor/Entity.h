@@ -40,24 +40,6 @@ public:
 		return _compArray[indexOf<T, ComponentsList>];
 	}
 
-	template<typename T>
-	bool removeComponent() {
-		//¿Quitar de unique pointers?	
-		bool deleted = hasComponent<T>();
-		if (deleted) {
-			//eliminar el componente que queremos
-			for (int i = 0; i < compUnique.size(); ++i) {
-				if (dynamic_cast<T*>(compUnique[i].get())) {
-					*compUnique[i] = *compUnique.back();
-					compUnique.pop_back();
-					break;
-				}
-			}		
-			_compArray[indexOf<T, ComponentsList>] = nullptr;
-		}
-		return deleted;
-	}
-
 	const std::string getName() { return _name; }
 
 	void update();
@@ -67,7 +49,7 @@ public:
 	void render();
 
 	std::vector<unique_ptr<Component>>* getComponents() { return &compUnique; }
-
+	
 private:
 	std::string _name;
 	//aqui estaran los componentes de esta entidad

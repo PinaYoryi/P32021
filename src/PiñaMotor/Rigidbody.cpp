@@ -4,10 +4,12 @@
 #include "Renderer.h"
 #include "OgreEntity.h"
 Rigidbody::~Rigidbody() {
-	BulletInstance::GetInstance()->getWorld()->removeRigidBody(_btRb);
 	if (_btCs) delete _btCs; _btCs = nullptr;
-	if (_btRb) BulletInstance::GetInstance()->getWorld()->removeRigidBody(_btRb);
-	if (_btRb) delete _btRb; _btRb = nullptr;
+	if (_btRb) {
+		BulletInstance::GetInstance()->getWorld()->removeRigidBody(_btRb);
+		BulletInstance::GetInstance()->removeCollisionEntity(_myEntity);
+		delete _btRb; _btRb = nullptr;
+	}
 	if(_myMotionState) delete _myMotionState; _myMotionState = nullptr;
 }
 

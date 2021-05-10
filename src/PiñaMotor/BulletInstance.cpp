@@ -43,6 +43,17 @@ void BulletInstance::initResources() {
 	}
 }
 
+void BulletInstance::removeCollisionEntity(Entity* ent)
+{
+	for (int i = 0; i < _collisions.size(); ++i) {
+		if (_collisions[i].first == ent || _collisions[i].second == ent) {			
+			_collisions[i] = _collisions[_collisions.size() - 1];
+			_collisions.pop_back();
+			i--;
+		}			
+	}
+}
+
 void BulletInstance::update()
 {
 	_world->stepSimulation(FIXED_UPDATE_TIME);

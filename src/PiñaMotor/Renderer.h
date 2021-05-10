@@ -8,6 +8,8 @@ public:
 	Renderer() {
 		_visible = true;
 	}
+	~Renderer();
+
 	/// <summary>
 	/// Inicializa el componente con los valores pasador por parametro
 	/// utiliza setMesh para poner su mesh y setMaterial para poner su material

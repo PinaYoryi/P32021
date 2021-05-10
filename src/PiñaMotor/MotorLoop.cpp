@@ -43,6 +43,10 @@ void MotorLoop::stepInput() {
 void MotorLoop::stepUpdate(std::vector<Entity*> ent) {
     for (Entity* e : ent)
         e->update();
+	std::vector<Entity*> ents = SceneManager::GetInstance()->getEntitysToRemove();
+	for (Entity* e : ents)
+		SceneManager::GetInstance()->removeEntity(e);
+	ents.clear();
 }
 
 void MotorLoop::stepFixedUpdate(std::vector<Entity*> ent) {

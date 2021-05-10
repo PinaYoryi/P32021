@@ -1,8 +1,7 @@
 #include "Entity.h"
 #include "ComponentFactory.h"
 #include <map>
-#include "Transform.h"
-
+#include "SceneManager.h"
 
 Entity::Entity() : _name("Entity")
 {
@@ -23,6 +22,7 @@ void Entity::update() {
 	for (auto& c : compUnique) {
 		if (c) c->update();
 	}
+
 }
 
 void Entity::fixedUpdate() {
