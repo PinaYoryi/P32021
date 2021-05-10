@@ -7,7 +7,7 @@
 #include <OgreSceneManager.h>
 #include <OgreRenderWindow.h>
 
-Camera::Camera() {
+Camera::Camera() : _cam(nullptr), _camNode(nullptr), _viewport(nullptr) {
 
 }
 

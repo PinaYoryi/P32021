@@ -11,6 +11,7 @@ class Light;
 class AudioSource;
 class AudioListener;
 class Lifetime;
+class PlayerController;
 
 //TODO: Comentar
 template<typename ...Ts>
@@ -33,7 +34,7 @@ struct IndexOf<T, TypeList<TOther, Ts...>> : std::integral_constant<std::size_t,
 
 };
 
-using ComponentsList = TypeList<Transform, Renderer, Animation, Camera, Rigidbody, Light, AudioSource, AudioListener, Lifetime>;
+using ComponentsList = TypeList<Transform, Renderer, Animation, Camera, Rigidbody, Light, AudioSource, AudioListener>;
 constexpr std::size_t numOfComponents = ComponentsList::size;
 
 template<typename T, typename TList>

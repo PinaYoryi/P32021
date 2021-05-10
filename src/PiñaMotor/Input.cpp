@@ -1,5 +1,7 @@
 #include "Input.h"
 #include "MotorLoop.h"
+#include "OgreMotor.h"
+#include <OgreRenderWindow.h>
 
 Input* Input::_singleton = nullptr;
 
@@ -90,6 +92,12 @@ Vector2<int> Input::getMousePos() {
 	int mouseX, mouseY;
 	SDL_GetMouseState(&mouseX, &mouseY);
 	return Vector2<int>(mouseX, mouseY);
+}
+
+void Input::setMousePos(const Vector2<int> pos) {
+	//SDL_EventState(SDL_MOUSEMOTION, SDL_IGNORE);
+	SDL_WarpMouseInWindow(OgreMotor::GetInstance()->getNativeWindow(), pos.x, pos.y);
+	//SDL_EventState(SDL_MOUSEMOTION, SDL_ENABLE);
 }
 
 #pragma endregion
