@@ -19,6 +19,7 @@
 #include "AudioListener.h"
 #include "Vector3.h"
 #include "ResourceManager.h"
+#include "Lifetime.h"
 
 
 SceneManager* SceneManager::_singleton = nullptr;
@@ -105,6 +106,7 @@ bool SceneManager::loadScene(std::string sceneName) {
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Rigidbody> cpm4;
     ComponentFactoryRegistrations::ComponentFactoryRegistration<AudioSource> cpm5;
     ComponentFactoryRegistrations::ComponentFactoryRegistration<AudioListener> cpm6;
+    ComponentFactoryRegistrations::ComponentFactoryRegistration<Lifetime> cpm7;
 
     Entity* ent = new Entity("Suelo");
     ent->getComponent<Transform>()->setScale({ 10, 0.01, 10 });
@@ -123,6 +125,7 @@ bool SceneManager::loadScene(std::string sceneName) {
    // ficha->getComponent<Transform>()->rotate(0,0,90);
     ficha->addComponent<Rigidbody>();
     ficha->addComponent<AudioSource>();
+    ficha->addComponent<Lifetime>();
    // ficha->getComponent<AudioSource>()->playSound3D(ResourceManager::GetInstance()->audio("talking.wav"), 0.1, true, ficha->getComponent<Transform>()->position(), Vector3<float>(1, 0, 0));
     SceneManager::GetInstance()->addEntity(ficha);
 
@@ -133,6 +136,7 @@ bool SceneManager::loadScene(std::string sceneName) {
     //capsule->getComponent<Transform>()->rotate(90, 0, 0);
     capsule->addComponent<Rigidbody>();
     SceneManager::GetInstance()->addEntity(capsule);
+    SceneManager::GetInstance()->removeEntity(capsule);
 
    Entity* ent2 = new Entity("sphere");
     ent2->getComponent<Transform>()->setScale({ 0.1,0.1,0.1});
