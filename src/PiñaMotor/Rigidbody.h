@@ -11,8 +11,6 @@ const float DEFAULT_RESTITUTION = 0.2f;
 const float DEFAULT_LINEAR_DAMPING = 0.2f;
 const float DEFAULT_ANGULAR_DAMPING = 0.2f;
 
-const float OGRE_BULLET_BOX_RATIO = 50;
-const float OGRE_BULLET_SPHERE_RATIO = 100;
 
 enum class ShapeTypes { Box, Sphere, Capsule };
 

@@ -51,8 +51,8 @@ bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 	_btRb->setCollisionFlags(DEFAULT_COLLISION_FLAGS);
 	_btRb->setDamping(DEFAULT_LINEAR_DAMPING, DEFAULT_ANGULAR_DAMPING);
 	_btRb->setMassProps(_mass, localInertia);
-	if (_myEntity->getComponent<Renderer>() == nullptr)//lo hacemos trigger si no tiene renderer
-		setTrigger(true);
+	//if (_myEntity->getComponent<Renderer>() == nullptr)//lo hacemos trigger si no tiene renderer
+		//setTrigger(true);
 	_btRb->setUserPointer(_myEntity);
 	// Se a�ade al mundo de la simulaci�n f�sica
 	BulletInstance::GetInstance()->getWorld()->addRigidBody(_btRb);
@@ -104,13 +104,13 @@ void Rigidbody::createShape(ShapeTypes type, bool renderer) {
 	else {//si no tiene renderer, utiliza solo el transform y una constante que hace el shape sea del tamaño que queremos
 		switch (type) {
 		case ShapeTypes::Box:
-				_btCs = new btBoxShape(_trans->scale() * OGRE_BULLET_BOX_RATIO);
+				_btCs = new btBoxShape(_trans->scale() );
 			break;
 		case ShapeTypes::Sphere:
-			_btCs = new btSphereShape(_trans->scale().x * OGRE_BULLET_SPHERE_RATIO);
+			_btCs = new btSphereShape(_trans->scale().x );
 			break;
 		case ShapeTypes::Capsule:
-			_btCs = new btCapsuleShape(_trans->scale().x * OGRE_BULLET_BOX_RATIO, _trans->scale().y * OGRE_BULLET_BOX_RATIO);
+			_btCs = new btCapsuleShape(_trans->scale().x , _trans->scale().y);
 			break;
 		default:
 			break;
