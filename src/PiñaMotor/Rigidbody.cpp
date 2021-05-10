@@ -61,12 +61,13 @@ bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 }
 
 void Rigidbody::update() {
-	if (_trans != nullptr && _active)
+	if (_trans != nullptr && _active && !_static)
 		updateTransform();
 }
 
 void Rigidbody::updateTransform() {
 	// Coge el transform del rigidbody tras la simulaci�n f�sica de este frame
+	_btRb->setActivationState(ACTIVE_TAG);
 	btTransform trans;
 	_btRb->getMotionState()->getWorldTransform(trans);
 	btQuaternion orientation = trans.getRotation();

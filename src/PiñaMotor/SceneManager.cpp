@@ -80,6 +80,10 @@ bool SceneManager::loadScene(std::string sceneName) {
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Camera> cp3;
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Animation> cpm4;
     ComponentFactoryRegistrations::ComponentFactoryRegistration<PlayerController> cpm5;
+    ComponentFactoryRegistrations::ComponentFactoryRegistration<Rigidbody> cpm44;
+    ComponentFactoryRegistrations::ComponentFactoryRegistration<AudioSource> cpm54;
+    ComponentFactoryRegistrations::ComponentFactoryRegistration<AudioListener> cpm6;
+    ComponentFactoryRegistrations::ComponentFactoryRegistration<Lifetime> cpm7;
     
     Entity* jugador = new Entity("Jugador");
     Entity* camera = new Entity("Camara");
@@ -92,7 +96,7 @@ bool SceneManager::loadScene(std::string sceneName) {
     camera->getComponent<Transform>()->setPosition(0, 1, 50);
     camera->getComponent<Transform>()->setRotation(0, 0, 0);
     camera->getComponent<Camera>()->setBackgroundColor(1.0f, 0.5f, 0.3137f);
-    jugador->getComponent<Transform>()->setRotation(0, 30, 45);
+    jugador->getComponent<Transform>()->setRotation(0, 0,0 );
     SceneManager::GetInstance()->addEntity(camera);
     SceneManager::GetInstance()->addEntity(jugador);
 
@@ -112,10 +116,6 @@ bool SceneManager::loadScene(std::string sceneName) {
 
     OgreMotor::GetInstance()->getSceneManager()->setAmbientLight(Ogre::ColourValue(0.2, 0.2, 0.2, 1.0));
 
-    ComponentFactoryRegistrations::ComponentFactoryRegistration<Rigidbody> cpm4;
-    ComponentFactoryRegistrations::ComponentFactoryRegistration<AudioSource> cpm5;
-    ComponentFactoryRegistrations::ComponentFactoryRegistration<AudioListener> cpm6;
-    ComponentFactoryRegistrations::ComponentFactoryRegistration<Lifetime> cpm7;
 
     Entity* ent = new Entity("Suelo");
     ent->getComponent<Transform>()->setScale({ 10, 0.01, 10 });
