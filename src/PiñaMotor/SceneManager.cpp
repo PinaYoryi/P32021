@@ -130,10 +130,10 @@ bool SceneManager::loadScene(std::string sceneName) {
     Entity* ficha = new Entity("Sinbad");
     ficha->getComponent<Transform>()->setScale({ 1, 1, 1 });
     ficha->getComponent<Transform>()->setPosition({ 0, 0.0, 0.0 });
-   // ficha->getComponent<Transform>()->rotate(0,0,90);
+    //ficha->getComponent<Transform>()->rotate(0,0,90);
     ficha->addComponent<Lifetime>();
     ficha->addComponent<AudioSource>();
-    //ficha->getComponent<AudioSource>()->playSound3D(ResourceManager::GetInstance()->audio("talking.wav"), 0.1, true, ficha->getComponent<Transform>()->position(), Vector3<float>(1, 0, 0));
+    ficha->getComponent<AudioSource>()->playSound3D(ResourceManager::GetInstance()->audio("talking.wav"), 0.1, true, ficha->getComponent<Transform>()->position(), Vector3<float>(1, 0, 0));
     ficha->addComponent<Renderer>();
     ficha->addComponent<Rigidbody>();
     SceneManager::GetInstance()->addEntity(ficha);

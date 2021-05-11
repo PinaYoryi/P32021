@@ -11,7 +11,7 @@ class AudioSource : public Component {
 public:
 	AudioSource();
 
-	~AudioSource() {};
+	~AudioSource();
 
 	bool init(const std::map<std::string, std::string>& mapa) override;
 
@@ -30,11 +30,10 @@ public:
 	/// </summary>
 	void playSound3D(const std::string name, float volume, bool loop, Vector3<float> position, Vector3<float> velocity);
 
-
 	/// <summary>
 	/// para un sonido
 	/// </summary>
-	void stopSound(const std::string name);
+	void stopSound();
 
 	/// <summary>
 	/// Ejecuta un fade in del sonido actual
@@ -84,8 +83,6 @@ private:
 
 	// Lista con los canales de sonido que se estan ejecutando
 	//std::map<const char*, FMOD::Sound*> _sounds;
-
-
 
 	FMOD::Channel* _channel;
 };
