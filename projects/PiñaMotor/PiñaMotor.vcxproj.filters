@@ -54,9 +54,6 @@
     <ClCompile Include="..\..\src\PiñaMotor\AudioListener.cpp">
       <Filter>Archivos de origen\Componentes</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\PiñaMotor\AudioSource.cpp">
-      <Filter>Archivos de origen\Componentes</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\PiñaMotor\Camera.cpp">
       <Filter>Archivos de origen\Componentes</Filter>
     </ClCompile>
@@ -117,6 +114,9 @@
     <ClCompile Include="..\..\src\PiñaMotor\SceneManager.cpp">
       <Filter>Archivos de origen\Core</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\PiñaMotor\AudioSource.cpp">
+      <Filter>Archivos de origen\Componentes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\PiñaMotor\SceneManager.h">
@@ -129,9 +129,6 @@
       <Filter>Archivos de encabezado\Componentes</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\PiñaMotor\AudioListener.h">
-      <Filter>Archivos de encabezado\Componentes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\PiñaMotor\AudioSource.h">
       <Filter>Archivos de encabezado\Componentes</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\PiñaMotor\Camera.h">
@@ -211,6 +208,9 @@
     </ClInclude>
     <ClInclude Include="..\..\src\PiñaMotor\Entity.h">
       <Filter>Archivos de encabezado\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\PiñaMotor\AudioSource.h">
+      <Filter>Archivos de encabezado\Componentes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
