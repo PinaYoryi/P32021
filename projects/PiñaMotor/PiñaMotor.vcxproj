@@ -42,7 +42,6 @@
     <ClCompile Include="..\..\src\PiñaMotor\Rigidbody.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\SceneManager.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\ResourceManager.cpp" />
-    <ClCompile Include="..\..\src\PiñaMotor\Source.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Transform.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Vector3.cpp" />
   </ItemGroup>
