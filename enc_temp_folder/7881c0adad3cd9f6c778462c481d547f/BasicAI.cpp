@@ -1,5 +1,6 @@
 #include "BasicAI.h"
 #include "Entity.h"
+#include "Rigidbody.h"
 
 bool BasicAI::init(const std::map<std::string, std::string>& mapa) {
 	// Checks de lua
@@ -37,9 +38,11 @@ void BasicAI::fixedUpdate() {
 			_rotFlag = false;
 		}
 		else {
-			_transform->setRotation(_rotObjetivo.x, _rotObjetivo.y, _rotObjetivo.z);
+			_rigidbody->rotate(Quaternion::Euler(_rotObjetivo));
 		}
 	}
+
+	std::cout << _transform->rotation() << "\n";
 }
 
 void BasicAI::MoveTo(Vector3<> obj) {

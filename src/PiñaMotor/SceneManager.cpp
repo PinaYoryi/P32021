@@ -91,7 +91,7 @@ bool SceneManager::loadScene(std::string sceneName) {
     Entity* camera = new Entity("Camara");
     camera->getComponent<Transform>()->setParent(jugador->getComponent<Transform>());
     camera->addComponent<Camera>();
-    camera->addComponent<PlayerController>();
+    //camera->addComponent<PlayerController>();
     camera->getComponent<Camera>()->setNearClipPlane(1);
     camera->getComponent<Camera>()->setFarClipPlane(10000);
     camera->getComponent<Camera>()->setAspectRatio(true);
@@ -131,8 +131,9 @@ bool SceneManager::loadScene(std::string sceneName) {
 
     Entity* ficha = new Entity("Sinbad");
     ficha->getComponent<Transform>()->setScale({ 1, 1, 1 });
-    ficha->getComponent<Transform>()->setPosition({ 0, 5, 0 });
-    ficha->addComponent<Lifetime>();
+    //ficha->getComponent<Transform>()->setRotation(0, 180, 0);
+    //ficha->getComponent<Transform>()->setPosition({ 0, 180, 0 });
+    //ficha->addComponent<Lifetime>();
     ficha->addComponent<AudioSource>();
     ficha->addComponent<Renderer>();
     ficha->addComponent<Rigidbody>();
@@ -148,7 +149,7 @@ bool SceneManager::loadScene(std::string sceneName) {
     SceneManager::GetInstance()->addEntity(capsule);
     //SceneManager::GetInstance()->removeEntity(capsule);
 
-   Entity* ent2 = new Entity("sphere");
+    /*Entity* ent2 = new Entity("sphere");
     ent2->getComponent<Transform>()->setScale({ 0.1,0.1,0.1});
     ent2->addComponent<Renderer>();
     ent2->getComponent<Transform>()->setPosition({ 0, 180, 0 });
@@ -157,7 +158,7 @@ bool SceneManager::loadScene(std::string sceneName) {
     ent2->getComponent<AudioListener>()->set3DAtributes(ent2->getComponent<Transform>()->position(), Vector3<float>(0, 0, 0));
     ent2->getComponent<AudioListener>()->setPosition(ent2->getComponent<Transform>()->position());
     ent2->getComponent<AudioListener>()->setVelocity({ (-(0.2 * 1 / 33.33)), 0,0 });
-    SceneManager::GetInstance()->addEntity(ent2);
+    SceneManager::GetInstance()->addEntity(ent2);*/
     
 
 
