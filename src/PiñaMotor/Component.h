@@ -12,13 +12,13 @@ public:
 
 	virtual void start() {};
 
-	virtual void onTriggerStart() {};
-	virtual void onTriggerStay() {};
-	virtual void onTriggerEnd() {};
+	virtual void onTriggerStart(Entity* other) {};
+	virtual void onTriggerStay(Entity* other) {};
+	virtual void onTriggerEnd(Entity* other) {};
 
-	virtual void onCollisionStart() {};
-	virtual void onCollisionStay() {};
-	virtual void onCollisionEnd() {};
+	virtual void onCollisionStart(Entity* other) {};
+	virtual void onCollisionStay(Entity* other) {};
+	virtual void onCollisionEnd(Entity* other) {};
 
 	virtual void update() {};
 	virtual void fixedUpdate() {};

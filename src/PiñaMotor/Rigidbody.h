@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Transform.h"
 #include "Vector3.h"
 #include "BulletCollision/CollisionShapes/btCollisionShape.h"
@@ -9,23 +8,26 @@
 const int DEFAULT_COLLISION_FLAGS = 1;
 const float DEFAULT_MASS = 54.0f;
 const float DEFAULT_RESTITUTION = 0.2f;
+const float DEFAULT_LINEAR_DAMPING = 0.2f;
+const float DEFAULT_ANGULAR_DAMPING = 0.2f;
 
-const float OGRE_BULLET_RATIO = 50; //TODO: Esto molaría no hacerlo
 
 enum class ShapeTypes { Box, Sphere, Capsule };
 
 class Rigidbody : public Component
 {
 public:
-
+	
 	Rigidbody() : _btRb(nullptr), _myMotionState(nullptr), _trans(nullptr) {}
 	~Rigidbody();
-
 	virtual bool init(const std::map<std::string, std::string>& mapa) override;
 	virtual void update();
 
-
-	void createShape(ShapeTypes type);
+	/// <summary>
+	/// Crea el shape(collider) del rigidbody, si tiene renderer lo hace a partir de su tamaño y el transform
+	/// si no lo tiene lo hace solo usando el transform
+	/// </summary>
+	void createShape(ShapeTypes type, bool renderer=true);
 
 	// GETTERS
 	// Devuelve si es un disparador
@@ -87,7 +89,9 @@ public:
 
 	// Modifica propiedades de la masa
 	void setMass(float mass, const btVector3& inertia = { 0,0,0 });
+	btRigidBody* getbT(){ return  _btRb;}
 
+	
 private:
 	btCollisionShape* _btCs = nullptr;	// La forma de la collisionBox
 	btRigidBody* _btRb = nullptr;		// Es el rigidbody

@@ -118,7 +118,7 @@ Quaternion Transform::inverseTransformRotation(Quaternion q) {
 
 Quaternion Transform::transformRotation(Quaternion q) {
 	if (parent())
-		return  q * parent()->rotation();
+		return  parent()->rotation() * q;
 	return q;
 }
 

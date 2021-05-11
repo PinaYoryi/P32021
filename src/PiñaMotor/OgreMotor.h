@@ -131,6 +131,8 @@ public:
 	// Obtiene la RenderWindow
 	Ogre::RenderWindow* getRenderWindow() const { return _mWindow._render; }
 
+	NativeWindowType* getNativeWindow() const { return _mWindow._native; }
+
 	Ogre::Root* getRoot() const { return _mRoot; }
 
 	Ogre::SceneManager* getSceneManager() { return _mSM; }

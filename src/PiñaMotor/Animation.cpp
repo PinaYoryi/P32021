@@ -3,7 +3,6 @@
 #include "Renderer.h"
 #include "OgreEntity.h"
 
-
 bool Animation::init(const std::map<std::string, std::string>& mapa) {
 	if (mapa.find("animations") == mapa.end() || mapa.find("playing") == mapa.end() || mapa.find("loop") == mapa.end()) return false;
 
@@ -147,6 +146,7 @@ bool Animation::changeAnimation(std::vector<std::string> animationsNames) {
 }
 
 void Animation::frameRendered(const Ogre::FrameEvent& evt) {
+	if (!_active) return;
 	for(auto i:_myAnimations)
 		i->addTime(evt.timeSinceLastFrame);
 }

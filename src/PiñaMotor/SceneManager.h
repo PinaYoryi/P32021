@@ -36,7 +36,7 @@ public:
 	/// </summary>
 	std::vector<Entity*> getEntities();
 
-	bool loadScene();
+	bool loadScene(std::string sceneName);
 
 	/// <summary>
 	/// Elimina las entidades en las listas.
@@ -44,11 +44,13 @@ public:
 	/// <param name="all">True para eliminar tambien las permanentes, false para lo contrario</param>
 	void deleteEntities(bool all = false);
 
+	void addEntityToRemove(Entity * ent) { _entitysToRemove.push_back(ent); }
+	std::vector<Entity*> getEntitysToRemove() {	return _entitysToRemove;}
 protected:
 	static SceneManager* _singleton;
 
 	std::vector<Entity*> _entities;
 	std::vector<Entity*> _permanentEntities;
-
+	std::vector<Entity*> _entitysToRemove;
 	SceneManager() {};
 };

@@ -7,7 +7,7 @@
 #include <OgreSceneManager.h>
 #include <OgreRenderWindow.h>
 
-Camera::Camera() {
+Camera::Camera() : _cam(nullptr), _camNode(nullptr), _viewport(nullptr) {
 
 }
 
@@ -43,7 +43,10 @@ bool Camera::init(const std::map<std::string, std::string>& mapa) {
 
 	s = mapa.at("viewport");
 	std::string::size_type sz = 0, sa = 0, sb = 0;
-	float a = std::stof(s, &sz), be = std::stof(s.substr(sz + 1), &sa), c = std::stof(s.substr(sz + sa + 2)), d = std::stof(s.substr(sz + sa + sb + 3));
+	float a = std::stof(s, &sz);
+	float be = std::stof(s.substr(sz + 1), &sa);
+	float c = std::stof(s.substr(sz + sa + 2), &sb);
+	float d = std::stof(s.substr(sz + sa + sb + 3));
 	setViewport({a, be }, { c, d });
 
 	s = mapa.at("color");
@@ -86,6 +89,7 @@ void Camera::setBackgroundColor(float r, float g, float b) {
 }
 
 void Camera::render() {
+	if (!_active) return;
 	Transform* tr;
 	if ((tr = _myEntity->getComponent<Transform>()) != nullptr) {
 		_camNode->setPosition(tr->position().x, tr->position().y, tr->position().z);

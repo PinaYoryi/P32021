@@ -3,29 +3,69 @@
 #include <fmod.hpp>
 #include "Vector3.h"
 #include "Audio.h"
+#include "Transform.h"
 
 class AudioListener : public Component {
 public:
-	AudioListener(Vector3<float> position = { 0.0f, 0.0f, 0.0f }, Vector3<float> velocity = { 0.0f, 0.0f, 0.0f });
+	AudioListener();
 	~AudioListener() {};
 
-	bool init(const std::map<std::string, std::string>& mapa) override {
-		return true;
-	}
+	bool init(const std::map<std::string, std::string>& mapa) override;
 
-	void setPosition(Vector3<float> position) { _position.x = position.x; _position.y = position.y; _position.z = position.z;};
-	Vector3<float> getPosition() { return Vector3<float>(_position.x,_position.y,_position.z); };
+	/// <summary>
+	///
+	/// </summary>
+	void set3DAtributes(Vector3<float> position, Vector3<float> velocity);
 
-	void setVelocity(Vector3<float> velocity) { _velocity.x = velocity.x; _velocity.y = velocity.y; _velocity.z = velocity.z; };
-	Vector3<float> getVelocity() { return Vector3<float>(_velocity.x, _velocity.y, _velocity.z); };
+	/// <summary>
+	/// metodo set para asignar una posicion
+	/// </summary>
+	void setPosition(Vector3<float> position) { _p.x = position.x; _p.y = position.y; _p.z = position.z;};
+	/// <summary>
+	/// metodo get para la posicion
+	/// </summary>
+	Vector3<float> getPosition() { return Vector3<float>(_p.x,_p.y,_p.z); };
 
-	void update() override;
+	/// <summary>
+	/// metodo set para asignar una velocidad
+	/// </summary>
+	void setVelocity(Vector3<float> velocity) { _v.x = velocity.x; _v.y = velocity.y; _v.z = velocity.z; };
+	/// <summary>
+	/// metodo get para la velocidad
+	/// </summary>
+	Vector3<float> getVelocity() { return Vector3<float>(_v.x, _v.y, _v.z); };
+
+	/// <summary>
+	/// metodo set para asignar una direccion vertical
+	/// </summary>
+	void setUp(Vector3<float> up) { _u.x = up.x; _u.y = up.y; _u.z = up.z; };
+	/// <summary>
+	/// metodo get para una direccion vertical
+	/// </summary>
+	Vector3<float> getUp() { return Vector3<float>(_u.x, _u.y, _u.z); };
+
+	/// <summary>
+	/// metodo set para asignar una direccion horizontal
+	/// </summary>
+	void setForward(Vector3<float> forward) { _f.x = forward.x; _f.y = forward.y; _f.z = forward.z; };
+	/// <summary>
+	/// metodo get para una direccion horizontal
+	/// </summary>
+	Vector3<float> getForward() { return Vector3<float>(_f.x, _f.y, _f.z); };
+
+	virtual void update() override;
 
 private:
-	Audio* _instance;
+	void errorCheck(FMOD_RESULT result);
+
+	FMOD_RESULT _result;
+	Transform* _trans = nullptr;
+
+	FMOD_VECTOR _p;
+	FMOD_VECTOR _f;
+	FMOD_VECTOR _u;
+	FMOD_VECTOR _v;
 	FMOD::System* _system;
-	FMOD_VECTOR _position;
-	FMOD_VECTOR _velocity;
-	FMOD_VECTOR _forward;
-	FMOD_VECTOR _up;
+
+
 };

@@ -3,19 +3,15 @@
 #include "Input.h"
 #include "BulletInstance.h"
 #include <OgreRoot.h>
+#include "Audio.h"
 
 MotorLoop* MotorLoop::_singleton = nullptr;
-
-MotorLoop::~MotorLoop() {
-    delete Input::GetInstance();
-}
 
 MotorLoop* MotorLoop::GetInstance() {
 	return _singleton;
 }
 
 bool MotorLoop::Init() {
-    Input::Init();
 	if (_singleton != nullptr) return false;
 	_singleton = new MotorLoop(); return true;
 }
@@ -24,7 +20,8 @@ bool MotorLoop::Init() {
 
 void MotorLoop::startLoop() {
 	if (_loop == true) return;
-	initLoop();
+	_loop = true;
+	_accumulatedTime = 0;
 	while (_loop) {
 		std::vector<Entity*> ent = SceneManager::GetInstance()->getEntities();
 		stepInput();
@@ -39,11 +36,6 @@ void MotorLoop::stopLoop() {
 	_loop = false;
 }
 
-void MotorLoop::initLoop() {
-	_loop = true;
-	_accumulatedTime = 0;
-}
-
 void MotorLoop::stepInput() {
     Input::GetInstance()->update();
 }
@@ -51,6 +43,10 @@ void MotorLoop::stepInput() {
 void MotorLoop::stepUpdate(std::vector<Entity*> ent) {
     for (Entity* e : ent)
         e->update();
+	std::vector<Entity*> ents = SceneManager::GetInstance()->getEntitysToRemove();
+	for (Entity* e : ents)
+		SceneManager::GetInstance()->removeEntity(e);
+	ents.clear();
 }
 
 void MotorLoop::stepFixedUpdate(std::vector<Entity*> ent) {
@@ -59,6 +55,7 @@ void MotorLoop::stepFixedUpdate(std::vector<Entity*> ent) {
 		for (Entity* e : ent)
 			e->fixedUpdate();
         BulletInstance::GetInstance()->update();
+		Audio::GetInstance()->update();
 		_accumulatedTime -= FIXED_UPDATE_TIME;
 	}
 }

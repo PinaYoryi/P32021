@@ -1,7 +1,7 @@
 #include "Entity.h"
 #include "ComponentFactory.h"
 #include <map>
-#include "Transform.h"
+#include "SceneManager.h"
 
 
 Entity::Entity() : _name("Entity"), _id()
@@ -9,7 +9,7 @@ Entity::Entity() : _name("Entity"), _id()
 	
 }
 
-Entity::Entity(char* entityName, int id) : _name(entityName), _id(id)
+Entity::Entity(std::string entityName, int id) : _name(entityName), _id(id)
 {
 }
 
@@ -21,6 +21,7 @@ void Entity::update() {
 	for (auto& c : compUnique) {
 		if (c) c->update();
 	}
+
 }
 
 void Entity::fixedUpdate() {

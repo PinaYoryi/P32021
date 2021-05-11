@@ -8,7 +8,7 @@ using namespace std;
 class Entity {
 public:
 	Entity();
-	Entity(char* entityName, int id);
+	Entity(std::string entityName, int id);
 
 	~Entity();
 
@@ -41,7 +41,10 @@ public:
 
 	template<typename T>
 	T* getComponent() {
-		return static_cast<T*>(_compArray[indexOf<T, ComponentsList>]);
+		try {
+			return static_cast<T*>(_compArray[indexOf<T, ComponentsList>]);
+		}
+		catch (...) { throw "Could not find component: " + indexOf<T, ComponentsList>; }
 	}
 
 	template<typename T>
@@ -49,25 +52,7 @@ public:
 		return _compArray[indexOf<T, ComponentsList>];
 	}
 
-	template<typename T>
-	bool removeComponent() {
-		//¿Quitar de unique pointers?	
-		bool deleted = hasComponent<T>();
-		if (deleted) {
-			//eliminar el componente que queremos
-			for (int i = 0; i < compUnique.size(); ++i) {
-				if (dynamic_cast<T*>(compUnique[i].get())) {
-					*compUnique[i] = *compUnique.back();
-					compUnique.pop_back();
-					break;
-				}
-			}		
-			_compArray[indexOf<T, ComponentsList>] = nullptr;
-		}
-		return deleted;
-	}
-
-	const char* getName() { return _name; }
+	const std::string getName() { return _name; }
 
 	void update();
 
@@ -75,8 +60,10 @@ public:
 
 	void render();
 
+	std::vector<unique_ptr<Component>>* getComponents() { return &compUnique; }
+	
 private:
-	const char* _name;
+	std::string _name;
 
 	int _id;
 	//aqui estaran los componentes de esta entidad

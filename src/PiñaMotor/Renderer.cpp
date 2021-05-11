@@ -5,6 +5,13 @@
 #include "OgreMotor.h"
 #include "Entity.h"
 #include "Transform.h"
+#include "Rigidbody.h"
+
+Renderer::~Renderer()
+{
+	OgreMotor::GetInstance()->getSceneManager()->destroyEntity(_ogreEntity);
+	OgreMotor::GetInstance()->getSceneManager()->destroySceneNode(_ogreNode);
+}
 
 bool Renderer::init(const std::map<std::string, std::string>& mapa){
 	if (mapa.find("mesh") == mapa.end() || mapa.find("material") == mapa.end() || mapa.find("visible") == mapa.end()) return false;
@@ -66,14 +73,14 @@ void Renderer::setMesh(Ogre::MeshPtr mesh) {
 }
 
 void Renderer::render() {
-	if (_visible) {
-		if (_myEntity->hasComponent<Transform>()) {
-			Transform* tr = _myEntity->getComponent<Transform>();
-			_ogreNode->setPosition(tr->position().x, tr->position().y, tr->position().z);
-			_ogreNode->setScale(tr->scale().x, tr->scale().y, tr->scale().z);
-			_ogreNode->setOrientation(tr->rotation());
-		}
-	}
+	if (!_active || !_visible) return;
+	
+	if (_myEntity->hasComponent<Transform>()) {
+		Transform* tr = _myEntity->getComponent<Transform>();
+		_ogreNode->setPosition(tr->position().x, tr->position().y, tr->position().z);
+		_ogreNode->setScale(tr->scale().x, tr->scale().y, tr->scale().z);
+		_ogreNode->setOrientation(tr->rotation());
+	}	
 }
 
 
