@@ -29,6 +29,10 @@ public:
 	/// <returns></returns>
 	static Quaternion Euler(Vector3<float> vector);
 
+	static Quaternion Lerp(Quaternion a, Quaternion b, float t);
+
+	static Quaternion Slerp(Quaternion a, Quaternion b, float t, float threshold);
+
 	/// <summary>
 	/// Devuelve el angulo entre dos Quaterniones
 	/// </summary>
@@ -53,6 +57,8 @@ public:
 	/// </summary>
 	/// <returns></returns>
 	Matrix3 toMatrix();
+
+	float dotProduct(const Quaternion& q);
 
 	Quaternion& operator=(const Quaternion& quat);
 	void operator+=(const Quaternion& quat);

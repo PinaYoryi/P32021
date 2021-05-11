@@ -38,6 +38,34 @@ Quaternion Quaternion::Euler(Vector3<float> vector) {
 	return { s, vec };
 }
 
+Quaternion Quaternion::Lerp(Quaternion a, Quaternion b, float t) {
+	if (t <= 0) return a;
+	else if (t >= 1) return b;
+	float scale = 1 - t;
+	return (a * scale + b * t);
+}
+
+Quaternion Quaternion::Slerp(Quaternion a, Quaternion b, float t, float threshold) {
+	float angle = a.dotProduct(b);
+	
+	// Aseguro la rotacion mas corta
+	if (angle < 0.0f) {
+		a *= -1.0f;
+		angle *= -1.0f;
+	}
+
+	if (angle <= 1 - threshold) {
+		float theta = acosf(angle);
+		float invTheta = 1 / sinf(theta);
+		float scale = sinf(theta * (1.0f - t)) * invTheta;
+		float invScale = sinf(theta * t) * invTheta;
+
+		return (a * scale + b * invScale);
+	}
+	else
+		return Quaternion::Lerp(a, b, t);
+}
+
 float Quaternion::Angle(Quaternion& a, Quaternion& b) {
 	Quaternion ab = a.conjugate() * b;
 	return 2.0 * atan2(ab.v.magnitude(), ab.s);
@@ -111,6 +139,11 @@ Matrix3 Quaternion::toMatrix()
 	m[2][0] = 2 * (v.x * v.z - v.y * s);		   m[2][1] = 2 * (v.y * v.z + v.x * s);				m[1][1] = 1 - 2 * (pow(v.x, 2) + pow(v.y, 2));
 
 	return m;
+}
+
+float Quaternion::dotProduct(const Quaternion& q)
+{
+	return(v.x * q.v.x) + (v.y * q.v.y) + (v.z * q.v.z) + (s * q.s);
 }
 
 void Quaternion::fromMatrix(const Matrix3& mat) {
