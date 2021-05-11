@@ -1,3 +1,7 @@
+REM THIS BATCH FILE HAS TO BE CALLED BY A X64 NATIVE TOOLS COMMAND PROMPT
+
+cd dependencies
+
 REM OGRE
 echo CHECKOGRE
 cd Ogre
@@ -108,3 +112,105 @@ copy /Y fmodL64.dll "../../../bin/fmodL64.dll"
 cd ../
 :aftersound
 echo FMODONE
+
+REM CEGUI
+echo CHECKCEGUIDEPENDENCIES
+cd ../CeguiDependencies
+if not exist build/dependencies/lib goto ceguidepen
+goto afterceguidepen
+:ceguidepen
+rmdir /S /Q build
+mkdir build
+cd build
+..\..\Cmake\cmake-3.20.0-rc2-windows-x86_64\bin\cmake.exe -DCEGUI_BUILD_DEVIL=TRUE^
+ -DCEGUI_BUILD_CORONA=FALSE^
+ -DCEGUI_BUILD_DEVIL=TRUE^
+ -DCEGUI_BUILD_EFFECTS11=FALSE^
+ -DCEGUI_BUILD_EXPAT=TRUE^
+ -DCEGUI_BUILD_FREETYPE2=TRUE^
+ -DCEGUI_BUILD_FREEIMAGE=TRUE^
+ -DCEGUI_BUILD_GLEW=TRUE^
+ -DCEGUI_BUILD_GLFW=TRUE^
+ -DCEGUI_BUILD_GLM=TRUE^
+ -DCEGUI_BUILD_LUA=TRUE^
+ -DCEGUI_BUILD_MINIZIP=FALSE^
+ -DCEGUI_BUILD_PCRE=TRUE^
+ -DCEGUI_BUILD_TINYXML=FALSE^
+ -DCEGUI_BUILD_TOLUAPP=FALSE^
+ -DCEGUI_BUILD_XERCES=FALSE^
+ -DCEGUI_BUILD_ZLIB=FALSE^
+ -DCEGUI_BUILD_SILLY=TRUE ../src
+..\..\Cmake\cmake-3.20.0-rc2-windows-x86_64\bin\cmake.exe --build . --config release 
+..\..\Cmake\cmake-3.20.0-rc2-windows-x86_64\bin\cmake.exe --build . --config debug
+cd ..
+:afterceguidepen
+
+echo CHECKCEGUI
+cd ../Cegui/src
+if not exist build/lib goto cegui
+goto aftercegui
+:cegui
+set CeguiBuiltDependencies="%~dp0dependencies\CeguiDependencies\build\dependencies"
+set OgreDependencies="%~dp0dependencies\Ogre\Build"
+set OgreSrc="%~dp0dependencies\Ogre\Src"
+pause
+echo STARTMAKE
+rmdir /S /Q build 
+mkdir build
+cd build
+..\..\..\Cmake\cmake-3.20.0-rc2-windows-x86_64\bin\cmake.exe^
+ -DCEGUI_SAMPLES_ENABLED=OFF^
+ -DCEGUI_SAMPLES_ENABLE_COMMON_DIALOGUES_DEMO=OFF^
+ -DCEGUI_SAMPLES_ENABLE_DEMO6=OFF^
+ -DCEGUI_SAMPLES_ENABLE_DRAGDROP_DEMO=OFF^
+ -DCEGUI_SAMPLES_ENABLE_EDITBOX_VALIDATION_DEMO=OFF^
+ -DCEGUI_SAMPLES_ENABLE_EFFECTS_DEMO=OFF^
+ -DCEGUI_SAMPLES_ENABLE_FONT_DEMO=OFF^
+ -DCEGUI_SAMPLES_ENABLE_GAMEMENU_DEMO=OFF^
+ -DCEGUI_SAMPLES_ENABLE_HELLO_WORLD_DEMO=OFF^
+ -DCEGUI_SAMPLES_ENABLE_HUD_DEMO=OFF^
+ -DCEGUI_SAMPLES_ENABLE_INVENTORY_DEMO=OFF^
+ -DCEGUI_SAMPLES_ENABLE_LOOKNFEELOVERVIEW_DEMO=OFF^
+ -DCEGUI_SAMPLES_ENABLE_MINESWEEPER_DEMO=OFF^
+ -DCEGUI_SAMPLES_ENABLE_SCROLLABLEPANE_DEMO=OFF^
+ -DCEGUI_SAMPLES_ENABLE_TABCONTROL_DEMO=OFF^
+ -DCEGUI_SAMPLES_ENABLE_TEXT_DEMO=OFF^
+ -DCEGUI_SAMPLES_ENABLE_TREE_DEMO=OFF^
+ -DCEGUI_SAMPLES_ENABLE_WIDGET_DEMO=OFF^
+ -DCEGUI_BUILD_RENDERER_DIRECT3D10:BOOL=OFF^
+ -DCEGUI_BUILD_RENDERER_DIRECT3D11:BOOL=OFF^
+ -DCEGUI_BUILD_RENDERER_DIRECT3D9:BOOL=OFF^
+ -DCEGUI_BUILD_RENDERER_DIRECTFB:BOOL=OFF^
+ -DCEGUI_BUILD_RENDERER_IRRLICHT:BOOL=OFF^
+ -DCEGUI_BUILD_RENDERER_NULL:BOOL=OFF^
+ -DCEGUI_BUILD_RENDERER_OGRE:BOOL=ON^
+ -DCEGUI_BUILD_RENDERER_OPENGL:BOOL=OFF^
+ -DCEGUI_BUILD_RENDERER_OPENGL3:BOOL=OFF^
+ -DCEGUI_BUILD_RENDERER_OPENGLES:BOOL=OFF^
+ -DCMAKE_PREFIX_PATH:PATH=%CeguiBuiltDependencies%^
+ -DOGRE_H_BUILD_SETTINGS_PATH:PATH=%OgreDependencies%/include^
+ -DOGRE_H_PATH:PATH=%OgreSrc%/OgreMain/include^
+ -DOGRE_LIB:FILEPATH=%OgreDependencies%/lib/Release/OgreMain.lib^
+ -DOGRE_LIB_DBG:FILEPATH=%OgreDependencies%/lib/Debug/OgreMain_d.lib ..
+
+cd ../replacements
+copy /Y Config.h "../build/cegui/include/CEGUI/Config.h"
+
+pause
+
+cd ../build
+..\..\..\Cmake\cmake-3.20.0-rc2-windows-x86_64\bin\cmake.exe --build . --config release 
+..\..\..\Cmake\cmake-3.20.0-rc2-windows-x86_64\bin\cmake.exe --build . --config debug
+
+cd ../replacements
+copy /Y Texture.cpp "../cegui/src/RendererModules/Ogre/Texture.cpp"
+cd ..
+:aftercegui
+cd ..
+echo CEGUIDONE
+
+cd ../..
+echo BUILD PROJECT
+msbuild PinaMotor.sln -p:Configuration=Debug
+msbuild PinaMotor.sln -p:Configuration=Release
+echo BUILDING DONE

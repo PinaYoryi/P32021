@@ -246,8 +246,8 @@ OgreResources.bat</Command>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\Lua\lib\;$(SolutionDir)dependencies\Ogre\Build\Dependencies\lib;$(SolutionDir)dependencies\Ogre\Build\lib\Release\;$(SolutionDir)dependencies\Bullet\build\lib\Release\;$(SolutionDir)dependencies\Fmod\lib\;$(SolutionDir)dependencies\Lua\lib\</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
-      <Command>cd ../../dependencies
-compilar.bat</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <PostBuildEvent>
       <Command>cd ../../assets
