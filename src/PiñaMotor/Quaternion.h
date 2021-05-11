@@ -63,6 +63,7 @@ public:
 	Quaternion operator*(const Quaternion& quat) const;
 	void operator*=(const float value);
 	Quaternion operator*(const float value) const;
+	bool operator==(const Quaternion& quat) const;
 
 #ifdef _DEBUG
 	friend std::ostream& operator<<(std::ostream& output, const Quaternion& q) {

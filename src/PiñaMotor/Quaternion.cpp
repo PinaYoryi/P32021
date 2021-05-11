@@ -192,6 +192,10 @@ Quaternion Quaternion::operator*(const float value) const {
 	return { s * value, vec };
 }
 
+bool Quaternion::operator==(const Quaternion& value) const {
+	return s == value.s && v == value.v;
+}
+
 Quaternion::operator Ogre::Quaternion() const {
 	return { s, v.x, v.y, v.z };
 }

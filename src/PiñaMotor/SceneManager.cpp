@@ -20,6 +20,7 @@
 #include "Vector3.h"
 #include "ResourceManager.h"
 #include "Lifetime.h"
+#include "BasicAI.h"
 
 #include "PlayerController.h"
 
@@ -84,6 +85,7 @@ bool SceneManager::loadScene(std::string sceneName) {
     ComponentFactoryRegistrations::ComponentFactoryRegistration<AudioSource> cpm54;
     ComponentFactoryRegistrations::ComponentFactoryRegistration<AudioListener> cpm6;
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Lifetime> cpm7;
+    ComponentFactoryRegistrations::ComponentFactoryRegistration<BasicAI> cpm8;
     
     Entity* jugador = new Entity("Jugador");
     Entity* camera = new Entity("Camara");
@@ -129,13 +131,12 @@ bool SceneManager::loadScene(std::string sceneName) {
 
     Entity* ficha = new Entity("Sinbad");
     ficha->getComponent<Transform>()->setScale({ 1, 1, 1 });
-    ficha->getComponent<Transform>()->setPosition({ 0, 0.0, 0.0 });
-   // ficha->getComponent<Transform>()->rotate(0,0,90);
+    ficha->getComponent<Transform>()->setPosition({ 0, 5, 0 });
     ficha->addComponent<Lifetime>();
     ficha->addComponent<AudioSource>();
-    //ficha->getComponent<AudioSource>()->playSound3D(ResourceManager::GetInstance()->audio("talking.wav"), 0.1, true, ficha->getComponent<Transform>()->position(), Vector3<float>(1, 0, 0));
     ficha->addComponent<Renderer>();
     ficha->addComponent<Rigidbody>();
+    ficha->addComponent<BasicAI>();
     SceneManager::GetInstance()->addEntity(ficha);
 
     Entity* capsule = new Entity("capsule");

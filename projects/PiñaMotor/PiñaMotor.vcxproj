@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\PiñaMotor\BasicAI.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Lifetime.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Light.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\OgreMotor.cpp" />
@@ -46,6 +47,7 @@
     <ClCompile Include="..\..\src\PiñaMotor\Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\src\PiñaMotor\BasicAI.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Lifetime.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Light.h" />
     <ClInclude Include="..\..\src\PiñaMotor\LuaReader.h" />
