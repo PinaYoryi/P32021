@@ -8,6 +8,7 @@ class Entity {
 public:
 	Entity();
 	Entity(std::string entityName);
+	Entity(std::string entityName, std::string entityTag);
 
 	~Entity();
 
@@ -41,6 +42,7 @@ public:
 	}
 
 	const std::string getName() { return _name; }
+	const std::string getTag() { return _tag; }
 
 	void update();
 
@@ -52,6 +54,9 @@ public:
 	
 private:
 	std::string _name;
+
+	std::string _tag;
+
 	//aqui estaran los componentes de esta entidad
 	std::vector<unique_ptr<Component>> compUnique;
 	//aqui estaran todos los posibles punteros a componentes existentes
