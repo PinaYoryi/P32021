@@ -13,6 +13,14 @@ Quaternion::Quaternion(const Matrix3& mat) {
 	fromMatrix(mat);
 }
 
+Quaternion::Quaternion(const btQuaternion& q)
+{
+	s = q.w();
+	v.x = q.x();
+	v.y = q.y();
+	v.z = q.z();
+}
+
 Quaternion Quaternion::Euler(Vector3<float> vector) {
 	Vector3<> v = vector * M_PI / 180;
 
@@ -46,6 +54,8 @@ Quaternion Quaternion::Lerp(Quaternion a, Quaternion b, float t) {
 }
 
 Quaternion Quaternion::Slerp(Quaternion a, Quaternion b, float t, float threshold) {
+	if (t <= 0) return a;
+	else if (t >= 1) return b;
 	float angle = a.dotProduct(b);
 	
 	// Aseguro la rotacion mas corta

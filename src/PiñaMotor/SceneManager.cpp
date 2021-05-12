@@ -140,13 +140,13 @@ bool SceneManager::loadScene(std::string sceneName) {
     ficha->addComponent<BasicAI>();
     SceneManager::GetInstance()->addEntity(ficha);
 
-    Entity* capsule = new Entity("capsule");
-    capsule->addComponent<Renderer>();
-    capsule->getComponent<Transform>()->setScale({ 0.01, 0.02, 0.01 });
-    capsule->getComponent<Transform>()->setPosition({ 10, 31.0, 4.0 });
-    //capsule->getComponent<Transform>()->rotate(90, 0, 0);
-    capsule->addComponent<Rigidbody>();
-    SceneManager::GetInstance()->addEntity(capsule);
+    //Entity* capsule = new Entity("capsule");
+    //capsule->addComponent<Renderer>();
+    //capsule->getComponent<Transform>()->setScale({ 0.01, 0.02, 0.01 });
+    //capsule->getComponent<Transform>()->setPosition({ 10, 31.0, 4.0 });
+    ////capsule->getComponent<Transform>()->rotate(90, 0, 0);
+    //capsule->addComponent<Rigidbody>();
+    //SceneManager::GetInstance()->addEntity(capsule);
     //SceneManager::GetInstance()->removeEntity(capsule);
 
     /*Entity* ent2 = new Entity("sphere");

@@ -21,7 +21,7 @@ public:
 	Rigidbody() : _btRb(nullptr), _myMotionState(nullptr), _trans(nullptr) {}
 	~Rigidbody();
 	virtual bool init(const std::map<std::string, std::string>& mapa) override;
-	virtual void update();
+	virtual void fixedUpdate() override;
 
 	/// <summary>
 	/// Crea el shape(collider) del rigidbody, si tiene renderer lo hace a partir de su tamaño y el transform
@@ -84,6 +84,9 @@ public:
 	// Define la velicidad
 	void setLinearVelocity(Vector3<float> vector);
 
+	//pone esa rotacion al transform del btRigidbody
+	void setRotation(btQuaternion rotation);
+
 	// Actualiza el transform de bullet respecto a la clase Transform
 	void updateTransform();
 
@@ -101,4 +104,5 @@ private:
 	bool _kinematic = false;
 	bool _static = false;
 	bool _collision = false;
+	int a = 90;
 };

@@ -8,22 +8,25 @@ bool BasicAI::init(const std::map<std::string, std::string>& mapa) {
 
 	_rigidbody = getEntity()->getComponent<Rigidbody>();
 
-	_posObjetivo = Vector3<>(-10, 4.96, 0);
+	_posObjetivo = Vector3<>(-50, 4.96, 0);
 
 	_rotObjetivo = Vector3<>(0, 90, 0);
 
 	_moveFlag = _rotFlag = true;
 
-	_threshold = 1.5;
+	_threshold = 15;
 
-	_step = 25;
+	_thresholdRot = 0.1f;
+	_velRotation = 0.002f;
+
+	_step = 30;
 
 	return true;
 }
 
 void BasicAI::fixedUpdate() {
 	// Movimiento
-	if (_moveFlag) {
+	if (_moveFlag) { 
 		if ((_posObjetivo - _transform->position()).magnitude() < _threshold) {
 			_moveFlag = false;
 			_rigidbody->setLinearVelocity(Vector3<>(0, 0, 0));
@@ -36,14 +39,20 @@ void BasicAI::fixedUpdate() {
 	}
 	// Rotación
 	if (_rotFlag) {
-		if (Quaternion::Euler(_rotObjetivo) == _transform->rotation()) {
+
+		if (_t>=1) {
 			_rotFlag = false;
+			_t = 0;
+			 btTransform trans;
+			 _rigidbody->getbT()->getMotionState()->getWorldTransform(trans);
+			 _rotIni = { trans.getRotation() };
 		}
 		else {
-			//_transform->setRotation(_rotObjetivo.x, _rotObjetivo.y, _rotObjetivo.z);
 			btTransform trans;
+			_t += _velRotation;
+			_rigidbody->setRotation(Quaternion::Slerp(Quaternion::Euler(_rotObjetivo), _rotIni,_t, _threshold));
 			_rigidbody->getbT()->getMotionState()->getWorldTransform(trans);
-			trans.setRotation(Quaternion::Euler(_rotObjetivo));
+			btQuaternion orientation = trans.getRotation();
 		}
 	}
 }

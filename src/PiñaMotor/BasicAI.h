@@ -27,6 +27,13 @@ protected:
 
 	float _threshold;
 
+
 	float _step;
+
+	float _thresholdRot;
+	Quaternion _rotIni;
+	float _t;
+	float _velRotation;
+
 };
 

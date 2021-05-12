@@ -14,6 +14,7 @@ public:
 	Quaternion(float scalar, Vector3<float>& vector);
 	Quaternion(const Quaternion& quat);
 	Quaternion(const Matrix3& mat);
+	Quaternion(const btQuaternion& q);
 	/// <summary>
 	/// Convierte una matriz en Quaternion, actua como constructor
 	/// </summary>
