@@ -2,14 +2,15 @@
 #include "Entity.h"
 #include "Renderer.h"
 #include "OgreEntity.h"
+#include "OgreMotor.h"
 
 bool Animation::init(const std::map<std::string, std::string>& mapa) {
 	if (mapa.find("animations") == mapa.end() || mapa.find("playing") == mapa.end() || mapa.find("loop") == mapa.end()) return false;
 
 	//el try es necesario para que no explote la aplicacion si da algun error ogre
-	if (_myEntity->hasComponent<Renderer>()) {
-		_ogreEnt=_myEntity->getComponent<Renderer>()->getOgreEntity();
+	if (_myEntity->hasComponent<Renderer>() && (_ogreEnt = _myEntity->getComponent<Renderer>()->getOgreEntity())) {
 		try {
+			OgreMotor::GetInstance()->addInputListener(this);
 			std::string an = mapa.at("animations");	
 			int iterator = 0;
 			std::string na = "";
@@ -31,6 +32,7 @@ bool Animation::init(const std::map<std::string, std::string>& mapa) {
 				else stop();
 				setLoop(_loop);
 			}
+			return true;	
 		}
 		catch (Ogre::Exception& e) {
 #if (defined _DEBUG)
@@ -39,7 +41,7 @@ bool Animation::init(const std::map<std::string, std::string>& mapa) {
 			return false;
 		}
 	}
-	return true;
+	return false;
 }
 
 void Animation::setLoop(bool loop) {

@@ -2,7 +2,7 @@
 #include "Component.h"
 #include "OgreMotor.h"
 
-class Animation :   public Component, public InputListener {
+class Animation : public Component, public InputListener {
 public:
 	Animation() { }
 

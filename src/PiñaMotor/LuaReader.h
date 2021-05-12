@@ -88,6 +88,9 @@ void readFile(std::string file = "myscript.lua") {
 			ent->addComponent(compName, compMap);
 			lua_pop(l, 1);
 		}
+
+		ent->init();
+
 		lua_pop(l, 1);
 		// Entity is no longer here, only key to be removed by lua_next
 		lua_pop(l, 1);

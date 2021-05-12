@@ -17,6 +17,21 @@ Entity::~Entity() {
 
 }
 
+void Entity::init()
+{
+	int i = 0;
+	int numComponents = compUnique.size();
+	int initedComps = 0;
+	while (initedComps != numComponents) {
+		if (!compinits[i] && compUnique[i]->init(compMaps[i])) {
+			++initedComps;
+			compinits[i] = true;
+		}
+		++i;
+		i %= numComponents;
+	}
+}
+
 void Entity::update() {
 	for (auto& c : compUnique) {
 		if (c) c->update();

@@ -46,6 +46,27 @@ bool SceneManager::addEntity(Entity* ent, bool permanent) {
 	vec->push_back(ent); return true;
 }
 
+Entity* SceneManager::getEntityByID(int id, bool all)
+{
+	Entity* ent = nullptr;
+	auto it = _entities.begin();
+	while (ent == nullptr && it != _entities.end()) {
+		if ((*it)->getId() == id)
+			ent = *it;
+		++it;
+	}
+
+	if (all) {
+		it = _permanentEntities.begin();
+		while (ent == nullptr && it != _permanentEntities.end()) {
+			if ((*it)->getId() == id)
+				ent = *it;
+			++it;
+		}
+	}
+	return ent;
+}
+
 bool SceneManager::removeEntity(Entity* ent, bool permanent) {
 	std::vector<Entity*>* vec = &_entities;
 	if (permanent) vec = &_permanentEntities;

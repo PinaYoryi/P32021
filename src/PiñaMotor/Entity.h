@@ -15,26 +15,34 @@ public:
 	template<typename T>
 	Component* addComponent(const std::map<std::string, std::string>& map) {
 		Component* t = ComponentFactory::getInstance().getComponent(indexOf<T, ComponentsList>);
-		t->_myEntity = this;//ponemos la entidad en el componente
-		std::unique_ptr<Component> upt (t);
-		compUnique.push_back(std::move(upt));
-		_compArray[indexOf<T, ComponentsList>] = t;
-		
-		if (t->init(map)) {
+		if (t != nullptr) {
+			t->_myEntity = this;//ponemos la entidad en el componente
+			std::unique_ptr<Component> upt(t);
+			compUnique.push_back(std::move(upt));
+			compMaps.push_back(map);
+			compinits.push_back(false);
+			_compArray[indexOf<T, ComponentsList>] = t;
+
+			//if (t->init(map)) {
 			return t;
+			//}
 		}
 		throw "Error de carga de componente con el indice " + indexOf<T, ComponentsList>; // TODO: Hacer un sistema de excepciones
 	}
 
 	Component* addComponent(const std::string& compName, const std::map<std::string, std::string>& map) {
 		Component* t = ComponentFactory::getInstance().getComponent(compName);
-		t->_myEntity = this;//ponemos la entidad en el componente
-		std::unique_ptr<Component> upt(t);
-		compUnique.push_back(std::move(upt));
-		_compArray[ComponentFactory::getInstance().getComponentIndex(compName)] = t;
+		if (t != nullptr) {
+			t->_myEntity = this;//ponemos la entidad en el componente
+			std::unique_ptr<Component> upt(t);
+			compUnique.push_back(std::move(upt));
+			compMaps.push_back(map);
+			compinits.push_back(false);
+			_compArray[ComponentFactory::getInstance().getComponentIndex(compName)] = t;
 
-		if (t->init(map)) {
+			//if (t->init(map)) {
 			return t;
+			//}
 		}
 		throw "Error de carga de componente con el indice " + ComponentFactory::getInstance().getComponentIndex(compName); // TODO: Hacer un sistema de excepciones
 	}
@@ -54,6 +62,10 @@ public:
 
 	const std::string getName() { return _name; }
 
+	int getId() { return _id; }
+
+	void init();
+
 	void update();
 
 	void fixedUpdate();
@@ -68,6 +80,10 @@ private:
 	int _id;
 	//aqui estaran los componentes de esta entidad
 	std::vector<unique_ptr<Component>> compUnique;
+
+	std::vector<std::map<std::string, std::string>> compMaps;
+
+	std::vector<bool> compinits;
 	//aqui estaran todos los posibles punteros a componentes existentes
 	Component* _compArray[numOfComponents];
 };
