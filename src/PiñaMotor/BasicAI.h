@@ -25,6 +25,8 @@ protected:
 
 	bool _moveFlag, _rotFlag;
 
+	float _threshold;
+
 	float _step;
 };
 

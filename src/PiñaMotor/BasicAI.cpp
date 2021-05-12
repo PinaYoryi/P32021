@@ -8,13 +8,15 @@ bool BasicAI::init(const std::map<std::string, std::string>& mapa) {
 
 	_rigidbody = getEntity()->getComponent<Rigidbody>();
 
-	_posObjetivo = Vector3<>(10, 0, 0);
+	_posObjetivo = Vector3<>(-10, 4.96, 0);
 
 	_rotObjetivo = Vector3<>(0, 90, 0);
 
 	_moveFlag = _rotFlag = true;
 
-	_step = 300;
+	_threshold = 1.5;
+
+	_step = 25;
 
 	return true;
 }
@@ -22,8 +24,9 @@ bool BasicAI::init(const std::map<std::string, std::string>& mapa) {
 void BasicAI::fixedUpdate() {
 	// Movimiento
 	if (_moveFlag) {
-		if (_transform->position() == _posObjetivo) {
+		if ((_posObjetivo - _transform->position()).magnitude() < _threshold) {
 			_moveFlag = false;
+			_rigidbody->setLinearVelocity(Vector3<>(0, 0, 0));
 		}
 		else {
 			Vector3<> direction = (_posObjetivo - _transform->position()).normalized();
@@ -37,7 +40,10 @@ void BasicAI::fixedUpdate() {
 			_rotFlag = false;
 		}
 		else {
-			_transform->setRotation(_rotObjetivo.x, _rotObjetivo.y, _rotObjetivo.z);
+			//_transform->setRotation(_rotObjetivo.x, _rotObjetivo.y, _rotObjetivo.z);
+			btTransform trans;
+			_rigidbody->getbT()->getMotionState()->getWorldTransform(trans);
+			trans.setRotation(Quaternion::Euler(_rotObjetivo));
 		}
 	}
 }

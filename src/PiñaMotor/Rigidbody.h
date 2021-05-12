@@ -6,7 +6,7 @@
 #include "LinearMath/btDefaultMotionState.h"
 
 const int DEFAULT_COLLISION_FLAGS = 1;
-const float DEFAULT_MASS = 54.0f;
+const float DEFAULT_MASS = 10.0f;
 const float DEFAULT_RESTITUTION = 0.2f;
 const float DEFAULT_LINEAR_DAMPING = 0.2f;
 const float DEFAULT_ANGULAR_DAMPING = 0.2f;
