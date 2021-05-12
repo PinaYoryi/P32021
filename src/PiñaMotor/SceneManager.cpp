@@ -90,16 +90,16 @@ void SceneManager::deleteEntities(bool all) {
 }
 
 bool SceneManager::loadScene(std::string sceneName) {
-    ComponentFactoryRegistrations::ComponentFactoryRegistration<Lifetime> cpm7("lifetime");
-    ComponentFactoryRegistrations::ComponentFactoryRegistration<AudioListener> cpm6("audiolistener");
-    ComponentFactoryRegistrations::ComponentFactoryRegistration<AudioSource> cpm54("audiosource");
-    ComponentFactoryRegistrations::ComponentFactoryRegistration<Rigidbody> cpm44("rigidbody");
-    ComponentFactoryRegistrations::ComponentFactoryRegistration<PlayerController> cpm5("playercontroller");
-    ComponentFactoryRegistrations::ComponentFactoryRegistration<Animation> cpm4("animation");
-    ComponentFactoryRegistrations::ComponentFactoryRegistration<Camera> cp3("camera");
-    ComponentFactoryRegistrations::ComponentFactoryRegistration<Renderer> cpm2("renderer");
-    ComponentFactoryRegistrations::ComponentFactoryRegistration<Light> cpl("light");
-    ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform> cpm("transform");
+    ComponentFactoryRegistrations::ComponentFactoryRegistration<Lifetime>("lifetime");
+    ComponentFactoryRegistrations::ComponentFactoryRegistration<AudioListener>("audiolistener");
+    ComponentFactoryRegistrations::ComponentFactoryRegistration<AudioSource>("audiosource");
+    ComponentFactoryRegistrations::ComponentFactoryRegistration<Rigidbody>("rigidbody");
+    ComponentFactoryRegistrations::ComponentFactoryRegistration<PlayerController>("playercontroller");
+    ComponentFactoryRegistrations::ComponentFactoryRegistration<Animation>("animation");
+    ComponentFactoryRegistrations::ComponentFactoryRegistration<Camera>("camera");
+    ComponentFactoryRegistrations::ComponentFactoryRegistration<Renderer>("renderer");
+    ComponentFactoryRegistrations::ComponentFactoryRegistration<Light>("light");
+    ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform>("transform");
 	readFile();
     return true;
 }

@@ -12,24 +12,6 @@ public:
 
 	~Entity();
 
-	template<typename T>
-	Component* addComponent(const std::map<std::string, std::string>& map) {
-		Component* t = ComponentFactory::getInstance().getComponent(indexOf<T, ComponentsList>);
-		if (t != nullptr) {
-			t->_myEntity = this;//ponemos la entidad en el componente
-			std::unique_ptr<Component> upt(t);
-			compUnique.push_back(std::move(upt));
-			compMaps.push_back(map);
-			compinits.push_back(false);
-			_compArray[indexOf<T, ComponentsList>] = t;
-
-			//if (t->init(map)) {
-			return t;
-			//}
-		}
-		throw "Error de carga de componente con el indice " + indexOf<T, ComponentsList>; // TODO: Hacer un sistema de excepciones
-	}
-
 	Component* addComponent(const std::string& compName, const std::map<std::string, std::string>& map) {
 		Component* t = ComponentFactory::getInstance().getComponent(compName);
 		if (t != nullptr) {
@@ -38,26 +20,37 @@ public:
 			compUnique.push_back(std::move(upt));
 			compMaps.push_back(map);
 			compinits.push_back(false);
-			_compArray[ComponentFactory::getInstance().getComponentIndex(compName)] = t;
 
-			//if (t->init(map)) {
 			return t;
-			//}
 		}
-		throw "Error de carga de componente con el indice " + ComponentFactory::getInstance().getComponentIndex(compName); // TODO: Hacer un sistema de excepciones
+		throw "Error de carga del componente " + compName; // TODO: Hacer un sistema de excepciones
 	}
 
+	/// <summary>
+	/// Devuelve un componente de la entidad, o nullptr si no lo tiene. Coste: O(N) :(
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	/// <returns></returns>
 	template<typename T>
 	T* getComponent() {
-		try {
-			return static_cast<T*>(_compArray[indexOf<T, ComponentsList>]);
+		T* ret = nullptr;
+		int i = 0;
+		while (i < compUnique.size() && ret == nullptr) {
+			ret = dynamic_cast<T*>(compUnique[i].get());
+			++i;
 		}
-		catch (...) { throw "Could not find component: " + indexOf<T, ComponentsList>; }
+
+		return ret;
 	}
 
+	/// <summary>
+	/// Devuelve si tiene o no un componente. Coste: O(N) :(
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	/// <returns></returns>
 	template<typename T>
 	bool hasComponent() {
-		return _compArray[indexOf<T, ComponentsList>];
+		return getComponent<T>() != nullptr;
 	}
 
 	const std::string getName() { return _name; }
@@ -85,5 +78,5 @@ private:
 
 	std::vector<bool> compinits;
 	//aqui estaran todos los posibles punteros a componentes existentes
-	Component* _compArray[numOfComponents];
+	//Component* _compArray[numOfComponents];
 };

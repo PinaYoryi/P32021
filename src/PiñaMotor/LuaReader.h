@@ -84,7 +84,7 @@ void readFile(std::string file = "myscript.lua") {
 				lua_pop(l, 1);
 			}
 
-			// Funci�n de traducci�n
+			// Funcion de traduccion
 			ent->addComponent(compName, compMap);
 			lua_pop(l, 1);
 		}
