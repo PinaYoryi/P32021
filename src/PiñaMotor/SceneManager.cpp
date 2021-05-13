@@ -90,6 +90,7 @@ void SceneManager::deleteEntities(bool all) {
 }
 
 bool SceneManager::loadScene(std::string sceneName) {
+	std::string path = ResourceManager::GetInstance()->scene(sceneName);
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Lifetime>("lifetime");
     ComponentFactoryRegistrations::ComponentFactoryRegistration<AudioListener>("audiolistener");
     ComponentFactoryRegistrations::ComponentFactoryRegistration<AudioSource>("audiosource");
@@ -100,6 +101,6 @@ bool SceneManager::loadScene(std::string sceneName) {
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Renderer>("renderer");
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Light>("light");
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform>("transform");
-	readFile();
-    return true;
+	readFile(path);
+	return true;
 }

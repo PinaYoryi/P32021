@@ -10,7 +10,7 @@ int main()
     PinaMotor motor;
     motor.init("Test");
 
-    motor.launch("escena");
+    motor.launch("myscript.lua");
 
     motor.close();
 }
