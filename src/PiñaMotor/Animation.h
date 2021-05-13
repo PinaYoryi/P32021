@@ -5,6 +5,7 @@
 class Animation : public Component, public InputListener {
 public:
 	Animation() { }
+	~Animation();
 
 	/// <summary>
 	/// Inicializa el componente con los valores pasados por parametro
