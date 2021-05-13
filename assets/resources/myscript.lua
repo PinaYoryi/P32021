@@ -23,6 +23,10 @@ local mapa = {
           restitution="0.2",
           damping="0.2,0.2",
           trigger="false"
+        },
+        lifetime={
+          life="5",
+          year="2021"
         }
       }
     },
