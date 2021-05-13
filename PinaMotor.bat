@@ -153,7 +153,6 @@ goto aftercegui
 set CeguiBuiltDependencies="%~dp0dependencies\CeguiDependencies\build\dependencies"
 set OgreDependencies="%~dp0dependencies\Ogre\Build"
 set OgreSrc="%~dp0dependencies\Ogre\Src"
-pause
 echo STARTMAKE
 rmdir /S /Q build 
 mkdir build
@@ -195,8 +194,6 @@ cd build
 
 cd ../replacements
 copy /Y Config.h "../build/cegui/include/CEGUI/Config.h"
-
-pause
 
 cd ../build
 ..\..\..\Cmake\cmake-3.20.0-rc2-windows-x86_64\bin\cmake.exe --build . --config release 
