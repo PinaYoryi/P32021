@@ -2,17 +2,37 @@
 #include "Entity.h"
 #include "Renderer.h"
 #include "OgreEntity.h"
+#include "OgreMotor.h"
 
 bool Animation::init(const std::map<std::string, std::string>& mapa) {
-	//TODO: rellenar init con los valores del mapa
+	if (mapa.find("animations") == mapa.end() || mapa.find("playing") == mapa.end() || mapa.find("loop") == mapa.end()) return false;
+
 	//el try es necesario para que no explote la aplicacion si da algun error ogre
-	if (_myEntity->hasComponent<Renderer>()) {
-		_ogreEnt=_myEntity->getComponent<Renderer>()->getOgreEntity();
+	if (_myEntity->hasComponent<Renderer>() && (_ogreEnt = _myEntity->getComponent<Renderer>()->getOgreEntity())) {
 		try {
-			_myAnimations.push_back(_ogreEnt->getAnimationState("Dance"));
-			_myAnimations[0]->setEnabled(true);
-			_loop = true;
-			_myAnimations[0]->setLoop(_loop);
+			OgreMotor::GetInstance()->addInputListener(this);
+			std::string an = mapa.at("animations");	
+			int iterator = 0;
+			std::string na = "";
+			while ((na = an.substr(iterator, an.find(","))) != "") {
+				iterator += na.length() + 1;
+				_myAnimations.push_back(_ogreEnt->getAnimationState(na));
+			};
+
+			if (mapa.at("playing") == "true") _playing = true;
+			else if (mapa.at("playing") == "false") _playing = false;
+			else return false;
+
+			if (mapa.at("loop") == "true") _loop = true;
+			else if (mapa.at("loop") == "false") _loop = false;
+			else return false;
+
+			for (Ogre::AnimationState* anim : _myAnimations) {
+				if (_playing) play();
+				else stop();
+				setLoop(_loop);
+			}
+			return true;	
 		}
 		catch (Ogre::Exception& e) {
 #if (defined _DEBUG)
@@ -21,7 +41,7 @@ bool Animation::init(const std::map<std::string, std::string>& mapa) {
 			return false;
 		}
 	}
-	return true;
+	return false;
 }
 
 void Animation::setLoop(bool loop) {
@@ -31,15 +51,15 @@ void Animation::setLoop(bool loop) {
 }
 
 void Animation::play() {
-	_active = true;
+	_playing = true;
 	for (auto an : _myAnimations)
-		an->setEnabled(_active);
+		an->setEnabled(_playing);
 }
 
 void Animation::stop() {
-	_active = false;
+	_playing = false;
 	for (auto an : _myAnimations)
-		an->setEnabled(_active);
+		an->setEnabled(_playing);
 }
 
 bool Animation::changeAnimation(std::string animationName) {
@@ -59,7 +79,7 @@ bool Animation::changeAnimation(std::string animationName) {
 		_myAnimations.push_back(_ogreEnt->getAnimationState(animationName));
 		_myAnimations[0]->setTimePosition(0);//que empiece desde el principio la animacion
 
-		_myAnimations[0]->setEnabled(_active);
+		_myAnimations[0]->setEnabled(_playing);
 		_myAnimations[0]->setLoop(_loop);
 	}
 	catch (Ogre::Exception& e) {
@@ -77,7 +97,7 @@ bool Animation::changeAnimation(std::string animationName) {
 		for (int i = 0; i < aux.size(); ++i)
 		{
 			_myAnimations.push_back(aux[i]);
-			_myAnimations[i]->setEnabled(_active);
+			_myAnimations[i]->setEnabled(_playing);
 		}
 		return false;
 	}
@@ -101,7 +121,7 @@ bool Animation::changeAnimation(std::vector<std::string> animationsNames) {
 			Ogre::AnimationState* anim = _ogreEnt->getAnimationState(name);
 			_myAnimations.push_back(anim);
 			_myAnimations[j]->setTimePosition(0);//que empiece desde el principio la animacion
-			_myAnimations[j]->setEnabled(_active);
+			_myAnimations[j]->setEnabled(_playing);
 			_myAnimations[j]->setLoop(_loop);
 		}
 		catch (Ogre::Exception& e) {
@@ -118,7 +138,7 @@ bool Animation::changeAnimation(std::vector<std::string> animationsNames) {
 			for (int i = 0; i < aux.size(); ++i)
 			{
 				_myAnimations.push_back(aux[i]);
-				_myAnimations[i]->setEnabled(_active);
+				_myAnimations[i]->setEnabled(_playing);
 			}
 			return false;
 		}

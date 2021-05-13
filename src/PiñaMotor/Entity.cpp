@@ -3,23 +3,32 @@
 #include <map>
 #include "SceneManager.h"
 
-Entity::Entity() : _name("Entity"), _tag("Deafult")
+Entity::Entity() : _name("Entity"), _id(), _tag("Default")
 {
-	addComponent<Transform>(std::map<std::string,std::string>());
 	
 }
 
-Entity::Entity(std::string entityName) : _name(entityName), _tag("Deafult")
-{
-	addComponent<Transform>();
-}
-
-Entity::Entity(std::string entityName, std::string entityTag) : _name(entityName), _tag(entityTag)
+Entity::Entity(std::string entityName, int id, std::string entityTag) : _name(entityName), _tag(entityTag), _id(id)
 {
 }
 
 Entity::~Entity() {
 
+}
+
+void Entity::init()
+{
+	int i = 0;
+	int numComponents = compUnique.size();
+	int initedComps = 0;
+	while (initedComps != numComponents) {
+		if (!compinits[i] && compUnique[i]->init(compMaps[i])) {
+			++initedComps;
+			compinits[i] = true;
+		}
+		++i;
+		i %= numComponents;
+	}
 }
 
 void Entity::update() {
