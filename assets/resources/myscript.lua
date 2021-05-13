@@ -3,28 +3,31 @@ local mapa = {
   gravity="0 -9.8 0",
   entities={
     { 
-      name="ent1",
+      name="Sinbad",
       id=1,
       components={
         transform={
           position="0,0,0",
           rotation="0,0,0",
-          scale="20,20,20"
+          scale="10,10,10"
         },
         renderer={
           mesh="Sinbad.mesh",
           material="",
           visible="true"
         },
-        animation={
-         animations="Dance,",
-         playing="true",
-         loop="true"
+        rigidbody={
+          shape="-1",
+          mass="54",
+          inertia="0,0,0",
+          restitution="0.2",
+          damping="0.2,0.2",
+          trigger="false"
         }
       }
     },
     {
-      name="ent2",
+      name="Camera",
       id=2,
       components={
         transform={
@@ -41,19 +44,15 @@ local mapa = {
           proyection="0",
           viewport="0,0,1,1",
           color="1.0,0.5,0.3137"
-        }--,
-        --audiosource={
-        --  volume="0.3",
-        --  spacial="1"
-        --}
+        }
       }
     },
     {
-    name="ent3",
+    name="Luz",
     id=3,
     components={
       transform={
-        position="50,50,30",
+        position="50,0,0",
         rotation="0,0,0",
         scale="1,1,1"
       },
@@ -61,7 +60,7 @@ local mapa = {
         type="0",
         attenuation="",
         shadows="true",
-        diffuse="1,1,1,1",
+        diffuse="1,0.2,1,1",
         specular="1,1,1,1",
         spotinner="",
         spotouter=""
