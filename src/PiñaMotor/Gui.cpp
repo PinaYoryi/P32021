@@ -28,22 +28,16 @@ bool Gui::Init() {
 void Gui::createFrameListener(){
 	auto windowHnd = 0;
 	std::ostringstream windowHndStr;
-
 	_mWindow->getCustomAttribute("WINDOW", &windowHnd);
 	windowHndStr << windowHnd;
-
-	// Set initial mouse clipping size
 	windowResized(_mWindow);
-
 	_mRoot->addFrameListener(this);
 }
 
 void Gui::windowResized(Ogre::RenderWindow* w){
-
 	unsigned int width = 0, height = 0, depth = 0;
 	int left = 0, top = 0;
 	w->getMetrics(width, height, depth, left, top);
 	CEGUI::Sizef newSize(width, height);
-	// mRenderer_->setDisplaySize(newSize);
 	CEGUI::System::getSingleton().notifyDisplaySizeChanged(newSize);
 }
