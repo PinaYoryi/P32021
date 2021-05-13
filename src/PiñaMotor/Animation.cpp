@@ -4,6 +4,11 @@
 #include "OgreEntity.h"
 #include "OgreMotor.h"
 
+Animation::~Animation()
+{
+	OgreMotor::GetInstance()->removeInputListener(this);
+}
+
 bool Animation::init(const std::map<std::string, std::string>& mapa) {
 	if (mapa.find("animations") == mapa.end() || mapa.find("playing") == mapa.end() || mapa.find("loop") == mapa.end()) return false;
 
