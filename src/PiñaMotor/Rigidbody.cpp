@@ -27,8 +27,9 @@ bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 	if (s == "true") t = true;
 	else if (s == "false") t = false;
 	else return false;
-
-	if (_myEntity->getComponent<Renderer>()->getOgreEntity() == nullptr && !t) return false;
+	
+	if ((_myEntity->getComponent<Renderer>() == nullptr && !t) || ( _myEntity->getComponent<Renderer>()->getOgreEntity() == nullptr && !t))
+		return false;
 
 	// Creamos el Shape
 	s = mapa.at("shape");
