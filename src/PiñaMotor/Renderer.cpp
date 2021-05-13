@@ -14,34 +14,25 @@ Renderer::~Renderer()
 }
 
 bool Renderer::init(const std::map<std::string, std::string>& mapa){
+	if (mapa.find("mesh") == mapa.end() || mapa.find("material") == mapa.end() || mapa.find("visible") == mapa.end()) return false;
+	
+	_ogreNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode(_myEntity->getName());
 
-	Transform* _trans = _myEntity->getComponent<Transform>();
-	 if (_myEntity->getName() == "Sinbad"){
-		_ogreEntity = OgreMotor::GetInstance()->getSceneManager()->createEntity("Sinbad.mesh");
-		_ogreNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode("nSimbad" + to_string(name));
-		name++;
-		_ogreNode->attachObject(_ogreEntity);
-		_ogreNode->setScale(_trans->scale());
-		_ogreNode->setPosition(_trans->position());
-	}
-	else if(_myEntity->getName() == "sphere" || _myEntity->getName() == "capsule"){
-		_ogreEntity = OgreMotor::GetInstance()->getSceneManager()->createEntity("sphere.mesh");
-		_ogreNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode("nSimbad" + to_string(name));
-		name++;
-		_ogreNode->attachObject(_ogreEntity);
-		_ogreNode->setScale(_trans->scale());
-		_ogreNode->setPosition(_trans->position());
-	}
-	else {
-		_ogreEntity = OgreMotor::GetInstance()->getSceneManager()->createEntity("cube.mesh");
-		_ogreNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode("nSimbad" + name);
-		name++;
-		_ogreNode->attachObject(_ogreEntity);
-		_ogreNode->setScale(_trans->scale());
-		_ogreNode->setPosition(_trans->position());
-	}
+	std::string me = mapa.at("mesh");
+	setMesh(me);
+
+	_ogreNode->attachObject(_ogreEntity);
+	std::string ma = mapa.at("material");
+	if(ma != "") setMaterial(ma);
+
+	std::string vi = mapa.at("visible");
+	if (vi == "true") setVisible(true);
+	else if (vi == "false") setVisible(false);
+	else return false;
+
 	return true;
 }
+
 void Renderer::setVisible(bool visible) {
 	_visible = visible;
 	_ogreNode->setVisible(visible);

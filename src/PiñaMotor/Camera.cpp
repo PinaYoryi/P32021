@@ -12,16 +12,45 @@ Camera::Camera() : _cam(nullptr), _camNode(nullptr), _viewport(nullptr) {
 }
 
 bool Camera::init(const std::map<std::string, std::string>& mapa) {
-	_cam = OgreMotor::GetInstance()->getSceneManager()->createCamera("camName");
-	_camNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode("camNode"/*_myEntity->getName()*/);
+	if (mapa.find("near") == mapa.end() || mapa.find("far") == mapa.end() || mapa.find("autoaspect") == mapa.end() || mapa.find("aspect") == mapa.end() ||
+		mapa.find("fov") == mapa.end() || mapa.find("proyection") == mapa.end() || mapa.find("viewport") == mapa.end() || mapa.find("color") == mapa.end()) return false;
+
+	_cam = OgreMotor::GetInstance()->getSceneManager()->createCamera(_myEntity->getName());
+	_camNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode(_myEntity->getName());
 	_viewport = OgreMotor::GetInstance()->getRenderWindow()->addViewport(_cam);
 	_camNode->attachObject(_cam);
 
+	std::string s = mapa.at("near");
+	setNearClipPlane(std::stof(s));
 
-	// Quitar cuando tengamos inicializacion
-	setNearClipPlane(0.1); 
-	setFarClipPlane(10000);
-	setAspectRatio(true);
+	s = mapa.at("far");
+	setFarClipPlane(std::stof(s));
+
+	bool b;
+	s = mapa.at("autoaspect");
+	if (s == "true") b = true;
+	else if (s == "false") b = false;
+	else return false;
+
+	s = mapa.at("aspect");
+	setAspectRatio(b, std::stof(s));
+
+	s = mapa.at("fov");
+	setFOVY(std::stof(s));
+
+	s = mapa.at("proyection");
+	setProjectionType((Camera::ProjectionType)(std::stoi(s)));
+
+	s = mapa.at("viewport");
+	std::string::size_type sz = 0, sa = 0, sb = 0;
+	float a = std::stof(s, &sz);
+	float be = std::stof(s.substr(sz + 1), &sa);
+	float c = std::stof(s.substr(sz + sa + 2), &sb);
+	float d = std::stof(s.substr(sz + sa + sb + 3));
+	setViewport({a, be }, { c, d });
+
+	s = mapa.at("color");
+	setBackgroundColor({ std::stof(s, &sz), std::stof(s.substr(sz + 1), &sa), std::stof(s.substr(sz + sa + 2)) });
 
 	return true;
 }

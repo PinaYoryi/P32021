@@ -2,14 +2,17 @@
 #include "SceneManager.h"
 
 bool Lifetime::init(const std::map<std::string, std::string>& mapa) {
-	//if... comprobación de lua
+	if (mapa.find("life") == mapa.end() || mapa.find("year") == mapa.end()) return false;
 
-	dosmilveintiuno.tm_hour = 0;   dosmilveintiuno.tm_min = 0; dosmilveintiuno.tm_sec = 0;
-	dosmilveintiuno.tm_year = 121; dosmilveintiuno.tm_mon = 0; dosmilveintiuno.tm_mday = 1;
+	std::string s = mapa.at("year");
+	dosmilveintiuno.tm_hour = 0;					dosmilveintiuno.tm_min = 0; dosmilveintiuno.tm_sec = 0;
+	dosmilveintiuno.tm_year = std::stoi(s) - 1900;	dosmilveintiuno.tm_mon = 0; dosmilveintiuno.tm_mday = 1;
 
 	_startTime = -1;
 	_currentTime = 0;
-	_endTime /* = key del mapa de lua */ = 5;
+
+	s = mapa.at("life");
+	_endTime = std::stof(s);
 
 	return true;
 }

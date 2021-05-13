@@ -8,14 +8,58 @@
 #include <OgreRenderWindow.h>
 
 bool Light::init(const std::map<std::string, std::string>& mapa) {
-	_light = OgreMotor::GetInstance()->getSceneManager()->createLight("lightName");
-	_lightNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode("lightNode"/*_myEntity->getName()*/);
+	if (mapa.find("type") == mapa.end() || mapa.find("attenuation") == mapa.end() || mapa.find("shadows") == mapa.end() || mapa.find("diffuse") == mapa.end() ||
+		mapa.find("specular") == mapa.end() || mapa.find("spotinner") == mapa.end() || mapa.find("spotouter") == mapa.end()) return false;
+
+	_light = OgreMotor::GetInstance()->getSceneManager()->createLight(_myEntity->getName());
+	_lightNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode(_myEntity->getName());
 	_lightNode->attachObject(_light);
 
-	// Quitar cuando tengamos inicializacion
-	setType(LightType::Point);
-	setLightDiffuse(Vector4<>(1.0, 1.0, 1.0, 1.0));
-	setCastShadows(true);
+	std::string s = mapa.at("type");
+	if(s != "") setType((Light::LightType)(std::stoi(s)));
+
+	s = mapa.at("attenuation");
+	if (s != "") {
+		std::string::size_type sz = 0, sa = 0, sb = 0;
+		float a = std::stof(s, &sz);
+		float b = std::stof(s.substr(sz + 1), &sa);
+		float c = std::stof(s.substr(sz + sa + 2), &sb);
+		float d = std::stof(s.substr(sz + sa + sb + 3));
+		setAttenuation({a, b, c, d});
+	}
+
+	bool shadows;
+	s = mapa.at("shadows");
+	if (s == "true") shadows = true;
+	else if (s == "false") shadows = false;
+	else return false;
+	setCastShadows(shadows);
+
+	s = mapa.at("diffuse");
+	if (s != "") {
+		std::string::size_type sz = 0, sa = 0, sb = 0;
+		float a = std::stof(s, &sz);
+		float b = std::stof(s.substr(sz + 1), &sa);
+		float c = std::stof(s.substr(sz + sa + 2), &sb);
+		float d = std::stof(s.substr(sz + sa + sb + 3));
+		setLightDiffuse({ a, b, c, d });
+	}
+
+	s = mapa.at("specular");
+	if (s != "") {
+		std::string::size_type sz = 0, sa = 0, sb = 0;
+		float a = std::stof(s, &sz);
+		float b = std::stof(s.substr(sz + 1), &sa);
+		float c = std::stof(s.substr(sz + sa + 2), &sb);
+		float d = std::stof(s.substr(sz + sa + sb + 3));
+		setLightSpecular({ a, b, c, d });
+	}
+
+	s = mapa.at("spotinner");
+	if(s != "") setSpotlightInnerAngle(std::stof(s));
+
+	s = mapa.at("spotouter");
+	if (s != "") setSpotlightOuterAngle(std::stof(s));
 
 	return true;
 }
