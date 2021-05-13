@@ -8,7 +8,7 @@ class Camera :
 	public Component
 {
 public:
-	enum ProjectionType { Perspective, Orthographic };
+	enum ProjectionType { Orthographic, Perspective };
 	Camera();
 	bool init(const std::map<std::string, std::string>& mapa) override;
 

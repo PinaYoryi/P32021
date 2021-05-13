@@ -36,7 +36,7 @@ bool Camera::init(const std::map<std::string, std::string>& mapa) {
 	setAspectRatio(b, std::stof(s));
 
 	s = mapa.at("fov");
-	setFOVY(std::stof(s));
+	setFOVY(Ogre::Math::DegreesToRadians(std::stof(s)));
 
 	s = mapa.at("proyection");
 	setProjectionType((Camera::ProjectionType)(std::stoi(s)));

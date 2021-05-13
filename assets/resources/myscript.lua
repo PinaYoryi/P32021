@@ -9,7 +9,7 @@ local mapa = {
         transform={
           position="0,0,0",
           rotation="0,0,0",
-          scale="20,20,20"
+          scale="1,1,1"
         },
         renderer={
           mesh="Sinbad.mesh",
@@ -28,7 +28,7 @@ local mapa = {
       id=2,
       components={
         transform={
-          position="0,0,100",
+          position="0,0,10",
           rotation="0,0,0",
           scale="1,1,1"
         },
@@ -38,7 +38,7 @@ local mapa = {
           autoaspect="true",
           aspect="1.78",
           fov="50",
-          proyection="0",
+          proyection="1",
           viewport="0,0,1,1",
           color="1.0,0.5,0.3137"
         }--,
