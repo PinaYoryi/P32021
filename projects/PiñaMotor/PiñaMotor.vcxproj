@@ -203,7 +203,7 @@ compilar.bat</Command>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\Ogre\Src\Components\RTShaderSystem\include;$(SolutionDir)dependencies\Ogre\Build\SDL2-2.0.10\include;$(SolutionDir)dependencies\Ogre\Build\include;$(SolutionDir)dependencies\Ogre\Src\OgreMain\include;$(SolutionDir)dependencies\Fmod\include;$(SolutionDir)dependencies\Bullet\src\src\;$(SolutionDir)dependencies\Bullet\build\src\;%(AdditionalIncludeDirectories);$(SolutionDir)dependencies\Lua\include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\Ogre\Src\Components\RTShaderSystem\include;$(SolutionDir)dependencies\Ogre\Build\SDL2-2.0.10\include;$(SolutionDir)dependencies\Ogre\Build\include;$(SolutionDir)dependencies\Ogre\Src\OgreMain\include;$(SolutionDir)dependencies\Fmod\include;$(SolutionDir)dependencies\Bullet\src\src\;$(SolutionDir)dependencies\Bullet\build\src\;$(SolutionDir)dependencies\Cegui\src\build\cegui\include;$(SolutionDir)dependencies\Cegui\src\cegui\include;%(AdditionalIncludeDirectories);$(SolutionDir)dependencies\Lua\include\</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -214,16 +214,16 @@ compilar.bat</Command>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\Lua\lib\;$(SolutionDir)dependencies\Ogre\Build\Dependencies\lib;$(SolutionDir)dependencies\Bullet\build\lib\Debug\;$(SolutionDir)\dependencies\Ogre\Build\lib\Debug\;$(SolutionDir)\dependencies\Fmod\lib</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
-      <Command>cd ../../dependencies
-compilar.bat</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <PostBuildEvent>
       <Command>cd ../../assets
 OgreResources.bat</Command>
     </PostBuildEvent>
     <Lib>
-      <AdditionalDependencies>lua54.lib;OgreMain_d.lib;fmodl64_vc.lib;Bullet3Collision_Debug.lib;Bullet3Common_Debug.lib;Bullet2FileLoader_Debug.lib;Bullet3Dynamics_Debug.lib;Bullet3Geometry_Debug.lib;Bullet3OpenCL_clew_Debug.lib;BulletCollision_Debug.lib;BulletDynamics_Debug.lib;BulletFIleLoader_Debug.lib;BulletInverseDynamics_Debug.lib;BulletRobotics_Debug.lib;BulletRoboticsGUI_Debug.lib;BulletSoftBody_Debug.lib;BulletWorldImporter_Debug.lib;BulletXmlWorldImporter_Debug.lib;ConvexDecomposition_Debug.lib;GIMPACTUtils_Debug.lib;HACD_Debug.lib;LinearMath_Debug.lib;SDL2.lib;SDL2main.lib;Codec_STBI_d.lib;OgreMeshLodGenerator_d.lib;OgreOverlay_d.lib;OgrePaging_d.lib;OgreProperty_d.lib;RenderSystem_Direct3D11_d.lib;Plugin_ParticleFX_d.lib;OgreRTShaderSystem_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\Lua\lib;$(SolutionDir)dependencies\Ogre\Build\Dependencies\lib;$(SolutionDir)dependencies\Bullet\build\lib\Debug;$(SolutionDir)dependencies\Ogre\Build\lib\Debug;$(SolutionDir)dependencies\Fmod\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>lua54.lib;OgreMain_d.lib;fmodl64_vc.lib;Bullet3Collision_Debug.lib;Bullet3Common_Debug.lib;Bullet2FileLoader_Debug.lib;Bullet3Dynamics_Debug.lib;Bullet3Geometry_Debug.lib;Bullet3OpenCL_clew_Debug.lib;BulletCollision_Debug.lib;BulletDynamics_Debug.lib;BulletFIleLoader_Debug.lib;BulletInverseDynamics_Debug.lib;BulletRobotics_Debug.lib;BulletRoboticsGUI_Debug.lib;BulletSoftBody_Debug.lib;BulletWorldImporter_Debug.lib;BulletXmlWorldImporter_Debug.lib;ConvexDecomposition_Debug.lib;GIMPACTUtils_Debug.lib;HACD_Debug.lib;LinearMath_Debug.lib;SDL2.lib;SDL2main.lib;Codec_STBI_d.lib;OgreMeshLodGenerator_d.lib;OgreOverlay_d.lib;OgrePaging_d.lib;OgreProperty_d.lib;RenderSystem_Direct3D11_d.lib;Plugin_ParticleFX_d.lib;OgreRTShaderSystem_d.lib;CEGUIBase-0_d.lib;CEGUICommonDialogs-0_d.lib;CEGUICoreWindowRendererSet_d.lib;CEGUIDevILImageCodec_d.lib;CEGUIExpatParser_d.lib;CEGUIFreeImageImageCodec_d.lib;CEGUIOgreRenderer-0_d.lib;CEGUISILLYImageCodec_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\Lua\lib;$(SolutionDir)dependencies\Cegui\src\build\lib;$(SolutionDir)dependencies\Ogre\Build\Dependencies\lib;$(SolutionDir)dependencies\Bullet\build\lib\Debug;$(SolutionDir)dependencies\Ogre\Build\lib\Debug;$(SolutionDir)dependencies\Fmod\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -234,7 +234,7 @@ OgreResources.bat</Command>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\Ogre\Src\Components\RTShaderSystem\include;$(SolutionDir)dependencies\Ogre\Build\SDL2-2.0.10\include;$(SolutionDir)dependencies\Ogre\Build\include;$(SolutionDir)dependencies\Ogre\Src\OgreMain\include;$(SolutionDir)dependencies\Fmod\include;$(SolutionDir)dependencies\Bullet\src\src\;$(SolutionDir)dependencies\Bullet\build\src\;$(SolutionDir)dependencies\Lua\include\;%(AdditionalIncludeDirectories);$(SolutionDir)dependencies\Lua\include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\Ogre\Src\Components\RTShaderSystem\include;$(SolutionDir)dependencies\Ogre\Build\SDL2-2.0.10\include;$(SolutionDir)dependencies\Ogre\Build\include;$(SolutionDir)dependencies\Ogre\Src\OgreMain\include;$(SolutionDir)dependencies\Fmod\include;$(SolutionDir)dependencies\Bullet\src\src\;$(SolutionDir)dependencies\Bullet\build\src\;$(SolutionDir)dependencies\Cegui\src\build\cegui\include;$(SolutionDir)dependencies\Cegui\src\cegui\include;$(SolutionDir)dependencies\Lua\include\;%(AdditionalIncludeDirectories);$(SolutionDir)dependencies\Lua\include\</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -247,16 +247,16 @@ OgreResources.bat</Command>
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\Lua\lib\;$(SolutionDir)dependencies\Ogre\Build\Dependencies\lib;$(SolutionDir)dependencies\Ogre\Build\lib\Release\;$(SolutionDir)dependencies\Bullet\build\lib\Release\;$(SolutionDir)dependencies\Fmod\lib\;$(SolutionDir)dependencies\Lua\lib\</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
-      <Command>cd ../../dependencies
-compilar.bat</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <PostBuildEvent>
       <Command>cd ../../assets
 OgreResources.bat</Command>
     </PostBuildEvent>
     <Lib>
-      <AdditionalDependencies>lua54.lib;OgreMain.lib;fmodl64_vc.lib;Bullet3Collision.lib;Bullet3Common.lib;Bullet2FileLoader.lib;Bullet3Dynamics.lib;Bullet3Geometry.lib;Bullet3OpenCL_clew.lib;BulletCollision.lib;BulletDynamics.lib;BulletFIleLoader.lib;BulletInverseDynamics.lib;BulletRobotics.lib;BulletRoboticsGUI.lib;BulletSoftBody.lib;BulletWorldImporter.lib;BulletXmlWorldImporter.lib;ConvexDecomposition.lib;GIMPACTUtils.lib;HACD.lib;LinearMath.lib;SDL2.lib;SDL2main.lib;Codec_STBI.lib;OgreMeshLodGenerator.lib;OgreOverlay.lib;OgrePaging.lib;OgreProperty.lib;RenderSystem_Direct3D11.lib;Plugin_ParticleFX.lib;OgreRTShaderSystem.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\Lua\lib;$(SolutionDir)dependencies\Ogre\Build\Dependencies\lib;$(SolutionDir)dependencies\Ogre\Build\lib\Release;$(SolutionDir)dependencies\Bullet\build\lib\Release;$(SolutionDir)dependencies\Fmod\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>lua54.lib;OgreMain.lib;fmodl64_vc.lib;Bullet3Collision.lib;Bullet3Common.lib;Bullet2FileLoader.lib;Bullet3Dynamics.lib;Bullet3Geometry.lib;Bullet3OpenCL_clew.lib;BulletCollision.lib;BulletDynamics.lib;BulletFIleLoader.lib;BulletInverseDynamics.lib;BulletRobotics.lib;BulletRoboticsGUI.lib;BulletSoftBody.lib;BulletWorldImporter.lib;BulletXmlWorldImporter.lib;ConvexDecomposition.lib;GIMPACTUtils.lib;HACD.lib;LinearMath.lib;SDL2.lib;SDL2main.lib;Codec_STBI.lib;OgreMeshLodGenerator.lib;OgreOverlay.lib;OgrePaging.lib;OgreProperty.lib;RenderSystem_Direct3D11.lib;Plugin_ParticleFX.lib;OgreRTShaderSystem.lib;CEGUIBase-0.lib;CEGUICommonDialogs-0.lib;CEGUICoreWindowRendererSet.lib;CEGUIDevILImageCodec.lib;CEGUIExpatParser.lib;CEGUIFreeImageImageCodec.lib;CEGUIOgreRenderer-0.lib;CEGUISILLYImageCodec.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)dependencies\Lua\lib;$(SolutionDir)dependencies\Cegui\src\build\lib;$(SolutionDir)dependencies\Ogre\Build\Dependencies\lib;$(SolutionDir)dependencies\Ogre\Build\lib\Release;$(SolutionDir)dependencies\Bullet\build\lib\Release;$(SolutionDir)dependencies\Fmod\lib</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
