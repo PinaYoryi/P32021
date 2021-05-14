@@ -25,7 +25,6 @@ public:
 	/// </summary>
 	static bool Init();
 
-	// TODO 
 	// Getters
 	inline btBroadphaseInterface* getBroadphase() const { return _broadphase; }
 	inline btDefaultCollisionConfiguration* getCollisionConfiguration() const { return _collisionConfiguration; }

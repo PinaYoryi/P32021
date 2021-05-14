@@ -9,7 +9,7 @@ local mapa = {
         transform={
           position="0,0,0",
           rotation="0,0,0",
-          scale="1,1,1"
+          scale="2,2,2"
         },
         renderer={
           mesh="Sinbad.mesh",
@@ -17,16 +17,12 @@ local mapa = {
           visible="true"
         },
         rigidbody={
-          shape="-1",
+          shape="0",
           mass="54",
           inertia="0,0,0",
           restitution="0.2",
           damping="0.2,0.2",
           trigger="false"
-        },
-        lifetime={
-          life="5",
-          year="2021"
         }
       }
     },
@@ -35,7 +31,7 @@ local mapa = {
       id=2,
       components={
         transform={
-          position="0,0,10",
+          position="0,-50,200",
           rotation="0,0,0",
           scale="1,1,1"
         },
@@ -70,7 +66,31 @@ local mapa = {
         spotouter=""
         }
       }
-    }
+    },
+    {
+      name="Suelo",
+      id=2,
+      components={
+        transform={
+          position="0,-100,0",
+          rotation="0,0,0",
+          scale="1,0.2,1"
+        },
+        renderer={
+          mesh="cube.mesh",
+          material="",
+          visible="true"
+        },
+        rigidbody={
+          shape="0",
+          mass="0",
+          inertia="0,0,0",
+          restitution="0.2",
+          damping="0.2,0.2",
+          trigger="false"
+        }
+      }
+    }    
   }
 }
 
