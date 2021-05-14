@@ -20,7 +20,6 @@
 #include "PlayerController.h"
 #include "AudioSource.h"
 #include "AudioListener.h"
-#include "Lifetime.h"
 
 
 SceneManager* SceneManager::_singleton = nullptr;
@@ -91,7 +90,6 @@ void SceneManager::deleteEntities(bool all) {
 
 bool SceneManager::loadScene(std::string sceneName) {
 	std::string path = ResourceManager::GetInstance()->scene(sceneName);
-    ComponentFactoryRegistrations::ComponentFactoryRegistration<Lifetime>("lifetime");
     ComponentFactoryRegistrations::ComponentFactoryRegistration<AudioListener>("audiolistener");
     ComponentFactoryRegistrations::ComponentFactoryRegistration<AudioSource>("audiosource");
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Rigidbody>("rigidbody");
