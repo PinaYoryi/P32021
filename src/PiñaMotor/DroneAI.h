@@ -4,9 +4,10 @@
 
 class DroneAI : public Component {
 public:
-	DroneAI() {};
+	DroneAI():_objective(nullptr), _strength(10){};
 	bool init(const std::map<std::string, std::string>& mapa) override;
 	void update() override;
+	void onCollisionStart(Entity* other) override;
 protected:
 private:
 	Entity* _objective;

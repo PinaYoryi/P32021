@@ -49,15 +49,15 @@ local mapa = {
           trigger="false"
         },
         basicai={
-          step="30",
+          step="150",
           threshold="15",
           thresholdRot="0.1",
-          stepRot="0.002"
-        }--,
-        --droneai={
-          --strength="5000",
-          --objective="1"
-        --}
+          stepRot="0.0002"
+        },
+        droneai={
+          strength="400",
+          objective="1"
+        }
       }
     },
     {

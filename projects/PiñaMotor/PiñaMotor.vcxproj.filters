@@ -112,10 +112,13 @@
       <Filter>Archivos de origen\Core</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\PiñaMotor\AudioSource.cpp">
-    <Filter>Archivos de origen\Componentes</Filter>
+      <Filter>Archivos de origen\Componentes</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\PiñaMotor\BasicAI.cpp">
       <Filter>Archivos de origen\Componentes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\PiñaMotor\DroneAI.cpp">
+      <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -207,10 +210,13 @@
       <Filter>Archivos de encabezado\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\PiñaMotor\AudioSource.h">
-    <Filter>Archivos de encabezado\Componentes</Filter>
+      <Filter>Archivos de encabezado\Componentes</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\PiñaMotor\BasicAI.h">
       <Filter>Archivos de encabezado\Componentes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\PiñaMotor\DroneAI.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

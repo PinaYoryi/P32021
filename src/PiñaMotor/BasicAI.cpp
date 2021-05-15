@@ -1,5 +1,7 @@
 #include "BasicAI.h"
 #include "Entity.h"
+#include "OgreMotor.h"
+#include <OgreRoot.h>
 
 bool BasicAI::init(const std::map<std::string, std::string>& mapa) {
 	if (mapa.find("step") == mapa.end() || mapa.find("threshold") == mapa.end() || mapa.find("thresholdRot") == mapa.end() || mapa.find("stepRot") == mapa.end()) return false;
@@ -21,7 +23,7 @@ bool BasicAI::init(const std::map<std::string, std::string>& mapa) {
 
 	s = mapa.at("step");
 	_step = std::stof(s);
-
+	
 	return true;
 }
 
@@ -46,14 +48,13 @@ void BasicAI::fixedUpdate() {
 			_t = 0;
 			 btTransform trans;
 			 _rigidbody->getbT()->getMotionState()->getWorldTransform(trans);
-			 _rotIni = { trans.getRotation() };
+			 _rotIni = trans.getRotation();
 		}
 		else {
 			btTransform trans;
 			_t += _velRotation;
-			_rigidbody->setRotation(Quaternion::Slerp(Quaternion::Euler(_rotObjetivo), _rotIni,_t, _threshold));
-			_rigidbody->getbT()->getMotionState()->getWorldTransform(trans);
-			btQuaternion orientation = trans.getRotation();
+			_rigidbody->setRotation(Quaternion::Slerp((_rotIni), Quaternion::Euler( _rotObjetivo),_t, _thresholdRot));
+			_rigidbody->getbT()->getMotionState()->getWorldTransform(trans);			
 		}
 	}
 }
@@ -65,5 +66,8 @@ void BasicAI::MoveTo(Vector3<> obj) {
 
 void BasicAI::RotateTo(Vector3<> obj) {
 	_rotObjetivo = obj;
+	btTransform trans;
+	_rigidbody->getbT()->getMotionState()->getWorldTransform(trans);
+	_rotIni = trans.getRotation();
 	_rotFlag = true;
 }
