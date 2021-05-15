@@ -16,7 +16,7 @@ Renderer::~Renderer()
 bool Renderer::init(const std::map<std::string, std::string>& mapa){
 	if (mapa.find("mesh") == mapa.end() || mapa.find("material") == mapa.end() || mapa.find("visible") == mapa.end()) return false;
 	
-	_ogreNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode(_myEntity->getName());
+	_ogreNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode();
 
 	std::string me = mapa.at("mesh");
 	setMesh(me);

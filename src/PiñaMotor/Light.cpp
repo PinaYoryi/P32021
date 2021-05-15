@@ -12,7 +12,7 @@ bool Light::init(const std::map<std::string, std::string>& mapa) {
 		mapa.find("specular") == mapa.end() || mapa.find("spotinner") == mapa.end() || mapa.find("spotouter") == mapa.end()) return false;
 
 	_light = OgreMotor::GetInstance()->getSceneManager()->createLight(_myEntity->getName());
-	_lightNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode(_myEntity->getName());
+	_lightNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode();
 	_lightNode->attachObject(_light);
 
 	std::string s = mapa.at("type");

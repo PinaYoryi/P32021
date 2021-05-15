@@ -94,6 +94,5 @@ bool SceneManager::loadScene(std::string sceneName) {
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Light>("light");
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform>("transform");
 	readFile(path);
-	_singleton->addEntity(Entity::instantiate("myprefab.prefab"));
 	return true;
 }
