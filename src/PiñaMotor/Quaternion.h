@@ -14,6 +14,7 @@ public:
 	Quaternion(float scalar, Vector3<float>& vector);
 	Quaternion(const Quaternion& quat);
 	Quaternion(const Matrix3& mat);
+	Quaternion(const btQuaternion& q);
 	/// <summary>
 	/// Convierte una matriz en Quaternion, actua como constructor
 	/// </summary>
@@ -28,6 +29,10 @@ public:
 	/// <param name="vector"> Vector a convertir </param>
 	/// <returns></returns>
 	static Quaternion Euler(Vector3<float> vector);
+
+	static Quaternion Lerp(Quaternion a, Quaternion b, float t);
+
+	static Quaternion Slerp(Quaternion a, Quaternion b, float t, float threshold);
 
 	/// <summary>
 	/// Devuelve el angulo entre dos Quaterniones
@@ -54,6 +59,8 @@ public:
 	/// <returns></returns>
 	Matrix3 toMatrix();
 
+	float dotProduct(const Quaternion& q);
+
 	Quaternion& operator=(const Quaternion& quat);
 	void operator+=(const Quaternion& quat);
 	Quaternion operator+(const Quaternion& quat) const;
@@ -63,6 +70,7 @@ public:
 	Quaternion operator*(const Quaternion& quat) const;
 	void operator*=(const float value);
 	Quaternion operator*(const float value) const;
+	bool operator==(const Quaternion& quat) const;
 
 #ifdef _DEBUG
 	friend std::ostream& operator<<(std::ostream& output, const Quaternion& q) {

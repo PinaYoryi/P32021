@@ -6,7 +6,7 @@
 #include "LinearMath/btDefaultMotionState.h"
 
 const int DEFAULT_COLLISION_FLAGS = 1;
-const float DEFAULT_MASS = 54.0f;
+const float DEFAULT_MASS = 10.0f;
 const float DEFAULT_RESTITUTION = 0.2f;
 const float DEFAULT_LINEAR_DAMPING = 0.2f;
 const float DEFAULT_ANGULAR_DAMPING = 0.2f;
@@ -21,7 +21,7 @@ public:
 	Rigidbody() : _btRb(nullptr), _myMotionState(nullptr), _trans(nullptr) {}
 	~Rigidbody();
 	virtual bool init(const std::map<std::string, std::string>& mapa) override;
-	virtual void update();
+	virtual void fixedUpdate() override;
 
 	/// <summary>
 	/// Crea el shape(collider) del rigidbody, si tiene renderer lo hace a partir de su tamaño y el transform
@@ -84,6 +84,9 @@ public:
 	// Define la velicidad
 	void setLinearVelocity(Vector3<float> vector);
 
+	//pone esa rotacion al transform del btRigidbody
+	void setRotation(btQuaternion rotation);
+
 	// Actualiza el transform de bullet respecto a la clase Transform
 	void updateTransform();
 
@@ -101,4 +104,5 @@ private:
 	bool _kinematic = false;
 	bool _static = false;
 	bool _collision = false;
+	int a = 90;
 };
