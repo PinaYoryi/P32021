@@ -1,0 +1,20 @@
+local prefab = { 
+    name="Sinbad2",
+    id=1,
+    components={
+        transform={
+            position="0,10,0",
+            rotation="0,0,0",
+            scale="1,1,1"
+        },
+        renderer={
+            mesh="Sinbad.mesh",
+            material="",
+            visible="true"
+        }
+    }
+}
+
+function GetPrefab()
+    return prefab
+end

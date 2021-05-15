@@ -23,10 +23,6 @@ local mapa = {
           restitution="0.2",
           damping="0.2,0.2",
           trigger="false"
-        },
-        lifetime={
-          life="5",
-          year="2021"
         }
       }
     },
@@ -35,7 +31,7 @@ local mapa = {
       id=2,
       components={
         transform={
-          position="0,0,10",
+          position="0,0,100",
           rotation="0,0,0",
           scale="1,1,1"
         },

@@ -2,6 +2,8 @@
 #include "ComponentFactory.h"
 #include <map>
 #include "SceneManager.h"
+#include "ResourceManager.h"
+#include "LuaReader.h"
 
 Entity::Entity() : _name("Entity"), _id(), _tag("Default")
 {
@@ -48,4 +50,10 @@ void Entity::render() {
 	for (auto& c : compUnique) {
 		 c->render();
 	}
+}
+
+Entity* Entity::instantiate(std::string file)
+{
+	std::string path = ResourceManager::GetInstance()->prefab(file);
+	return readPrefab(path);
 }

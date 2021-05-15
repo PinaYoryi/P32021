@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\PiñaMotor\Light.cpp" />
+    <ClCompile Include="..\..\src\PiñaMotor\LuaReader.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\OgreMotor.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Audio.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\AudioListener.cpp" />

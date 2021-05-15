@@ -4,23 +4,17 @@
 //PRUEBA
 #include "ComponentFactoryRegistration.h"
 
-#include <OgreRenderWindow.h>
-#include <OgreViewport.h>
-#include <OgreColourValue.h>
-#include <OgreLight.h>
-
 #include "Transform.h"
 #include "Renderer.h"
 #include "Animation.h"
 #include "Camera.h"
 #include "Rigidbody.h"
 #include "Light.h"
-#include "LuaReader.h"
-
 #include "PlayerController.h"
 #include "AudioSource.h"
 #include "AudioListener.h"
 
+#include "LuaReader.h"
 
 SceneManager* SceneManager::_singleton = nullptr;
 
@@ -100,5 +94,6 @@ bool SceneManager::loadScene(std::string sceneName) {
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Light>("light");
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform>("transform");
 	readFile(path);
+	_singleton->addEntity(Entity::instantiate("myprefab.prefab"));
 	return true;
 }
