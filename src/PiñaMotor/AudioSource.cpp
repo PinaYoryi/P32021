@@ -1,11 +1,14 @@
-#include "AudioSource.h"
 #include "fmod_errors.h"
-
-
+#include "AudioSource.h"
 AudioSource::AudioSource() {
+
 }
 
-bool AudioSource::init(const std::map<std::string, std::string>& mapa){
+AudioSource::~AudioSource() {
+	stopSound();
+}
+
+bool AudioSource::init(const std::map<std::string, std::string>& mapa) {
 	_system = Audio::GetInstance()->getSystemFMOD();
 	_result = Audio::GetInstance()->getResult();
 	_channel = nullptr;
@@ -53,7 +56,7 @@ void AudioSource::playSound2D(const std::string name, float volume, bool loop) {
 	}
 }
 
-void AudioSource::playSound3D(const std::string name, float volume, bool loop,Vector3<float> position,Vector3<float> velocity){
+void AudioSource::playSound3D(const std::string name, float volume, bool loop, Vector3<float> position, Vector3<float> velocity) {
 	_position = (FMOD_VECTOR)position;
 	_velocity = (FMOD_VECTOR)velocity;
 	try {
@@ -87,7 +90,7 @@ void AudioSource::playSound3D(const std::string name, float volume, bool loop,Ve
 }
 
 
-void AudioSource::stopSound(const std::string name) {
+void AudioSource::stopSound() {
 	try {
 		_result = _channel->stop();
 		errorCheck(_result);
@@ -95,7 +98,7 @@ void AudioSource::stopSound(const std::string name) {
 	catch (std::exception& e) {
 		std::cout << e.what() << std::endl;
 	}
-	delete _channel;
+	// delete _channel;
 }
 
 void AudioSource::fadeIn(){

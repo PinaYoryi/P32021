@@ -26,6 +26,13 @@ public:
 	bool addEntity(Entity* ent, bool permanent = false);
 
 	/// <summary>
+	/// Devuelve una entidad dado su id, si no la encuentra devuelve nullptr. Busca en la lista de la escena y/o en la lista de entidades permanentes
+	/// </summary>
+	/// <param name "all">Si busca entre las entidades permanentes</param>
+	/// <returns>La entidad encontrada, o nulltptr</returns>
+	Entity* getEntityByID(int id, bool all);
+
+	/// <summary>
 	/// Elimina una entidad de la lista y la destruye. Si no existe devuelve false, sino, true y la elimina.
 	/// </summary>
 	/// <param name="permanent">Se mantiene entre escenas o no</param>

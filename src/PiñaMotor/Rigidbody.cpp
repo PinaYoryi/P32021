@@ -14,20 +14,27 @@ Rigidbody::~Rigidbody() {
 }
 
 bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
+	if (mapa.find("shape") == mapa.end() || mapa.find("mass") == mapa.end() || mapa.find("inertia") == mapa.end() || mapa.find("restitution") == mapa.end() ||
+		mapa.find("damping") == mapa.end() || mapa.find("trigger") == mapa.end()) return false;
+
 	// Cogemos el puntero del componente Transform 
 	_trans = _myEntity->getComponent<Transform>();
+	if (_trans == nullptr) return false;
+
+	// Vemos si es trigger o no
+	bool t;
+	std::string s = mapa.at("trigger");
+	if (s == "true") t = true;
+	else if (s == "false") t = false;
+	else return false;
+	
+	if ((_myEntity->getComponent<Renderer>() == nullptr && !t) || ( _myEntity->getComponent<Renderer>()->getOgreEntity() == nullptr && !t))
+		return false;
 
 	// Creamos el Shape
-	if (_myEntity->getComponent<Renderer>() == nullptr) {//esto si es invisible (Ej: deathzone, meta...)
-		createShape(ShapeTypes::Box,false);		
-	}
-	else if (_myEntity->getName() == "sphere")
-		createShape(ShapeTypes::Sphere);
-	else if (_myEntity->getName() == "capsule") {
-		createShape(ShapeTypes::Capsule);
-	}
-	else
-		createShape(ShapeTypes::Box);
+	s = mapa.at("shape");
+	if (std::stof(s) == -1) createShape(ShapeTypes::Box, false);	// Si no debe tener
+	else createShape((ShapeTypes)(std::stoi(s)));	// El tipo que debe tener
 
 	// Creamos un Transform de Bullet a partir del componente Transform
 	btTransform startTransform;
@@ -37,23 +44,39 @@ bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 	_myMotionState = new btDefaultMotionState(startTransform);
 
 	// Establecemos la masa
-	float _mass = DEFAULT_MASS;
+	s = mapa.at("mass");
+	float _mass = std::stof(s);
 
 	// Por defecto no tiene inercia
-	btVector3 localInertia(0, 0, 0);
+	s = mapa.at("inertia");
+	std::string::size_type sz = 0, sa = 0;
+	float a = std::stof(s, &sz);
+	float b = std::stof(s.substr(sz + 1), &sa);
+	float c = std::stof(s.substr(sz + sa + 2));
+	btVector3 localInertia(a, b, c);
 	_btCs->calculateLocalInertia(_mass, localInertia);
 
 	btRigidBody::btRigidBodyConstructionInfo rbInfo(_mass, _myMotionState, _btCs, localInertia);
 
 	// Lo creamos a partir de la informaci�n dada
 	_btRb = new btRigidBody(rbInfo);	
-	_btRb->setRestitution(DEFAULT_RESTITUTION);
+
+	s = mapa.at("restitution");
+	_btRb->setRestitution(std::stof(s));
+
 	_btRb->setCollisionFlags(DEFAULT_COLLISION_FLAGS);
-	_btRb->setDamping(DEFAULT_LINEAR_DAMPING, DEFAULT_ANGULAR_DAMPING);
+
+	s = mapa.at("damping");
+	a = std::stof(s, &sz);
+	b = std::stof(s.substr(sz + 1));
+	_btRb->setDamping(a, b);
+
 	_btRb->setMassProps(_mass, localInertia);
-	//if (_myEntity->getComponent<Renderer>() == nullptr)//lo hacemos trigger si no tiene renderer
-		//setTrigger(true);
+
 	_btRb->setUserPointer(_myEntity);
+
+	setTrigger(t);
+
 	// Se a�ade al mundo de la simulaci�n f�sica
 	BulletInstance::GetInstance()->getWorld()->addRigidBody(_btRb);
 
@@ -74,7 +97,6 @@ void Rigidbody::updateTransform() {
 	btQuaternion orientation = trans.getRotation();
 	
 	// Modifica el componente Transform del objeto
-	std::cout << orientation.getW() << " " << orientation.getX() << " " << orientation.getY() << " " << orientation.getZ() << "\n";
 	_trans->setPosition(trans.getOrigin().getX(), trans.getOrigin().getY(), trans.getOrigin().getZ());
 	_trans->setRotation(Quaternion(orientation.getW(), orientation.getX(), orientation.getY(), orientation.getZ()));
 }

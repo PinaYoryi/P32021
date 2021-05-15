@@ -15,14 +15,11 @@
 #include "Camera.h"
 #include "Rigidbody.h"
 #include "Light.h"
-#include "AudioSource.h"
-#include "AudioListener.h"
-#include "Vector3.h"
-#include "ResourceManager.h"
-#include "Lifetime.h"
-#include "BasicAI.h"
+#include "LuaReader.h"
 
 #include "PlayerController.h"
+#include "AudioSource.h"
+#include "AudioListener.h"
 
 #include "BasicAI.h"
 #include "DroneAI.h"
@@ -49,6 +46,27 @@ bool SceneManager::addEntity(Entity* ent, bool permanent) {
 	auto it = find(vec->begin(), vec->end(), ent);
 	if (it != vec->end()) return false;
 	vec->push_back(ent); return true;
+}
+
+Entity* SceneManager::getEntityByID(int id, bool all)
+{
+	Entity* ent = nullptr;
+	auto it = _entities.begin();
+	while (ent == nullptr && it != _entities.end()) {
+		if ((*it)->getId() == id)
+			ent = *it;
+		++it;
+	}
+
+	if (all) {
+		it = _permanentEntities.begin();
+		while (ent == nullptr && it != _permanentEntities.end()) {
+			if ((*it)->getId() == id)
+				ent = *it;
+			++it;
+		}
+	}
+	return ent;
 }
 
 bool SceneManager::removeEntity(Entity* ent, bool permanent) {

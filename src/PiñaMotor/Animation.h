@@ -2,9 +2,10 @@
 #include "Component.h"
 #include "OgreMotor.h"
 
-class Animation :   public Component, public InputListener {
+class Animation : public Component, public InputListener {
 public:
 	Animation() { }
+	~Animation();
 
 	/// <summary>
 	/// Inicializa el componente con los valores pasados por parametro
@@ -50,7 +51,7 @@ public:
 
 private:
 	bool _loop = true;
-	bool _active = true;//si queremos que no se anime
+	bool _playing = true;//si queremos que no se anime
 	Ogre::Entity* _ogreEnt = nullptr;
 	std::vector< Ogre::AnimationState*> _myAnimations;//las animaciones que tienes activas
 };
