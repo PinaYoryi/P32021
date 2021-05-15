@@ -97,7 +97,6 @@ void Rigidbody::updateTransform() {
 	btQuaternion orientation = trans.getRotation();
 	
 	// Modifica el componente Transform del objeto
-	std::cout << orientation.getW() << " " << orientation.getX() << " " << orientation.getY() << " " << orientation.getZ() << "\n";
 	_trans->setPosition(trans.getOrigin().getX(), trans.getOrigin().getY(), trans.getOrigin().getZ());
 	_trans->setRotation(Quaternion(orientation.getW(), orientation.getX(), orientation.getY(), orientation.getZ()));
 }
