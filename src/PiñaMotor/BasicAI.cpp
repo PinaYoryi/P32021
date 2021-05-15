@@ -2,24 +2,25 @@
 #include "Entity.h"
 
 bool BasicAI::init(const std::map<std::string, std::string>& mapa) {
-	// Checks de lua
+	if (mapa.find("step") == mapa.end() || mapa.find("threshold") == mapa.end() || mapa.find("thresholdRot") == mapa.end() || mapa.find("stepRot") == mapa.end()) return false;
 
 	_transform = getEntity()->getComponent<Transform>();
 
 	_rigidbody = getEntity()->getComponent<Rigidbody>();
 
-	_posObjetivo = Vector3<>(-50, 4.96, 0);
+	_moveFlag = _rotFlag = false;
 
-	_rotObjetivo = Vector3<>(0, 90, 0);
+	std::string s = mapa.at("threshold");
+	_threshold = std::stof(s);
 
-	_moveFlag = _rotFlag = true;
+	s = mapa.at("thresholdRot");
+	_thresholdRot = std::stof(s);
 
-	_threshold = 15;
+	s = mapa.at("stepRot");
+	_velRotation = std::stof(s);
 
-	_thresholdRot = 0.1f;
-	_velRotation = 0.002f;
-
-	_step = 30;
+	s = mapa.at("step");
+	_step = std::stof(s);
 
 	return true;
 }

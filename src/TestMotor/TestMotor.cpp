@@ -17,7 +17,7 @@ WinMain(HINSTANCE zhInstance, HINSTANCE prevInstance, LPSTR lpCmdLine, int nCmdS
     PinaMotor motor;
     motor.init("Test");
 
-    motor.launch("escena");
+    motor.launch("aitest.lua");
 
     motor.close();
 }
