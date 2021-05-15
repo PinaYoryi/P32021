@@ -29,7 +29,7 @@ void BasicAI::fixedUpdate() {
 	if (_moveFlag) { 
 		if ((_posObjetivo - _transform->position()).magnitude() < _threshold) {
 			_moveFlag = false;
-			_rigidbody->setLinearVelocity(Vector3<>(0, 0, 0));
+			_rigidbody->setLinearVelocity(Vector3<>(0, 0, 0)); 
 		}
 		else {
 			Vector3<> direction = (_posObjetivo - _transform->position()).normalized();
