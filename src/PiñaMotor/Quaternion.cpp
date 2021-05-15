@@ -154,7 +154,7 @@ Matrix3 Quaternion::toMatrix()
 Vector3<> Quaternion::toVector()
 {
 	Vector3<> v = { 0,0,-1 };
-	return this * v;
+	return *this * v;
 }
 
 float Quaternion::dotProduct(const Quaternion& q)
