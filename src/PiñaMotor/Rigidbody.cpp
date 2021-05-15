@@ -83,7 +83,7 @@ bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 	return true;
 }
 
-void Rigidbody::update() {
+void Rigidbody::fixedUpdate() {
 	if (_trans != nullptr && _active && !_static)
 		updateTransform();
 }
@@ -93,8 +93,11 @@ void Rigidbody::updateTransform() {
 	_btRb->setActivationState(ACTIVE_TAG);
 	btTransform trans;
 	_btRb->getMotionState()->getWorldTransform(trans);
+
 	btQuaternion orientation = trans.getRotation();
+	
 	// Modifica el componente Transform del objeto
+	std::cout << orientation.getW() << " " << orientation.getX() << " " << orientation.getY() << " " << orientation.getZ() << "\n";
 	_trans->setPosition(trans.getOrigin().getX(), trans.getOrigin().getY(), trans.getOrigin().getZ());
 	_trans->setRotation(Quaternion(orientation.getW(), orientation.getX(), orientation.getY(), orientation.getZ()));
 }
@@ -207,6 +210,16 @@ void Rigidbody::setLinearVelocity(Vector3<float> vector) {
 		return;
 
 	_btRb->setLinearVelocity(vector);
+}
+
+void Rigidbody::setRotation(btQuaternion rotation)
+{
+	btTransform trans;
+	_btRb->getMotionState()->getWorldTransform(trans);
+	trans.setRotation(rotation);
+	_btRb->setWorldTransform(trans);
+	_btRb->getMotionState()->setWorldTransform(trans);
+	
 }
 
 void Rigidbody::setMass(float mass, const btVector3& inertia) {
