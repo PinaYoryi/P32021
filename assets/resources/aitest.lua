@@ -27,6 +27,41 @@ local mapa = {
         }
       }
     },
+    { 
+      name="Drone",
+      id=5,
+      components={
+        transform={
+          position="0,40,0",
+          rotation="0,90,0",
+          scale="1,1,1"
+        },
+        renderer={
+          mesh="Sinbad.mesh",
+          material="",
+          visible="true"
+        },
+        rigidbody={
+          shape="0",
+          mass="54",
+          inertia="0,0,0",
+          restitution="0.2",
+          damping="0.2,0.2",
+          trigger="false",
+          kinematic ="true"
+        },
+        basicai={
+          step="150",
+          threshold="0.5",
+          thresholdRot="0.1",
+          stepRot="0.0002"
+        },
+        droneai={
+          strength="400",
+          objective="1"
+        }
+      }
+    },
     {
       name="Camera",
       id=2,
@@ -75,7 +110,7 @@ local mapa = {
         transform={
           position="0,-100,0",
           rotation="0,0,0",
-          scale="1,0.2,1"
+          scale="3,0.2,3"
         },
         renderer={
           mesh="cube.mesh",

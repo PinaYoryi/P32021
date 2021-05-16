@@ -25,6 +25,9 @@ public:
 	/// Marca el flag para rotar y pone la rotacion con la que debe acabar
 	/// </summary>
 	void RotateTo(Vector3<> obj);
+
+	void setStep(float step) { _step = step; }
+	void setStepRot(float velRotation) { _velRotation = velRotation; }
 protected:
 	Transform* _transform;	
 	Rigidbody* _rigidbody;

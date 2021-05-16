@@ -15,21 +15,26 @@ Rigidbody::~Rigidbody() {
 
 bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 	if (mapa.find("shape") == mapa.end() || mapa.find("mass") == mapa.end() || mapa.find("inertia") == mapa.end() || mapa.find("restitution") == mapa.end() ||
-		mapa.find("damping") == mapa.end() || mapa.find("trigger") == mapa.end()) return false;
+		mapa.find("damping") == mapa.end() || mapa.find("trigger") == mapa.end() || mapa.find("kinematic") == mapa.end()) return false;
 
 	// Cogemos el puntero del componente Transform 
 	_trans = _myEntity->getComponent<Transform>();
 	if (_trans == nullptr) return false;
 
 	// Vemos si es trigger o no
-	bool t;
+	bool trigger,kinematic;
 	std::string s = mapa.at("trigger");
-	if (s == "true") t = true;
-	else if (s == "false") t = false;
+	if (s == "true") trigger = true;
+	else if (s == "false") trigger = false;
 	else return false;
 	
-	if ((_myEntity->getComponent<Renderer>() == nullptr && !t) || ( _myEntity->getComponent<Renderer>()->getOgreEntity() == nullptr && !t))
+	if ((_myEntity->getComponent<Renderer>() == nullptr && !trigger) || ( _myEntity->getComponent<Renderer>()->getOgreEntity() == nullptr && !trigger))
 		return false;
+
+	s = mapa.at("kinematic");
+	if (s == "true") kinematic = true;
+	else if (s == "false") kinematic = false;
+	else return false;
 
 	// Creamos el Shape
 	s = mapa.at("shape");
@@ -75,8 +80,8 @@ bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 
 	_btRb->setUserPointer(_myEntity);
 
-	setTrigger(t);
-
+	setTrigger(trigger);
+	setKinematic(kinematic);
 	// Se a�ade al mundo de la simulaci�n f�sica
 	BulletInstance::GetInstance()->getWorld()->addRigidBody(_btRb);
 
@@ -219,6 +224,15 @@ void Rigidbody::setRotation(btQuaternion rotation)
 	_btRb->setWorldTransform(trans);
 	_btRb->getMotionState()->setWorldTransform(trans);
 	
+}
+
+void Rigidbody::setPosition(Vector3<> pos)
+{
+	btTransform trans;
+	_btRb->getMotionState()->getWorldTransform(trans);
+	trans.setOrigin(pos);
+	_btRb->setWorldTransform(trans);
+	_btRb->getMotionState()->setWorldTransform(trans);
 }
 
 void Rigidbody::setMass(float mass, const btVector3& inertia) {

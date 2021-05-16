@@ -10,7 +10,6 @@
 #include "Camera.h"
 #include "Rigidbody.h"
 #include "Light.h"
-#include "PlayerController.h"
 #include "AudioSource.h"
 #include "AudioListener.h"
 
@@ -87,7 +86,6 @@ bool SceneManager::loadScene(std::string sceneName) {
     ComponentFactoryRegistrations::ComponentFactoryRegistration<AudioListener>("audiolistener");
     ComponentFactoryRegistrations::ComponentFactoryRegistration<AudioSource>("audiosource");
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Rigidbody>("rigidbody");
-    ComponentFactoryRegistrations::ComponentFactoryRegistration<PlayerController>("playercontroller");
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Animation>("animation");
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Camera>("camera");
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Renderer>("renderer");

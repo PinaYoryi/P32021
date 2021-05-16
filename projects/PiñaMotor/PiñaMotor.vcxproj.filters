@@ -42,9 +42,6 @@
     <ClCompile Include="..\..\src\PiñaMotor\SceneManager.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\PiñaMotor\PlayerController.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\PiñaMotor\Animation.cpp">
       <Filter>Archivos de origen\Componentes</Filter>
     </ClCompile>
@@ -112,7 +109,7 @@
       <Filter>Archivos de origen\Core</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\PiñaMotor\AudioSource.cpp">
-    <Filter>Archivos de origen\Componentes</Filter>
+      <Filter>Archivos de origen\Componentes</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\PiñaMotor\BasicAI.cpp">
       <Filter>Archivos de origen\Componentes</Filter>
@@ -123,9 +120,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\PiñaMotor\SceneManager.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\PiñaMotor\PlayerController.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\PiñaMotor\Animation.h">
@@ -210,7 +204,7 @@
       <Filter>Archivos de encabezado\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\PiñaMotor\AudioSource.h">
-    <Filter>Archivos de encabezado\Componentes</Filter>
+      <Filter>Archivos de encabezado\Componentes</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\PiñaMotor\BasicAI.h">
       <Filter>Archivos de encabezado\Componentes</Filter>
