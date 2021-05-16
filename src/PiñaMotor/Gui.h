@@ -4,6 +4,7 @@
 #include <CEGUI/RendererModules/Ogre/Renderer.h>
 #include <Ogre.h>
 #include <iostream>
+#include <glm/glm.hpp>
 
 class Gui : public Ogre::FrameListener {
 
@@ -23,6 +24,19 @@ public:
 	/// </summary>
 	static bool Init();
 
+
+	CEGUI::Window* createButton(const std::string& text, glm::vec2 position, glm::vec2 size, const std::string& name);
+
+	CEGUI::Window* createSlider(glm::vec2 position, glm::vec2 size, const std::string& name);
+
+	CEGUI::Window* createLabel(const std::string& text, glm::vec2 position, glm::vec2 size, const std::string& name = "");
+
+	CEGUI::Window* createImage(const std::string& image, glm::vec2 position, glm::vec2 size, const std::string& name = "");
+
+	void loadScheme(const std::string& schemeName, const std::string& schemeFile);
+
+	void setWidgetDestRect(CEGUI::Window* widget, const glm::vec2 position, const glm::vec2 size);
+
 private:
 	/// <summary>
 	/// Crea el Frame Listener para que pinte
@@ -33,9 +47,11 @@ private:
 	/// Reescalado de la ventana de Cegui
 	/// </summary>
 	void windowResized(Ogre::RenderWindow* w);
-	
+
 	// Instancia de la clase
 	static Gui* _guiInstance;
+
+	std::string _scheme;
 
 	// Render de la ventana
 	Ogre::RenderWindow* _mWindow = nullptr;
