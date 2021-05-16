@@ -12,6 +12,7 @@
 #include "Light.h"
 #include "AudioSource.h"
 #include "AudioListener.h"
+#include "BasicAI.h"
 
 #include "LuaReader.h"
 
@@ -90,7 +91,8 @@ bool SceneManager::loadScene(std::string sceneName) {
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Camera>("camera");
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Renderer>("renderer");
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Light>("light");
-    ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform>("transform");
+	ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform>("transform");
+	ComponentFactoryRegistrations::ComponentFactoryRegistration<BasicAI>("basicai");
 	readFile(path);
 	return true;
 }
