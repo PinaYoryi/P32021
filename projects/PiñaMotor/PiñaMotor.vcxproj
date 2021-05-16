@@ -20,8 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\PiñaMotor\BasicAI.cpp" />
-    <ClCompile Include="..\..\src\PiñaMotor\DroneAI.cpp" />
-    <ClCompile Include="..\..\src\PiñaMotor\FlyingAI.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Light.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\LuaReader.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\OgreMotor.cpp" />
@@ -39,7 +37,6 @@
     <ClCompile Include="..\..\src\PiñaMotor\Input.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\MotorLoop.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\PinaMotor.cpp" />
-    <ClCompile Include="..\..\src\PiñaMotor\PlayerController.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Quaternion.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Renderer.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Rigidbody.cpp" />
@@ -50,8 +47,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\PiñaMotor\BasicAI.h" />
-    <ClInclude Include="..\..\src\PiñaMotor\DroneAI.h" />
-    <ClInclude Include="..\..\src\PiñaMotor\FlyingAI.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Light.h" />
     <ClInclude Include="..\..\src\PiñaMotor\LuaReader.h" />
     <ClInclude Include="..\..\src\PiñaMotor\OgreMotor.h" />
@@ -67,7 +62,6 @@
     <ClInclude Include="..\..\src\PiñaMotor\Matrix3.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Matrix4.h" />
     <ClInclude Include="..\..\src\PiñaMotor\PinaMotor.h" />
-    <ClInclude Include="..\..\src\PiñaMotor\PlayerController.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Quaternion.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Renderer.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Input.h" />

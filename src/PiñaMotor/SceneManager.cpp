@@ -10,12 +10,8 @@
 #include "Camera.h"
 #include "Rigidbody.h"
 #include "Light.h"
-#include "PlayerController.h"
 #include "AudioSource.h"
 #include "AudioListener.h"
-
-#include "BasicAI.h"
-#include "DroneAI.h"
 
 #include "LuaReader.h"
 
@@ -90,14 +86,11 @@ bool SceneManager::loadScene(std::string sceneName) {
     ComponentFactoryRegistrations::ComponentFactoryRegistration<AudioListener>("audiolistener");
     ComponentFactoryRegistrations::ComponentFactoryRegistration<AudioSource>("audiosource");
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Rigidbody>("rigidbody");
-    ComponentFactoryRegistrations::ComponentFactoryRegistration<PlayerController>("playercontroller");
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Animation>("animation");
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Camera>("camera");
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Renderer>("renderer");
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Light>("light");
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform>("transform");
-    ComponentFactoryRegistrations::ComponentFactoryRegistration<BasicAI>("basicai");
-    ComponentFactoryRegistrations::ComponentFactoryRegistration<DroneAI>("droneai");
 	readFile(path);
 	return true;
 }
