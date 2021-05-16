@@ -17,7 +17,8 @@ bool Lifetime::init(const std::map<std::string, std::string>& mapa) {
 	return true;
 }
 
-void Lifetime::update(){
+void Lifetime::update() {
+
 	if (!_startedYet) {
 		_startedYet = true;
 
@@ -30,8 +31,8 @@ void Lifetime::update(){
 
 		_currentTime = difftime(timer, mktime(&dosmilveintiuno)) - _startTime;	// Diferencia entre _startTime y el actual
 
-		if (_currentTime >= _endTime)	// Si debe morir
-		{
+		if (_currentTime >= _endTime){	// Si debe morir
+		
 			SceneManager::GetInstance()->addEntityToRemove(_myEntity);
 		}
 	}
