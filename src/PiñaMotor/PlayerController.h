@@ -1,5 +1,6 @@
 #pragma once
 #include "Transform.h"
+#include "Rigidbody.h"
 
 class PlayerController : public Component {
 public:
@@ -18,11 +19,24 @@ public:
 	void update() override;
 
 	/// <summary>
+	/// Movimientos físicos del jugador
+	/// </summary>
+	void fixedUpdate() override;
+
+	/// <summary>
 	/// Fija la sensibilidad del movimiento de la camara
 	/// </summary>
 	void setSensibility(float sen) { _sensibility = sen; }
 
+	/// <summary>
+	/// Fija la velocidad de movimiento del jugador
+	/// </summary>
+	void setSpeed(float speed) { _speed = speed; }
+
 protected:
 	Transform* _trans;
+	Rigidbody* _rigidbody;
 	float _pitch, _yaw, _sensibility;
+	float _speed;
+	bool _inMenu;
 };

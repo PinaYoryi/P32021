@@ -33,8 +33,6 @@ bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 	if (std::stof(s) >= 0 && ((_myEntity->getComponent<Renderer>() == nullptr && !t) || ( _myEntity->getComponent<Renderer>()->getOgreEntity() == nullptr && !t)))
 		return false;
 
-	// Creamos el Shape
-	s = mapa.at("shape");
 	if (std::stof(s) == -1) createShape(ShapeTypes::Box, false);	// Si no debe tener
 	else createShape((ShapeTypes)(std::stoi(s)));	// El tipo que debe tener
 

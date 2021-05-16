@@ -34,7 +34,7 @@ void BasicAI::fixedUpdate() {
 		else {
 			Vector3<> direction = (_posObjetivo - _transform->position()).normalized();
 			direction *= _step;
-			_rigidbody->addForce(direction, Vector3<>(0, 0, 0));
+			_rigidbody->addForce(direction);
 		}
 	}
 	// Rotaci�n

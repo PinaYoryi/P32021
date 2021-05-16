@@ -4,44 +4,73 @@
 #include "OgreMotor.h"
 #include <OgreRenderWindow.h>
 
-PlayerController::PlayerController() : _trans(nullptr), _sensibility(0), _pitch(0), _yaw(0) {
+PlayerController::PlayerController() : _trans(nullptr), _rigidbody(nullptr), _sensibility(0), _pitch(0), _yaw(0), _speed(0), _inMenu(false) {
 }
 
 bool PlayerController::init(const std::map<std::string, std::string>& mapa) {
 	//TODO: rellenar init con los valores del mapa
 	//El try es necesario para que no explote la aplicacion si no hay camara que usar
-	if (!_myEntity->hasComponent<Transform>()) {
-#if (defined _DEBUG)
-		std::cout << "Fallo al iniciar el componente PlayerController\n";
-#endif
-		return false;
-	}
 	_trans = _myEntity->getComponent<Transform>();
+	_rigidbody = _myEntity->getComponent<Rigidbody>();
 	_pitch = _yaw = 0;
 	_sensibility = 1.0f;
-
+	_speed = 250.0f;
+	_inMenu = false;
 	return true;
 }
 
 void PlayerController::update() {
-	if (Input::GetInstance()->keyDown(SDL_SCANCODE_ESCAPE)) _active = !_active;
+	if (Input::GetInstance()->keyDown(SDL_SCANCODE_ESCAPE)) _inMenu = !_inMenu;
 	if (!_active) return;
-	Ogre::RenderWindow* win = OgreMotor::GetInstance()->getRenderWindow();
-	Vector2<int> center(win->getWidth() / 2, win->getHeight() / 2);
-	Vector2<int> dir = Input::GetInstance()->getMousePos() - center;
+	if (!_inMenu) {
+		Ogre::RenderWindow* win = OgreMotor::GetInstance()->getRenderWindow();
+		Vector2<int> center(win->getWidth() / 2, win->getHeight() / 2);
+		Vector2<int> dir = Input::GetInstance()->getMousePos() - center;
 
-	_pitch -= dir.y * _sensibility;
-	if (_pitch > 90) _pitch = 90;
-	else if (_pitch < -90) _pitch = -90;
+		_pitch -= dir.y * _sensibility;
+		if (_pitch > 90) _pitch = 90;
+		else if (_pitch < -90) _pitch = -90;
 
-	_yaw -= dir.x * _sensibility;
-	if (_yaw >= 180) _yaw -= 360;
-	else if (_yaw < -180) _yaw += 360;
+		_yaw -= dir.x * _sensibility;
+		if (_yaw >= 180) _yaw -= 360;
+		else if (_yaw < -180) _yaw += 360;
 
-#if (defined _DEBUG)
-	std::cout << _yaw << " " << _pitch << "\n";
-#endif
+		_trans->setLocalRotation(Quaternion::Euler({ _pitch, _yaw, 0 }));
+		Input::GetInstance()->setMousePos(center);
+	}
+}
 
-	_trans->setLocalRotation(Quaternion::Euler({ _pitch, _yaw, 0 }));
-	Input::GetInstance()->setMousePos(center);
+void PlayerController::fixedUpdate() {
+	bool input = false;
+	float rotation = 0;
+	std::cout <<"rot: " << _trans->rotation().toEuler() << "\n";
+	if (Input::GetInstance()->keyHold(SDL_SCANCODE_W)) {
+		input = true;
+	}
+	else if (Input::GetInstance()->keyHold(SDL_SCANCODE_A)) {
+		rotation = 90;
+		input = true;
+	}
+	else if (Input::GetInstance()->keyHold(SDL_SCANCODE_S)) {
+		rotation = 180;
+		input = true;
+	}
+	else if (Input::GetInstance()->keyHold(SDL_SCANCODE_D)) {
+		rotation = 270;
+		input = true;
+	}
+
+	if (input) {
+		Vector3<> dir; /*= _trans->rotation()
+			.toVector()
+			.rotate(rotation, {0,1,0}/*_rigidbody->getGravity());*/
+		Vector3<> ang =_trans->rotation().toEuler();
+		ang *= M_PI_2 / 180; // A radianes
+		dir = { -cos(ang.y) * sin(ang.x) * sin(ang.z) - sin(ang.y) * cos(ang.z),
+			-sin(ang.y) * sin(ang.x) * sin(ang.z) + cos(ang.y) * cos(ang.z),
+			cos(ang.x) * sin(ang.z) };
+		dir = dir.rotate(rotation, _rigidbody->getGravity());
+		std::cout << "dir: " << dir << "\n";
+		_rigidbody->addForce(dir * _speed);
+	}
 }
