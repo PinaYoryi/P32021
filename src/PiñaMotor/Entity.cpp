@@ -5,6 +5,9 @@
 #include "ResourceManager.h"
 #include "LuaReader.h"
 #include "SceneManager.h"
+#include "Vector3.h"
+#include "Quaternion.h"
+#include "Transform.h"
 
 Entity::Entity() : _name("Entity"), _id(), _tag("Default")
 {
@@ -53,10 +56,12 @@ void Entity::render() {
 	}
 }
 
-Entity* Entity::instantiate(std::string file)
+Entity* Entity::instantiate(std::string file, Vector3<> position, Quaternion rotation)
 {
 	std::string path = ResourceManager::GetInstance()->prefab(file);
 	Entity* ent = readPrefab(path);
+	ent->getComponent<Transform>()->setPosition(position);
+	ent->getComponent<Transform>()->setRotation(rotation);
 	SceneManager::GetInstance()->addEntity(ent);
 	return ent;
 }

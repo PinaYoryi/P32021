@@ -3,6 +3,8 @@
 #include "ecs.h"
 #include "ComponentFactory.h"
 #include <map>
+#include "Vector3.h"
+#include "Quaternion.h"
 using namespace std;
 
 class Entity {
@@ -68,7 +70,7 @@ public:
 
 	std::vector<unique_ptr<Component>>* getComponents() { return &compUnique; }
 	
-	static Entity* instantiate(std::string file);
+	static Entity* instantiate(std::string file, Vector3<> position = Vector3<>::zero(), Quaternion rotation = Quaternion());
 
 private:
 	std::string _name;
