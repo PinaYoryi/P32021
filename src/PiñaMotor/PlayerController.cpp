@@ -43,34 +43,29 @@ void PlayerController::update() {
 void PlayerController::fixedUpdate() {
 	bool input = false;
 	float rotation = 0;
-	std::cout <<"rot: " << _trans->rotation().toEuler() << "\n";
 	if (Input::GetInstance()->keyHold(SDL_SCANCODE_W)) {
+		std::cout << "W: ";
+		rotation = 180;
 		input = true;
 	}
 	else if (Input::GetInstance()->keyHold(SDL_SCANCODE_A)) {
+		std::cout << "A: ";
 		rotation = 90;
 		input = true;
 	}
 	else if (Input::GetInstance()->keyHold(SDL_SCANCODE_S)) {
-		rotation = 180;
+		std::cout << "S: ";
 		input = true;
 	}
 	else if (Input::GetInstance()->keyHold(SDL_SCANCODE_D)) {
+		std::cout << "D: ";
 		rotation = 270;
 		input = true;
 	}
 
 	if (input) {
-		Vector3<> dir; /*= _trans->rotation()
-			.toVector()
-			.rotate(rotation, {0,1,0}/*_rigidbody->getGravity());*/
-		Vector3<> ang =_trans->rotation().toEuler();
-		ang *= M_PI_2 / 180; // A radianes
-		dir = { -cos(ang.y) * sin(ang.x) * sin(ang.z) - sin(ang.y) * cos(ang.z),
-			-sin(ang.y) * sin(ang.x) * sin(ang.z) + cos(ang.y) * cos(ang.z),
-			cos(ang.x) * sin(ang.z) };
+		Vector3<> dir = _trans->rotation().toVector();
 		dir = dir.rotate(rotation, _rigidbody->getGravity());
-		std::cout << "dir: " << dir << "\n";
 		_rigidbody->addForce(dir * _speed);
 	}
 }

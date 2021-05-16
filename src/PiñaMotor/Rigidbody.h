@@ -60,9 +60,11 @@ public:
 	// Devuelve la velicidad
 	Vector3<float> getLinearVelocity();
 
+	Vector3<> getGravity() { return _gravity; }
+
 	// SETTERS
 	// Aplica la fuerza en la posicion relativa
-	void addForce(Vector3<float> force, bool local = false, Vector3<float> relativePos = { 0, 0, 0 });
+	void addForce(Vector3<float> force, Vector3<float> relativePos = { 0, 0, 0 });
 
 	// Determina la friccion aplicada
 	void setFriction(float friction) {
@@ -105,4 +107,5 @@ private:
 	bool _static = false;
 	bool _collision = false;
 	int a = 90;
+	Vector3<> _gravity;
 };

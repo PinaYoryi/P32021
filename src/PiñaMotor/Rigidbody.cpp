@@ -145,8 +145,6 @@ void Rigidbody::createShape(ShapeTypes type, bool renderer) {
 }
 
 void Rigidbody::addForce(Vector3<float> force, Vector3<float> relativePos) {
-	if (!_active)
-		return;
 
 	//para que si lleva un tiempo quieto, deje de estar dormido y reaccione a las fuerzas
 	_btRb->setActivationState(ACTIVE_TAG);
