@@ -4,7 +4,7 @@
 #include <CEGUI/CEGUI.h>
 #include <CEGUI/Window.h>
 
-
+//sssssssssssssssssssss
 bool ButtonComponent::init(const std::map<std::string, std::string>& mapa) {
 	//if (mapa.find("position") == mapa.end() || mapa.find("rotation") == mapa.end() || mapa.find("scale") == mapa.end()) return false;
 	//std::string::size_type sz = 0, sa = 0;
@@ -19,12 +19,3 @@ bool ButtonComponent::init(const std::map<std::string, std::string>& mapa) {
 	return true;
 }
 
-
-ButtonComponent::~ButtonComponent() {
-	_windowC = nullptr;
-}
-
-CEGUI::Window* ButtonComponent::create(const std::string& text, const glm::vec2 position, const glm::vec2 size, const std::string& name) {
-    _windowC = Gui::GetInstance()->createButton(text, position, size, name);
-    return _windowC;
-}
