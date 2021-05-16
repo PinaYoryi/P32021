@@ -69,7 +69,7 @@ local mapa = {
     },
     {
       name="Suelo",
-      id=2,
+      id=4,
       components={
         transform={
           position="0,-100,0",

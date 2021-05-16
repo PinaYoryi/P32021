@@ -32,14 +32,20 @@ public:
 	std::string audio(std::string name);
 
 	/// <summary>
-	/// Devuelve la direcci�n de la audio con el nombre name.
+	/// Devuelve la direcci�n del audio con el nombre name.
 	/// Si no lanza excepci�n.
 	/// </summary>
 	std::string scene(std::string name);
 
+	/// <summary>
+	/// Devuelve la direccion del prefab con el nombre name
+	/// Si no lanza excepcion
+	/// </summary>
+	std::string prefab(std::string name);
+
 protected:
 	static ResourceManager* _singleton;
-	std::map<std::string, std::string> _audio, _textures, _scenes;
+	std::map<std::string, std::string> _audio, _textures, _scenes, _prefabs;
 
 	//Diccionarios que relacionan nombres usables de resources con sus direcciones.
 

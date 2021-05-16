@@ -4,19 +4,12 @@
 //PRUEBA
 #include "ComponentFactoryRegistration.h"
 
-#include <OgreRenderWindow.h>
-#include <OgreViewport.h>
-#include <OgreColourValue.h>
-#include <OgreLight.h>
-
 #include "Transform.h"
 #include "Renderer.h"
 #include "Animation.h"
 #include "Camera.h"
 #include "Rigidbody.h"
 #include "Light.h"
-#include "LuaReader.h"
-
 #include "PlayerController.h"
 #include "AudioSource.h"
 #include "AudioListener.h"
@@ -24,6 +17,7 @@
 #include "BasicAI.h"
 #include "DroneAI.h"
 
+#include "LuaReader.h"
 
 SceneManager* SceneManager::_singleton = nullptr;
 

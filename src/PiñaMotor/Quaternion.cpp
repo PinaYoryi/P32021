@@ -57,7 +57,7 @@ Quaternion Quaternion::Slerp(Quaternion a, Quaternion b, float t, float threshol
 	if (t <= 0) return a;
 	else if (t >= 1) return b;
 	float angle = a.dotProduct(b);
-	
+
 	// Aseguro la rotacion mas corta
 	if (angle < 0.0f) {
 		a *= -1.0f;
@@ -151,6 +151,12 @@ Matrix3 Quaternion::toMatrix()
 	return m;
 }
 
+Vector3<> Quaternion::toVector()
+{
+	Vector3<> v = { 0,0,-1 };
+	return *this * v;
+}
+
 float Quaternion::dotProduct(const Quaternion& q)
 {
 	return(v.x * q.v.x) + (v.y * q.v.y) + (v.z * q.v.z) + (s * q.s);
@@ -233,6 +239,16 @@ void Quaternion::operator*=(const float value) {
 Quaternion Quaternion::operator*(const float value) const {
 	Vector3<float> vec = v * value;
 	return { s * value, vec };
+}
+
+Vector3<> Quaternion::operator*(const Vector3<> value) const
+{
+	Vector3<> v1, v2;
+	v1 = v.crossProduct(value);
+	v2 = v.crossProduct(v1);
+	v1 *= (2.0f * s);
+	v2 *= 2.0f;
+	return v1 + v2 + v;
 }
 
 bool Quaternion::operator==(const Quaternion& value) const {

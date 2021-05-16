@@ -1,0 +1,28 @@
+local prefab = { 
+    name="Sinbad",
+    id=1,
+    components={
+        transform={
+            position="0,10,0",
+            rotation="0,0,0",
+            scale="1,1,1"
+        },
+        renderer={
+            mesh="Sinbad.mesh",
+            material="",
+            visible="true"
+        },
+        rigidbody={
+          shape="0",
+          mass="54",
+          inertia="0,0,0",
+          restitution="0.2",
+          damping="0.2,0.2",
+          trigger="false"
+        }
+    }
+}
+
+function GetPrefab()
+    return prefab
+end

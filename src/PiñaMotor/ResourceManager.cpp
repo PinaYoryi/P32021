@@ -34,6 +34,13 @@ std::string ResourceManager::scene(std::string name) {
 	return it->second;
 }
 
+std::string ResourceManager::prefab(std::string name)
+{
+	auto it = _prefabs.find(name);
+	if (it == _prefabs.end()) throw "Non-existant prefab has been called: " + name;
+	return it->second;
+}
+
 void ResourceManager::searchDir(std::filesystem::path path) {
 	for (const auto& entry : std::filesystem::directory_iterator(path)) {
 		size_t lastindex = entry.path().string().find_last_of(".");
@@ -53,4 +60,6 @@ void ResourceManager::loadAsset(std::filesystem::path path, size_t end, size_t p
 		_textures.insert(std::pair<std::string, std::string>(name, path.string()));
 	else if (extension == ".lua")
 		_scenes.insert(std::pair<std::string, std::string>(name, path.string()));
+	else if (extension == ".prefab")
+		_prefabs.insert(std::pair<std::string, std::string>(name, path.string()));
 }

@@ -58,6 +58,11 @@ public:
 	/// </summary>
 	/// <returns></returns>
 	Matrix3 toMatrix();
+	/// <summary>
+	///	Convierte el Quaternion en un vector unitario que apunta en su direccion.
+	/// </summary>
+	/// <returns></returns>
+	Vector3<> toVector();
 
 	float dotProduct(const Quaternion& q);
 
@@ -70,7 +75,10 @@ public:
 	Quaternion operator*(const Quaternion& quat) const;
 	void operator*=(const float value);
 	Quaternion operator*(const float value) const;
+	void operator*=(const Vector3<> value);
+	Vector3<> operator*(const Vector3<> value) const;
 	bool operator==(const Quaternion& quat) const;
+
 
 #ifdef _DEBUG
 	friend std::ostream& operator<<(std::ostream& output, const Quaternion& q) {

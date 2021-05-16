@@ -68,6 +68,8 @@ public:
 
 	std::vector<unique_ptr<Component>>* getComponents() { return &compUnique; }
 	
+	static Entity* instantiate(std::string file);
+
 private:
 	std::string _name;
 

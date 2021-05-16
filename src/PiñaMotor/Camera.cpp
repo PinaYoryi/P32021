@@ -16,7 +16,7 @@ bool Camera::init(const std::map<std::string, std::string>& mapa) {
 		mapa.find("fov") == mapa.end() || mapa.find("proyection") == mapa.end() || mapa.find("viewport") == mapa.end() || mapa.find("color") == mapa.end()) return false;
 
 	_cam = OgreMotor::GetInstance()->getSceneManager()->createCamera(_myEntity->getName());
-	_camNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode(_myEntity->getName());
+	_camNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode();
 	_viewport = OgreMotor::GetInstance()->getRenderWindow()->addViewport(_cam);
 	_camNode->attachObject(_cam);
 
