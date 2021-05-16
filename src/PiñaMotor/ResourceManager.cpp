@@ -8,7 +8,8 @@ ResourceManager* ResourceManager::GetInstance() {
 
 ResourceManager* ResourceManager::Init() {
 	if (_singleton == nullptr) _singleton = new ResourceManager();
-	_singleton->searchDir(RESOURCES_PATH);
+	if (std::filesystem::exists(MOTOR_RESOURCES_PATH)) _singleton->searchDir(MOTOR_RESOURCES_PATH);
+	if (std::filesystem::exists(GAME_RESOURCES_PATH)) _singleton->searchDir(GAME_RESOURCES_PATH);
 	return _singleton;
 }
 
