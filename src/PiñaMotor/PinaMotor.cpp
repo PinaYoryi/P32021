@@ -23,6 +23,7 @@ bool PinaMotor::init(std::string windowName) {
 
 bool PinaMotor::launch(std::string sceneName) {
     try {
+        SceneManager::GetInstance()->loadComponents();
         SceneManager::GetInstance()->loadScene(sceneName);
         MotorLoop::GetInstance()->startLoop();
     }

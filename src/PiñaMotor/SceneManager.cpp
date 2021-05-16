@@ -39,6 +39,26 @@ bool SceneManager::addEntity(Entity* ent, bool permanent) {
 	vec->push_back(ent); return true;
 }
 
+bool SceneManager::loadComponents()
+{
+	try {
+		ComponentFactoryRegistrations::ComponentFactoryRegistration<AudioListener>("audiolistener");
+		ComponentFactoryRegistrations::ComponentFactoryRegistration<AudioSource>("audiosource");
+		ComponentFactoryRegistrations::ComponentFactoryRegistration<Rigidbody>("rigidbody");
+		ComponentFactoryRegistrations::ComponentFactoryRegistration<Animation>("animation");
+		ComponentFactoryRegistrations::ComponentFactoryRegistration<Camera>("camera");
+		ComponentFactoryRegistrations::ComponentFactoryRegistration<Renderer>("renderer");
+		ComponentFactoryRegistrations::ComponentFactoryRegistration<Light>("light");
+		ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform>("transform");
+		ComponentFactoryRegistrations::ComponentFactoryRegistration<BasicAI>("basicai");
+	}
+	catch (...) {
+
+		return false;
+	}
+	return true;
+}
+
 Entity* SceneManager::getEntityByID(int id, bool all)
 {
 	Entity* ent = nullptr;
@@ -82,17 +102,10 @@ void SceneManager::deleteEntities(bool all) {
     if (all) for (Entity* p : _permanentEntities) delete p;
 }
 
-bool SceneManager::loadScene(std::string sceneName) {
+bool SceneManager::loadScene(std::string sceneName,bool all ) {
+	deleteEntities(all);
 	std::string path = ResourceManager::GetInstance()->scene(sceneName);
-    ComponentFactoryRegistrations::ComponentFactoryRegistration<AudioListener>("audiolistener");
-    ComponentFactoryRegistrations::ComponentFactoryRegistration<AudioSource>("audiosource");
-    ComponentFactoryRegistrations::ComponentFactoryRegistration<Rigidbody>("rigidbody");
-    ComponentFactoryRegistrations::ComponentFactoryRegistration<Animation>("animation");
-    ComponentFactoryRegistrations::ComponentFactoryRegistration<Camera>("camera");
-    ComponentFactoryRegistrations::ComponentFactoryRegistration<Renderer>("renderer");
-    ComponentFactoryRegistrations::ComponentFactoryRegistration<Light>("light");
-	ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform>("transform");
-	ComponentFactoryRegistrations::ComponentFactoryRegistration<BasicAI>("basicai");
+   
 	readFile(path);
 	return true;
 }

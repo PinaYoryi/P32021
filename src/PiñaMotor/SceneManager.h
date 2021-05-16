@@ -26,6 +26,12 @@ public:
 	bool addEntity(Entity* ent, bool permanent = false);
 
 	/// <summary>
+	/// Añade una entidad a la lista. Si existe devuelve false, sino, true y la añade.
+	/// </summary>
+	/// <param name="permanent">Se mantiene entre escenas o no</param>
+	bool loadComponents();
+
+	/// <summary>
 	/// Devuelve una entidad dado su id, si no la encuentra devuelve nullptr. Busca en la lista de la escena y/o en la lista de entidades permanentes
 	/// </summary>
 	/// <param name "all">Si busca entre las entidades permanentes</param>
@@ -43,7 +49,7 @@ public:
 	/// </summary>
 	std::vector<Entity*> getEntities();
 
-	bool loadScene(std::string sceneName);
+	bool loadScene(std::string sceneName, bool all = false);
 
 	/// <summary>
 	/// Elimina las entidades en las listas.
