@@ -45,21 +45,21 @@ void PlayerController::fixedUpdate() {
 	float rotation = 0;
 	if (Input::GetInstance()->keyHold(SDL_SCANCODE_W)) {
 		std::cout << "W: ";
-		rotation = 180;
 		input = true;
 	}
 	else if (Input::GetInstance()->keyHold(SDL_SCANCODE_A)) {
 		std::cout << "A: ";
-		rotation = 90;
+		rotation = 270;
 		input = true;
 	}
 	else if (Input::GetInstance()->keyHold(SDL_SCANCODE_S)) {
 		std::cout << "S: ";
+		rotation = 180;
 		input = true;
 	}
 	else if (Input::GetInstance()->keyHold(SDL_SCANCODE_D)) {
 		std::cout << "D: ";
-		rotation = 270;
+		rotation = 90;
 		input = true;
 	}
 

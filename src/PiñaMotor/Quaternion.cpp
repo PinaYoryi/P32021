@@ -154,7 +154,7 @@ Matrix3 Quaternion::toMatrix()
 Vector3<> Quaternion::toVector()
 {
 	Matrix3 ang = toMatrix();
-	return { ang.getColumn(2).x, ang.getColumn(2).y, ang.getColumn(2).z };;
+	return { -ang.getColumn(2).x, -ang.getColumn(2).y, -ang.getColumn(2).z };;
 }
 
 float Quaternion::dotProduct(const Quaternion& q)
