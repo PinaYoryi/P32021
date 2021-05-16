@@ -22,7 +22,8 @@ local mapa = {
           inertia="0,0,0",
           restitution="0.2",
           damping="0.2,0.2",
-          trigger="false"
+          trigger="false",
+          kinematic ="false"
         }
       }
     },
@@ -87,7 +88,8 @@ local mapa = {
           inertia="0,0,0",
           restitution="0.2",
           damping="0.2,0.2",
-          trigger="false"
+          trigger="false",
+          kinematic ="false"
         }
       }
     }    

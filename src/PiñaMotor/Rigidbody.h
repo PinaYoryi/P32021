@@ -87,6 +87,9 @@ public:
 	//pone esa rotacion al transform del btRigidbody
 	void setRotation(btQuaternion rotation);
 
+	//pone esa posicion al transform del btRigidbody
+	void setPosition(Vector3<> pos);
+
 	// Actualiza el transform de bullet respecto a la clase Transform
 	void updateTransform();
 

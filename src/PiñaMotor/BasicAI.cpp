@@ -32,12 +32,20 @@ void BasicAI::fixedUpdate() {
 	if (_moveFlag) { 
 		if ((_posObjetivo - _transform->position()).magnitude() < _threshold) {
 			_moveFlag = false;
-			_rigidbody->setLinearVelocity(Vector3<>(0, 0, 0)); 
+			if(!_rigidbody->isKinematic())
+				_rigidbody->setLinearVelocity(Vector3<>(0, 0, 0)); 
+			
 		}
 		else {
 			Vector3<> direction = (_posObjetivo - _transform->position()).normalized();
-			direction *= _step;
-			_rigidbody->addForce(direction, Vector3<>(0, 0, 0));
+			if (!_rigidbody->isKinematic()) {
+				direction *= _step;
+				_rigidbody->addForce(direction, Vector3<>(0, 0, 0));
+			}
+			else {
+				_rigidbody->setPosition(_transform->position() + direction / 3);
+				//va muy rapido, por eso lo divido entre 3
+			}
 		}
 	}
 	// Rotación

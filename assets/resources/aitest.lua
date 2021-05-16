@@ -22,7 +22,8 @@ local mapa = {
           inertia="0,0,0",
           restitution="0.2",
           damping="0.2,0.2",
-          trigger="false"
+          trigger="false",
+          kinematic ="false"
         }
       }
     },
@@ -31,9 +32,9 @@ local mapa = {
       id=5,
       components={
         transform={
-          position="100,0,0",
+          position="0,40,0",
           rotation="0,90,0",
-          scale="2,2,2"
+          scale="1,1,1"
         },
         renderer={
           mesh="Sinbad.mesh",
@@ -46,11 +47,12 @@ local mapa = {
           inertia="0,0,0",
           restitution="0.2",
           damping="0.2,0.2",
-          trigger="false"
+          trigger="false",
+          kinematic ="true"
         },
         basicai={
           step="150",
-          threshold="15",
+          threshold="0.5",
           thresholdRot="0.1",
           stepRot="0.0002"
         },
@@ -121,7 +123,8 @@ local mapa = {
           inertia="0,0,0",
           restitution="0.2",
           damping="0.2,0.2",
-          trigger="false"
+          trigger="false",
+          kinematic ="false"
         }
       }
     }    
