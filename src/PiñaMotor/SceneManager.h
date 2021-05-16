@@ -47,9 +47,19 @@ public:
 	/// <summary>
 	/// Devuelve una lista con todas las entidades creadas.
 	/// </summary>
-	std::vector<Entity*> getEntities();
+	std::vector<Entity*> getEntities(bool all=true);
 
 	bool loadScene(std::string sceneName, bool all = false);
+
+	/// <summary>
+	/// Pausa las entidades no permanentes
+	/// </summary>
+	void pauseScene();
+
+	/// <summary>
+	/// Reanuda las entidades pausadas, las no pausadas las elimina
+	/// </summary>
+	void continueScene();
 
 	/// <summary>
 	/// Elimina las entidades en las listas.
@@ -57,13 +67,13 @@ public:
 	/// <param name="all">True para eliminar tambien las permanentes, false para lo contrario</param>
 	void deleteEntities(bool all = false);
 
-	void addEntityToRemove(Entity * ent) { _entitysToRemove.push_back(ent); }
-	std::vector<Entity*> getEntitysToRemove() {	return _entitysToRemove;}
+	void addEntityToRemove(Entity * ent) { _entitiesToRemove.push_back(ent); }
+	std::vector<Entity*> getEntitysToRemove() {	return _entitiesToRemove;}
 protected:
 	static SceneManager* _singleton;
 
 	std::vector<Entity*> _entities;
 	std::vector<Entity*> _permanentEntities;
-	std::vector<Entity*> _entitysToRemove;
+	std::vector<Entity*> _entitiesToRemove;
 	SceneManager() {};
 };

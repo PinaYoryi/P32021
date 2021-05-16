@@ -9,12 +9,12 @@
 #include "Quaternion.h"
 #include "Transform.h"
 
-Entity::Entity() : _name("Entity"), _id(), _tag("Default")
+Entity::Entity() : _name("Entity"), _id(), _tag("Default"), _paused(false)
 {
-	
+
 }
 
-Entity::Entity(std::string entityName, int id, std::string entityTag) : _name(entityName), _tag(entityTag), _id(id)
+Entity::Entity(std::string entityName, int id, std::string entityTag) : _name(entityName), _tag(entityTag), _id(id), _paused(false)
 {
 }
 
@@ -52,7 +52,7 @@ void Entity::fixedUpdate() {
 
 void Entity::render() {
 	for (auto& c : compUnique) {
-		 c->render();
+		c->render();
 	}
 }
 

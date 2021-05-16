@@ -89,16 +89,16 @@ bool SceneManager::removeEntity(Entity* ent, bool permanent) {
 	vec->erase(it);
 }
 
-std::vector<Entity*> SceneManager::getEntities() {
+std::vector<Entity*> SceneManager::getEntities(bool all) {
 	std::vector<Entity*> list;
 	list.reserve(_entities.size() + _permanentEntities.size());
 	list.insert(list.end(), _entities.begin(), _entities.end());
-	list.insert(list.end(), _permanentEntities.begin(), _permanentEntities.end());
+	if (all) list.insert(list.end(), _permanentEntities.begin(), _permanentEntities.end());
 	return list;
 }
 
 void SceneManager::deleteEntities(bool all) {
-    for (Entity* e : _entities) delete e;
+    for (Entity* e : _entities)	if (all || !e->isPaused()) delete e;
     if (all) for (Entity* p : _permanentEntities) delete p;
 }
 
@@ -108,4 +108,19 @@ bool SceneManager::loadScene(std::string sceneName,bool all ) {
    
 	readFile(path);
 	return true;
+}
+
+void SceneManager::pauseScene()
+{
+	for (Entity* e : _entities)	e->setPaused(true);
+}
+
+void SceneManager::continueScene()
+{
+	for (Entity* e : _entities) {
+		if (e->isPaused())
+			e->setPaused(false);
+		else
+			delete e;
+	}
 }

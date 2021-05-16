@@ -57,6 +57,9 @@ public:
 
 	const std::string getName() { return _name; }
 	const std::string getTag() { return _tag; }
+	const bool isPaused() { return _paused; }
+
+	void setPaused(bool paused) { _paused = paused; }
 
 	int getId() { return _id; }
 
@@ -76,6 +79,8 @@ private:
 	std::string _name;
 
 	int _id;
+	//si la entidad esta pausada
+	bool _paused;
 
 	std::string _tag;
 
