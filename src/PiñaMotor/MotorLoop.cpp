@@ -42,7 +42,8 @@ void MotorLoop::stepInput() {
 
 void MotorLoop::stepUpdate(std::vector<Entity*> ent) {
     for (Entity* e : ent)
-        e->update();
+		if(!e->isPaused())
+			e->update();
 	std::vector<Entity*> ents = SceneManager::GetInstance()->getEntitysToRemove();
 	for (Entity* e : ents)
 		SceneManager::GetInstance()->removeEntity(e);
@@ -53,7 +54,8 @@ void MotorLoop::stepFixedUpdate(std::vector<Entity*> ent) {
 	updateTime();
 	while (_accumulatedTime > FIXED_UPDATE_TIME) {
 		for (Entity* e : ent)
-			e->fixedUpdate();
+			if (!e->isPaused())
+				e->fixedUpdate();
         BulletInstance::GetInstance()->update();
 		Audio::GetInstance()->update();
 		_accumulatedTime -= FIXED_UPDATE_TIME;
@@ -62,7 +64,8 @@ void MotorLoop::stepFixedUpdate(std::vector<Entity*> ent) {
 
 void MotorLoop::stepRender(std::vector<Entity*> ent) {
     for (Entity* e : ent)
-        e->render();
+		if (!e->isPaused())
+			e->render();
 }
 
 void MotorLoop::updateTime() {
