@@ -31,6 +31,7 @@ public:
 	inline btCollisionDispatcher* getDispatcher() const { return _dispatcher; }
 	inline btSequentialImpulseConstraintSolver* getSolver() const { return _solver; }
 	inline btDiscreteDynamicsWorld* getWorld() const { return _world; }
+	inline Vector3<float> getGravity() { return _gravity; }
 
 	// Setters
 	inline void setBroadphase(btBroadphaseInterface* newBroadphase) { _broadphase = newBroadphase; }
@@ -38,6 +39,7 @@ public:
 	inline void setDispatcher(btCollisionDispatcher* newDispatcher) { _dispatcher = newDispatcher; }
 	inline void setSolver(btSequentialImpulseConstraintSolver* newSolver) { _solver = newSolver; }
 	inline void setWorld(btDiscreteDynamicsWorld* newWorld) { _world = newWorld; }
+	inline void setGravity(Vector3<float> grav) { _gravity = grav; _world->setGravity(_gravity); }
 
 	void removeCollisionEntity(Entity* ent);
 
@@ -61,6 +63,8 @@ private:
 	btCollisionDispatcher* _dispatcher = nullptr;
 	btSequentialImpulseConstraintSolver* _solver = nullptr;
 	btDiscreteDynamicsWorld* _world = nullptr;
+
+	Vector3<float> _gravity;
 
 	//vector donde guardamos un pair con dos entidades, que representa una colision del frame anterior
 	std::vector<std::pair<Entity*,Entity*>> _collisions;

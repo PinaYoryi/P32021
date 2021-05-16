@@ -153,7 +153,7 @@ Matrix3 Quaternion::toMatrix()
 
 Vector3<> Quaternion::toVector()
 {
-	Vector3<> v = { 0,0,-1 };
+	Vector3<> v = { 1,0,0 };
 	return *this * v;
 }
 

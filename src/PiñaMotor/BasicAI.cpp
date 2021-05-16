@@ -37,7 +37,7 @@ void BasicAI::fixedUpdate() {
 			_rigidbody->addForce(direction, Vector3<>(0, 0, 0));
 		}
 	}
-	// Rotación
+	// Rotaciï¿½n
 	if (_rotFlag) {
 
 		if (_t>=1) {

@@ -28,7 +28,9 @@ bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 	else if (s == "false") t = false;
 	else return false;
 	
-	if ((_myEntity->getComponent<Renderer>() == nullptr && !t) || ( _myEntity->getComponent<Renderer>()->getOgreEntity() == nullptr && !t))
+	// Creamos el Shape
+	s = mapa.at("shape");
+	if (std::stof(s) >= 0 && ((_myEntity->getComponent<Renderer>() == nullptr && !t) || ( _myEntity->getComponent<Renderer>()->getOgreEntity() == nullptr && !t)))
 		return false;
 
 	// Creamos el Shape
@@ -79,6 +81,7 @@ bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 
 	// Se a�ade al mundo de la simulaci�n f�sica
 	BulletInstance::GetInstance()->getWorld()->addRigidBody(_btRb);
+	setGravity(BulletInstance::GetInstance()->getGravity());
 
 	return true;
 }
@@ -146,6 +149,7 @@ void Rigidbody::createShape(ShapeTypes type, bool renderer) {
 void Rigidbody::addForce(Vector3<float> force, Vector3<float> relativePos) {
 	if (!_active)
 		return;
+
 	//para que si lleva un tiempo quieto, deje de estar dormido y reaccione a las fuerzas
 	_btRb->setActivationState(ACTIVE_TAG);
 	if (relativePos == Vector3<float>(0.0f, 0.0f, 0.0f))
@@ -166,6 +170,7 @@ Vector3<float> Rigidbody::getLinearVelocity() {
 void Rigidbody::setGravity(Vector3<float> gravity) {
 	if (!_active)
 		return;
+	_gravity = gravity;
 	_btRb->setGravity(gravity);
 }
 

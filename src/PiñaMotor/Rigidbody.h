@@ -24,7 +24,7 @@ public:
 	virtual void fixedUpdate() override;
 
 	/// <summary>
-	/// Crea el shape(collider) del rigidbody, si tiene renderer lo hace a partir de su tamaño y el transform
+	/// Crea el shape(collider) del rigidbody, si tiene renderer lo hace a partir de su tamaï¿½o y el transform
 	/// si no lo tiene lo hace solo usando el transform
 	/// </summary>
 	void createShape(ShapeTypes type, bool renderer=true);
@@ -62,7 +62,7 @@ public:
 
 	// SETTERS
 	// Aplica la fuerza en la posicion relativa
-	void addForce(Vector3<float> force, Vector3<float> relativePos = { 0, 0, 0 });
+	void addForce(Vector3<float> force, bool local = false, Vector3<float> relativePos = { 0, 0, 0 });
 
 	// Determina la friccion aplicada
 	void setFriction(float friction) {
