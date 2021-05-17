@@ -1,5 +1,10 @@
 #include "Gui.h"
 #include "OgreMotor.h"
+#include "SDL_events.h"
+#include <CEGUI/CEGUI.h>
+#include <CEGUI/MouseCursor.h>
+#include <CEGUI/RendererModules/Ogre/Renderer.h>
+#include <iostream>
 
 Gui::Gui() {
 	_mRenderer = &CEGUI::OgreRenderer::bootstrapSystem(*OgreMotor::GetInstance()->getRoot()->getRenderTarget(""));
@@ -7,15 +12,16 @@ Gui::Gui() {
 	_mWindow = OgreMotor::GetInstance()->getRenderWindow();
 	_mContext = &CEGUI::System::getSingleton().getDefaultGUIContext();
 
-	CEGUI::ImageManager::setImagesetDefaultResourceGroup("NombreCarpetaImagenes");
-	CEGUI::Font::setDefaultResourceGroup("NombreCarpetaFuentes");
-	CEGUI::Scheme::setDefaultResourceGroup("NombreCarpetaEsquemas");
-	CEGUI::WidgetLookManager::setDefaultResourceGroup("NombreCarpetaWidget");
-	CEGUI::WindowManager::setDefaultResourceGroup("NombreCarpetaLayouts");
+	CEGUI::ImageManager::setImagesetDefaultResourceGroup("Imagesets");
+	CEGUI::AnimationManager::setDefaultResourceGroup("Animations");
+	CEGUI::Font::setDefaultResourceGroup("Fonts");
+	CEGUI::Scheme::setDefaultResourceGroup("Schemes");
+	CEGUI::WidgetLookManager::setDefaultResourceGroup("Looknfeel");
+	CEGUI::WindowManager::setDefaultResourceGroup("Layouts");
 
 	_mWindowManager = &CEGUI::WindowManager::getSingleton();
-	_sheet = _mWindowManager->createWindow("DefaultWindow", "CEGUIDemo/Sheet");
-	CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(_sheet);
+	_ceguiWindow = _mWindowManager->createWindow("DefaultWindow", "PinaYoryiGUI");
+	CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(_ceguiWindow);
 
 	createFrameListener();
 }
@@ -23,6 +29,31 @@ Gui::Gui() {
 bool Gui::Init() {
 	if (_guiInstance != nullptr) return false;
 	_guiInstance = new Gui();
+}
+
+void Gui::captureInput(const SDL_Event& event) {
+	if (event.type == SDL_MOUSEBUTTONDOWN) {
+		if (event.button.button == SDL_BUTTON_LEFT)
+			_mContext->injectMouseButtonDown(CEGUI::LeftButton);
+		else if (event.button.button == SDL_BUTTON_RIGHT)
+			_mContext->injectMouseButtonDown(CEGUI::RightButton);
+
+	}
+	else if (event.type == SDL_MOUSEBUTTONUP) {
+		if (event.button.button == SDL_BUTTON_LEFT)
+			_mContext->injectMouseButtonUp(CEGUI::LeftButton);
+		else if (event.button.button == SDL_BUTTON_RIGHT)
+			_mContext->injectMouseButtonUp(CEGUI::RightButton);
+
+	}
+	else if (event.type == SDL_MOUSEMOTION) {
+		_mContext->injectMousePosition((event.motion.x), (event.motion.y));
+
+	}
+	else if (event.window.event == SDL_WINDOWEVENT_MAXIMIZED ||
+		event.window.event == SDL_WINDOWEVENT_RESIZED ||
+		event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
+		windowResized(_mWindow);
 }
 
 CEGUI::Window* Gui::createButton(const std::string& text,
@@ -33,7 +64,7 @@ CEGUI::Window* Gui::createButton(const std::string& text,
 
 	setWidgetDestRect(button, position, size);
 	button->setText(text);
-	_sheet->addChild(button);
+	_ceguiWindow->addChild(button);
 
 	return button;
 }
@@ -44,7 +75,7 @@ CEGUI::Window* Gui::createSlider(glm::vec2 position, glm::vec2 size,
 	setWidgetDestRect(slider, position, size);
 	slider->setRotation(CEGUI::Quaternion(1, 0, 0, 0.71));
 	slider->setName(name);
-	_sheet->addChild(slider);
+	_ceguiWindow->addChild(slider);
 
 	return slider;
 }
@@ -60,7 +91,7 @@ CEGUI::Window* Gui::createLabel(const std::string& text,
 	label->setProperty("FrameEnabled", "false");
 	label->setProperty("BackgroundEnabled", "false");
 
-	_sheet->addChild(label);
+	_ceguiWindow->addChild(label);
 
 	return label;
 }
@@ -75,11 +106,10 @@ CEGUI::Window* Gui::createImage(const std::string& image,
 	staticImage->setProperty("BackgroundEnabled", "false");
 	staticImage->setProperty("Image", image);
 
-	_sheet->addChild(staticImage);
+	_ceguiWindow->addChild(staticImage);
 
 	return staticImage;
 }
-
 
 void Gui::createFrameListener() {
 	auto windowHnd = 0;
@@ -98,7 +128,6 @@ void Gui::windowResized(Ogre::RenderWindow* w) {
 	CEGUI::System::getSingleton().notifyDisplaySizeChanged(newSize);
 }
 
-
 void Gui::loadScheme(const std::string& schemeName, const std::string& schemeFile) {
 	_scheme = schemeName;
 	CEGUI::SchemeManager::getSingleton().createFromFile(schemeFile);
@@ -109,4 +138,24 @@ void Gui::setWidgetDestRect(CEGUI::Window* widget, const glm::vec2 position, con
 		CEGUI::UDim(position.y, 0)));
 	widget->setSize(
 		CEGUI::USize(CEGUI::UDim(0, size.x), CEGUI::UDim(0, size.y)));
+}
+
+void Gui::setFont(const std::string& fontFile) {
+	CEGUI::FontManager::getSingleton().createFromFile(fontFile + ".font");
+	_mContext->setDefaultFont(fontFile);
+
+	_mContext->getDefaultFont()->setAutoScaled(CEGUI::AutoScaledMode::ASM_Disabled);
+}
+
+void Gui::setMouseImage(const std::string& imageFile) {
+	CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setDefaultImage(imageFile);
+
+	CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setImage(imageFile);
+}
+
+void Gui::setMouseVisibility(bool b) {
+	if (b)
+		CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().show();
+	else
+		CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().hide();
 }

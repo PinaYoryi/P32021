@@ -1,17 +1,20 @@
 #pragma once
-#include <CEGUI/CEGUI.h>
-#include <CEGUI/MouseCursor.h>
-#include <CEGUI/RendererModules/Ogre/Renderer.h>
 #include <Ogre.h>
-#include <iostream>
 #include <glm/glm.hpp>
 
+class SDL_Events;
+
+namespace CEGUI {
+	class GUIContext;
+	class Window;
+	class WindowManager;
+	class OgreRenderer;
+	class System;
+}
+
 class Gui : public Ogre::FrameListener {
-
 public:
-
 	Gui();
-
 	~Gui();
 
 	/// <summary>
@@ -24,6 +27,7 @@ public:
 	/// </summary>
 	static bool Init();
 
+	void captureInput(const SDL_Event& event);
 
 	CEGUI::Window* createButton(const std::string& text, glm::vec2 position, glm::vec2 size, const std::string& name);
 
@@ -36,6 +40,12 @@ public:
 	void loadScheme(const std::string& schemeName, const std::string& schemeFile);
 
 	void setWidgetDestRect(CEGUI::Window* widget, const glm::vec2 position, const glm::vec2 size);
+
+	void setFont(const std::string& fontFile);
+
+	void setMouseImage(const std::string& imageFile);
+
+	void setMouseVisibility(bool b);
 
 private:
 	/// <summary>
@@ -66,7 +76,7 @@ private:
 	CEGUI::GUIContext* _mContext = nullptr;
 
 	// Ventana de la aplicacion usada por Cegui
-	CEGUI::Window* _sheet = nullptr;
+	CEGUI::Window* _ceguiWindow = nullptr;
 
 	// Gestor de la ventana
 	CEGUI::WindowManager* _mWindowManager = nullptr;

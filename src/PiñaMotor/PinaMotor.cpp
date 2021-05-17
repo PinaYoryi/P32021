@@ -6,6 +6,7 @@
 #include "Audio.h"
 #include "ResourceManager.h"
 #include "Input.h"
+#include "Gui.h"
 
 bool PinaMotor::init(std::string windowName) {
     try {
@@ -16,6 +17,15 @@ bool PinaMotor::init(std::string windowName) {
         MotorLoop::Init();
         ResourceManager::Init();
         Input::Init();
+        Gui::Init();
+        Gui* gui = Gui::GetInstance();
+
+        //Hay que pasar por parametro de init el nombre de loadScheme, imagen y visibilidad del raton
+        //De momento estan puestos para prueba
+        gui->loadScheme("VanillaSkin", "VanillaSkin.scheme");
+        gui->setFont("RichStyle.ttf");
+        gui->setMouseImage("VanillaSkin/MouseArrow");
+        gui->setMouseVisibility(true);
     }
     catch (...) { return false; }
     return true;

@@ -18,7 +18,6 @@ bool ButtonComponent::init(const std::map<std::string, std::string>& mapa) {
 	return true;
 }
 
-
 ButtonComponent::~ButtonComponent() {
 	_windowC = nullptr;
 }
