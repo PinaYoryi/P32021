@@ -52,7 +52,8 @@ public:
 	void deleteEntities(bool all = false);
 
 	void addEntityToRemove(Entity * ent) { _entitysToRemove.push_back(ent); }
-	std::vector<Entity*> getEntitysToRemove() {	return _entitysToRemove;}
+	std::vector<Entity*> getEntitysToRemove() {	return _entitysToRemove; }
+
 protected:
 	static SceneManager* _singleton;
 

@@ -75,7 +75,12 @@ local mapa = {
     	name="Boton",
     	id=4,
     	components={
-    		
+    		text="Salir",
+    		position="0.5,0.1",
+    		size="0.2,0.1",
+    		name="botonSalir",
+    		type="EXIT",
+    		nextScene=""
     	}
     }
   }
