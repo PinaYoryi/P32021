@@ -15,6 +15,7 @@
 #include "Camera.h"
 #include "Rigidbody.h"
 #include "Light.h"
+#include "ButtonComponent.h"
 #include "LuaReader.h"
 
 #include "PlayerController.h"
@@ -101,6 +102,7 @@ bool SceneManager::loadScene(std::string sceneName) {
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Renderer>("renderer");
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Light>("light");
     ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform>("transform");
+    ComponentFactoryRegistrations::ComponentFactoryRegistration<ButtonComponent>("button");
 	readFile(path);
 	return true;
 }

@@ -2,7 +2,7 @@
 #include <Ogre.h>
 #include <glm/glm.hpp>
 
-class SDL_Events;
+class SDL_Event;
 
 namespace CEGUI {
 	class GUIContext;

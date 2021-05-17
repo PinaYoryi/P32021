@@ -3,37 +3,39 @@
 #include <string>
 #include <glm/glm.hpp>
 
-/// <summary>
-/// espacio de nombres para hacer llamada al puntero del atributo de la clase GUI
-/// </summary>
+// Espacio de nombres para hacer llamada al puntero del atributo de la clase GUI
 namespace CEGUI {
     class Window;
 }
 
 class ButtonComponent: public Component {
 public:
+	// Tipos de botones, sirven para gestionar la accion del boton al hacerle click
+	enum ButtonType {
+		CHANGE_SCENE = 0,
+		EXIT = 1
+	};
+
 	ButtonComponent() {};
 	~ButtonComponent();
 
 	/// <summary>
-	///	Inicializa un botón default en caso de fallo 
+	///	Inicializa el boton leyendo el archivo de lua
 	/// </summary>
 	bool init(const std::map<std::string, std::string>& mapa) override;
+
 	/// <summary>
 	/// Método abstracto para gestionar el input del button
 	/// </summary>
-	virtual void onClick() {};
+	virtual void onClick();
 
 protected:
-	/// <summary>
-	/// Método para crear el botón
-	/// </summary>
-	CEGUI::Window* create(const std::string& text, const glm::vec2 position, const glm::vec2 size, const std::string& name);
-
-	//atributo propio de la clase
-    CEGUI::Window* _windowC;
-	glm::vec2 _position;
-	glm::vec2 _size;
-	std::string _name;
-	std::string _text;
+	// Atributos propios de la clase
+    CEGUI::Window* _button;
+	ButtonType _buttonType = ButtonType::CHANGE_SCENE;
+	glm::vec2 _position = glm::vec2(0.0, 0.0);
+	glm::vec2 _size = glm::vec2(0.0, 0.0);
+	std::string _name = "";
+	std::string _text = "";
+	std::string _nextScene = "myscript.lua";
 };

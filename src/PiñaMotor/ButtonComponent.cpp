@@ -1,12 +1,13 @@
 #include "ButtonComponent.h"
 #include "Entity.h"
 #include "Gui.h"
+#include "MotorLoop.h"
 #include <CEGUI/CEGUI.h>
 #include <CEGUI/Window.h>
 
 bool ButtonComponent::init(const std::map<std::string, std::string>& mapa) {
-	if (mapa.find("text") == mapa.end() || mapa.find("position") == mapa.end() ||
-		mapa.find("size") == mapa.end() || mapa.find("name") == mapa.end()) return false;
+	if (mapa.find("text") == mapa.end() || mapa.find("position") == mapa.end() || mapa.find("size") == mapa.end() ||
+		mapa.find("name") == mapa.end() || mapa.find("type") == mapa.end() || mapa.find("nextScene") == mapa.end()) return false;
 
 	std::string t = mapa.at("text");
 
@@ -22,16 +23,33 @@ bool ButtonComponent::init(const std::map<std::string, std::string>& mapa) {
 
 	std::string n = mapa.at("name");
 
-	create(t, glm::vec2(a, b), glm::vec2(x, y), n);
+	_button = Gui::GetInstance()->createButton(t, glm::vec2(a, b), glm::vec2(x, y), n);
+	_button->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&ButtonComponent::onClick, this));
+
+	std::string ty = mapa.at("type");
+	if (ty == "EXIT")
+		_buttonType = ButtonType::EXIT;
+	else {
+		_buttonType = ButtonType::CHANGE_SCENE;
+		std::string nS = mapa.at("nextScene");
+		_nextScene = nS;
+	}
 
 	return true;
 }
 
-ButtonComponent::~ButtonComponent() {
-	_windowC = nullptr;
+void ButtonComponent::onClick() {
+	switch (_buttonType) {
+	case ButtonType::CHANGE_SCENE:
+		SceneManager::GetInstance()->loadScene(_nextScene);
+		break;
+	case ButtonType::EXIT:
+		MotorLoop::GetInstance()->stopLoop();
+		break;
+	}
 }
 
-CEGUI::Window* ButtonComponent::create(const std::string& text, const glm::vec2 position, const glm::vec2 size, const std::string& name) {
-	_windowC = Gui::GetInstance()->createButton(text, position, size, name);
-	return _windowC;
+ButtonComponent::~ButtonComponent() {
+	CEGUI::WindowManager::getSingleton().destroyWindow(_button);
+	setActive(false);
 }
