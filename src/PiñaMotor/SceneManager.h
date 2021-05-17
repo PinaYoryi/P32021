@@ -23,7 +23,13 @@ public:
 	/// Añade una entidad a la lista. Si existe devuelve false, sino, true y la añade.
 	/// </summary>
 	/// <param name="permanent">Se mantiene entre escenas o no</param>
-	bool addEntity(Entity* ent, bool permanent = false);
+	bool addEntity(Entity* ent/*, bool permanent = false*/);
+
+
+	/// <summary>
+	/// Carga las entidades que hay en el vector de entidades a cargar en el vector de entidades a usar
+	/// </summary>
+	void loadEntities();
 
 	/// <summary>
 	/// Añade una entidad a la lista. Si existe devuelve false, sino, true y la añade.
@@ -36,20 +42,20 @@ public:
 	/// </summary>
 	/// <param name "all">Si busca entre las entidades permanentes</param>
 	/// <returns>La entidad encontrada, o nulltptr</returns>
-	Entity* getEntityByID(int id, bool all);
+	Entity* getEntityByID(int id/*, bool all*/);
 
 	/// <summary>
 	/// Elimina una entidad de la lista y la destruye. Si no existe devuelve false, sino, true y la elimina.
 	/// </summary>
 	/// <param name="permanent">Se mantiene entre escenas o no</param>
-	bool removeEntity(Entity* ent);
+	bool removeEntities();
 
 	/// <summary>
 	/// Devuelve una lista con todas las entidades creadas.
 	/// </summary>
-	std::vector<Entity*> getEntities(bool all=true);
+	std::vector<Entity*> getEntities(/*bool all=true*/);
 
-	bool loadScene(std::string sceneName, bool all = false);
+	bool loadScene(std::string sceneName/*, bool all = false*/);
 
 	/// <summary>
 	/// Pausa las entidades no permanentes
@@ -65,15 +71,17 @@ public:
 	/// Elimina las entidades en las listas.
 	/// </summary>
 	/// <param name="all">True para eliminar tambien las permanentes, false para lo contrario</param>
-	void deleteEntities(bool all = false);
+	void deleteEntities(/*bool all = false*/);
 
 	void addEntityToRemove(Entity * ent) { _entitiesToRemove.push_back(ent); }
 	std::vector<Entity*> getEntitysToRemove() {	return _entitiesToRemove;}
 protected:
 	static SceneManager* _singleton;
 
+
 	std::vector<Entity*> _entities;
-	std::vector<Entity*> _permanentEntities;
+	//std::vector<Entity*> _permanentEntities;
+	std::vector<Entity*> _entitiesToLoad;
 	std::vector<Entity*> _entitiesToRemove;
 	SceneManager() {};
 };
