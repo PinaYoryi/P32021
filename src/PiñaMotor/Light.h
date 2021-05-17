@@ -10,6 +10,7 @@ public:
 	enum LightType { Point, Directional, Spotlight };	
 	
 	Light() {};
+	~Light();
 	bool init(const std::map<std::string, std::string>& mapa) override;
 
 	LightType getType();

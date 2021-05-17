@@ -7,6 +7,12 @@
 #include <OgreSceneManager.h>
 #include <OgreRenderWindow.h>
 
+Light::~Light()
+{
+	OgreMotor::GetInstance()->getSceneManager()->destroySceneNode(_lightNode);
+	OgreMotor::GetInstance()->getSceneManager()->destroyLight(_myEntity->getName()); ;
+}
+
 bool Light::init(const std::map<std::string, std::string>& mapa) {
 	if (mapa.find("type") == mapa.end() || mapa.find("attenuation") == mapa.end() || mapa.find("shadows") == mapa.end() || mapa.find("diffuse") == mapa.end() ||
 		mapa.find("specular") == mapa.end() || mapa.find("spotinner") == mapa.end() || mapa.find("spotouter") == mapa.end()) return false;
