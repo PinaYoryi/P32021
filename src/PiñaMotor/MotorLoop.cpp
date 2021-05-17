@@ -28,12 +28,13 @@ void MotorLoop::startLoop() {
 		stepFixedUpdate(ent);
 		stepUpdate(ent);
 		stepRender(ent);
-		OgreMotor::GetInstance()->getRoot()->renderOneFrame();
 
 		std::vector<Entity*> ents = SceneManager::GetInstance()->getEntitysToRemove();
 		for (Entity* e : ents)
 			SceneManager::GetInstance()->removeEntity(e);
 		ents.clear();
+
+		OgreMotor::GetInstance()->getRoot()->renderOneFrame();
 	}
 }
 
