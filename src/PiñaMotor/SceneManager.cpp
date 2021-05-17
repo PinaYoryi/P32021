@@ -19,7 +19,9 @@
 SceneManager* SceneManager::_singleton = nullptr;
 
 SceneManager::~SceneManager() {
-	deleteEntities(true);
+	for (Entity* e : _entities) if (e != nullptr) delete e;
+	for (Entity* p : _permanentEntities) if (p != nullptr) delete p;
+	for (Entity* r : _entitiesToRemove) if (r != nullptr) delete r;
 }
 
 SceneManager* SceneManager::GetInstance() {
