@@ -24,7 +24,7 @@ public:
 	virtual void fixedUpdate() override;
 
 	/// <summary>
-	/// Crea el shape(collider) del rigidbody, si tiene renderer lo hace a partir de su tamaño y el transform
+	/// Crea el shape(collider) del rigidbody, si tiene renderer lo hace a partir de su tamaï¿½o y el transform
 	/// si no lo tiene lo hace solo usando el transform
 	/// </summary>
 	void createShape(ShapeTypes type, bool renderer=true);
@@ -59,6 +59,8 @@ public:
 
 	// Devuelve la velicidad
 	Vector3<float> getLinearVelocity();
+
+	Vector3<> getGravity() { return _gravity; }
 
 	// SETTERS
 	// Aplica la fuerza en la posicion relativa
@@ -108,4 +110,5 @@ private:
 	bool _static = false;
 	bool _collision = false;
 	int a = 90;
+	Vector3<> _gravity;
 };

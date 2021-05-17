@@ -146,15 +146,15 @@ Matrix3 Quaternion::toMatrix()
 	Matrix3 m;
 	m[0][0] = 1 - 2 * (pow(v.y, 2) + pow(v.z, 2)); m[0][1] = 2 * (v.x * v.y - v.z * s);				m[0][2] = 2 * (v.x * v.z + v.y * s);
 	m[1][0] = 2 * (v.x * v.y + v.z * s);		   m[1][1] = 1 - 2 * (pow(v.x, 2) + pow(v.z, 2));   m[1][2] = 2 * (v.y * v.z - v.x * s);
-	m[2][0] = 2 * (v.x * v.z - v.y * s);		   m[2][1] = 2 * (v.y * v.z + v.x * s);				m[1][1] = 1 - 2 * (pow(v.x, 2) + pow(v.y, 2));
+	m[2][0] = 2 * (v.x * v.z - v.y * s);		   m[2][1] = 2 * (v.y * v.z + v.x * s);				m[2][2] = 1 - 2 * (pow(v.x, 2) + pow(v.y, 2));
 
 	return m;
 }
 
 Vector3<> Quaternion::toVector()
 {
-	Vector3<> v = { 0,0,-1 };
-	return *this * v;
+	Matrix3 ang = toMatrix();
+	return { -ang.getColumn(2).x, -ang.getColumn(2).y, -ang.getColumn(2).z };;
 }
 
 float Quaternion::dotProduct(const Quaternion& q)

@@ -84,6 +84,7 @@ bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 	setKinematic(kinematic);
 	// Se a�ade al mundo de la simulaci�n f�sica
 	BulletInstance::GetInstance()->getWorld()->addRigidBody(_btRb);
+	setGravity(BulletInstance::GetInstance()->getGravity());
 
 	return true;
 }
@@ -149,8 +150,7 @@ void Rigidbody::createShape(ShapeTypes type, bool renderer) {
 }
 
 void Rigidbody::addForce(Vector3<float> force, Vector3<float> relativePos) {
-	if (!_active)
-		return;
+
 	//para que si lleva un tiempo quieto, deje de estar dormido y reaccione a las fuerzas
 	_btRb->setActivationState(ACTIVE_TAG);
 	if (relativePos == Vector3<float>(0.0f, 0.0f, 0.0f))
@@ -171,6 +171,7 @@ Vector3<float> Rigidbody::getLinearVelocity() {
 void Rigidbody::setGravity(Vector3<float> gravity) {
 	if (!_active)
 		return;
+	_gravity = gravity;
 	_btRb->setGravity(gravity);
 }
 

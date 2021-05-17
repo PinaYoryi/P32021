@@ -48,7 +48,7 @@ void BasicAI::fixedUpdate() {
 			}
 		}
 	}
-	// Rotación
+	// Rotaciï¿½n
 	if (_rotFlag) {
 
 		if (_t>=1) {

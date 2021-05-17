@@ -31,12 +31,13 @@ bool BulletInstance::Init() {
 void BulletInstance::initResources() {
 	// Configuraci�n de Bullet
 	try {
+		_gravity = DEFAULT_GRAVITY;
 		_broadphase = new btDbvtBroadphase();
 		_collisionConfiguration = new btDefaultCollisionConfiguration();
 		_dispatcher = new btCollisionDispatcher(_collisionConfiguration);
 		_solver = new btSequentialImpulseConstraintSolver();
 		_world = new btDiscreteDynamicsWorld(_dispatcher, _broadphase, _solver, _collisionConfiguration);
-		_world->setGravity(DEFAULT_GRAVITY);
+		_world->setGravity(_gravity);
 	}
 	catch (std::exception& e) {
 		throw e.what();
