@@ -108,12 +108,13 @@ void SceneManager::deleteEntities(bool all) {
 		if (all || !(*it)->isPaused()) {
 			_entitiesToRemove.push_back(*it);
 		}
-		else ++it;
+		++it;
 	}
 	if (all) {
 		auto it = _permanentEntities.begin();
 		while (it != _permanentEntities.end()) {
 			_entitiesToRemove.push_back(*it);
+			++it;
 		}
 	}
 }
