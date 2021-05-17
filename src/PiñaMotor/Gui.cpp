@@ -1,10 +1,12 @@
 #include "Gui.h"
 #include "OgreMotor.h"
-#include "SDL_events.h"
 #include <CEGUI/CEGUI.h>
 #include <CEGUI/MouseCursor.h>
 #include <CEGUI/RendererModules/Ogre/Renderer.h>
 #include <iostream>
+
+
+Gui* Gui::_guiInstance = nullptr;
 
 Gui::Gui() {
 	_mRenderer = &CEGUI::OgreRenderer::bootstrapSystem(*OgreMotor::GetInstance()->getRoot()->getRenderTarget(""));
@@ -26,9 +28,17 @@ Gui::Gui() {
 	createFrameListener();
 }
 
+Gui::~Gui()
+{
+	//CEGUI::OgreRenderer::destroySystem();
+	//delete _guiInstance;
+}
+
 bool Gui::Init() {
 	if (_guiInstance != nullptr) return false;
 	_guiInstance = new Gui();
+
+	return true;
 }
 
 void Gui::captureInput(const SDL_Event& event) {

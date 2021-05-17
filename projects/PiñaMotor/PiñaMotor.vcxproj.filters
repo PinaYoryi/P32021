@@ -117,11 +117,11 @@
     <ClCompile Include="..\..\src\PiñaMotor\AudioSource.cpp">
       <Filter>Archivos de origen\Componentes</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\PiñaMotor\Gui.cpp">
-      <Filter>Archivos de origen\MotoresTecnologia</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\PiñaMotor\ButtonComponent.cpp">
       <Filter>Archivos de origen\Componentes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\PiñaMotor\Gui.cpp">
+      <Filter>Archivos de origen\MotoresTecnologia</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

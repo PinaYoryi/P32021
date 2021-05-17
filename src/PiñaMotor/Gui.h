@@ -1,8 +1,10 @@
 #pragma once
 #include <Ogre.h>
 #include <glm/glm.hpp>
+#include <OgreRenderWindow.h>
+#include <SDL.h>
+//#include "SDL_events.h"
 
-class SDL_events;
 
 namespace CEGUI {
 	class GUIContext;
