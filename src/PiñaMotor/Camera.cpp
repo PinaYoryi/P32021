@@ -11,6 +11,12 @@ Camera::Camera() : _cam(nullptr), _camNode(nullptr), _viewport(nullptr) {
 
 }
 
+Camera::~Camera()
+{
+	OgreMotor::GetInstance()->getSceneManager()->destroySceneNode(_camNode);
+	OgreMotor::GetInstance()->getSceneManager()->destroyCamera(_myEntity->getName());
+}
+
 bool Camera::init(const std::map<std::string, std::string>& mapa) {
 	if (mapa.find("near") == mapa.end() || mapa.find("far") == mapa.end() || mapa.find("autoaspect") == mapa.end() || mapa.find("aspect") == mapa.end() ||
 		mapa.find("fov") == mapa.end() || mapa.find("proyection") == mapa.end() || mapa.find("viewport") == mapa.end() || mapa.find("color") == mapa.end()) return false;

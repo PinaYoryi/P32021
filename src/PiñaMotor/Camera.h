@@ -10,6 +10,7 @@ class Camera :
 public:
 	enum ProjectionType { Orthographic, Perspective };
 	Camera();
+	~Camera();
 	bool init(const std::map<std::string, std::string>& mapa) override;
 
 	float getNearClipPlane() { return _cam->getNearClipDistance(); }
@@ -32,5 +33,6 @@ protected:
 	Ogre::Viewport* _viewport;
 	Ogre::Camera* _cam;
 	Ogre::SceneNode* _camNode;
+
 };
 
