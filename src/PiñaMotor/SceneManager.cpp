@@ -109,6 +109,7 @@ void SceneManager::deleteEntities(bool all) {
 		else ++it;
 	}
 	if (all) {
+		auto it = _permanentEntities.begin();
 		while (it != _permanentEntities.end()) {
 			delete* it;
 			it = _entities.erase(it);
