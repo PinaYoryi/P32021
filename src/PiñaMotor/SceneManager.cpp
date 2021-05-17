@@ -84,6 +84,15 @@ Entity* SceneManager::getEntityByID(int id/*, bool all*/)
 		++it;
 	}
 
+
+	if (ent == nullptr) {
+		auto it = _entitiesToLoad.begin();
+		while (ent == nullptr && it != _entitiesToLoad.end()) {
+			if ((*it)->getId() == id)
+				ent = *it;
+			++it;
+		}
+	}
 	/*if (all) {
 		it = _permanentEntities.begin();
 		while (ent == nullptr && it != _permanentEntities.end()) {
