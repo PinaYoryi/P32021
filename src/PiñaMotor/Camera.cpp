@@ -14,7 +14,8 @@ Camera::Camera() : _cam(nullptr), _camNode(nullptr), _viewport(nullptr) {
 Camera::~Camera()
 {
 	OgreMotor::GetInstance()->getSceneManager()->destroySceneNode(_camNode);
-	OgreMotor::GetInstance()->getSceneManager()->destroyCamera(_myEntity->getName());
+	OgreMotor::GetInstance()->getSceneManager()->destroyCamera(_myEntity->getName());	;
+	OgreMotor::GetInstance()->getRenderWindow()->removeViewport(OgreMotor::GetInstance()->getSceneManager()->getCurrentViewport()->getZOrder());
 }
 
 bool Camera::init(const std::map<std::string, std::string>& mapa) {
