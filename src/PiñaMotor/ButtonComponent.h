@@ -16,28 +16,29 @@ namespace CEGUI {
 }
 
 class ButtonComponent: public Component {
-
 public:
-
 	ButtonComponent() {};
-
 	~ButtonComponent();
 
 	/// <summary>
-	///	inicializa un botón default en caso de fallo 
+	///	Inicializa un botón default en caso de fallo 
 	/// </summary>
 	bool init(const std::map<std::string, std::string>& mapa) override;
 	/// <summary>
-	/// método para crear el botón
+	/// Método abstracto para gestionar el input del button
 	/// </summary>
-	CEGUI::Window* create(const std::string& text, const glm::vec2 position, const glm::vec2 size, const std::string& name);
-	/// <summary>
-	/// método abstracto para gestionar el input del button
-	/// </summary>
-	virtual void onClick() = 0;
+	virtual void onClick() {};
 
 protected:
+	/// <summary>
+	/// Método para crear el botón
+	/// </summary>
+	CEGUI::Window* create(const std::string& text, const glm::vec2 position, const glm::vec2 size, const std::string& name);
+
 	//atributo propio de la clase
     CEGUI::Window* _windowC;
+	glm::vec2 _position;
+	glm::vec2 _size;
+	std::string _name;
+	std::string _text;
 };
-
