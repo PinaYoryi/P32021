@@ -35,8 +35,7 @@ void MotorLoop::startLoop() {
 		ents.clear();
 
 		OgreMotor::GetInstance()->getRoot()->renderOneFrame();
-		if(_totalTimeRuning<10)
-		SceneManager::GetInstance()->loadScene("myscript.lua");//loadScene(sceneName, all);
+		
 	}
 }
 
