@@ -56,10 +56,7 @@ void Gui::captureInput(const SDL_Event& event) {
 		windowResized(_mWindow);
 }
 
-CEGUI::Window* Gui::createButton(const std::string& text,
-	const glm::vec2 position,
-	const glm::vec2 size,
-	const std::string& name) {
+CEGUI::Window* Gui::createButton(const std::string& text, const glm::vec2 position, const glm::vec2 size, const std::string& name) {
 	CEGUI::Window* button = CEGUI::WindowManager::getSingleton().createWindow(_scheme + "/Button", name);
 
 	setWidgetDestRect(button, position, size);
@@ -69,8 +66,7 @@ CEGUI::Window* Gui::createButton(const std::string& text,
 	return button;
 }
 
-CEGUI::Window* Gui::createSlider(glm::vec2 position, glm::vec2 size,
-	const std::string& name) {
+CEGUI::Window* Gui::createSlider(glm::vec2 position, glm::vec2 size, const std::string& name) {
 	CEGUI::Window* slider = CEGUI::WindowManager::getSingleton().createWindow(_scheme + "/Slider");
 	setWidgetDestRect(slider, position, size);
 	slider->setRotation(CEGUI::Quaternion(1, 0, 0, 0.71));
@@ -80,10 +76,7 @@ CEGUI::Window* Gui::createSlider(glm::vec2 position, glm::vec2 size,
 	return slider;
 }
 
-CEGUI::Window* Gui::createLabel(const std::string& text,
-	const glm::vec2 position,
-	const glm::vec2 size,
-	const std::string& name) {
+CEGUI::Window* Gui::createLabel(const std::string& text, const glm::vec2 position, const glm::vec2 size, const std::string& name) {
 	CEGUI::Window* label = CEGUI::WindowManager::getSingleton().createWindow(_scheme + "/StaticText", name);
 	setWidgetDestRect(label, position, size);
 
@@ -96,9 +89,7 @@ CEGUI::Window* Gui::createLabel(const std::string& text,
 	return label;
 }
 
-CEGUI::Window* Gui::createImage(const std::string& image,
-	glm::vec2 position, glm::vec2 size,
-	const std::string& name) {
+CEGUI::Window* Gui::createImage(const std::string& image, glm::vec2 position, glm::vec2 size, const std::string& name) {
 	CEGUI::Window* staticImage = CEGUI::WindowManager::getSingleton().createWindow(_scheme + "/StaticImage", name);
 	setWidgetDestRect(staticImage, position, size);
 
@@ -134,22 +125,19 @@ void Gui::loadScheme(const std::string& schemeName, const std::string& schemeFil
 }
 
 void Gui::setWidgetDestRect(CEGUI::Window* widget, const glm::vec2 position, const glm::vec2 size) {
-	widget->setPosition(CEGUI::UVector2(CEGUI::UDim(position.x, 0),
-		CEGUI::UDim(position.y, 0)));
-	widget->setSize(
-		CEGUI::USize(CEGUI::UDim(0, size.x), CEGUI::UDim(0, size.y)));
+	widget->setPosition(CEGUI::UVector2(CEGUI::UDim(position.x, 0), CEGUI::UDim(position.y, 0)));
+	widget->setSize(CEGUI::USize(CEGUI::UDim(0, size.x), CEGUI::UDim(0, size.y)));
 }
 
 void Gui::setFont(const std::string& fontFile) {
 	CEGUI::FontManager::getSingleton().createFromFile(fontFile + ".font");
-	_mContext->setDefaultFont(fontFile);
 
+	_mContext->setDefaultFont(fontFile);
 	_mContext->getDefaultFont()->setAutoScaled(CEGUI::AutoScaledMode::ASM_Disabled);
 }
 
 void Gui::setMouseImage(const std::string& imageFile) {
 	CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setDefaultImage(imageFile);
-
 	CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setImage(imageFile);
 }
 

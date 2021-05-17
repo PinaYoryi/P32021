@@ -27,24 +27,26 @@ public:
 	/// </summary>
 	static bool Init();
 
+	/// <summary>
+	/// Lee y gestiona la entrada de input
+	/// </summary>
 	void captureInput(const SDL_Event& event);
 
+	// Ajusta las propiedades para crear, respectivamente, un boton, una barra, un rotulo y una imagen
 	CEGUI::Window* createButton(const std::string& text, glm::vec2 position, glm::vec2 size, const std::string& name);
-
 	CEGUI::Window* createSlider(glm::vec2 position, glm::vec2 size, const std::string& name);
-
 	CEGUI::Window* createLabel(const std::string& text, glm::vec2 position, glm::vec2 size, const std::string& name = "");
-
 	CEGUI::Window* createImage(const std::string& image, glm::vec2 position, glm::vec2 size, const std::string& name = "");
 
+	/// <summary>
+	/// Carga un tema para la estetica del GUI
+	/// </summary>
 	void loadScheme(const std::string& schemeName, const std::string& schemeFile);
 
+	// Setea, respectivamente, un widget, la fuente de los textos, la imagen del puntero y su visibilidad
 	void setWidgetDestRect(CEGUI::Window* widget, const glm::vec2 position, const glm::vec2 size);
-
 	void setFont(const std::string& fontFile);
-
 	void setMouseImage(const std::string& imageFile);
-
 	void setMouseVisibility(bool b);
 
 private:
