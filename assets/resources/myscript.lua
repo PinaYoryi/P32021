@@ -70,6 +70,13 @@ local mapa = {
         spotouter=""
         }
       }
+    },
+    {
+    	name="Boton",
+    	id=4,
+    	components={
+    		
+    	}
     }
   }
 }

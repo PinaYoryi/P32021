@@ -3,11 +3,6 @@
 #include <string>
 #include <glm/glm.hpp>
 
-const std::string DEFAULT_NAME = "";
-const std::string DEFAULT_TEXT = "";
-const glm::vec2 DEFAULT_POSITION = glm::vec2(0.0f, 0.0f);
-const glm::vec2 DEFAULT_SIZE = glm::vec2(0.0f, 0.0f);
-
 /// <summary>
 /// espacio de nombres para hacer llamada al puntero del atributo de la clase GUI
 /// </summary>
