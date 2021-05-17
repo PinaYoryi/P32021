@@ -35,6 +35,8 @@ void MotorLoop::startLoop() {
 		ents.clear();
 
 		OgreMotor::GetInstance()->getRoot()->renderOneFrame();
+		if(_totalTimeRuning<10)
+		SceneManager::GetInstance()->loadScene("myscript.lua");//loadScene(sceneName, all);
 	}
 }
 
@@ -74,7 +76,7 @@ void MotorLoop::updateTime() {
 	int currentTime = clock();
 	_deltaTime = (currentTime - _lastTime) / (float)CLOCKS_PER_SEC;
 	_accumulatedTime += _deltaTime;
-	_totalTimeRuning += deltaTime;
+	_totalTimeRuning += _deltaTime;
 	_lastTime = currentTime;
 }
 #pragma endregion
