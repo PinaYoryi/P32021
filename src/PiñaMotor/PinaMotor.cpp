@@ -13,11 +13,11 @@ bool PinaMotor::init(std::string windowName) {
         OgreMotor::Init(windowName);
         BulletInstance::Init();
         Audio::Init();
+        Gui::Init();
         SceneManager::Init();
         MotorLoop::Init();
         ResourceManager::Init();
         Input::Init();
-        Gui::Init();
         Gui* gui = Gui::GetInstance();
 
         // Hay que pasar por parametro de init el nombre de loadScheme, imagen y visibilidad del raton
