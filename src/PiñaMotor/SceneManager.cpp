@@ -100,17 +100,19 @@ std::vector<Entity*> SceneManager::getEntities(bool all) {
 void SceneManager::deleteEntities(bool all) {
 	/*for (Entity* e : _entities)	if (all || !e->isPaused()) delete e;
 	if (all) for (Entity* p : _permanentEntities) delete p;*/
-	for (auto it = _entities.begin(); it != _entities.end(); ++it)
+	auto it = _entities.begin();
+	while(it != _entities.end()) {
 		if (all || !(*it)->isPaused()) {
-			_entities.erase(it);
-			--it;
+			delete* it;
+			it = _entities.erase(it);
 		}
+		else ++it;
+	}
 	if (all) {
-		for (auto it = _permanentEntities.begin(); it != _permanentEntities.end(); ++it)
-			if (all || !(*it)->isPaused()) {
-				_permanentEntities.erase(it);
-				--it;
-			}
+		while (it != _permanentEntities.end()) {
+			delete* it;
+			it = _entities.erase(it);
+		}
 	}
 }
 
