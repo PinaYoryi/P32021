@@ -74,6 +74,7 @@ void MotorLoop::updateTime() {
 	int currentTime = clock();
 	_deltaTime = (currentTime - _lastTime) / (float)CLOCKS_PER_SEC;
 	_accumulatedTime += _deltaTime;
+	_totalTimeRuning += deltaTime;
 	_lastTime = currentTime;
 }
 #pragma endregion

@@ -35,10 +35,14 @@ public:
 protected:
 	static MotorLoop* _singleton;
 
+	//Variables para el calculo de deltaTime
 	bool _loop = false;
 	int _lastTime = 0;
 	float _accumulatedTime = 0;
 	float _deltaTime = 0;
+
+	//Tiempo total desde el inicio del bucle
+	float _totalTimeRuning = 0;
 
 	//Lista de entidades
 
@@ -71,5 +75,10 @@ public:
 	/// Devuelve el deltaTime del último frame (el tiempo real que ha pasado entre frames).
 	/// </summary>
 	float getDeltaTime() { return _deltaTime; }
+
+	/// <summary>
+	/// Devuelve el tiempo total que lleva en ejecución el bucle del motor.
+	/// </summary>
+	float getTotalTimeRunning() { return _totalTimeRuning; }
 #pragma endregion
 };
