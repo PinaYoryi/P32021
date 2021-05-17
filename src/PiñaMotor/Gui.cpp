@@ -9,7 +9,7 @@
 Gui* Gui::_guiInstance = nullptr;
 
 Gui::Gui() {
-	_mRenderer = &CEGUI::OgreRenderer::bootstrapSystem(*OgreMotor::GetInstance()->getRoot()->getRenderTarget(""));
+	_mRenderer = &CEGUI::OgreRenderer::bootstrapSystem(*OgreMotor::GetInstance()->getRoot()->getRenderTarget("Test"));
 	_mRoot = OgreMotor::GetInstance()->getRoot();
 	_mWindow = OgreMotor::GetInstance()->getRenderWindow();
 	_mContext = &CEGUI::System::getSingleton().getDefaultGUIContext();
