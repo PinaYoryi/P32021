@@ -82,11 +82,14 @@ Entity* SceneManager::getEntityByID(int id, bool all)
 	return ent;
 }
 
-bool SceneManager::removeEntity(Entity* ent, bool permanent) {
+bool SceneManager::removeEntity(Entity* ent) {
 	std::vector<Entity*>* vec = &_entities;
-	if (permanent) vec = &_permanentEntities;
 	auto it = find(vec->begin(), vec->end(), ent);
-	if (it == vec->end()) return false;
+	if (it == vec->end()) {
+		vec = &_permanentEntities;
+		it = find(vec->begin(), vec->end(), ent);
+		if (it == vec->end()) return false;
+	}
 	delete* it;
 	vec->erase(it);
 }
@@ -104,7 +107,6 @@ void SceneManager::deleteEntities(bool all) {
 	while(it != _entities.end()) {
 		if (all || !(*it)->isPaused()) {
 			_entitiesToRemove.push_back(*it);
-			it = _entities.erase(it);
 		}
 		else ++it;
 	}
@@ -112,7 +114,6 @@ void SceneManager::deleteEntities(bool all) {
 		auto it = _permanentEntities.begin();
 		while (it != _permanentEntities.end()) {
 			_entitiesToRemove.push_back(*it);
-			it = _entities.erase(it);
 		}
 	}
 }

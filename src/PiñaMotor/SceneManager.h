@@ -42,7 +42,7 @@ public:
 	/// Elimina una entidad de la lista y la destruye. Si no existe devuelve false, sino, true y la elimina.
 	/// </summary>
 	/// <param name="permanent">Se mantiene entre escenas o no</param>
-	bool removeEntity(Entity* ent, bool permanent = false);
+	bool removeEntity(Entity* ent);
 
 	/// <summary>
 	/// Devuelve una lista con todas las entidades creadas.
