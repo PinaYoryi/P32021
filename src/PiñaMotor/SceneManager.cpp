@@ -98,12 +98,10 @@ std::vector<Entity*> SceneManager::getEntities(bool all) {
 }
 
 void SceneManager::deleteEntities(bool all) {
-	/*for (Entity* e : _entities)	if (all || !e->isPaused()) delete e;
-	if (all) for (Entity* p : _permanentEntities) delete p;*/
 	auto it = _entities.begin();
 	while(it != _entities.end()) {
 		if (all || !(*it)->isPaused()) {
-			delete* it;
+			_entitiesToRemove.push_back(*it);
 			it = _entities.erase(it);
 		}
 		else ++it;
@@ -111,7 +109,7 @@ void SceneManager::deleteEntities(bool all) {
 	if (all) {
 		auto it = _permanentEntities.begin();
 		while (it != _permanentEntities.end()) {
-			delete* it;
+			_entitiesToRemove.push_back(*it);
 			it = _entities.erase(it);
 		}
 	}
