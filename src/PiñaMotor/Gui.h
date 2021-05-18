@@ -36,6 +36,7 @@ public:
 
 	// Ajusta las propiedades para crear, respectivamente, un boton, una barra, un rotulo y una imagen
 	CEGUI::Window* createButton(const std::string& text, glm::vec2 position, glm::vec2 size, const std::string& name);
+	CEGUI::Window* createText(const std::string& text, glm::vec2 position, glm::vec2 size, const std::string& name);
 	CEGUI::Window* createSlider(glm::vec2 position, glm::vec2 size, const std::string& name);
 	CEGUI::Window* createLabel(const std::string& text, glm::vec2 position, glm::vec2 size, const std::string& name = "");
 	CEGUI::Window* createImage(const std::string& image, glm::vec2 position, glm::vec2 size, const std::string& name = "");

@@ -76,6 +76,17 @@ CEGUI::Window* Gui::createButton(const std::string& text, const glm::vec2 positi
 	return button;
 }
 
+CEGUI::Window* Gui::createText(const std::string& text, glm::vec2 position, glm::vec2 size, const std::string& name)
+{
+	CEGUI::Window* textG = CEGUI::WindowManager::getSingleton().createWindow(_scheme + "/Text", name);
+
+	setWidgetDestRect(textG, position, size);
+	textG->setText(text);
+	_ceguiWindow->addChild(textG);
+
+	return textG;
+}
+
 CEGUI::Window* Gui::createSlider(glm::vec2 position, glm::vec2 size, const std::string& name) {
 	CEGUI::Window* slider = CEGUI::WindowManager::getSingleton().createWindow(_scheme + "/Slider");
 	setWidgetDestRect(slider, position, size);
