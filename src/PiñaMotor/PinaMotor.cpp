@@ -8,6 +8,8 @@
 #include "Input.h"
 #include "Gui.h"
 
+#include <string>
+
 bool PinaMotor::init(std::string windowName) {
     try {
         OgreMotor::Init(windowName);
@@ -22,12 +24,12 @@ bool PinaMotor::init(std::string windowName) {
 
         // Hay que pasar por parametro de init el nombre de loadScheme, imagen y visibilidad del raton
         // De momento estan puestos para prueba, pero lo suyo es que cada juego decida
-        gui->loadScheme("VanillaSkin", "VanillaSkin.scheme");
+        gui->loadScheme("TaharezLook", "TaharezLook.scheme");
         gui->setFont("RichStyle.ttf");
-        gui->setMouseImage("VanillaSkin/MouseArrow");
+        gui->setMouseImage("TaharezLook/MouseArrow");
         gui->setMouseVisibility(true);
     }
-    catch (...) { return false; }
+    catch (std::exception& e) { std::cout << e.what() << "\n";  return false; }
     return true;
 }
 

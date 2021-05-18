@@ -119,7 +119,7 @@ CEGUI::Window* Gui::createImage(const std::string& image, glm::vec2 position, gl
 }
 
 void Gui::createFrameListener() {
-	auto windowHnd = 0;
+	size_t windowHnd = 0;
 	std::ostringstream windowHndStr;
 	_mWindow->getCustomAttribute("WINDOW", &windowHnd);
 	windowHndStr << windowHnd;
