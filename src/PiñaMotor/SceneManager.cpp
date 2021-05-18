@@ -1,7 +1,6 @@
 #include "SceneManager.h"
 #include "ResourceManager.h"
-
-//PRUEBA
+#include "BulletInstance.h"
 #include "ComponentFactoryRegistration.h"
 
 #include "Transform.h"
@@ -133,6 +132,7 @@ void SceneManager::loadEntities() {
 
 void SceneManager::pauseScene() {
 	for (Entity* e : _entities)	e->setPaused(true);
+	BulletInstance::GetInstance()->setPaused(true);
 }
 
 void SceneManager::continueScene() {
@@ -142,4 +142,6 @@ void SceneManager::continueScene() {
 		else
 			addEntityToRemove(e);
 	}
+	BulletInstance::GetInstance()->setPaused(false);
+
 }

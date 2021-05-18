@@ -57,6 +57,9 @@ void BulletInstance::removeCollisionEntity(Entity* ent)
 
 void BulletInstance::update()
 {
+	if (_paused)
+		return;
+
 	_world->stepSimulation(FIXED_UPDATE_TIME);
 
 	//analizamos las colisiones de este frame del mundo de bullet para avisar

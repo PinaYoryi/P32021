@@ -46,6 +46,13 @@ public:
 	
 	
 	void update();
+
+	/// <summary>
+	/// metodo para pausar el mundo de fisicas
+	/// si estas en un menu no se actualizan las fisicas
+	/// </summary>
+	/// <param name="paused"></param>
+	void setPaused(bool paused) { _paused = paused; }
 protected:
 	/// <summary>
 	/// Inicia los elementos del motor de físicas
@@ -65,6 +72,8 @@ private:
 	btDiscreteDynamicsWorld* _world = nullptr;
 
 	Vector3<float> _gravity;
+
+	bool _paused=false;//si se pausa el mundo
 
 	//vector donde guardamos un pair con dos entidades, que representa una colision del frame anterior
 	std::vector<std::pair<Entity*,Entity*>> _collisions;

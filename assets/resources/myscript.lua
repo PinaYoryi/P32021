@@ -76,9 +76,9 @@ local mapa = {
       id=4,
       components={
         transform={
-          position="0,-100,0",
+          position="0,-200,0",
           rotation="0,0,0",
-          scale="1,0.2,1",
+          scale="0.2,0.2,0.2",
           parent="-1"
         },
         renderer={
