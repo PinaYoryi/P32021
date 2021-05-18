@@ -15,7 +15,7 @@ public:
 	Transform() : _scale ( 1, 1, 1 ) {}
 
 	bool init(const std::map<std::string, std::string>& mapa) override;
-
+	bool isInitialized() { return _initialized; }
 	void translate(float x, float y, float z);
 	void rotate(float xAngle, float yAngle, float zAngle, Space relativeTo = Space::Self);
 
@@ -86,4 +86,6 @@ private:
 	Vector3<float> _localPosition;
 	Quaternion _localRotation;
 	Vector3<float> _localScale;
+
+	bool  _initialized = false;
 };

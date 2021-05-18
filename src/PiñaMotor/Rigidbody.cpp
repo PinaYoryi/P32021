@@ -19,7 +19,7 @@ bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 
 	// Cogemos el puntero del componente Transform 
 	_trans = _myEntity->getComponent<Transform>();
-	if (_trans == nullptr) return false;
+	if (_trans == nullptr && !_trans->isInitialized()) return false;
 
 	// Vemos si es trigger o no
 	bool trigger,kinematic;

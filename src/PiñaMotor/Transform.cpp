@@ -31,6 +31,8 @@ bool Transform::init(const std::map<std::string, std::string>& mapa) {
 		_localRotation = inverseTransformRotation(_parent->rotation());
 		_localScale = inverseTransformDirection(_parent->scale());
 	}
+	_initialized = true;
+
 	return true;
 }
 
