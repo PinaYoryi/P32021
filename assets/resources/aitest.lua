@@ -32,8 +32,8 @@ local mapa = {
       id=5,
       components={
         transform={
-          position="0,40,0",
-          rotation="0,90,0",
+          position="70,-80,0",
+          rotation="0,0,0",
           scale="1,1,1"
         },
         renderer={
@@ -54,11 +54,7 @@ local mapa = {
           step="150",
           threshold="0.5",
           thresholdRot="0.1",
-          stepRot="0.0002"
-        },
-        droneai={
-          strength="400",
-          objective="1"
+          stepRot="0.002"
         }
       }
     },

@@ -26,6 +26,8 @@ bool BasicAI::init(const std::map<std::string, std::string>& mapa) {
 
 	_initialized = true;
 
+	MoveTo({ 0, -80, 0 });
+
 	return true;
 }
 
@@ -64,7 +66,8 @@ void BasicAI::fixedUpdate() {
 			btTransform trans;
 			_t += _velRotation;
 			_rigidbody->setRotation(Quaternion::Slerp((_rotIni), Quaternion::Euler( _rotObjetivo),_t, _thresholdRot));
-			_rigidbody->getbT()->getMotionState()->getWorldTransform(trans);			
+			_rigidbody->getbT()->getMotionState()->getWorldTransform(trans);
+			std::cout << _transform->rotation() << " " << _t << "\n";
 		}
 	}
 }
@@ -72,12 +75,18 @@ void BasicAI::fixedUpdate() {
 void BasicAI::MoveTo(Vector3<> obj) {
 	_posObjetivo = obj;
 	_moveFlag = true;
+	RotateTo(obj);
 }
 
-void BasicAI::RotateTo(Vector3<> obj) {
-	_rotObjetivo = obj;
-	btTransform trans;
-	_rigidbody->getbT()->getMotionState()->getWorldTransform(trans);
-	_rotIni = trans.getRotation();
+void BasicAI::RotateTo(Vector3<> obj) {	
 	_rotFlag = true;
+	_rotIni = _transform->rotation();
+
+	float pitch, yaw;
+	Vector3<> objX = { obj.x, obj.y, 0 };
+	Vector3<> objY = { 0, obj.y, obj.z };
+	pitch = objX.angleDegrees({ 0, 0, -1 });
+	yaw = objY.angleDegrees({ 0, 0, -1 });
+
+	_rotObjetivo = { yaw, pitch, 0 };
 }
