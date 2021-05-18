@@ -22,7 +22,7 @@ Camera::~Camera()
 bool Camera::init(const std::map<std::string, std::string>& mapa) {
 	if (mapa.find("near") == mapa.end() || mapa.find("far") == mapa.end() || mapa.find("autoaspect") == mapa.end() || mapa.find("aspect") == mapa.end() ||
 		mapa.find("fov") == mapa.end() || mapa.find("proyection") == mapa.end() || mapa.find("viewport") == mapa.end() || mapa.find("color") == mapa.end()) return false;
-	std::string name = _myEntity->getName() + to_string(MotorLoop::GetInstance()->getTotalTimeRunning());
+	std::string name = _myEntity->getName() /*+ to_string(MotorLoop::GetInstance()->getTotalTimeRunning())*/;
 	_cam = OgreMotor::GetInstance()->getSceneManager()->createCamera(name);
 	_camNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode();
 	//if(OgreMotor::GetInstance()->getSceneManager()->getCurrentViewport())
