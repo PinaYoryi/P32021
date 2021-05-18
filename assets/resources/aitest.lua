@@ -55,10 +55,6 @@ local mapa = {
           threshold="0.5",
           thresholdRot="0.1",
           stepRot="0.0002"
-        },
-        droneai={
-          strength="400",
-          objective="1"
         }
       }
     },

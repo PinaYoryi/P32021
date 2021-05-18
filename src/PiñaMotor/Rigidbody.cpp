@@ -86,8 +86,6 @@ bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 	BulletInstance::GetInstance()->getWorld()->addRigidBody(_btRb);
 	setGravity(BulletInstance::GetInstance()->getGravity());
 
-	std::cout<<"    "<<_btRb->getWorldTransform().getOrigin().y()<<"\n";
-
 	_initialized = true;
 
 	return true;

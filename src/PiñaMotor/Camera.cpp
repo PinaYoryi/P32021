@@ -22,13 +22,19 @@ Camera::~Camera()
 bool Camera::init(const std::map<std::string, std::string>& mapa) {
 	if (mapa.find("near") == mapa.end() || mapa.find("far") == mapa.end() || mapa.find("autoaspect") == mapa.end() || mapa.find("aspect") == mapa.end() ||
 		mapa.find("fov") == mapa.end() || mapa.find("proyection") == mapa.end() || mapa.find("viewport") == mapa.end() || mapa.find("color") == mapa.end()) return false;
-	std::string name = _myEntity->getName() /*+ to_string(MotorLoop::GetInstance()->getTotalTimeRunning())*/;
+	
+	
+	Transform* tr = _myEntity->getComponent<Transform>();
+	if (tr == nullptr || !tr->isInitialized())
+		return false;
+	
+	std::string name = _myEntity->getName() ;
 	_cam = OgreMotor::GetInstance()->getSceneManager()->createCamera(name);
 	_camNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode();
-	////if(OgreMotor::GetInstance()->getSceneManager()->getCurrentViewport())
-	//	OgreMotor::GetInstance()->getRenderWindow()->removeAllViewports(); //removeViewport(OgreMotor::GetInstance()->getSceneManager()->getCurrentViewport()->getZOrder());
-
 	_viewport = OgreMotor::GetInstance()->getRenderWindow()->addViewport(_cam);
+	_camNode->setPosition(tr->position().x, tr->position().y, tr->position().z);
+	_camNode->setScale(tr->scale().x, tr->scale().y, tr->scale().z);
+	_camNode->setOrientation(tr->rotation());
 	_camNode->attachObject(_cam);
 
 	std::string s = mapa.at("near");
@@ -62,6 +68,7 @@ bool Camera::init(const std::map<std::string, std::string>& mapa) {
 
 	s = mapa.at("color");
 	setBackgroundColor({ std::stof(s, &sz), std::stof(s.substr(sz + 1), &sa), std::stof(s.substr(sz + sa + 2)) });
+
 	_initialized = true;
 
 	return true;

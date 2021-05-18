@@ -18,6 +18,9 @@ bool Renderer::init(const std::map<std::string, std::string>& mapa){
 	
 	_ogreNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode();
 
+	Transform* tr = _myEntity->getComponent<Transform>();
+	if ( tr == nullptr || !tr->isInitialized())
+		return false;
 	std::string me = mapa.at("mesh");
 	setMesh(me);
 
@@ -29,6 +32,12 @@ bool Renderer::init(const std::map<std::string, std::string>& mapa){
 	if (vi == "true") setVisible(true);
 	else if (vi == "false") setVisible(false);
 	else return false;
+
+
+	_ogreNode->setPosition(tr->position().x, tr->position().y, tr->position().z);
+	_ogreNode->setScale(tr->scale().x, tr->scale().y, tr->scale().z);
+	_ogreNode->setOrientation(tr->rotation());
+
 
 	_initialized = true;
 

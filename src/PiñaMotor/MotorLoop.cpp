@@ -23,7 +23,7 @@ void MotorLoop::startLoop() {
 	_loop = true;
 	_accumulatedTime = 0;
 	while (_loop) {
-		std::vector<Entity*> ent = SceneManager::GetInstance()->getEntities();
+		std::vector<Entity*>* ent = SceneManager::GetInstance()->getEntities();
 		stepInput();
 		stepFixedUpdate(ent);
 		stepUpdate(ent);
@@ -43,16 +43,16 @@ void MotorLoop::stepInput() {
     Input::GetInstance()->update();
 }
 
-void MotorLoop::stepUpdate(std::vector<Entity*> ent) {
-    for (Entity* e : ent)
+void MotorLoop::stepUpdate(std::vector<Entity*>* ent) {
+    for (Entity* e : *ent)
 		if(!e->isPaused())
 			e->update();
 }
 
-void MotorLoop::stepFixedUpdate(std::vector<Entity*> ent) {
+void MotorLoop::stepFixedUpdate(std::vector<Entity*>* ent) {
 	updateTime();
 	while (_accumulatedTime > FIXED_UPDATE_TIME) {
-		for (Entity* e : ent)
+		for (Entity* e : *ent)
 			if (!e->isPaused())
 				e->fixedUpdate();
         BulletInstance::GetInstance()->update();
@@ -61,8 +61,8 @@ void MotorLoop::stepFixedUpdate(std::vector<Entity*> ent) {
 	}
 }
 
-void MotorLoop::stepRender(std::vector<Entity*> ent) {
-    for (Entity* e : ent)
+void MotorLoop::stepRender(std::vector<Entity*>* ent) {
+    for (Entity* e : *ent)
 		if (!e->isPaused())
 			e->render();
 }

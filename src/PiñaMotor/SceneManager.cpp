@@ -99,8 +99,8 @@ void SceneManager::removeEntities() {
 	_entitiesToRemove.clear();
 }
 
-std::vector<Entity*> SceneManager::getEntities() {
-	return _entities;
+std::vector<Entity*>* SceneManager::getEntities() {
+	return &_entities;
 }
 
 void SceneManager::deleteEntities() {
@@ -121,14 +121,15 @@ void SceneManager::newScene(std::string sceneName) {
 }
 
 void SceneManager::loadEntities() {	
-	for (Entity* e : _entitiesToLoad)
-		_entities.push_back(e);
-	_entitiesToLoad.clear();
-
 	if (_newScene) {
 		readFile(_sceneName);
 		_newScene = false;
 	}
+
+	for (Entity* e : _entitiesToLoad)
+		_entities.push_back(e);
+	_entitiesToLoad.clear();
+
 }
 
 void SceneManager::pauseScene() {

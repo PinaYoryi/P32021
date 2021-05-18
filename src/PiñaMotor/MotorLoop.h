@@ -55,15 +55,15 @@ protected:
 	/// <summary>
 	/// Actualiza los componentes físicos.
 	/// </summary>
-	void stepFixedUpdate(std::vector<Entity*> ent);
+	void stepFixedUpdate(std::vector<Entity*>* ent);
 	/// <summary>
 	/// Actualiza los componentes lógicos.
 	/// </summary>
-	void stepUpdate(std::vector<Entity*> ent);
+	void stepUpdate(std::vector<Entity*>* ent);
 	/// <summary>
 	/// Renderiza en pantalla lo componentes con esta propiedad.
 	/// </summary>
-	void stepRender(std::vector<Entity*> ent);
+	void stepRender(std::vector<Entity*>* ent);
 	/// <summary>
 	/// Actualiza deltaTime y acumula el tiempo real transpirado para la ejecución de FixedUpdate
 	/// </summary>

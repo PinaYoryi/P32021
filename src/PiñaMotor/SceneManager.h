@@ -48,7 +48,7 @@ public:
 	/// <summary>
 	/// Devuelve una lista con todas las entidades creadas.
 	/// </summary>
-	std::vector<Entity*> getEntities();
+	std::vector<Entity*>* getEntities();
 
 	/// <summary>
 	/// Avisa al manager de que se va a cargar una escana

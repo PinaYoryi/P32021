@@ -12,7 +12,6 @@ bool Transform::init(const std::map<std::string, std::string>& mapa) {
 	float b = std::stof(temp, &sa);
 	float c = std::stof(s.substr(sz + sa + 2));
 	_position = { std::stof(s, &sz), std::stof(s.substr(sz + 1), &sa), std::stof(s.substr(sz + sa + 2)) };
-	std::cout << _myEntity->getName() << "   "<< _position << "\n";
 	s = mapa.at("rotation");
 	_rotation = Quaternion::Euler({ std::stof(s, &sz), std::stof(s.substr(sz + 1), &sa), std::stof(s.substr(sz + sa + 2)) });
 
