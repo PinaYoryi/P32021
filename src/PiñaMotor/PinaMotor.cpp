@@ -25,7 +25,7 @@ bool PinaMotor::init(std::string windowName) {
         // Hay que pasar por parametro de init el nombre de loadScheme, imagen y visibilidad del raton
         // De momento estan puestos para prueba, pero lo suyo es que cada juego decida
         gui->loadScheme("TaharezLook", "TaharezLook.scheme");
-        gui->setFont("RichStyle.ttf");
+        gui->setFont("Junicode-13");
         gui->setMouseImage("TaharezLook/MouseArrow");
         gui->setMouseVisibility(true);
     }
