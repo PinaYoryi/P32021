@@ -15,51 +15,50 @@ public:
 	/// <summary>
 	/// Inicializa la clase Input con los parametros dados si no se ha inicializado antes.
 	/// Devuelve true si se inicializa por primera vez y false si ya hab�a sido inicializada.
-	/// Todo: Implementar los parametros a inicializar.
 	/// </summary>
 	static bool Init();
 
 	/// <summary>
 	/// Añade una entidad a la lista. Si existe devuelve false, sino, true y la añade.
 	/// </summary>
-	/// <param name="permanent">Se mantiene entre escenas o no</param>
-	bool addEntity(Entity* ent/*, bool permanent = false*/);
+
+	bool addEntity(Entity* ent);
 
 	/// <summary>
 	/// Añade una entidad a la lista de entidades a eliminar. Si existe devuelve false, sino, true y la añade.
 	/// </summary>
 	bool addEntityToRemove(Entity* ent);
 
-	/// <summary>
-	/// Carga las entidades que hay en el vector de entidades a cargar en el vector de entidades a usar
-	/// </summary>
-	void loadEntities();
 
 	/// <summary>
 	/// Añade una entidad a la lista. Si existe devuelve false, sino, true y la añade.
 	/// </summary>
-	/// <param name="permanent">Se mantiene entre escenas o no</param>
 	bool loadComponents();
 
 	/// <summary>
 	/// Devuelve una entidad dado su id, si no la encuentra devuelve nullptr. Busca en la lista de la escena y/o en la lista de entidades permanentes
 	/// </summary>
-	/// <param name "all">Si busca entre las entidades permanentes</param>
-	/// <returns>La entidad encontrada, o nulltptr</returns>
-	Entity* getEntityByID(int id/*, bool all*/);
+	Entity* getEntityByID(int id);
 
 	/// <summary>
-	/// Elimina una entidad de la lista y la destruye. Si no existe devuelve false, sino, true y la elimina.
+	/// Elimina una entidad de la lista y la destruye.
 	/// </summary>
-	/// <param name="permanent">Se mantiene entre escenas o no</param>
-	bool removeEntities();
+	void removeEntities();
 
 	/// <summary>
 	/// Devuelve una lista con todas las entidades creadas.
 	/// </summary>
-	std::vector<Entity*> getEntities(/*bool all=true*/);
+	std::vector<Entity*> getEntities();
 
-	bool loadScene(std::string sceneName/*, bool all = false*/);
+	/// <summary>
+	/// Avisa al manager de que se va a cargar una escana
+	/// </summary>
+	void newScene(std::string sceneName);
+
+	/// <summary>
+	/// Carga las entidades que hay en el vector de entidades a cargar en el vector de entidades a usar
+	/// </summary>
+	void loadEntities();
 
 	/// <summary>
 	/// Pausa las entidades no permanentes
@@ -74,17 +73,16 @@ public:
 	/// <summary>
 	/// Elimina las entidades en las listas.
 	/// </summary>
-	/// <param name="all">True para eliminar tambien las permanentes, false para lo contrario</param>
-	void deleteEntities(/*bool all = false*/);
+	void deleteEntities();
 
-	std::vector<Entity*> getEntitysToRemove() {	return _entitiesToRemove;}
 protected:
 	static SceneManager* _singleton;
 
+	bool _newScene = false;
+	std::string _sceneName;
 
 	std::vector<Entity*> _entities;
-	//std::vector<Entity*> _permanentEntities;
-	std::vector<Entity*> _entitiesToLoad;
 	std::vector<Entity*> _entitiesToRemove;
+	std::vector<Entity*> _entitiesToLoad;
 	SceneManager() {};
 };

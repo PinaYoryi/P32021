@@ -20,8 +20,8 @@ SceneManager* SceneManager::_singleton = nullptr;
 
 SceneManager::~SceneManager() {
 	for (Entity* e : _entities) if (e != nullptr) delete e;
-	//for (Entity* p : _permanentEntities) if (p != nullptr) delete p;
 	for (Entity* r : _entitiesToRemove) if (r != nullptr) delete r;
+	for (Entity* l : _entitiesToLoad) if (l != nullptr) delete l;
 }
 
 SceneManager* SceneManager::GetInstance() {
@@ -33,11 +33,9 @@ bool SceneManager::Init() {
 	_singleton = new SceneManager(); return true;
 }
 
-bool SceneManager::addEntity(Entity* ent/*, bool permanent*/) {
-	std::vector<Entity*>* vec = &_entities;
-	//if (permanent) vec = &_permanentEntities;
-	auto it = find(vec->begin(), vec->end(), ent);
-	if (it != vec->end()) return false;
+bool SceneManager::addEntity(Entity* ent) {
+	auto it = find(_entities.begin(), _entities.end(), ent);
+	if (it != _entities.end()) return false;
 	it = find(_entitiesToLoad.begin(), _entitiesToLoad.end(), ent);
 	if (it != _entitiesToLoad.end()) return false;
 
@@ -45,25 +43,13 @@ bool SceneManager::addEntity(Entity* ent/*, bool permanent*/) {
 }
 
 bool SceneManager::addEntityToRemove(Entity* ent) {
-	std::vector<Entity*>* vec = &_entities;
-	//if (permanent) vec = &_permanentEntities;
-	auto it = find(vec->begin(), vec->end(), ent);
-	if (it == vec->end()) return false;
+	auto it = find(_entities.begin(), _entities.end(), ent);
+	if (it == _entities.end()) return false;
 
 	_entitiesToRemove.push_back(*it);
-	vec->erase(it);
+	_entities.erase(it);
 	return true;
 }
-
-void SceneManager::loadEntities()
-{
-	for (Entity* e : _entitiesToLoad)
-		_entities.push_back(e);
-
-	_entitiesToLoad.clear();
-}
-
-
 
 bool SceneManager::loadComponents()
 {
@@ -85,7 +71,7 @@ bool SceneManager::loadComponents()
 	return true;
 }
 
-Entity* SceneManager::getEntityByID(int id/*, bool all*/)
+Entity* SceneManager::getEntityByID(int id)
 {
 	Entity* ent = nullptr;
 	auto it = _entities.begin();
@@ -95,7 +81,6 @@ Entity* SceneManager::getEntityByID(int id/*, bool all*/)
 		++it;
 	}
 
-
 	if (ent == nullptr) {
 		auto it = _entitiesToLoad.begin();
 		while (ent == nullptr && it != _entitiesToLoad.end()) {
@@ -104,81 +89,52 @@ Entity* SceneManager::getEntityByID(int id/*, bool all*/)
 			++it;
 		}
 	}
-	/*if (all) {
-		it = _permanentEntities.begin();
-		while (ent == nullptr && it != _permanentEntities.end()) {
-			if ((*it)->getId() == id)
-				ent = *it;
-			++it;
-		}
-	}*/
 	return ent;
 }
 
-bool SceneManager::removeEntities() {
-	//std::vector<Entity*>* vec = &_entities;
-	//auto it = find(vec->begin(), vec->end(), ent);
-	//if (it == vec->end()) {
-	//	//vec = &_permanentEntities;
-	//	//it = find(vec->begin(), vec->end(), ent);
-	//	//if (it == vec->end()) 
-	//		return false;
-	//}
-	//delete* it;
-	//vec->erase(it);
-	//return true;
+void SceneManager::removeEntities() {
 	for (Entity* e : _entitiesToRemove) {
 		if (e) delete e;
 	}
 	_entitiesToRemove.clear();
-	return true;
 }
 
-std::vector<Entity*> SceneManager::getEntities(/*bool all*/) {
-	//std::vector<Entity*> list;
-	//list.reserve(_entities.size() + _permanentEntities.size());
-	//list.insert(list.end(), _entities.begin(), _entities.end());
-	//if (all) list.insert(list.end(), _permanentEntities.begin(), _permanentEntities.end());
-	//return list;
+std::vector<Entity*> SceneManager::getEntities() {
 	return _entities;
 }
 
-void SceneManager::deleteEntities(/*bool all*/) {
+void SceneManager::deleteEntities() {
 	for (Entity* e : _entities) {
 		_entitiesToRemove.push_back(e);
 	}
-	_entities.clear();
-	//auto it = _entities.begin();
-	//while(it != _entities.end()) {
-	//	if (/*all ||*/ !(*it)->isPaused()) {
-	//		_entitiesToRemove.push_back(*it);
-	//	}
-	//	++it;
-	//}
-	//if (all) {
-	//	auto it = _permanentEntities.begin();
-	//	while (it != _permanentEntities.end()) {
-	//		_entitiesToRemove.push_back(*it);
-	//		++it;
-	//	}
-	//}
+	for (Entity* e : _entitiesToLoad) {
+		_entitiesToRemove.push_back(e);
+	}
+	_entitiesToLoad.clear();
 }
 
-bool SceneManager::loadScene(std::string sceneName/*, bool all*/) {
-	deleteEntities(/*all*/);
-	std::string path = ResourceManager::GetInstance()->scene(sceneName);
-
-	readFile(path);
-	return true;
+void SceneManager::newScene(std::string sceneName) {
+	deleteEntities();
+	_sceneName = ResourceManager::GetInstance()->scene(sceneName);
+	_newScene = true;
 }
 
-void SceneManager::pauseScene()
-{
+void SceneManager::loadEntities() {	
+	for (Entity* e : _entitiesToLoad)
+		_entities.push_back(e);
+	_entitiesToLoad.clear();
+
+	if (_newScene) {
+		readFile(_sceneName);
+		_newScene = false;
+	}
+}
+
+void SceneManager::pauseScene() {
 	for (Entity* e : _entities)	e->setPaused(true);
 }
 
-void SceneManager::continueScene()
-{
+void SceneManager::continueScene() {
 	for (Entity* e : _entities) {
 		if (e->isPaused())
 			e->setPaused(false);
