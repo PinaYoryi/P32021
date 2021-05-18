@@ -8,7 +8,7 @@
 #include "Input.h"
 
 bool PinaMotor::init(std::string windowName) {
-    try {
+    //try {
         OgreMotor::Init(windowName);
         BulletInstance::Init();
         Audio::Init();
@@ -16,18 +16,18 @@ bool PinaMotor::init(std::string windowName) {
         MotorLoop::Init();
         ResourceManager::Init();
         Input::Init();
-    }
-    catch (...) { return false; }
+    //}
+    //catch (...) { return false; }
     return true;
 }
 
 bool PinaMotor::launch(std::string sceneName) {
-    try {
+    //try {
         SceneManager::GetInstance()->loadComponents();
         SceneManager::GetInstance()->loadScene(sceneName);
         MotorLoop::GetInstance()->startLoop();
-    }
-    catch (...) { return false; }
+    //}
+    //catch (...) { return false; }
     return true;
 }
 
