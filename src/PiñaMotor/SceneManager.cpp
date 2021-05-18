@@ -44,6 +44,16 @@ bool SceneManager::addEntity(Entity* ent/*, bool permanent*/) {
 	_entitiesToLoad.push_back(ent); return true;
 }
 
+bool SceneManager::addEntityToRemove(Entity* ent) {
+	std::vector<Entity*>* vec = &_entities;
+	//if (permanent) vec = &_permanentEntities;
+	auto it = find(vec->begin(), vec->end(), ent);
+	if (it == vec->end()) return false;
+
+	vec->erase(it);
+	_entitiesToRemove.push_back(ent); return true;
+}
+
 void SceneManager::loadEntities()
 {
 	for (Entity* e : _entitiesToLoad)
@@ -133,20 +143,22 @@ std::vector<Entity*> SceneManager::getEntities(/*bool all*/) {
 }
 
 void SceneManager::deleteEntities(/*bool all*/) {
-	auto it = _entities.begin();
-	while(it != _entities.end()) {
-		if (/*all ||*/ !(*it)->isPaused()) {
-			_entitiesToRemove.push_back(*it);
-		}
-		++it;
-	}
-	/*if (all) {
-		auto it = _permanentEntities.begin();
-		while (it != _permanentEntities.end()) {
-			_entitiesToRemove.push_back(*it);
-			++it;
-		}
-	}*/
+	for (Entity* e : _entities)
+		addEntityToRemove(e);
+	//auto it = _entities.begin();
+	//while(it != _entities.end()) {
+	//	if (/*all ||*/ !(*it)->isPaused()) {
+	//		_entitiesToRemove.push_back(*it);
+	//	}
+	//	++it;
+	//}
+	//if (all) {
+	//	auto it = _permanentEntities.begin();
+	//	while (it != _permanentEntities.end()) {
+	//		_entitiesToRemove.push_back(*it);
+	//		++it;
+	//	}
+	//}
 }
 
 bool SceneManager::loadScene(std::string sceneName/*, bool all*/) {

@@ -25,6 +25,10 @@ public:
 	/// <param name="permanent">Se mantiene entre escenas o no</param>
 	bool addEntity(Entity* ent/*, bool permanent = false*/);
 
+	/// <summary>
+	/// Añade una entidad a la lista de entidades a eliminar. Si existe devuelve false, sino, true y la añade.
+	/// </summary>
+	bool addEntityToRemove(Entity* ent);
 
 	/// <summary>
 	/// Carga las entidades que hay en el vector de entidades a cargar en el vector de entidades a usar
@@ -73,7 +77,6 @@ public:
 	/// <param name="all">True para eliminar tambien las permanentes, false para lo contrario</param>
 	void deleteEntities(/*bool all = false*/);
 
-	void addEntityToRemove(Entity * ent) { _entitiesToRemove.push_back(ent); }
 	std::vector<Entity*> getEntitysToRemove() {	return _entitiesToRemove;}
 protected:
 	static SceneManager* _singleton;
