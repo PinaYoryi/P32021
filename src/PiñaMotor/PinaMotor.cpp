@@ -43,6 +43,7 @@ bool PinaMotor::launch(std::string sceneName) {
 void PinaMotor::close() {
     //Se borran en orden inverso al de creación, excepto scenemanager, porque se deben
     //borrar primero las referencias a cuerpos en bullet y despues las entidades que los poseen.
+    if (Gui::GetInstance() != nullptr) delete Gui::GetInstance();
     if (SceneManager::GetInstance() != nullptr) delete SceneManager::GetInstance();
     if (Input::GetInstance() != nullptr) delete Input::GetInstance();
     if (ResourceManager::GetInstance() != nullptr) delete ResourceManager::GetInstance();

@@ -5,7 +5,6 @@
 #include <CEGUI/RendererModules/Ogre/Renderer.h>
 #include <iostream>
 
-
 Gui* Gui::_guiInstance = nullptr;
 
 Gui::Gui() {
@@ -28,11 +27,7 @@ Gui::Gui() {
 	createFrameListener();
 }
 
-Gui::~Gui()
-{
-	//CEGUI::OgreRenderer::destroySystem();
-	//delete _guiInstance;
-}
+Gui::~Gui() {}
 
 bool Gui::Init() {
 	if (_guiInstance != nullptr) return false;
