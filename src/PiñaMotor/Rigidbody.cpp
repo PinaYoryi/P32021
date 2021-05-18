@@ -27,9 +27,14 @@ bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 	if (s == "true") trigger = true;
 	else if (s == "false") trigger = false;
 	else return false;
-	
-	if ((_myEntity->getComponent<Renderer>() == nullptr && !trigger) || ( _myEntity->getComponent<Renderer>()->getOgreEntity() == nullptr && !trigger))
+
+	// leemos el Shape, -1 = no va a tener renderer
+	s = mapa.at("shape");
+	if (std::stof(s) >= 0 && ((_myEntity->getComponent<Renderer>() == nullptr && !t) || (_myEntity->getComponent<Renderer>()->getOgreEntity() == nullptr && !t)))
 		return false;
+
+	if (std::stof(s) == -1) createShape(ShapeTypes::Box, false);	// Si no debe tener
+	else createShape((ShapeTypes)(std::stoi(s)));	// El tipo que debe tener
 
 	s = mapa.at("kinematic");
 	if (s == "true") kinematic = true;
@@ -37,7 +42,6 @@ bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 	else return false;
 
 	// Creamos el Shape
-	s = mapa.at("shape");
 	if (std::stof(s) == -1) createShape(ShapeTypes::Box, false);	// Si no debe tener
 	else createShape((ShapeTypes)(std::stoi(s)));	// El tipo que debe tener
 
