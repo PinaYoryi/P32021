@@ -16,7 +16,7 @@ Camera::~Camera()
 {
 	OgreMotor::GetInstance()->getSceneManager()->destroySceneNode(_camNode);
 	OgreMotor::GetInstance()->getSceneManager()->destroyCamera(_myEntity->getName());
-	OgreMotor::GetInstance()->getRenderWindow()->removeViewport(OgreMotor::GetInstance()->getSceneManager()->getCurrentViewport()->getZOrder());
+	OgreMotor::GetInstance()->getRenderWindow()->removeAllViewports();//removeViewport(OgreMotor::GetInstance()->getSceneManager()->getCurrentViewport()->getZOrder());
 }
 
 bool Camera::init(const std::map<std::string, std::string>& mapa) {
@@ -26,7 +26,7 @@ bool Camera::init(const std::map<std::string, std::string>& mapa) {
 	_cam = OgreMotor::GetInstance()->getSceneManager()->createCamera(name);
 	_camNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode();
 	if(OgreMotor::GetInstance()->getSceneManager()->getCurrentViewport())
-		OgreMotor::GetInstance()->getRenderWindow()->removeViewport(OgreMotor::GetInstance()->getSceneManager()->getCurrentViewport()->getZOrder());
+		OgreMotor::GetInstance()->getRenderWindow()->removeAllViewports(); //removeViewport(OgreMotor::GetInstance()->getSceneManager()->getCurrentViewport()->getZOrder());
 
 	_viewport = OgreMotor::GetInstance()->getRenderWindow()->addViewport(_cam);
 	_camNode->attachObject(_cam);
