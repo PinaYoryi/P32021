@@ -143,8 +143,10 @@ std::vector<Entity*> SceneManager::getEntities(/*bool all*/) {
 }
 
 void SceneManager::deleteEntities(/*bool all*/) {
-	for (Entity* e : _entities)
-		addEntityToRemove(e);
+	for (Entity* e : _entities) {
+		_entitiesToRemove.push_back(e);
+	}
+	_entities.clear();
 	//auto it = _entities.begin();
 	//while(it != _entities.end()) {
 	//	if (/*all ||*/ !(*it)->isPaused()) {
