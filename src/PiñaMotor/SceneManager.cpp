@@ -110,6 +110,7 @@ void SceneManager::deleteEntities() {
 	for (Entity* e : _entitiesToLoad) {
 		_entitiesToRemove.push_back(e);
 	}
+	_entities.clear();
 	_entitiesToLoad.clear();
 }
 
