@@ -10,14 +10,14 @@
 Light::~Light()
 {
 	OgreMotor::GetInstance()->getSceneManager()->destroySceneNode(_lightNode);
-	OgreMotor::GetInstance()->getSceneManager()->destroyLight(_myEntity->getName()); ;
+	OgreMotor::GetInstance()->getSceneManager()->destroyLight(_myEntity->getName()); 
 }
 
 bool Light::init(const std::map<std::string, std::string>& mapa) {
 	if (mapa.find("type") == mapa.end() || mapa.find("attenuation") == mapa.end() || mapa.find("shadows") == mapa.end() || mapa.find("diffuse") == mapa.end() ||
-		mapa.find("specular") == mapa.end() || mapa.find("spotinner") == mapa.end() || mapa.find("spotouter") == mapa.end()) return false;
+		mapa.find("specular") == mapa.end() || mapa.find("spotinner") == mapa.end() || mapa.find("spotouter") == mapa.end() ) return false;
 
-	_light = OgreMotor::GetInstance()->getSceneManager()->createLight();
+	_light = OgreMotor::GetInstance()->getSceneManager()->createLight(_myEntity->getName());
 	_lightNode = OgreMotor::GetInstance()->getSceneManager()->getRootSceneNode()->createChildSceneNode();
 	_lightNode->attachObject(_light);
 
