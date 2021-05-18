@@ -41,10 +41,6 @@ bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 	else if (s == "false") kinematic = false;
 	else return false;
 
-	// Creamos el Shape
-	if (std::stof(s) == -1) createShape(ShapeTypes::Box, false);	// Si no debe tener
-	else createShape((ShapeTypes)(std::stoi(s)));	// El tipo que debe tener
-
 	// Creamos un Transform de Bullet a partir del componente Transform
 	btTransform startTransform;
 	startTransform.setIdentity();
