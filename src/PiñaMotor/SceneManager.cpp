@@ -51,8 +51,7 @@ bool SceneManager::addEntityToRemove(Entity* ent) {
 	return true;
 }
 
-bool SceneManager::loadComponents()
-{
+bool SceneManager::loadComponents() {
 	try {
 		ComponentFactoryRegistrations::ComponentFactoryRegistration<AudioListener>("audiolistener");
 		ComponentFactoryRegistrations::ComponentFactoryRegistration<AudioSource>("audiosource");

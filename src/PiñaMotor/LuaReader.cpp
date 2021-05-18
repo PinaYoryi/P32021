@@ -30,8 +30,7 @@ Entity* readPrefab(std::string file) {
 #if _DEBUG
 	std::printf("now calling lua\n\n");
 #endif
-	luaL_loadfile(l, file.c_str());
-	if (lua_pcall(l, 0, 0, 0)) {
+	if (!luaL_loadfile(l, file.c_str()) && lua_pcall(l, 0, 0, 0)) {
 #if _DEBUG
 		std::cout << "Lua was not able to be loaded\n";
 #endif
@@ -92,14 +91,17 @@ Entity* readPrefab(std::string file) {
 }
 
 void readFile(std::string file) {
+
+	std::vector<Entity*> ents;
+	std::vector<bool> entInits;
+
 	lua_State* l;
 	l = luaL_newstate();
 	openlualibs(l);
 #if _DEBUG
 	std::printf("now calling lua\n\n");
 #endif
-	luaL_loadfile(l, file.c_str());
-	if (lua_pcall(l, 0, 0, 0)) {
+	if (!luaL_loadfile(l, file.c_str()) && lua_pcall(l, 0, 0, 0)) {
 #if _DEBUG
 		std::cout << "Lua was not able to be loaded\n";
 #endif
@@ -137,6 +139,8 @@ void readFile(std::string file) {
 			lua_pop(l, 1);
 
 			Entity* ent = new Entity(name, id);
+			ents.push_back(ent);
+			entInits.push_back(false);
 			SceneManager::GetInstance()->addEntity(ent);
 
 			// Components
@@ -164,8 +168,6 @@ void readFile(std::string file) {
 				lua_pop(l, 1);
 			}
 
-			ent->init();
-
 			lua_pop(l, 1);
 			// Entity is no longer here, only key to be removed by lua_next
 			lua_pop(l, 1);
@@ -176,6 +178,19 @@ void readFile(std::string file) {
 		std::printf("\ndo something else\n\n");
 #endif
 		lua_close(l);
+
+		int i = 0;
+		int numEnts = ents.size();
+		int initedEnts = 0;
+		while (initedEnts != numEnts) {
+			if (!entInits[i] && ents[i]->init()) {
+				++initedEnts;
+				entInits[i] = true;
+				SceneManager::GetInstance()->addEntity(ents[i]);
+			}
+			++i;
+			i %= numEnts;
+		}
 	}
 	catch (...) {
 		throw "Lua file " + file + " has incorrect formatting";

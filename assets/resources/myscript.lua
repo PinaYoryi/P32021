@@ -8,8 +8,9 @@ local mapa = {
       components={
         transform={
           position="0,0,0",
-          rotation="0,0,0",
-          scale="2,2,2"
+          rotation="0,0,60",
+          scale="1,1,1",
+          parent="-1"
         },
         renderer={
           mesh="Sinbad.mesh",
@@ -32,9 +33,10 @@ local mapa = {
       id=2,
       components={
         transform={
-          position="0,-50,200",
+          position="0,0,200",
           rotation="0,0,0",
-          scale="1,1,1"
+          scale="1,1,1",
+          parent="1"
         },
         camera={
           near="0.1",
@@ -48,26 +50,27 @@ local mapa = {
         }
       }
     },
-    {
-    name="Luz",
-    id=3,
-    components={
-      transform={
-        position="50,0,0",
-        rotation="0,0,0",
-        scale="1,1,1"
-      },
-      light={
-        type="0",
-        attenuation="",
-        shadows="true",
-        diffuse="1,0.2,1,1",
-        specular="1,1,1,1",
-        spotinner="",
-        spotouter=""
-        }
-      }
-    },
+    -- {
+    -- name="Luz",
+    -- id=3,
+    -- components={
+    --   transform={
+    --     position="50,0,0",
+    --     rotation="0,0,0",
+    --     scale="1,1,1",
+    --     parent="-1"
+    --   },
+    --   light={
+    --     type="0",
+    --     attenuation="",
+    --     shadows="true",
+    --     diffuse="1,0.2,1,1",
+    --     specular="1,1,1,1",
+    --     spotinner="",
+    --     spotouter=""
+    --     }
+    --   }
+    -- },
     {
       name="Suelo",
       id=4,
@@ -75,7 +78,8 @@ local mapa = {
         transform={
           position="0,-100,0",
           rotation="0,0,0",
-          scale="1,0.2,1"
+          scale="1,0.2,1",
+          parent="-1"
         },
         renderer={
           mesh="cube.mesh",
