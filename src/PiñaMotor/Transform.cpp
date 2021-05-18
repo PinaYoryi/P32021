@@ -1,9 +1,10 @@
 #include "Transform.h"
 #include "Entity.h"
 #include <string>
+#include "SceneManager.h"
 
 bool Transform::init(const std::map<std::string, std::string>& mapa) {
-	if (mapa.find("position") == mapa.end() || mapa.find("rotation") == mapa.end() || mapa.find("scale") == mapa.end()) return false;
+	if (mapa.find("position") == mapa.end() || mapa.find("rotation") == mapa.end() || mapa.find("scale") == mapa.end() || mapa.find("parent") == mapa.end()) return false;
 	std::string::size_type sz = 0, sa = 0;
 
 	std::string s = mapa.at("position");
@@ -11,27 +12,24 @@ bool Transform::init(const std::map<std::string, std::string>& mapa) {
 	string temp = s.substr(sz + 1);
 	float b = std::stof(temp, &sa);
 	float c = std::stof(s.substr(sz + sa + 2));
-	_position = { std::stof(s, &sz), std::stof(s.substr(sz + 1), &sa), std::stof(s.substr(sz + sa + 2)) };
-	s = mapa.at("rotation");
-	_rotation = Quaternion::Euler({ std::stof(s, &sz), std::stof(s.substr(sz + 1), &sa), std::stof(s.substr(sz + sa + 2)) });
+	_localPosition = { a, b, c };
 
-	s = mapa.at("scale");
-	_scale = { std::stof(s, &sz), std::stof(s.substr(sz + 1), &sa), std::stof(s.substr(sz + sa + 2)) };
+	std::string s2 = mapa.at("rotation");
+	_localRotation = Quaternion::Euler({ std::stof(s2, &sz), std::stof(s2.substr(sz + 1), &sa), std::stof(s2.substr(sz + sa + 2)) });
 
+	std::string s3 = mapa.at("scale");
+	_localScale = { std::stof(s3, &sz), std::stof(s3.substr(sz + 1), &sa), std::stof(s3.substr(sz + sa + 2)) };
+
+	std::string s4 = mapa.at("parent");
+	if(std::stoi(s4) >= 0)
+		setParent(SceneManager::GetInstance()->getEntityByID(std::stoi(s4))->getComponent<Transform>());
 
 	if (_parent == nullptr) {
-		_localPosition = _position;
-		_localRotation = _rotation;
-		_localScale = _scale;
-
-	}
-	else {
-		_localPosition = inverseTransformDirection(_parent->position());
-		_localRotation = inverseTransformRotation(_parent->rotation());
-		_localScale = inverseTransformDirection(_parent->scale());
+		_position  = _localPosition;
+		_rotation  = _localRotation;
+		_scale  = _localScale;
 	}
 	_initialized = true;
-
 	return true;
 }
 
@@ -79,36 +77,24 @@ void Transform::setParent(Transform* parent)
 		parent->setChild(this);
 
 	_parent = parent;
-	_localPosition = inverseTransformDirection(_position);
-	_localRotation = inverseTransformRotation(_rotation);
-	_localScale = inverseTransformDirection(_scale);
+	_position = inverseTransformDirection(_parent->position());
+	_rotation = inverseTransformRotation(_parent->rotation());
+	_scale = inverseTransformDirection(_parent->scale());
 }
 
 void Transform::setPosition(Vector3<float> v) {
 	_position = v;
 	_localPosition = inverseTransformDirection(v);
-
-	for (auto c : _vChild) {
-		c->setPosition(v + c->localPosition());
-	}
 }
 
 void Transform::setPosition(float x, float y, float z) {
 	_position = { x, y, z };
 	_localPosition = inverseTransformDirection(x, y, z);
-
-	for (auto c : _vChild) {
-		c->setPosition(Vector3<float>(x, y, z) + c->localPosition());
-	}
 }
 
 void Transform::setRotation(Quaternion q) {
 	_rotation = q;
 	_localRotation = inverseTransformRotation(q);
-
-	for (auto c : _vChild) {
-		c->setRotation(q * c->localRotation() * q.conjugate());
-	}
 }
 
 Quaternion Transform::inverseTransformRotation(Quaternion q) {
@@ -127,10 +113,6 @@ void Transform::setRotation(float x, float y, float z) {
 
 	_rotation = Quaternion::Euler({ x, y, z });
 	_localRotation = inverseTransformRotation(_rotation);
-
-	for (auto c : _vChild) {
-		c->setRotation(_rotation * c->localRotation());
-	}
 }
 
 void Transform::setScale(Vector3<float> v) {
@@ -247,19 +229,19 @@ Vector3<float> Transform::inverseTransformDirection(float x, float y, float z) {
 
 void Transform::getParentData() {
 	if(parent()) {
-		_localRotation = parent()->rotation() * _rotation;
+		_rotation  = parent()->rotation() * _localRotation;
 
 		Vector3<> scale;
-		scale.x = parent()->scale().x * _scale.x;
-		scale.y = parent()->scale().y * _scale.y;
-		scale.z = parent()->scale().z * _scale.z;
+		scale.x = parent()->localScale().x * _localScale.x;
+		scale.y = parent()->localScale().y * _localScale.y;
+		scale.z = parent()->localScale().z * _localScale.z;
 
-		_localScale = scale;
-		_localPosition = parent()->position() + _position;
+		_scale = scale;
+		_position = parent()->position() + _localPosition;
 	}
 	else {
-		_localRotation = _rotation;
-		_localScale = _scale;
-		_localPosition = _position;
+		_rotation  = _localRotation;
+		_scale  = _localScale;
+		_position = _localPosition;
 	}
 }

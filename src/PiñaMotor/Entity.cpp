@@ -22,7 +22,7 @@ Entity::~Entity() {
 
 }
 
-void Entity::init()
+bool Entity::init()
 {
 	int i = 0;
 	int numComponents = compUnique.size();
@@ -31,6 +31,9 @@ void Entity::init()
 		if (!compinits[i] && compUnique[i]->init(compMaps[i])) {
 			++initedComps;
 			compinits[i] = true;
+		}
+		if (_needsOtherEntity) {
+			return false;
 		}
 		++i;
 		i %= numComponents;
@@ -43,6 +46,7 @@ void Entity::init()
 	if (i!=0 && i < compUnique.size()) {		
 		compUnique[0].swap(compUnique[i]);
 	}
+	return true;
 }
 
 void Entity::update() {

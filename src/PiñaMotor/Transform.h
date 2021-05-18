@@ -22,13 +22,13 @@ public:
 	Transform* parent() { return _parent; }
 	Transform* findChild(char* name);
 
-	Vector3<float> position() { return _position; }
-	Quaternion rotation() { return _rotation; }
-	Vector3<float> scale() { return _scale; }
+	Vector3<float> position() { getParentData(); return _position; }
+	Quaternion rotation() { getParentData(); return _rotation; }
+	Vector3<float> scale() { getParentData(); return _scale; }
 
-	Vector3<float> localPosition() { getParentData(); return _localPosition; }
-	Quaternion localRotation() { getParentData(); return _localRotation; }
-	Vector3<float> localScale() { getParentData(); return _localScale; }
+	Vector3<float> localPosition() {  return _localPosition; }
+	Quaternion localRotation() {  return _localRotation; }
+	Vector3<float> localScale() {  return _localScale; }
 
 	// Setter
 	void setParent(Transform* parent);

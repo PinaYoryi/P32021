@@ -63,7 +63,7 @@ public:
 
 	int getId() { return _id; }
 
-	void init();
+	bool init();
 
 	void update();
 
@@ -90,4 +90,6 @@ private:
 	std::vector<std::map<std::string, std::string>> compMaps;
 
 	std::vector<bool> compinits;
+
+	bool _needsOtherEntity;
 };
