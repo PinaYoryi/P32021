@@ -23,7 +23,9 @@ bool BasicAI::init(const std::map<std::string, std::string>& mapa) {
 
 	s = mapa.at("step");
 	_step = std::stof(s);
-	
+
+	_initialized = true;
+
 	return true;
 }
 

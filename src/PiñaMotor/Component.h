@@ -19,7 +19,7 @@ public:
 	virtual void onCollisionStart(Entity* other) {};
 	virtual void onCollisionStay(Entity* other) {};
 	virtual void onCollisionEnd(Entity* other) {};
-
+	
 	virtual void update() {};
 	virtual void fixedUpdate() {};
 	virtual ~Component() {};
@@ -29,14 +29,13 @@ public:
 	}
 
 	Entity* getEntity() { return _myEntity; }
-	//TODO:Como cambiar cosas de un componente a otro, pasando por la entidad
-	/*template<typename T>
-	T* getComponent() {
-		return _myEntity->getComponent<T>();
-	}*/
+	
+	virtual	bool isInitialized() { return _initialized; }
+
 
 protected:
 	virtual void render() {};
 	bool _active = true;
 	Entity* _myEntity = nullptr;
+	bool _initialized=false;
 };

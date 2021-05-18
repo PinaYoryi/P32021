@@ -35,6 +35,14 @@ void Entity::init()
 		++i;
 		i %= numComponents;
 	}
+	Transform* t;
+	i = 0;
+	while (i < compUnique.size() && !dynamic_cast<Transform*> (compUnique[i].get()) ) {
+		i++;
+	}
+	if (i!=0 && i < compUnique.size()) {		
+		compUnique[0].swap(compUnique[i]);
+	}
 }
 
 void Entity::update() {

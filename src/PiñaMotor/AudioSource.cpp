@@ -13,7 +13,8 @@ bool AudioSource::init(const std::map<std::string, std::string>& mapa) {
 	_result = Audio::GetInstance()->getResult();
 	_channel = nullptr;
 	_sound = nullptr;
-
+	
+	_initialized = true;
 	return true;
 }
 

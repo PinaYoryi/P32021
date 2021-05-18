@@ -19,7 +19,7 @@ bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 
 	// Cogemos el puntero del componente Transform 
 	_trans = _myEntity->getComponent<Transform>();
-	if (_trans == nullptr && !_trans->isInitialized()) return false;
+	if (_trans == nullptr || !_trans->isInitialized()) return false;
 
 	// Vemos si es trigger o no
 	bool trigger,kinematic;
@@ -30,7 +30,7 @@ bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 
 	// leemos el Shape, -1 = no va a tener renderer
 	s = mapa.at("shape");
-	if (std::stof(s) >= 0 && ((_myEntity->getComponent<Renderer>() == nullptr && !trigger) || (_myEntity->getComponent<Renderer>()->getOgreEntity() == nullptr && !trigger)))
+	if (std::stof(s) >= 0 && (!_myEntity->getComponent<Renderer>()->isInitialized() && !trigger))
 		return false;
 
 	if (std::stof(s) == -1) createShape(ShapeTypes::Box, false);	// Si no debe tener
@@ -85,6 +85,10 @@ bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 	// Se a�ade al mundo de la simulaci�n f�sica
 	BulletInstance::GetInstance()->getWorld()->addRigidBody(_btRb);
 	setGravity(BulletInstance::GetInstance()->getGravity());
+
+	std::cout<<"    "<<_btRb->getWorldTransform().getOrigin().y()<<"\n";
+
+	_initialized = true;
 
 	return true;
 }

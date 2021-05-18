@@ -62,6 +62,7 @@ bool Camera::init(const std::map<std::string, std::string>& mapa) {
 
 	s = mapa.at("color");
 	setBackgroundColor({ std::stof(s, &sz), std::stof(s.substr(sz + 1), &sa), std::stof(s.substr(sz + sa + 2)) });
+	_initialized = true;
 
 	return true;
 }

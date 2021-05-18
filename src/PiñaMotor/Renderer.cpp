@@ -30,6 +30,8 @@ bool Renderer::init(const std::map<std::string, std::string>& mapa){
 	else if (vi == "false") setVisible(false);
 	else return false;
 
+	_initialized = true;
+
 	return true;
 }
 

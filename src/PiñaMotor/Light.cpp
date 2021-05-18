@@ -67,6 +67,8 @@ bool Light::init(const std::map<std::string, std::string>& mapa) {
 	s = mapa.at("spotouter");
 	if (s != "") setSpotlightOuterAngle(std::stof(s));
 
+	_initialized = true;
+
 	return true;
 }
 

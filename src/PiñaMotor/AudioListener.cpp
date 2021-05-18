@@ -13,6 +13,8 @@ bool AudioListener::init(const std::map<std::string, std::string>& mapa) {
     _v = { 0,0,0 };
     _f = { 0,0,1 };
     _u = { 0,1,0 };
+    _initialized = true;
+
     return true;
 }
 
