@@ -50,8 +50,9 @@ bool SceneManager::addEntityToRemove(Entity* ent) {
 	auto it = find(vec->begin(), vec->end(), ent);
 	if (it == vec->end()) return false;
 
+	_entitiesToRemove.push_back(*it);
 	vec->erase(it);
-	_entitiesToRemove.push_back(ent); return true;
+	return true;
 }
 
 void SceneManager::loadEntities()
@@ -127,7 +128,7 @@ bool SceneManager::removeEntities() {
 	//vec->erase(it);
 	//return true;
 	for (Entity* e : _entitiesToRemove) {
-		if(e) delete e;
+		if (e) delete e;
 	}
 	_entitiesToRemove.clear();
 	return true;
@@ -182,6 +183,6 @@ void SceneManager::continueScene()
 		if (e->isPaused())
 			e->setPaused(false);
 		else
-			delete e;
+			addEntityToRemove(e);
 	}
 }
