@@ -54,7 +54,7 @@ local mapa = {
           step="150",
           threshold="0.5",
           thresholdRot="0.1",
-          stepRot="0.002"
+          stepRot="0.005"
         }
       }
     },
