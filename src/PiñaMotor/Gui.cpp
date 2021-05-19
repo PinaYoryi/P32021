@@ -14,22 +14,21 @@ Gui::Gui() {
 	_mContext = &CEGUI::System::getSingleton().getDefaultGUIContext();
 
 	Ogre::ResourceGroupManager& rgm = Ogre::ResourceGroupManager::getSingleton();
-
-	// Esto es como añadirlo al resources.cfg
+	
+	// Esto es como aï¿½adirlo al resources.cfg
 	rgm.createResourceGroup("imagesets");
 	rgm.createResourceGroup("fonts");
 	rgm.createResourceGroup("layouts");
 	rgm.createResourceGroup("schemes");
 	rgm.createResourceGroup("looknfeels");
 	rgm.createResourceGroup("lua_scripts");
-	rgm.createResourceGroup("schemas");
-
-	rgm.addResourceLocation("assets/resources/gui/schemes/", "FileSystem", "schemes");
-	rgm.addResourceLocation("assets/resources/gui/imagesets/", "FileSystem", "imagesets");
-	rgm.addResourceLocation("assets/resources/gui/fonts/", "FileSystem", "fonts");
-	rgm.addResourceLocation("assets/resources/gui/layouts/", "FileSystem", "layouts");
-	rgm.addResourceLocation("assets/resources/gui/looknfeels/", "FileSystem", "looknfeels");
-	rgm.addResourceLocation("assets/resources/gui/lua_scripts/", "FileSystem", "lua_scripts");
+	
+	rgm.addResourceLocation("../../assets/resources/gui/schemes/", "FileSystem", "schemes");
+	rgm.addResourceLocation("../../assets/resources/gui/imagesets/", "FileSystem", "imagesets");
+	rgm.addResourceLocation("../../assets/resources/gui/fonts/", "FileSystem", "fonts");
+	rgm.addResourceLocation("../../assets/resources/gui/layouts/", "FileSystem", "layouts");
+	rgm.addResourceLocation("../../assets/resources/gui/looknfeels/", "FileSystem", "looknfeels");
+	rgm.addResourceLocation("../../assets/resources/gui/lua_scripts/", "FileSystem", "lua_scripts");
 
 	CEGUI::ImageManager::setImagesetDefaultResourceGroup("imagesets");
 	CEGUI::AnimationManager::setDefaultResourceGroup("animations");

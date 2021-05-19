@@ -23,8 +23,8 @@ bool ButtonComponent::init(const std::map<std::string, std::string>& mapa) {
 
 	std::string n = mapa.at("name");
 
-	_button = Gui::GetInstance()->createButton(t, glm::vec2(a, b), glm::vec2(x, y), n);
-	_button->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&ButtonComponent::onClick, this));
+	//_button = Gui::GetInstance()->createButton(t, glm::vec2(a, b), glm::vec2(x, y), n);
+	//_button->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&ButtonComponent::onClick, this));
 
 	std::string ty = mapa.at("type");
 	if (ty == "EXIT")

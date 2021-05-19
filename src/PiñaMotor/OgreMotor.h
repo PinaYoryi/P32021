@@ -8,7 +8,8 @@
 #include <OgrePlugin.h>
 #include <OgreFileSystemLayer.h>
 #include <OgreFrameListener.h>
-#include <SDL.h>  
+#include <OgreShaderGenerator.h>
+#include <SDL.h>
 #undef main
 
 #pragma region clase de ogre Bites para poder renderizar
@@ -32,40 +33,36 @@ public:
 		const Ogre::String& schemeName,
 		Ogre::Material* originalMaterial, unsigned short lodIndex,
 		const Ogre::Renderable* rend) {
-		if (!mShaderGenerator->hasRenderState(schemeName))
-		{
-			return NULL;
-		}
-		// Case this is the default shader generator scheme.
+		Ogre::Technique* generatedTech = nullptr;
 
-		// Create shader generated technique for this material.
-		bool techniqueCreated = mShaderGenerator->createShaderBasedTechnique(
-			*originalMaterial,
-			Ogre::MaterialManager::DEFAULT_SCHEME_NAME,
-			schemeName);
+    // Case this is the default shader generator scheme.
+    if (schemeName == Ogre::RTShader::ShaderGenerator::DEFAULT_SCHEME_NAME) {
+        // Create shader generated technique for this material.
+        const bool techniqueCreated =
+            mShaderGenerator->createShaderBasedTechnique(
+                *originalMaterial, Ogre::MaterialManager::DEFAULT_SCHEME_NAME,
+                schemeName);
 
-		if (!techniqueCreated)
-		{
-			return NULL;
-		}
-		// Case technique registration succeeded.
+        // Case technique registration succeeded.
+        if (techniqueCreated) {
+            // Force creating the shaders for the generated technique.
+            mShaderGenerator->validateMaterial(schemeName,
+                originalMaterial->getName());
 
-		// Force creating the shaders for the generated technique.
-		mShaderGenerator->validateMaterial(schemeName, *originalMaterial);
+            // Grab the generated technique.
+            Ogre::Material::Techniques itTech =
+                originalMaterial->getTechniques();
 
-		// Grab the generated technique.
-		Ogre::Material::Techniques::const_iterator it;
-		for (it = originalMaterial->getTechniques().begin(); it != originalMaterial->getTechniques().end(); ++it)
-		{
-			Ogre::Technique* curTech = *it;
+            for (auto curTech : itTech) {
+                if (curTech->getSchemeName() == schemeName) {
+                    generatedTech = curTech;
+                    break;
+                }
+            }
+        }
+    }
 
-			if (curTech->getSchemeName() == schemeName)
-			{
-				return curTech;
-			}
-		}
-
-		return NULL;
+    return generatedTech;
 	}
 
 	bool afterIlluminationPassesCreated(Ogre::Technique* tech) {

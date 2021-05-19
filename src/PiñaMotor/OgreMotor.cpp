@@ -9,6 +9,7 @@
 #include <OgreMaterialManager.h>
 #include <SDL_video.h>
 #include <SDL_syswm.h>
+#include <OgreSTBICodec.h>
 
 OgreMotor* OgreMotor::_instance = nullptr;
 
@@ -94,6 +95,8 @@ void OgreMotor::createRoot() {
 	_mSolutionPath.erase(_mSolutionPath.find_last_of("\\") + 1, _mSolutionPath.size() - 1);
 
 	_mRoot = new Ogre::Root(pluginsPath, _mFSLayer->getWritablePath("ogre.cfg"), _mFSLayer->getWritablePath("ogre.log"));
+
+	Ogre::STBIImageCodec::startup();
 }
 
 void OgreMotor::shutdown() {
@@ -156,7 +159,10 @@ NativeWindowPair OgreMotor::createWindow(const Ogre::String& name) {
 	miscParams["vsync"] = ropts["VSync"].currentValue;
 	miscParams["gamma"] = ropts["sRGB Gamma Conversion"].currentValue;
 
-	if (!SDL_WasInit(SDL_INIT_VIDEO)) SDL_InitSubSystem(SDL_INIT_VIDEO);
+	if (!SDL_WasInit(SDL_INIT_VIDEO | SDL_INIT_TIMER))
+		if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) != 0) {
+			SDL_Log("Unable to initialize SDL: %s", SDL_GetError());
+		}
 
 	Uint32 flags = SDL_WINDOW_RESIZABLE;
 
@@ -319,6 +325,7 @@ bool OgreMotor::initialiseRTShaderSystem()
 	if (Ogre::RTShader::ShaderGenerator::initialize())
 	{
 		_mShaderGenerator = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
+
 		// Core shader libs not found -> shader generating will fail.
 		if (mRTShaderLibPath.empty())
 			return false;
