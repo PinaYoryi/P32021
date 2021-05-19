@@ -3,8 +3,6 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <OgreVector.h>
-using namespace std;
-
 /*
 *	Se declara toda la clase en el .h para evitar problemas de link.
 *	Al utilizar templates en una clase dividida entre .h y .cpp el

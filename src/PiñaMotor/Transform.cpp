@@ -9,7 +9,7 @@ bool Transform::init(const std::map<std::string, std::string>& mapa) {
 
 	std::string s = mapa.at("position");
 	float a = std::stof(s, &sz);
-	string temp = s.substr(sz + 1);
+	std::string temp = s.substr(sz + 1);
 	float b = std::stof(temp, &sa);
 	float c = std::stof(s.substr(sz + sa + 2));
 	_localPosition = { a, b, c };

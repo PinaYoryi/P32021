@@ -5,7 +5,6 @@
 #include <map>
 #include "Vector3.h"
 #include "Quaternion.h"
-using namespace std;
 
 class Entity {
 public:
@@ -71,7 +70,7 @@ public:
 
 	void render();
 
-	std::vector<unique_ptr<Component>>* getComponents() { return &compUnique; }
+	std::vector<std::unique_ptr<Component>>* getComponents() { return &compUnique; }
 	
 	static Entity* instantiate(std::string file, Vector3<> position = Vector3<>::zero(), Quaternion rotation = Quaternion());
 
@@ -85,7 +84,7 @@ private:
 	std::string _tag;
 
 	//aqui estaran los componentes de esta entidad
-	std::vector<unique_ptr<Component>> compUnique;
+	std::vector<std::unique_ptr<Component>> compUnique;
 
 	std::vector<std::map<std::string, std::string>> compMaps;
 
