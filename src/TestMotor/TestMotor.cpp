@@ -13,11 +13,22 @@ int main() {
 int WINAPI
 WinMain(HINSTANCE zhInstance, HINSTANCE prevInstance, LPSTR lpCmdLine, int nCmdShow) {
 #endif
-    std::cout << "Hello World!\n";
     PinaMotor motor;
-    motor.init("Test");
+    if (!motor.init("Test")) {
+#if (defined _DEBUG)
+        std::cerr << "\nError en init\n";
+#endif
+        motor.close();
+        return -1;
+    }
 
-    motor.launch("myscript.lua");
+    if (!motor.launch("myscript.lua")) {
+#if (defined _DEBUG)
+        std::cerr << "\nError en launch\n";
+#endif
+        motor.close();
+        return -1;
+    }
 
     motor.close();
 }
