@@ -91,4 +91,7 @@ private:
 	std::vector<bool> compinits;
 
 	bool _needsOtherEntity;
+
+	//numero de veces que puedes intentar iniciar tus componentes (para evitar bucle infinito)
+	int _numTriesToLoad;
 };

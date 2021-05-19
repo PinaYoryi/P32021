@@ -24,10 +24,11 @@ Entity::~Entity() {
 
 bool Entity::init()
 {
-	int i = 0;
+	_numTriesToLoad = compUnique.size() * 10;
+	int i = 0, j = 0;
 	int numComponents = compUnique.size();
 	int initedComps = 0;
-	while (initedComps != numComponents) {
+	while (initedComps != numComponents && j<_numTriesToLoad) {
 		if (!compinits[i] && compUnique[i]->init(compMaps[i])) {
 			++initedComps;
 			compinits[i] = true;
@@ -36,7 +37,12 @@ bool Entity::init()
 			return false;
 		}
 		++i;
+		j++;
 		i %= numComponents;
+	}
+	if (j >= _numTriesToLoad) {
+	
+		throw std::exception("Error al iniciar los componentes en Entity \n ");
 	}
 	Transform* t;
 	i = 0;
