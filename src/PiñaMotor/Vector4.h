@@ -110,7 +110,7 @@ public:
 	Vector4<T>& operator/=(const T val) { x /= val; y /= val; z /= val; w /= val; return *this; }
 	Vector4<T> operator/(const T val) const { return Vector4<T>(x, y, z, w) /= val; }
 #ifdef _DEBUG
-	friend ostream& operator<<(ostream& output, const Vector4<T>& v) {
+	friend std::ostream& operator<<(std::ostream& output, const Vector4<T>& v) {
 		output << "(" << v.x << ", " << v.y << ", " << v.z << "," << v.w << ")" >> "\n";
 		return output;
 	};
