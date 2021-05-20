@@ -15,19 +15,19 @@ bool PinaMotor::init(std::string windowName) {
         OgreMotor::Init(windowName);
         BulletInstance::Init();
         Audio::Init();
-        Gui::Init();
         SceneManager::Init();
         MotorLoop::Init();
         ResourceManager::Init();
         Input::Init();
+        Gui::Init();
         Gui* gui = Gui::GetInstance();
 
         // Hay que pasar por parametro de init el nombre de loadScheme, imagen y visibilidad del raton
         // De momento estan puestos para prueba, pero lo suyo es que cada juego decida
         gui->loadScheme("TaharezLook", "TaharezLook.scheme");
         // gui->setFont("FairChar-30.font");
-        //gui->setMouseImage("TaharezLook/MouseArrow");
-        //gui->setMouseVisibility(true);
+        gui->setMouseImage("TaharezLook/MouseArrow");
+        gui->setMouseVisibility(true);
     }
     catch (std::exception& e) { std::cout << e.what() << "\n";  return false; }
     return true;

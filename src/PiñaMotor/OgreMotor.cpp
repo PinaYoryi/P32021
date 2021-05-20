@@ -166,9 +166,9 @@ NativeWindowPair OgreMotor::createWindow(const Ogre::String& name) {
 
 	Uint32 flags = SDL_WINDOW_RESIZABLE;
 
-	if (ropts["Full Screen"].currentValue == "Yes")  flags = SDL_WINDOW_FULLSCREEN;
+	if (ropts["Full Screen"].currentValue == "Yes")  flags = SDL_WINDOW_FULLSCREEN_DESKTOP;
 
-	_mWindow._native = SDL_CreateWindow(name.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, w, h, flags);
+	_mWindow._native = SDL_CreateWindow(name.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, w, h, flags);
 
 	SDL_SysWMinfo wmInfo;
 	SDL_VERSION(&wmInfo.version);
@@ -185,6 +185,8 @@ void OgreMotor::setWindowGrab(bool _grab) {
 	SDL_SetWindowGrab(_mWindow._native, grab);
 	SDL_ShowCursor(grab);
 }
+
+Ogre::RenderTarget* OgreMotor::getRenderTarget() { return _mRoot->getRenderTarget(_mWindow._render->getName()); }
 
 bool OgreMotor::frameRenderingQueued(const Ogre::FrameEvent& evt) {
 	for (std::set<InputListener*>::iterator it = mInputListeners.begin(); it != mInputListeners.end(); ++it)
@@ -318,6 +320,10 @@ void OgreMotor::createNewScene() {
 
 	_mShaderGenerator->addSceneManager(_mSM);
 }
+
+void OgreMotor::addInputListener(InputListener* lis) { mInputListeners.insert(lis); }
+
+void OgreMotor::removeInputListener(InputListener* lis) { mInputListeners.erase(lis); };
 
 #pragma region metodos de RTShader para poder renderizar
 bool OgreMotor::initialiseRTShaderSystem()

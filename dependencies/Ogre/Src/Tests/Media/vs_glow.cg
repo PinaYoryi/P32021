@@ -16,4 +16,3 @@ void main(float4 position : POSITION,
    oPosition = mul(worldViewProjMatrix, mypos);
 	
 }
-

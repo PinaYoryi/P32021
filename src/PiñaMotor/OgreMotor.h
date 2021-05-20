@@ -1,12 +1,31 @@
 #pragma once
 
+#ifndef _OGRE_MOTOR_H
+#define _OGRE_MOTOR_H
+
 #include <string>
 #include <iostream>
 
-#include <OgreBuildSettings.h>
-#include <OgreLogManager.h>
-#include <OgrePlugin.h>
-#include <OgreFileSystemLayer.h>
+namespace Ogre {
+	class RenderWindow;
+	class RenderTarget;
+	class Root;
+	class ViewPort;
+	class SceneManager;
+	class SceneNode;
+
+	class Camera;
+	class FileSystemLayer;
+	class Plane;
+
+	typedef std::string _StringBase;
+	typedef _StringBase String;
+
+	namespace RTShader {
+		class ShaderGenerator;
+	}
+}
+
 #include <OgreFrameListener.h>
 #include <OgreShaderGenerator.h>
 #include <SDL.h>
@@ -29,41 +48,45 @@ public:
 		that satisfy the target scheme name. If the scheme name is out target RT Shader System
 		scheme name we will try to create shader generated technique for it.
 	*/
-	Ogre::Technique* handleSchemeNotFound(unsigned short schemeIndex,
-		const Ogre::String& schemeName,
-		Ogre::Material* originalMaterial, unsigned short lodIndex,
-		const Ogre::Renderable* rend) {
-		Ogre::Technique* generatedTech = nullptr;
+	 Ogre::Technique* handleSchemeNotFound(unsigned short schemeIndex,
+		 const Ogre::String& schemeName,
+		 Ogre::Material* originalMaterial, unsigned short lodIndex,
+		 const Ogre::Renderable* rend) {
+		 if (!mShaderGenerator->hasRenderState(schemeName))
+		 {
+			 return NULL;
+		 }
+		 // Case this is the default shader generator scheme.
 
-    // Case this is the default shader generator scheme.
-    if (schemeName == Ogre::RTShader::ShaderGenerator::DEFAULT_SCHEME_NAME) {
-        // Create shader generated technique for this material.
-        const bool techniqueCreated =
-            mShaderGenerator->createShaderBasedTechnique(
-                *originalMaterial, Ogre::MaterialManager::DEFAULT_SCHEME_NAME,
-                schemeName);
+		 // Create shader generated technique for this material.
+		 bool techniqueCreated = mShaderGenerator->createShaderBasedTechnique(
+			 *originalMaterial,
+			 Ogre::MaterialManager::DEFAULT_SCHEME_NAME,
+			 schemeName);
 
-        // Case technique registration succeeded.
-        if (techniqueCreated) {
-            // Force creating the shaders for the generated technique.
-            mShaderGenerator->validateMaterial(schemeName,
-                originalMaterial->getName());
+		 if (!techniqueCreated)
+		 {
+			 return NULL;
+		 }
+		 // Case technique registration succeeded.
 
-            // Grab the generated technique.
-            Ogre::Material::Techniques itTech =
-                originalMaterial->getTechniques();
+		 // Force creating the shaders for the generated technique.
+		 mShaderGenerator->validateMaterial(schemeName, *originalMaterial);
 
-            for (auto curTech : itTech) {
-                if (curTech->getSchemeName() == schemeName) {
-                    generatedTech = curTech;
-                    break;
-                }
-            }
-        }
-    }
+		 // Grab the generated technique.
+		 Ogre::Material::Techniques::const_iterator it;
+		 for (it = originalMaterial->getTechniques().begin(); it != originalMaterial->getTechniques().end(); ++it)
+		 {
+			 Ogre::Technique* curTech = *it;
 
-    return generatedTech;
-	}
+			 if (curTech->getSchemeName() == schemeName)
+			 {
+				 return curTech;
+			 }
+		 }
+
+		 return NULL;
+	 }
 
 	bool afterIlluminationPassesCreated(Ogre::Technique* tech) {
 		if (mShaderGenerator->hasRenderState(tech->getSchemeName()))
@@ -133,6 +156,8 @@ public:
 	Ogre::Root* getRoot() const { return _mRoot; }
 
 	Ogre::SceneManager* getSceneManager() { return _mSM; }
+
+	Ogre::RenderTarget* getRenderTarget();
 
 #pragma region Callbacks
 	virtual bool frameStarted(const Ogre::FrameEvent& evt) { pollEvents(); return true; }
@@ -207,51 +232,43 @@ public:
 	// Borra todos los nodos de la escena, re-inicializa el root y el sceneManager
 	void createNewScene();
 
+	virtual void frameRendered(const Ogre::FrameEvent& evt) {}
 
-
-
-
-	virtual void frameRendered(const Ogre::FrameEvent& evt) { }
-
-
-	void addInputListener(InputListener* lis) {mInputListeners.insert(lis); }
-	void removeInputListener(InputListener* lis) { mInputListeners.erase(lis); };
+	void addInputListener(InputListener* lis);
+	void removeInputListener(InputListener* lis);
 
 protected:
 	static OgreMotor* _instance;
+
 	// OGRE root
 	Ogre::Root* _mRoot;   
+
 	// Ventana
 	NativeWindowPair _mWindow; 
 
 	// Capa de abstracci�n del sistema de archivos
 	Ogre::FileSystemLayer* _mFSLayer; 
 
-	// Variable para identificar primera ejecuci�n
-	bool _mFirstRun;
 	// Nombre de la aplicaci�n
 	Ogre::String _mAppName;
-	// Variable para hacer las rutas relativas al directorio de la soluci�n
+	// Variable para hacer las rutas relativas al directorio de la solucion
 	Ogre::String _mSolutionPath;    
 	
 	Ogre::SceneManager* _mSM = nullptr;
-
 
 #pragma region atributos de la clase de ogreBites para poder renderizar
 	Ogre::String mRTShaderLibPath;
 	Ogre::RTShader::ShaderGenerator* _mShaderGenerator; // The Shader generator instance.
 	SGTechniqueResolverListener* _mMaterialMgrListener; // Shader generator material manager listener.
-	
 #pragma endregion
-
-
 
 #pragma region atributo para poder animar
-	//vector donde se guardan los componentes Animation para poder actualizarlos
+	// Vector donde se guardan los componentes Animation para poder actualizarlos
 	std::set<InputListener*> mInputListeners;
 #pragma endregion
-
-
+	
+	// Variable para identificar primera ejecuci�n
+	bool _mFirstRun;
 	bool _ogreWasInit = false;
 
 	OgreMotor(const Ogre::String& appName = OGRE_VERSION_NAME);
@@ -262,3 +279,4 @@ protected:
 	void closeApp();
 };
 
+#endif
