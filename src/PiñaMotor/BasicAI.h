@@ -23,6 +23,12 @@ public:
 
 	void setStep(float step) { _step = step; }
 	void setStepRot(float velRotation) { _velRotation = velRotation; }
+
+	/// <summary>
+	/// Marca el flag para rotar y pone la dirección en la que debe mirar
+	/// </summary>
+	void RotateTo(Vector3<> obj);
+
 protected:
 	Transform* _transform;	
 	Rigidbody* _rigidbody;
@@ -49,10 +55,5 @@ protected:
 	float _t;
 
 	float _velRotation;
-private:
-	/// <summary>
-	/// Marca el flag para rotar y pone la dirección en la que debe mirar
-	/// </summary>
-	void RotateTo(Vector3<> obj);
 };
 

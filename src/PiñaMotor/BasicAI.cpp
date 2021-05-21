@@ -80,14 +80,14 @@ void BasicAI::MoveTo(Vector3<> obj) {
 void BasicAI::RotateTo(Vector3<> obj) {	
 	_rotFlag = true;
 	_rotIni = _transform->rotation();
-
+	Vector3<> dir = obj - _transform->position();
 	float pitch, yaw;
-	Vector3<> objX = { obj.x, obj.y, 0 };
-	Vector3<> objY = { 0, obj.y, obj.z };
-	pitch = objX.angleDegrees({ 0, 0, -1 });
+	Vector3<> objX = { dir.x, 0, dir.z };
+	Vector3<> objY = { 0, dir.y, dir.z };
+	pitch = objX.angleDegrees({ 0, 0, 1 });
 	yaw = objY.angleDegrees({ 0, 0, -1 });
 
-	_rotObjetivo = { 0/*pitch*/, yaw, 0 };
+	_rotObjetivo = { pitch, yaw + 180 , 0};
 	std::cout << "INICIAL: " << _rotIni.toEuler() << "\n";
 	std::cout << "OBJETIVO: " << _rotObjetivo << "\n";
 }
