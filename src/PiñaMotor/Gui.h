@@ -3,9 +3,8 @@
 #include <glm/glm.hpp>
 #include <OgreRenderWindow.h>
 #include <SDL.h>
-//#include "SDL_events.h"
-
-
+#undef main
+//
 namespace CEGUI {
 	class GUIContext;
 	class Window;

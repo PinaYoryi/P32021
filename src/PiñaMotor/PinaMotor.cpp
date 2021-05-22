@@ -24,10 +24,10 @@ bool PinaMotor::init(std::string windowName) {
 
         // Hay que pasar por parametro de init el nombre de loadScheme, imagen y visibilidad del raton
         // De momento estan puestos para prueba, pero lo suyo es que cada juego decida
-        gui->loadScheme("TaharezLook", "TaharezLook.scheme");
-        // gui->setFont("FairChar-30.font");
-        gui->setMouseImage("TaharezLook/MouseArrow");
-        gui->setMouseVisibility(true);
+        Gui::GetInstance()->loadScheme("TaharezLook", "TaharezLook.scheme");
+        //// gui->setFont("FairChar-30.font");
+        Gui::GetInstance()->setMouseImage("TaharezLook/MouseArrow");
+        Gui::GetInstance()->setMouseVisibility(true);
     }
     catch (std::exception& e) { std::cout << e.what() << "\n";  return false; }
     return true;
@@ -45,8 +45,8 @@ bool PinaMotor::launch(std::string sceneName) {
 void PinaMotor::close() {
     //Se borran en orden inverso al de creaci�n, excepto scenemanager, porque se deben
     //borrar primero las referencias a cuerpos en bullet y despues las entidades que los poseen.
-    if (Gui::GetInstance() != nullptr) delete Gui::GetInstance();
     if (SceneManager::GetInstance() != nullptr) delete SceneManager::GetInstance();
+    if (Gui::GetInstance() != nullptr) delete Gui::GetInstance();
     if (Input::GetInstance() != nullptr) delete Input::GetInstance();
     if (ResourceManager::GetInstance() != nullptr) delete ResourceManager::GetInstance();
     if (MotorLoop::GetInstance() != nullptr) delete MotorLoop::GetInstance();

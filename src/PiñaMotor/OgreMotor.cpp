@@ -75,6 +75,7 @@ void OgreMotor::closeApp() {
 	catch (std::exception& e) {
 		std::cout << e.what() << std::endl;
 	}
+	Ogre::STBIImageCodec::shutdown();
 	delete _mRoot;
 	_mRoot = nullptr;
 	_ogreWasInit = false;
@@ -159,16 +160,13 @@ NativeWindowPair OgreMotor::createWindow(const Ogre::String& name) {
 	miscParams["vsync"] = ropts["VSync"].currentValue;
 	miscParams["gamma"] = ropts["sRGB Gamma Conversion"].currentValue;
 
-	if (!SDL_WasInit(SDL_INIT_VIDEO | SDL_INIT_TIMER))
-		if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) != 0) {
-			SDL_Log("Unable to initialize SDL: %s", SDL_GetError());
-		}
+	if (!SDL_WasInit(SDL_INIT_VIDEO)) SDL_InitSubSystem(SDL_INIT_VIDEO);
 
 	Uint32 flags = SDL_WINDOW_RESIZABLE;
 
-	if (ropts["Full Screen"].currentValue == "Yes")  flags = SDL_WINDOW_FULLSCREEN_DESKTOP;
+	if (ropts["Full Screen"].currentValue == "Yes")  flags = SDL_WINDOW_FULLSCREEN;
 
-	_mWindow._native = SDL_CreateWindow(name.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, w, h, flags);
+	_mWindow._native = SDL_CreateWindow(name.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, w, h, flags);
 
 	SDL_SysWMinfo wmInfo;
 	SDL_VERSION(&wmInfo.version);

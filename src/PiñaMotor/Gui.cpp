@@ -12,11 +12,11 @@ Gui::Gui() {
 	_mRoot = OgreMotor::GetInstance()->getRoot();
 	_mWindow = OgreMotor::GetInstance()->getRenderWindow();
 	_mContext = &CEGUI::System::getSingleton().getDefaultGUIContext();
-
+	
 	Ogre::ResourceGroupManager& rgm = Ogre::ResourceGroupManager::getSingleton();
 	
 	_mRenderer->setUsingShaders(true);
-
+	
 	// Esto es como ponerlo en el resources.cfg
 	// rgm.createResourceGroup("imagesets");
 	// rgm.createResourceGroup("fonts");
@@ -31,22 +31,24 @@ Gui::Gui() {
 	// rgm.addResourceLocation("../../assets/resources/gui/layouts/", "FileSystem", "layouts");
 	// rgm.addResourceLocation("../../assets/resources/gui/looknfeels/", "FileSystem", "looknfeels");
 	// rgm.addResourceLocation("../../assets/resources/gui/lua_scripts/", "FileSystem", "lua_scripts");
-
+	
 	CEGUI::ImageManager::setImagesetDefaultResourceGroup("imagesets");
 	CEGUI::AnimationManager::setDefaultResourceGroup("animations");
 	CEGUI::Font::setDefaultResourceGroup("fonts");
 	CEGUI::Scheme::setDefaultResourceGroup("schemes");
 	CEGUI::WidgetLookManager::setDefaultResourceGroup("looknfeel");
 	CEGUI::WindowManager::setDefaultResourceGroup("layouts");
-
+	
 	_mWindowManager = &CEGUI::WindowManager::getSingleton();
 	_ceguiWindow = _mWindowManager->createWindow("DefaultWindow", "PinaYoryiGUI");
 	CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(_ceguiWindow);
-
+	
 	createFrameListener();
 }
 
-Gui::~Gui() {}
+Gui::~Gui() {
+	CEGUI::OgreRenderer::destroySystem();
+}
 
 bool Gui::Init() {
 	if (_guiInstance != nullptr) return false;
