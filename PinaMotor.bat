@@ -117,6 +117,20 @@ REM CEGUI
 echo CHECKCEGUIDEPENDENCIES
 cd ../CeguiDependencies
 if not exist build/dependencies/lib goto ceguidepen
+if not exist ../../bin/glew.dll goto ceguidepen
+if not exist ../../bin/glew_d.dll goto ceguidepen
+if not exist ../../bin/glfw.dll goto ceguidepen
+if not exist ../../bin/glfw_d.dll goto ceguidepen
+if not exist ../../bin/jpeg.dll goto ceguidepen
+if not exist ../../bin/jpeg_d.dll goto ceguidepen
+if not exist ../../bin/libexpat.dll goto ceguidepen
+if not exist ../../bin/libexpat_d.dll goto ceguidepen
+if not exist ../../bin/libpng.dll goto ceguidepen
+if not exist ../../bin/libpng_d.dll goto ceguidepen
+if not exist ../../bin/pcre.dll goto ceguidepen
+if not exist ../../bin/pcre_d.dll goto ceguidepen
+if not exist ../../bin/SILLY.dll goto ceguidepen
+if not exist ../../bin/SILLY_d.dll goto ceguidepen
 goto afterceguidepen
 :ceguidepen
 rmdir /S /Q build
@@ -142,12 +156,33 @@ cd build
  -DCEGUI_BUILD_SILLY=TRUE ../src
 ..\..\Cmake\cmake-3.20.0-rc2-windows-x86_64\bin\cmake.exe --build . --config release 
 ..\..\Cmake\cmake-3.20.0-rc2-windows-x86_64\bin\cmake.exe --build . --config debug
-cd ..
+cd dependencies/bin
+copy /Y freetype.dll "../../../../../bin/freetype.dll"
+copy /Y freetype_d.dll "../../../../../bin/freetype_d.dll"
+copy /Y glew.dll "../../../../../bin/glew.dll"
+copy /Y glew_d.dll "../../../../../bin/glew_d.dll"
+copy /Y glfw.dll "../../../../../bin/glfw.dll"
+copy /Y glfw_d.dll "../../../../../bin/glfw_d.dll"
+copy /Y jpeg.dll "../../../../../bin/jpeg.dll"
+copy /Y jpeg_d.dll "../../../../../bin/jpeg_d.dll"
+copy /Y libexpat.dll "../../../../../bin/libexpat.dll"
+copy /Y libexpat_d.dll "../../../../../bin/libexpat_d.dll"
+copy /Y libpng.dll "../../../../../bin/libpng.dll"
+copy /Y libpng_d.dll "../../../../../bin/libpng_d.dll"
+copy /Y pcre.dll "../../../../../bin/pcre.dll"
+copy /Y pcre_d.dll "../../../../../bin/pcre_d.dll"
+copy /Y SILLY.dll "../../../../../bin/SILLY.dll"
+copy /Y SILLY_d.dll "../../../../../bin/SILLY_d.dll"
+cd ../../..
 :afterceguidepen
 
 echo CHECKCEGUI
 cd ../Cegui/src
 if not exist build/lib goto cegui
+if not exist ../../../bin/CEGUIBase-0.dll goto cegui
+if not exist ../../../bin/CEGUIBase-0_d.dll goto cegui
+if not exist ../../../bin/CEGUIOgreRenderer-0.dll goto cegui
+if not exist ../../../bin/CEGUIOgreRenderer-0_d.dll goto cegui
 goto aftercegui
 :cegui
 set CeguiBuiltDependencies="%~dp0dependencies\CeguiDependencies\build\dependencies"
@@ -202,6 +237,14 @@ cd ../build
 cd ../replacements
 copy /Y Texture.cpp "../cegui/src/RendererModules/Ogre/Texture.cpp"
 cd ..
+
+cd build/bin
+copy /Y CEGUIBase-0.dll "../../../../../bin/CEGUIBase-0.dll"
+copy /Y CEGUIBase-0_d.dll "../../../../../bin/CEGUIBase-0_d.dll"
+copy /Y CEGUIOgreRenderer-0.dll "../../../../../bin/CEGUIOgreRenderer-0.dll"
+copy /Y CEGUIOgreRenderer-0_d.dll "../../../../../bin/CEGUIOgreRenderer-0_d.dll"
+cd ../..
+
 :aftercegui
 cd ..
 echo CEGUIDONE
