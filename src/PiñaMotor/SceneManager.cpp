@@ -12,6 +12,7 @@
 #include "AudioSource.h"
 #include "AudioListener.h"
 #include "BasicAI.h"
+#include "SkyBox.h"
 
 #include "LuaReader.h"
 
@@ -61,6 +62,7 @@ bool SceneManager::loadComponents() {
 		ComponentFactoryRegistrations::ComponentFactoryRegistration<Light>("light");
 		ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform>("transform");
 		ComponentFactoryRegistrations::ComponentFactoryRegistration<BasicAI>("basicai");
+		ComponentFactoryRegistrations::ComponentFactoryRegistration<SkyBox>("skybox");
 	}
 	catch (...) {
 

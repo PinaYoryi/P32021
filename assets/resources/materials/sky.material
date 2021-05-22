@@ -1,0 +1,25 @@
+material sky/space
+{
+    technique
+    {
+        pass
+        {
+            lighting off
+
+            texture_unit
+            {
+                texture "spaceSky.jpg"
+                tex_coord_set 0
+                tex_address_mode clamp
+            }
+            texture_unit
+            {
+                texture "lightMap.jpg"
+                tex_coord_set 0
+                colour_op modulate
+
+            }
+
+        }
+    }
+}

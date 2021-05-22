@@ -48,6 +48,19 @@ local mapa = {
           viewport="0,0,1,1",
           color="1.0,0.5,0.3137"
         }
+        -- ,
+        -- skybox={
+        --   enable="true",
+        --   planenormal="Z",
+        --   planepos="20",
+        --   materialname="sky/space",
+        --   scale="1",
+        --   tiling="1",
+        --   drawfirst="true",
+        --   bow="10.0",
+        --   xsegments="10",
+        --   ysegments="10"
+        -- }
       }
     },
     -- {

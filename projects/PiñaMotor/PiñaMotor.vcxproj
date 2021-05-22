@@ -42,6 +42,7 @@
     <ClCompile Include="..\..\src\PiñaMotor\Rigidbody.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\SceneManager.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\ResourceManager.cpp" />
+    <ClCompile Include="..\..\src\PiñaMotor\SkyBox.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Transform.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Vector3.cpp" />
   </ItemGroup>
@@ -68,6 +69,7 @@
     <ClInclude Include="..\..\src\PiñaMotor\Rigidbody.h" />
     <ClInclude Include="..\..\src\PiñaMotor\SceneManager.h" />
     <ClInclude Include="..\..\src\PiñaMotor\ResourceManager.h" />
+    <ClInclude Include="..\..\src\PiñaMotor\SkyBox.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Transform.h" />
     <ClInclude Include="..\..\src\PiñaMotor\ecs.h" />
     <ClInclude Include="..\..\src\PiñaMotor\Entity.h" />
