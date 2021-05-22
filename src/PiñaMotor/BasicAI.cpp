@@ -26,8 +26,6 @@ bool BasicAI::init(const std::map<std::string, std::string>& mapa) {
 
 	_initialized = true;
 
-	MoveTo({ 0, -80, 80 });
-
 	return true;
 }
 
@@ -82,12 +80,12 @@ void BasicAI::RotateTo(Vector3<> obj) {
 	_rotIni = _transform->rotation();
 	Vector3<> dir = obj - _transform->position();
 	float pitch, yaw;
-	Vector3<> objX = { dir.x, 0, dir.z };
-	Vector3<> objY = { 0, dir.y, dir.z };
+	Vector3<> objX = { dir.x, 0.01, dir.z };
+	Vector3<> objY = { 0.01, dir.y, dir.z };
 	pitch = objX.angleDegrees({ 0, 0, 1 });
 	yaw = objY.angleDegrees({ 0, 0, -1 });
 
-	_rotObjetivo = { pitch, yaw + 180 , 0};
+	_rotObjetivo = { pitch - 90, yaw + 180 , 0};
 	std::cout << "INICIAL: " << _rotIni.toEuler() << "\n";
 	std::cout << "OBJETIVO: " << _rotObjetivo << "\n";
 }
