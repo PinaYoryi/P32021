@@ -45,7 +45,7 @@ public:
 
 	
 	
-	void update();
+	void update(); 
 
 	/// <summary>
 	/// metodo para pausar el mundo de fisicas
