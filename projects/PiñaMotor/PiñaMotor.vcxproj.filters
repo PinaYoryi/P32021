@@ -120,6 +120,12 @@
     <ClCompile Include="..\..\src\PiñaMotor\SkyBox.cpp">
       <Filter>Archivos de origen\Componentes</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\PiñaMotor\ButtonComponent.cpp">
+      <Filter>Archivos de origen\Componentes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\PiñaMotor\Gui.cpp">
+      <Filter>Archivos de origen\MotoresTecnologia</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\PiñaMotor\SceneManager.h">
@@ -213,6 +219,12 @@
       <Filter>Archivos de encabezado\Componentes</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\PiñaMotor\SkyBox.h">
+      <Filter>Archivos de encabezado\Componentes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\PiñaMotor\Gui.h">
+      <Filter>Archivos de encabezado\MotoresTecnologia</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\PiñaMotor\ButtonComponent.h">
       <Filter>Archivos de encabezado\Componentes</Filter>
     </ClInclude>
   </ItemGroup>

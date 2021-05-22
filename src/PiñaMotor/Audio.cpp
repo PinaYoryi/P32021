@@ -22,14 +22,11 @@ Audio::Audio() {
 }
 
 Audio::~Audio() {
-	
 	for (auto sound : _sounds)
 		sound.second->release();
 
 	const auto _result = _system->release();
-	errorCheck(_result);
-	
-	
+	errorCheck(_result);	
 }
 
 Audio* Audio::GetInstance() {

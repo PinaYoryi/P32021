@@ -1,5 +1,4 @@
 ﻿#pragma once
-
 #include "OgreMotor.h"
 #include "SceneManager.h"
 
