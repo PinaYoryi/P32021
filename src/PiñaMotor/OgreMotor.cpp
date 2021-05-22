@@ -41,16 +41,12 @@ bool OgreMotor::Init(const Ogre::String& appName) {
 }
 
 void OgreMotor::initApp() {
-	try {
-		_mFSLayer = new Ogre::FileSystemLayer(_mAppName);
-		createRoot();
+	_mFSLayer = new Ogre::FileSystemLayer(_mAppName);
+	createRoot();
 
 	if (oneTimeConfig())
 		setup();
-	}
-	catch (std::exception& e) {
-		throw e.what();
-	}
+	
 
 	_ogreWasInit = true;
 }
@@ -97,7 +93,7 @@ void OgreMotor::createRoot() {
 
 	_mRoot = new Ogre::Root(pluginsPath, _mFSLayer->getWritablePath("ogre.cfg"), _mFSLayer->getWritablePath("ogre.log"));
 
-	Ogre::STBIImageCodec::startup();
+	//Ogre::STBIImageCodec::startup();
 }
 
 void OgreMotor::shutdown() {
