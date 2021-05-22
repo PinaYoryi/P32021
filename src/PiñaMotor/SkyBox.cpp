@@ -40,7 +40,7 @@ bool SkyBox::init(const std::map<std::string, std::string>& mapa) {
 	if(mapa.at("drawfirst") == "false") drawfirst=false;
 
 	float bow = std::stof(mapa.at("bow"));
-	int xsegments = std::stoi(mapa.at("xsegments"));
+	int xsegments = std::stoi(mapa.at("xsegments")); 
 	int ysegments = std::stoi(mapa.at("ysegments"));
 
 	OgreMotor::GetInstance()->getSceneManager()->setSkyPlane(enable, plane, materialname, scale, tiling, drawfirst, bow, xsegments, ysegments);
