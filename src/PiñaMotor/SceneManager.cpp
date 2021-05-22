@@ -9,6 +9,7 @@
 #include "Camera.h"
 #include "Rigidbody.h"
 #include "Light.h"
+#include "ButtonComponent.h"
 #include "AudioSource.h"
 #include "AudioListener.h"
 #include "BasicAI.h"
@@ -63,6 +64,7 @@ bool SceneManager::loadComponents() {
 		ComponentFactoryRegistrations::ComponentFactoryRegistration<Transform>("transform");
 		ComponentFactoryRegistrations::ComponentFactoryRegistration<BasicAI>("basicai");
 		ComponentFactoryRegistrations::ComponentFactoryRegistration<SkyBox>("skybox");
+        ComponentFactoryRegistrations::ComponentFactoryRegistration<ButtonComponent>("button");
 	}
 	catch (...) {
 

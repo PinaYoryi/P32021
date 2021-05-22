@@ -37,7 +37,6 @@
 
 // add CEGUI version defines
 #include "CEGUI/Version.h"
-
 #include <cassert>
 #include <algorithm>
 

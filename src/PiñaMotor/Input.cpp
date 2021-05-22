@@ -1,6 +1,7 @@
 #include "Input.h"
 #include "MotorLoop.h"
 #include "OgreMotor.h"
+#include "Gui.h"
 #include <OgreRenderWindow.h>
 
 Input* Input::_singleton = nullptr;
@@ -51,6 +52,7 @@ void Input::update() {
 			else _wheel = -1;
 			break;
 		}
+		Gui::GetInstance()->captureInput(event);
 	}
 }
 

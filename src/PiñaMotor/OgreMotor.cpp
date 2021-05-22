@@ -9,6 +9,7 @@
 #include <OgreMaterialManager.h>
 #include <SDL_video.h>
 #include <SDL_syswm.h>
+#include <OgreSTBICodec.h>
 
 OgreMotor* OgreMotor::_instance = nullptr;
 
@@ -74,6 +75,7 @@ void OgreMotor::closeApp() {
 	catch (std::exception& e) {
 		std::cout << e.what() << std::endl;
 	}
+	Ogre::STBIImageCodec::shutdown();
 	delete _mRoot;
 	_mRoot = nullptr;
 	_ogreWasInit = false;
@@ -94,6 +96,8 @@ void OgreMotor::createRoot() {
 	_mSolutionPath.erase(_mSolutionPath.find_last_of("\\") + 1, _mSolutionPath.size() - 1);
 
 	_mRoot = new Ogre::Root(pluginsPath, _mFSLayer->getWritablePath("ogre.cfg"), _mFSLayer->getWritablePath("ogre.log"));
+
+	Ogre::STBIImageCodec::startup();
 }
 
 void OgreMotor::shutdown() {
@@ -179,6 +183,8 @@ void OgreMotor::setWindowGrab(bool _grab) {
 	SDL_SetWindowGrab(_mWindow._native, grab);
 	SDL_ShowCursor(grab);
 }
+
+Ogre::RenderTarget* OgreMotor::getRenderTarget() { return _mRoot->getRenderTarget(_mWindow._render->getName()); }
 
 bool OgreMotor::frameRenderingQueued(const Ogre::FrameEvent& evt) {
 	for (std::set<InputListener*>::iterator it = mInputListeners.begin(); it != mInputListeners.end(); ++it)
@@ -313,12 +319,17 @@ void OgreMotor::createNewScene() {
 	_mShaderGenerator->addSceneManager(_mSM);
 }
 
+void OgreMotor::addInputListener(InputListener* lis) { mInputListeners.insert(lis); }
+
+void OgreMotor::removeInputListener(InputListener* lis) { mInputListeners.erase(lis); };
+
 #pragma region metodos de RTShader para poder renderizar
 bool OgreMotor::initialiseRTShaderSystem()
 {
 	if (Ogre::RTShader::ShaderGenerator::initialize())
 	{
 		_mShaderGenerator = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
+
 		// Core shader libs not found -> shader generating will fail.
 		if (mRTShaderLibPath.empty())
 			return false;
