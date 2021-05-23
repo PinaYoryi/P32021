@@ -57,6 +57,7 @@ bool Gui::Init() {
 	return true;
 }
 
+
 void Gui::captureInput(const SDL_Event& event) {
 	if (event.type == SDL_MOUSEBUTTONDOWN) {
 		if (event.button.button == SDL_BUTTON_LEFT)
@@ -183,4 +184,11 @@ void Gui::setMouseVisibility(bool b) {
 		CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().show();
 	else
 		CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().hide();
+}
+
+void Gui::initResources(std::string schemeName, std::string mouseName, bool visible)
+{
+	Gui::GetInstance()->loadScheme(schemeName, schemeName + ".scheme");
+	Gui::GetInstance()->setMouseImage(mouseName);
+	Gui::GetInstance()->setMouseVisibility(visible);
 }

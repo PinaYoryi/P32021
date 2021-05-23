@@ -20,14 +20,7 @@ bool PinaMotor::init(std::string windowName) {
         ResourceManager::Init();
         Input::Init();
         Gui::Init();
-        //Gui* gui = Gui::GetInstance();
-
-        //// Hay que pasar por parametro de init el nombre de loadScheme, imagen y visibilidad del raton
-        //// De momento estan puestos para prueba, pero lo suyo es que cada juego decida
-        //Gui::GetInstance()->loadScheme("TaharezLook", "TaharezLook.scheme");
-        ////// gui->setFont("FairChar-30.font");
-        //Gui::GetInstance()->setMouseImage("TaharezLook/MouseArrow");
-        //Gui::GetInstance()->setMouseVisibility(true);
+       
     }
     catch (std::exception e) { 
 #if (defined _DEBUG)

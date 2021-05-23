@@ -51,6 +51,8 @@ public:
 	void setMouseImage(const std::string& imageFile);
 	void setMouseVisibility(bool b);
 
+	void initResources(std::string schemeName, std::string mouseName, bool visible);
+
 private:
 	/// <summary>
 	/// Crea el Frame Listener para que pinte
