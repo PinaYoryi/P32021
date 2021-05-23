@@ -4,6 +4,7 @@
 #include <map>
 #include "Vector3.h"
 #include "Audio.h"
+#include "Transform.h"
 
 
 
@@ -88,6 +89,8 @@ private:
 	FMOD_RESULT _result;
 
 	std::string _soundName;
+
+	Transform* _trans = nullptr;
 
 	// Lista con los canales de sonido que se estan ejecutando
 	//std::map<const char*, FMOD::Sound*> _sounds;

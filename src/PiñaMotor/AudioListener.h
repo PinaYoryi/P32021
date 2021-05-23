@@ -15,7 +15,7 @@ public:
 	/// <summary>
 	///
 	/// </summary>
-	void set3DAtributes(Vector3<float> position, Vector3<float> velocity);
+	void set3DAtributes(FMOD_VECTOR position, FMOD_VECTOR velocity);
 
 	/// <summary>
 	/// metodo set para asignar una posicion

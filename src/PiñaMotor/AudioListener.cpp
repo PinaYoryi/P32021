@@ -24,12 +24,15 @@ bool AudioListener::init(const std::map<std::string, std::string>& mapa) {
 
     _trans = _myEntity->getComponent<Transform>();
 
+    if (!_trans->isInitialized())return false;
+
+    set3DAtributes(_p, _v);
     _initialized = true;
 
     return true;
 }
 
-void AudioListener::set3DAtributes(Vector3<float> position, Vector3<float> velocity) {
+void AudioListener::set3DAtributes(FMOD_VECTOR position, FMOD_VECTOR velocity) {
     _p.x = position.x;
     _p.y = position.y;
     _p.z = position.z;
