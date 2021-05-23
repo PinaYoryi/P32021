@@ -86,6 +86,8 @@ void BasicAI::RotateTo(Vector3<> obj) {
 	yaw = objY.angleDegrees({ 0, 0, -1 });
 
 	_rotObjetivo = { pitch - 90, yaw + 180 , 0};
+#if (defined _DEBUG)
 	std::cout << "INICIAL: " << _rotIni.toEuler() << "\n";
 	std::cout << "OBJETIVO: " << _rotObjetivo << "\n";
+#endif
 }
