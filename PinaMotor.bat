@@ -185,6 +185,8 @@ if not exist ../../../bin/CEGUIOgreRenderer-0.dll goto cegui
 if not exist ../../../bin/CEGUIOgreRenderer-0_d.dll goto cegui
 if not exist ../../../bin/CEGUIExpatParser_d.dll goto cegui
 if not exist ../../../bin/CEGUIExpatParser.dll goto cegui
+if not exist ../../../bin/CEGUICoreWindowRendererSet_d.dll goto cegui
+if not exist ../../../bin/CEGUICoreWindowRendererSet.dll goto cegui
 goto aftercegui
 :cegui
 set CeguiBuiltDependencies="%~dp0dependencies\CeguiDependencies\build\dependencies"
@@ -247,6 +249,8 @@ copy /Y CEGUIOgreRenderer-0.dll "../../../../../bin/CEGUIOgreRenderer-0.dll"
 copy /Y CEGUIOgreRenderer-0_d.dll "../../../../../bin/CEGUIOgreRenderer-0_d.dll"
 copy /Y CEGUIExpatParser_d.dll "../../../../../bin/CEGUIExpatParser_d.dll"
 copy /Y CEGUIExpatParser.dll "../../../../../bin/CEGUIExpatParser.dll"
+copy /Y CEGUIExpatParser.dll "../../../../../bin/CEGUICoreWindowRendererSet_d.dll"
+copy /Y CEGUIExpatParser.dll "../../../../../bin/CEGUICoreWindowRendererSet.dll"
 cd ../..
 
 :aftercegui

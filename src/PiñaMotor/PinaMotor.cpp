@@ -29,9 +29,9 @@ bool PinaMotor::init(std::string windowName) {
         //Gui::GetInstance()->setMouseImage("TaharezLook/MouseArrow");
         //Gui::GetInstance()->setMouseVisibility(true);
     }
-    catch (std::exception e) {
+    catch (std::exception e) { 
 #if (defined _DEBUG)
-        std::cerr << e.what();
+        std::cout << e.what();
 #endif
         return false;
     }
