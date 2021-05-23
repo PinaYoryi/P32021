@@ -27,7 +27,7 @@ local mapa = {
           kinematic ="false"
         },
         audiolistener={
-
+          position="20, -80, 0"
         }
       }
     },

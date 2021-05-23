@@ -59,13 +59,16 @@ private:
 	void errorCheck(FMOD_RESULT result);
 
 	FMOD_RESULT _result;
+	
 	Transform* _trans = nullptr;
 
-	FMOD_VECTOR _p;
-	FMOD_VECTOR _f;
-	FMOD_VECTOR _u;
-	FMOD_VECTOR _v;
+	FMOD_VECTOR _p;	// Posición
+	
+	FMOD_VECTOR _f;	// Forward
+	
+	FMOD_VECTOR _u;	// Upward
+	
+	FMOD_VECTOR _v;	// Velocidad
+	
 	FMOD::System* _system;
-
-
 };

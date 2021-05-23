@@ -25,17 +25,15 @@ bool AudioSource::init(const std::map<std::string, std::string>& mapa) {
 	_soundName = ResourceManager::GetInstance()->audio(s);
 	
 	s = mapa.at("volume");
-	if (s != "") setVolume(std::stof(s));
+	setVolume(std::stof(s));
 
 	s = mapa.at("velocity");
-	if (s != ""){
-		std::string::size_type sz = 0, sa = 0;
-		float a = std::stof(s, &sz);
-		std::string temp = s.substr(sz + 1);
-		float b = std::stof(temp, &sa);
-		float c = std::stof(s.substr(sz + sa + 2));
-		setVelocity({ a, b, c });
-	}
+	std::string::size_type sz = 0, sa = 0;
+	float a = std::stof(s, &sz);
+	std::string temp = s.substr(sz + 1);
+	float b = std::stof(temp, &sa);
+	float c = std::stof(s.substr(sz + sa + 2));
+	setVelocity({ a, b, c });
 
 	_initialized = true;
 
