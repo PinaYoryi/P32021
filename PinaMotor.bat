@@ -183,6 +183,8 @@ if not exist ../../../bin/CEGUIBase-0.dll goto cegui
 if not exist ../../../bin/CEGUIBase-0_d.dll goto cegui
 if not exist ../../../bin/CEGUIOgreRenderer-0.dll goto cegui
 if not exist ../../../bin/CEGUIOgreRenderer-0_d.dll goto cegui
+if not exist ../../../bin/CEGUIExpatParser_d.dll goto cegui
+if not exist ../../../bin/CEGUIExpatParser.dll goto cegui
 goto aftercegui
 :cegui
 set CeguiBuiltDependencies="%~dp0dependencies\CeguiDependencies\build\dependencies"
