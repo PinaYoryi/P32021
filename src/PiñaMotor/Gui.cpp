@@ -53,7 +53,7 @@ Gui::~Gui() {
 bool Gui::Init() {
 	if (_guiInstance != nullptr) return false;
 	_guiInstance = new Gui();
-
+	_guiInstance->initResources("TaharezLook", "TaharezLook/MouseArrow", false);
 	return true;
 }
 
@@ -190,5 +190,10 @@ void Gui::initResources(std::string schemeName, std::string mouseName, bool visi
 {
 	Gui::GetInstance()->loadScheme(schemeName, schemeName + ".scheme");
 	Gui::GetInstance()->setMouseImage(mouseName);
+	Gui::GetInstance()->setMouseVisibility(visible);
+}
+
+void Gui::mouseVisible(bool visible)
+{
 	Gui::GetInstance()->setMouseVisibility(visible);
 }
