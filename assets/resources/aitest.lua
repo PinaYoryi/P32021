@@ -2,14 +2,15 @@ local mapa = {
   ambient="0.1,0.1,0.1",
   gravity="0 -9.8 0",
   entities={
-    { 
-      name="Sinbad",
+    {
+      name="Player",
       id=1,
       components={
         transform={
           position="0,0,0",
           rotation="0,0,0",
-          scale="2,2,2"
+          scale="2,2,2",
+          parent="-1"
         },
         renderer={
           mesh="Sinbad.mesh",
@@ -27,14 +28,15 @@ local mapa = {
         }
       }
     },
-    { 
+    {
       name="Drone",
       id=5,
       components={
         transform={
-          position="0,40,0",
-          rotation="0,90,0",
-          scale="1,1,1"
+          position="70,-80,0",
+          rotation="0,0,0",
+          scale="1,1,1",
+          parent="-1"
         },
         renderer={
           mesh="Sinbad.mesh",
@@ -51,7 +53,7 @@ local mapa = {
           kinematic ="true"
         },
         basicai={
-          step="150",
+          step="100",
           threshold="0.5",
           thresholdRot="0.1",
           stepRot="0.0002"
@@ -65,7 +67,8 @@ local mapa = {
         transform={
           position="0,-50,200",
           rotation="0,0,0",
-          scale="1,1,1"
+          scale="1,1,1",
+          parent="-1"
         },
         camera={
           near="0.1",
@@ -86,7 +89,8 @@ local mapa = {
       transform={
         position="50,0,0",
         rotation="0,0,0",
-        scale="1,1,1"
+        scale="1,1,1",
+        parent="-1"
       },
       light={
         type="0",
@@ -106,7 +110,8 @@ local mapa = {
         transform={
           position="0,-100,0",
           rotation="0,0,0",
-          scale="3,0.2,3"
+          scale="3,0.2,3",
+          parent="-1"
         },
         renderer={
           mesh="cube.mesh",
@@ -123,7 +128,7 @@ local mapa = {
           kinematic ="false"
         }
       }
-    }    
+    }
   }
 }
 
