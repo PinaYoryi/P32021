@@ -243,6 +243,8 @@ copy /Y CEGUIBase-0.dll "../../../../../bin/CEGUIBase-0.dll"
 copy /Y CEGUIBase-0_d.dll "../../../../../bin/CEGUIBase-0_d.dll"
 copy /Y CEGUIOgreRenderer-0.dll "../../../../../bin/CEGUIOgreRenderer-0.dll"
 copy /Y CEGUIOgreRenderer-0_d.dll "../../../../../bin/CEGUIOgreRenderer-0_d.dll"
+copy /Y CEGUIExpatParser_d.dll "../../../../../bin/CEGUIExpatParser_d.dll"
+copy /Y CEGUIExpatParser.dll "../../../../../bin/CEGUIExpatParser.dll"
 cd ../..
 
 :aftercegui
