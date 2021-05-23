@@ -7,7 +7,7 @@ local mapa = {
       id=1,
       components={
         transform={
-          position="0,0,0",
+          position="20,-80,0",
           rotation="0,0,0",
           scale="2,2,2",
           parent="-1"
@@ -25,6 +25,9 @@ local mapa = {
           damping="0.2,0.2",
           trigger="false",
           kinematic ="false"
+        },
+        audiolistener={
+
         }
       }
     },
@@ -33,7 +36,7 @@ local mapa = {
       id=5,
       components={
         transform={
-          position="70,-80,0",
+          position="10,-80,0",
           rotation="0,0,0",
           scale="1,1,1",
           parent="-1"
@@ -57,6 +60,11 @@ local mapa = {
           threshold="0.5",
           thresholdRot="0.1",
           stepRot="0.0002"
+        },
+        audiosource={
+          sound="aVerSiSeCorta.mp3",
+          volume="50",
+          velocity="100 100 100"
         }
       }
     },

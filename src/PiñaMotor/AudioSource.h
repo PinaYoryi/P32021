@@ -23,12 +23,16 @@ public:
 	/// volume el volumen de dicho sonido y loop por si se quiere ejecutar en bucle
 	/// </summary>
 	void playSound2D(const std::string name, float volume, bool loop);
+	
+	void playSound2D();
 
 	/// <summary>
 	/// Añade un sonido/musica y lo ejcuta en una posicion en concreto determinada por el parametro position, name es la direccion o nombre del archivo, 
 	/// volume el volumen de dicho sonido y loop por si se quiere ejecutar en bucle
 	/// </summary>
 	void playSound3D(const std::string name, float volume, bool loop, Vector3<float> position, Vector3<float> velocity);
+
+	void playSound3D();
 
 	/// <summary>
 	/// para un sonido
@@ -65,7 +69,6 @@ public:
 	/// </summary>
 	float getVolume();
 
-
 	void setPosition(Vector3<float> position) { _position.x = position.x; _position.y = position.y; _position.z = position.z; };
 	Vector3<float> getPosition() { return Vector3<float>(_position.x, _position.y, _position.z); };
 
@@ -75,11 +78,16 @@ public:
 private:
 	
 	void errorCheck(FMOD_RESULT result);
+	
 	FMOD_VECTOR _position;
+	
 	FMOD_VECTOR _velocity;
+	
 	FMOD::System* _system;
+	
 	FMOD_RESULT _result;
-	FMOD::Sound* _sound;
+
+	std::string _soundName;
 
 	// Lista con los canales de sonido que se estan ejecutando
 	//std::map<const char*, FMOD::Sound*> _sounds;

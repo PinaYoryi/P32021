@@ -1,5 +1,9 @@
 #include "fmod_errors.h"
 #include "AudioSource.h"
+#include "Transform.h"
+#include "Entity.h"
+#include "ResourceManager.h"
+
 AudioSource::AudioSource() {
 
 }
@@ -9,12 +13,34 @@ AudioSource::~AudioSource() {
 }
 
 bool AudioSource::init(const std::map<std::string, std::string>& mapa) {
+	if (mapa.find("sound") == mapa.end() || mapa.find("volume") == mapa.end() || mapa.find("velocity") == mapa.end()) return false;
+
 	_system = Audio::GetInstance()->getSystemFMOD();
+
 	_result = Audio::GetInstance()->getResult();
+
 	_channel = nullptr;
-	_sound = nullptr;
+
+	std::string s = mapa.at("sound");
+	_soundName = ResourceManager::GetInstance()->audio(s);
 	
+	s = mapa.at("volume");
+	if (s != "") setVolume(std::stof(s));
+
+	s = mapa.at("velocity");
+	if (s != ""){
+		std::string::size_type sz = 0, sa = 0;
+		float a = std::stof(s, &sz);
+		std::string temp = s.substr(sz + 1);
+		float b = std::stof(temp, &sa);
+		float c = std::stof(s.substr(sz + sa + 2));
+		setVelocity({ a, b, c });
+	}
+
 	_initialized = true;
+
+	playSound3D();
+
 	return true;
 }
 
@@ -57,6 +83,25 @@ void AudioSource::playSound2D(const std::string name, float volume, bool loop) {
 	}
 }
 
+void AudioSource::playSound2D() {
+	try {
+		FMOD::Sound* sound;
+		_result = _system->createSound(_soundName.c_str(), FMOD_DEFAULT, 0, &sound);
+		errorCheck(_result);
+
+		_result = _system->playSound(sound, 0, false, &_channel);
+		errorCheck(_result);
+
+		//setVolume(getVolume());
+
+		_result = _channel->setPaused(false);
+		errorCheck(_result);
+	}
+	catch (std::exception& e) {
+		std::cout << e.what() << std::endl;
+	}
+}
+
 void AudioSource::playSound3D(const std::string name, float volume, bool loop, Vector3<float> position, Vector3<float> velocity) {
 	_position = (FMOD_VECTOR)position;
 	_velocity = (FMOD_VECTOR)velocity;
@@ -81,6 +126,35 @@ void AudioSource::playSound3D(const std::string name, float volume, bool loop, V
 			_result = _channel->setMode(FMOD_LOOP_NORMAL);
 			errorCheck(_result);
 		}
+
+		_result = _channel->setPaused(false);
+		errorCheck(_result);
+	}
+	catch (std::exception& e) {
+		std::cout << e.what() << std::endl;
+	}
+}
+
+void AudioSource::playSound3D() {
+	
+	FMOD_VECTOR position = (FMOD_VECTOR)Vector3<>(0, 0, 0);
+	FMOD_VECTOR velocity = getVelocity();
+
+	try {
+		FMOD::Sound* sound;
+		_result = _system->createSound(_soundName.c_str(), FMOD_3D, 0, &sound);
+		errorCheck(_result);
+
+		_result = sound->set3DMinMaxDistance(0.5f * DISTANCE_FACTOR, 5000.0f * DISTANCE_FACTOR);
+		errorCheck(_result);
+
+		_result = _system->playSound(sound, 0, false, &_channel);
+		errorCheck(_result);
+
+		//setVolume(getVolume());
+
+		_result = _channel->set3DAttributes(&position, &velocity);
+		errorCheck(_result);
 
 		_result = _channel->setPaused(false);
 		errorCheck(_result);
