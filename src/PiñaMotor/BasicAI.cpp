@@ -72,7 +72,7 @@ void BasicAI::fixedUpdate() {
 void BasicAI::MoveTo(Vector3<> obj) {
 	_posObjetivo = obj;
 	_moveFlag = true;
-	RotateTo(obj);
+	//RotateTo(obj);
 }
 
 void BasicAI::RotateTo(Vector3<> obj) {	

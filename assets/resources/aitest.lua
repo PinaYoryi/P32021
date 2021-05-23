@@ -63,8 +63,8 @@ local mapa = {
         },
         audiosource={
           sound="aVerSiSeCorta.mp3",
-          volume="50",
-          velocity="100 100 100"
+          volume="5",
+          velocity="0 0 0"
         }
       }
     },

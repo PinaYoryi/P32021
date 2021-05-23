@@ -3,6 +3,7 @@
 #include "Transform.h"
 #include "Entity.h"
 #include "ResourceManager.h"
+#include "Entity.h"
 
 AudioSource::AudioSource() {
 
@@ -36,6 +37,9 @@ bool AudioSource::init(const std::map<std::string, std::string>& mapa) {
 	setVelocity({ a, b, c });
 
 	_initialized = true;
+
+	_trans = _myEntity->getComponent<Transform>();
+	if (!_trans->isInitialized())return false;
 
 	playSound3D();
 
@@ -135,7 +139,8 @@ void AudioSource::playSound3D(const std::string name, float volume, bool loop, V
 
 void AudioSource::playSound3D() {
 	
-	FMOD_VECTOR position = (FMOD_VECTOR)Vector3<>(0, 0, 0);
+	FMOD_VECTOR position = (FMOD_VECTOR)_trans->position();
+		//_trans->position();
 	FMOD_VECTOR velocity = getVelocity();
 
 	try {
@@ -148,7 +153,7 @@ void AudioSource::playSound3D() {
 
 		_result = _system->playSound(sound, 0, false, &_channel);
 		errorCheck(_result);
-
+		
 		//setVolume(getVolume());
 
 		_result = _channel->set3DAttributes(&position, &velocity);
