@@ -41,14 +41,16 @@ bool ButtonComponent::init(const std::map<std::string, std::string>& mapa) {
 void ButtonComponent::onClick() {
 	switch (_buttonType) {
 	case ButtonType::CHANGE_SCENE:
-		//SceneManager::GetInstance()->loadScene(_nextScene);
+		SceneManager::GetInstance()->newScene(_nextScene);
+		break;
+	case ButtonType::RESUME:
+		SceneManager::GetInstance()->continueScene();
 		break;
 	case ButtonType::EXIT:
 		MotorLoop::GetInstance()->stopLoop();
 		break;
 	}
 }
-
 ButtonComponent::~ButtonComponent() {
 	//CEGUI::WindowManager::getSingleton().destroyWindow(_button);
 	//setActive(false);

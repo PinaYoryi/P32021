@@ -11,12 +11,13 @@ namespace CEGUI {
 class ButtonComponent: public Component {
 public:
 	// Tipos de botones, sirven para gestionar la accion del boton al hacerle click
+	// Tipos de botones, sirven para gestionar la accion del boton al hacerle click
 	enum class ButtonType {
 		CHANGE_SCENE = 0,
-		EXIT = 1
+		RESUME = 1,
+		EXIT = 2
 	};
-
-	ButtonComponent() {};
+	ButtonComponent(): _button(nullptr) {};
 	~ButtonComponent();
 
 	/// <summary>
