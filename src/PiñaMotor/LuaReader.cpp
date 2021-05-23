@@ -8,6 +8,7 @@
 #include "Entity.h"
 #include "OgreMotor.h"
 #include "BulletInstance.h"
+#include "Gui.h"
 
 static const luaL_Reg lualibs[] = {
 		{ "base",       luaopen_base },
@@ -50,6 +51,12 @@ Entity* readPrefab(std::string file) {
 		lua_getfield(l, -1, "id");
 		int id = lua_tonumber(l, -1);
 		lua_pop(l, 1);
+
+		// showCursor
+		lua_getfield(l, -1, "cursor");
+		int cursor = lua_tonumber(l, -1);
+		lua_pop(l, 1);
+		Gui::GetInstance()->mouseVisible(cursor);
 
 		Entity* ent = new Entity(name, id);
 		SceneManager::GetInstance()->addEntity(ent);
