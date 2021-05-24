@@ -23,6 +23,7 @@ public:
 
 	void setStep(float step) { _step = step; }
 	void setStepRot(float velRotation) { _velRotation = velRotation; }
+	float getThreshhold() { return _threshold; };
 
 	/// <summary>
 	/// Marca el flag para rotar y pone la dirección en la que debe mirar

@@ -80,7 +80,7 @@ void BasicAI::rotateTo(Vector3<> obj) {
 	_rotIni = _transform->rotation();
 
 	Vector3<> dir = obj - _transform->position();
-	float angle = atan2(dir.z, dir.x);
+	float angle = atan2(dir.x, dir.z);
 
 	_rotObjetivo = { (float)cos(angle / 2), 0.0f, (float)sin(angle / 2), 0.0f };
 #if (defined _DEBUG)
