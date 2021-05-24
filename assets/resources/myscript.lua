@@ -120,6 +120,7 @@ local mapa = {
     --       size="100,100",
     --       name="botonSalir",
     --       type="EXIT",
+    --       showCursor="true",
     --       nextScene=""
     --     }   	
     -- 	},
