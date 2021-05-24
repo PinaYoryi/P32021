@@ -83,8 +83,4 @@ void BasicAI::rotateTo(Vector3<> obj) {
 	float angle = atan2(dir.x, dir.z);
 
 	_rotObjetivo = { (float)cos(angle / 2), 0.0f, (float)sin(angle / 2), 0.0f };
-#if (defined _DEBUG)
-	std::cout << "INICIAL: " << _rotIni.toEuler() << "\n";
-	std::cout << "OBJETIVO: " << _rotObjetivo << "\n";
-#endif
 }
