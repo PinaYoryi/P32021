@@ -92,6 +92,7 @@ private:
 
 	Transform* _trans = nullptr;
 
+	float _volume;
 	// Lista con los canales de sonido que se estan ejecutando
 	//std::map<const char*, FMOD::Sound*> _sounds;
 

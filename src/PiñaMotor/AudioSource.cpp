@@ -26,7 +26,7 @@ bool AudioSource::init(const std::map<std::string, std::string>& mapa) {
 	_soundName = ResourceManager::GetInstance()->audio(s);
 	
 	s = mapa.at("volume");
-	setVolume(std::stof(s));
+	_volume=std::stof(s);
 
 	s = mapa.at("velocity");
 	std::string::size_type sz = 0, sa = 0;
@@ -94,7 +94,7 @@ void AudioSource::playSound2D() {
 		_result = _system->playSound(sound, 0, false, &_channel);
 		errorCheck(_result);
 
-		//setVolume(getVolume());
+		setVolume(_volume);
 
 		_result = _channel->setPaused(false);
 		errorCheck(_result);
@@ -153,11 +153,11 @@ void AudioSource::playSound3D() {
 
 		_result = _system->playSound(sound, 0, false, &_channel);
 		errorCheck(_result);
-		
-		//setVolume(getVolume());
 
 		_result = _channel->set3DAttributes(&position, &velocity);
 		errorCheck(_result);
+
+		setVolume(_volume);
 
 		_result = _channel->setPaused(false);
 		errorCheck(_result);
