@@ -31,7 +31,7 @@ bool ButtonComponent::init(const std::map<std::string, std::string>& mapa) {
 	if (ty == "EXIT")
 		_buttonType = ButtonType::EXIT;
 	else if(ty == "RESUME")
-		_buttonType = ButtonType::EXIT;
+		_buttonType = ButtonType::RESUME;
 	else {
 		_buttonType = ButtonType::CHANGE_SCENE;
 		std::string nS = mapa.at("nextScene");
