@@ -36,7 +36,7 @@ protected:
 	//posicion objetivo
 	Vector3<> _posObjetivo;
 	//rotacion objetivo
-	Vector3<> _rotObjetivo;
+	Quaternion _rotObjetivo;
 
 	//bools que si son true se mueve/rota 
 	bool _moveFlag=false, _rotFlag = false;
