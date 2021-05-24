@@ -5,7 +5,7 @@
 
 class BasicAI : public Component{
 public:
-	BasicAI() {};
+	BasicAI():_transform(nullptr),_rigidbody(nullptr) {};
 
 	bool init(const std::map<std::string, std::string>& mapa) override;
 
@@ -19,7 +19,7 @@ public:
 	/// <summary>
 	/// Marca el flag para mover y pone la posicion destino
 	/// </summary>
-	void MoveTo(Vector3<> obj);
+	void moveTo(Vector3<> obj);
 
 	void setStep(float step) { _step = step; }
 	void setStepRot(float velRotation) { _velRotation = velRotation; }
@@ -27,7 +27,7 @@ public:
 	/// <summary>
 	/// Marca el flag para rotar y pone la dirección en la que debe mirar
 	/// </summary>
-	void RotateTo(Vector3<> obj);
+	void rotateTo(Vector3<> obj);
 
 protected:
 	Transform* _transform;	
@@ -39,21 +39,21 @@ protected:
 	Vector3<> _rotObjetivo;
 
 	//bools que si son true se mueve/rota 
-	bool _moveFlag, _rotFlag;
+	bool _moveFlag=false, _rotFlag = false;
 
 	//umbral de la distancia objetivo (margen de error)
-	float _threshold;
+	float _threshold=0;
 
 	// Potencia del movimiento
-	float _step;
+	float _step=0.1;
 
 	//umbral de la rotaicon objetivo (margen de error)
-	float _thresholdRot;
+	float _thresholdRot=0.1;
 
 	Quaternion _rotIni;
 
-	float _t;
+	float _t=0;
 
-	float _velRotation;
+	float _velRotation=0;
 };
 

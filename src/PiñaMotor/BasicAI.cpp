@@ -69,13 +69,13 @@ void BasicAI::fixedUpdate() {
 	}
 }
 
-void BasicAI::MoveTo(Vector3<> obj) {
+void BasicAI::moveTo(Vector3<> obj) {
 	_posObjetivo = obj;
 	_moveFlag = true;
 	//RotateTo(obj);
 }
 
-void BasicAI::RotateTo(Vector3<> obj) {	
+void BasicAI::rotateTo(Vector3<> obj) {	
 	_rotFlag = true;
 	_rotIni = _transform->rotation();
 	Vector3<> dir = obj - _transform->position();
