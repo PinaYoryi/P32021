@@ -63,7 +63,7 @@ void BasicAI::fixedUpdate() {
 		else {
 			btTransform trans;
 			_t += _velRotation;
-			_rigidbody->setRotation(Quaternion::Slerp((_rotIni), Quaternion::Euler( _rotObjetivo),_t, _thresholdRot));
+			_rigidbody->setRotation(Quaternion::Slerp((_rotIni), _rotObjetivo,_t, _thresholdRot));
 			_rigidbody->getbT()->getMotionState()->getWorldTransform(trans);
 		}
 	}
@@ -75,17 +75,14 @@ void BasicAI::MoveTo(Vector3<> obj) {
 	//RotateTo(obj);
 }
 
-void BasicAI::RotateTo(Vector3<> obj) {	
+void BasicAI::RotateTo(Vector3<> obj) {
 	_rotFlag = true;
 	_rotIni = _transform->rotation();
-	Vector3<> dir = obj - _transform->position();
-	float pitch, yaw;
-	Vector3<> objX = { dir.x, 0.01, dir.z };
-	Vector3<> objY = { 0.01, dir.y, dir.z };
-	pitch = objX.angleDegrees({ 0, 0, 1 });
-	yaw = objY.angleDegrees({ 0, 0, -1 });
 
-	_rotObjetivo = { pitch - 90, yaw + 180 , 0};
+	Vector3<> dir = obj - _transform->position();
+	float angle = atan2(dir.z, dir.x);
+
+	_rotObjetivo = { (float)cos(angle), 0.0f, (float)sin(angle), 0.0f };
 #if (defined _DEBUG)
 	std::cout << "INICIAL: " << _rotIni.toEuler() << "\n";
 	std::cout << "OBJETIVO: " << _rotObjetivo << "\n";

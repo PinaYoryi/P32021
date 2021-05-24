@@ -59,7 +59,7 @@ local mapa = {
           step="100",
           threshold="0.5",
           thresholdRot="0.1",
-          stepRot="0.0002"
+          stepRot="0.005"
         },
         audiosource={
           sound="aVerSiSeCorta.mp3",
