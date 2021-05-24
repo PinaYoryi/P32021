@@ -50,6 +50,7 @@ void ButtonComponent::onClick() {
 		break;
 	case ButtonType::RESUME:
 		SceneManager::GetInstance()->continueScene();
+		Gui::GetInstance()->setMouseVisibility(false);
 		break;
 	case ButtonType::EXIT:
 		MotorLoop::GetInstance()->stopLoop();
@@ -57,6 +58,6 @@ void ButtonComponent::onClick() {
 	}
 }
 ButtonComponent::~ButtonComponent() {
-	//CEGUI::WindowManager::getSingleton().destroyWindow(_button);
+	CEGUI::WindowManager::getSingleton().destroyWindow(_button);
 	//setActive(false);
 }
