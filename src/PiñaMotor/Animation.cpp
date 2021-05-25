@@ -13,16 +13,24 @@ bool Animation::init(const std::map<std::string, std::string>& mapa) {
 	if (mapa.find("animations") == mapa.end() || mapa.find("playing") == mapa.end() || mapa.find("loop") == mapa.end()) return false;
 
 	//el try es necesario para que no explote la aplicacion si da algun error ogre
-	if (_myEntity->hasComponent<Renderer>() && !_myEntity->getComponent<Renderer>()->isInitialized() ) {
+	if (_myEntity->hasComponent<Renderer>() && _myEntity->getComponent<Renderer>()->isInitialized()) {
 		_ogreEnt = _myEntity->getComponent<Renderer>()->getOgreEntity();
 		try {
 			OgreMotor::GetInstance()->addInputListener(this);
-			std::string an = mapa.at("animations");	
+			std::string an = mapa.at("animations");
 			int iterator = 0;
 			std::string na = "";
-			while ((na = an.substr(iterator, an.find(","))) != "") {
-				iterator += na.length() + 1;
-				_myAnimations.push_back(_ogreEnt->getAnimationState(na));
+			while ((na = an.substr(0, an.find(","))) != "") {
+				iterator = na.length() + 1;
+				if (iterator != an.length() + 1)
+				{
+					an = an.substr(iterator);
+					_myAnimations.push_back(_ogreEnt->getAnimationState(na));
+				}
+				else {
+					_myAnimations.push_back(_ogreEnt->getAnimationState(na));
+					break;
+				}
 			};
 
 			if (mapa.at("playing") == "true") _playing = true;
@@ -38,7 +46,7 @@ bool Animation::init(const std::map<std::string, std::string>& mapa) {
 				else stop();
 				setLoop(_loop);
 			}
-			return true;	
+			return true;
 		}
 		catch (Ogre::Exception& e) {
 #if (defined _DEBUG)
@@ -73,7 +81,7 @@ bool Animation::changeAnimation(std::string animationName) {
 	//desactivamos las animaciones y las guardamos por si hay que volver a ponerlas en caso de error
 	std::vector<Ogre::AnimationState*> aux;
 	for (int i = 0; i < _myAnimations.size(); ++i)
-	{		
+	{
 
 		_myAnimations[i]->setEnabled(false);
 		aux.push_back(_myAnimations[i]);
@@ -138,7 +146,7 @@ bool Animation::changeAnimation(std::vector<std::string> animationsNames) {
 			//si ocurre un fallo hay que volver a poner las animaciones que habia antes
 			for (int i = 0; i < _myAnimations.size(); ++i)
 			{
-				_myAnimations[i]->setEnabled(false);				
+				_myAnimations[i]->setEnabled(false);
 			}
 			_myAnimations.clear();
 
@@ -156,6 +164,6 @@ bool Animation::changeAnimation(std::vector<std::string> animationsNames) {
 
 void Animation::frameRendered(const Ogre::FrameEvent& evt) {
 	if (!_active) return;
-	for(auto i:_myAnimations)
+	for (auto i : _myAnimations)
 		i->addTime(evt.timeSinceLastFrame);
 }
