@@ -11,8 +11,6 @@ if not exist ../../bin/OgreMain.dll goto ogro
 if not exist ../../bin/OgreMain_d.dll goto ogro
 if not exist ../../bin/OgreMeshLodGenerator.dll goto ogro
 if not exist ../../bin/OgreMeshLodGenerator_d.dll goto ogro
-if not exist ../../bin/OgreOverlay.dll goto ogro
-if not exist ../../bin/OgreOverlay_d.dll goto ogro
 if not exist ../../bin/OgrePaging.dll goto ogro
 if not exist ../../bin/OgrePaging_d.dll goto ogro
 if not exist ../../bin/OgreProperty.dll goto ogro
@@ -24,6 +22,8 @@ if not exist ../../bin/Plugin_ParticleFX_d.dll goto ogro
 if not exist ../../bin/plugins.cfg goto ogro
 if not exist ../../bin/RenderSystem_Direct3D11.dll goto ogro
 if not exist ../../bin/RenderSystem_Direct3D11_d.dll goto ogro
+if not exist ../../bin/RenderSystem_GL.dll goto ogro
+if not exist ../../bin/RenderSystem_GL_d.dll goto ogro
 if not exist ../../bin/resources.cfg goto ogro
 if not exist ../../bin/SDL2.dll goto ogro
 if not exist ../../bin/zlib.dll goto ogro
