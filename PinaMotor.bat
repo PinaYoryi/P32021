@@ -20,8 +20,6 @@ if not exist ../../bin/OgreRTShaderSystem_d.dll goto ogro
 if not exist ../../bin/Plugin_ParticleFX.dll goto
 if not exist ../../bin/Plugin_ParticleFX_d.dll goto ogro
 if not exist ../../bin/plugins.cfg goto ogro
-if not exist ../../bin/RenderSystem_Direct3D11.dll goto ogro
-if not exist ../../bin/RenderSystem_Direct3D11_d.dll goto ogro
 if not exist ../../bin/RenderSystem_GL.dll goto ogro
 if not exist ../../bin/RenderSystem_GL_d.dll goto ogro
 if not exist ../../bin/resources.cfg goto ogro
