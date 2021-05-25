@@ -20,7 +20,6 @@ bool PinaMotor::init(std::string windowName) {
         ResourceManager::Init();
         Input::Init();
         Gui::Init();
-       
     }
     catch (std::exception e) { 
 #if (defined _DEBUG)

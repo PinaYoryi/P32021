@@ -92,8 +92,7 @@ void OgreMotor::createRoot() {
 	_mSolutionPath.erase(_mSolutionPath.find_last_of("\\") + 1, _mSolutionPath.size() - 1);
 
 	_mRoot = new Ogre::Root(pluginsPath, _mFSLayer->getWritablePath("ogre.cfg"), _mFSLayer->getWritablePath("ogre.log"));
-
-	//Ogre::STBIImageCodec::startup();
+	_mRoot->setRenderSystem(_mRoot->getRenderSystemByName("OpenGL Rendering Subsystem"));
 }
 
 void OgreMotor::shutdown() {
@@ -123,7 +122,7 @@ void OgreMotor::setup() {
 	initialiseRTShaderSystem();
 	loadResources();
 
-	_mRoot->addFrameListener(this);
+	//_mRoot->addFrameListener(this);
 
 	_mRoot->showConfigDialog(NULL);
 

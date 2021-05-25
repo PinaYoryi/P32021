@@ -41,7 +41,7 @@ Gui::Gui() {
 	
 	_mWindowManager = &CEGUI::WindowManager::getSingleton();
 	_ceguiWindow = _mWindowManager->createWindow("DefaultWindow", "PinaYoryiGUI");
-	CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(_ceguiWindow);
+	_mContext->setRootWindow(_ceguiWindow);
 	
 	createFrameListener();
 }

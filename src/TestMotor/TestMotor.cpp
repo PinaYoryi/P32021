@@ -23,7 +23,7 @@ WinMain(HINSTANCE zhInstance, HINSTANCE prevInstance, LPSTR lpCmdLine, int nCmdS
         return -1;
     }
 
-    if (!motor.launch("aitest.lua")) {
+    if (!motor.launch("myscript.lua")) {
 #if (defined _DEBUG)
         std::cerr << "\nError en launch\n";
 #endif
