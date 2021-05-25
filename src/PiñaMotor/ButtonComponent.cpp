@@ -30,6 +30,8 @@ bool ButtonComponent::init(const std::map<std::string, std::string>& mapa) {
 	std::string ty = mapa.at("type");
 	if (ty == "EXIT")
 		_buttonType = ButtonType::EXIT;
+	else if(ty == "RESUME")
+		_buttonType = ButtonType::RESUME;
 	else {
 		_buttonType = ButtonType::CHANGE_SCENE;
 		std::string nS = mapa.at("nextScene");
@@ -48,6 +50,7 @@ void ButtonComponent::onClick() {
 		break;
 	case ButtonType::RESUME:
 		SceneManager::GetInstance()->continueScene();
+		Gui::GetInstance()->setMouseVisibility(false);
 		break;
 	case ButtonType::EXIT:
 		MotorLoop::GetInstance()->stopLoop();
@@ -55,6 +58,6 @@ void ButtonComponent::onClick() {
 	}
 }
 ButtonComponent::~ButtonComponent() {
-	//CEGUI::WindowManager::getSingleton().destroyWindow(_button);
+	CEGUI::WindowManager::getSingleton().destroyWindow(_button);
 	//setActive(false);
 }

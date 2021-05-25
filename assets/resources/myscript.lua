@@ -110,21 +110,21 @@ local mapa = {
         }
       }
     },
-    -- {
-    -- 	name="Boton",
-    -- 	id=5,
-    -- 	components={
-    --     button={
-    --       text="Salir",
-    --       position="0.5,0.5",
-    --       size="100,100",
-    --       name="botonSalir",
-    --       type="EXIT",
-    --       showCursor="true",
-    --       nextScene=""
-    --     }   	
-    -- 	},
-    -- }
+    {
+    	name="Boton",
+    	id=5,
+    	components={
+        button={
+          text="Salir",
+          position="0.5,0.5",
+          size="100,100",
+          name="botonSalir",
+          type="EXIT",
+          showCursor="true",
+          nextScene=""
+        }   	
+    	},
+    }
   }
 }
 
