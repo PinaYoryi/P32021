@@ -30,7 +30,7 @@ bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 
 	// leemos el Shape, -1 = no va a tener renderer
 	s = mapa.at("shape");
-	if (std::stof(s) >= 0 && (!_myEntity->getComponent<Renderer>()->isInitialized() && !trigger))
+	if (std::stof(s) >= 0 && (!_myEntity->getComponent<Renderer>()->isInitialized()))
 		return false;
 
 	if (std::stof(s) == -1) createShape(ShapeTypes::Box, false);	// Si no debe tener
