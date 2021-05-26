@@ -18,5 +18,5 @@ Component* ComponentFactory::getComponent(std::string name)
 
 bool ComponentFactory::registerGenerator(std::string compName, const componentInstanceGenerator& instGenerator)
 {
-	return _mGenerators.insert(std::make_pair(compName, instGenerator)).second; /*&& _mCompNames.insert(std::make_pair(compName, index)).second;*/
+	return _mGenerators.insert(std::make_pair(compName, instGenerator)).second; 
 }

@@ -3,11 +3,16 @@
 #include "Transform.h"
 #include "Entity.h"
 #include "ResourceManager.h"
-#include "Entity.h"
 
-AudioSource::AudioSource() {
-
-}
+AudioSource::AudioSource() :
+	_channel(0),
+	_velocity({ 0,0 }),
+	_position({ 0,0 }),
+	_system(0),
+	_result(FMOD_OK),
+	_soundName(""),
+	_volume(1) 
+{}
 
 AudioSource::~AudioSource() {
 	stopSound();

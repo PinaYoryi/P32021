@@ -3,6 +3,7 @@
 #include "Entity.h"
 #include "Renderer.h"
 #include "OgreEntity.h"
+
 Rigidbody::~Rigidbody() {
 	if (_btCs) delete _btCs; _btCs = nullptr;
 	if (_btRb) {
@@ -33,8 +34,8 @@ bool Rigidbody::init(const std::map<std::string, std::string>& mapa) {
 	if (std::stof(s) >= 0 && (!_myEntity->getComponent<Renderer>()->isInitialized()))
 		return false;
 
-	if (std::stof(s) == -1) createShape(ShapeTypes::Box, false);	// Si no debe tener
-	else createShape((ShapeTypes)(std::stoi(s)));	// El tipo que debe tener
+	if (std::stof(s) == -1) createShape(ShapeTypes::Box, false);	// Si no tiene render, tiene collider en forma de cubo
+	else createShape((ShapeTypes)(std::stoi(s)));	// Si tiene render le ponemos la forma que queremos
 
 	s = mapa.at("kinematic");
 	if (s == "true") kinematic = true;
