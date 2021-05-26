@@ -195,7 +195,3 @@ void Gui::initResources(std::string schemeName, std::string mouseName, bool visi
 	Gui::GetInstance()->setMouseVisibility(visible);
 }
 
-void Gui::mouseVisible(bool visible)
-{
-	Gui::GetInstance()->setMouseVisibility(visible);
-}

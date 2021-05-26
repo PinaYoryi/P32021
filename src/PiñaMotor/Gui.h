@@ -55,11 +55,7 @@ public:
 	/// Carga los recursos de los botones, puntero... de cegui
 	/// </summary>
 	void initResources(std::string schemeName , std::string mouseName, bool visible);
-	/// <summary>
-	/// Hace visible o no el puntero
-	/// </summary>
-	void mouseVisible(bool visible);
-
+	
 private:
 	/// <summary>
 	/// Crea el Frame Listener para que pinte
