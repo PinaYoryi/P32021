@@ -62,17 +62,15 @@ local mapa = {
           properties="BackgroundEnabled,false,FrameEnabled,false,Image,TaharezLook/MouseArrow"
         },
         button={
-          text="Jugar",
+          text="Salir",
           position="0.35,0.4",
           size="200,100",
           name="botonJugar",
           type="EXIT",
           showCursor="true",
-          normal="normal",
-          normalImage="TaharezLook/ButtonLeftNormal",
           continueBullet="true",
-          nextScene="level.lua",
-          properties=""
+          nextScene="level.lua"
+          --properties="Normal,TaharezLook/ButtonLeftNormal"
         }
     	}
     }

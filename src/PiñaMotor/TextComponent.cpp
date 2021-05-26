@@ -17,8 +17,7 @@ TextComponent::~TextComponent()
 bool TextComponent::init(const std::map<std::string, std::string>& mapa)
 {
 	if (mapa.find("text") == mapa.end() || mapa.find("position") == mapa.end() ||
-		mapa.find("size") == mapa.end() || mapa.find("name") == mapa.end() ||
-		mapa.find("properties") == mapa.end()) return false;
+		mapa.find("size") == mapa.end() || mapa.find("name") == mapa.end()) return false;
 
 	std::string t = mapa.at("text");
 
@@ -34,22 +33,25 @@ bool TextComponent::init(const std::map<std::string, std::string>& mapa)
 
 	std::string n = mapa.at("name");
 
-	std::string an = mapa.at("properties");
 	std::vector<std::string> proper;
-	int iterator = 0;
-	std::string na = "";
-	while ((na = an.substr(0, an.find(","))) != "") {
-		iterator = na.length() + 1;
-		if (iterator != an.length() + 1)
-		{
-			an = an.substr(iterator);
-			proper.push_back(na);
+	try {
+		std::string an = mapa.at("properties");
+		int iterator = 0;
+		std::string na = "";
+		while ((na = an.substr(0, an.find(","))) != "") {
+			iterator = na.length() + 1;
+			if (iterator != an.length() + 1)
+			{
+				an = an.substr(iterator);
+				proper.push_back(na);
+			}
+			else {
+				proper.push_back(na);
+				break;
+			}
 		}
-		else {
-			proper.push_back(na);
-			break;
-		}
-	};
+	}
+	catch (...) {}
 
 	_textG = Gui::GetInstance()->createText(t, glm::vec2(a, b), glm::vec2(x, y), n, proper);
 	

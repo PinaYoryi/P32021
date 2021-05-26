@@ -48,7 +48,6 @@ public:
 	void setFont(const std::string& fontFile);
 	void setMouseImage(const std::string& imageFile);
 	void setMouseVisibility(bool b);
-	void setProperty(const std::string& propName, const std::string& propImage);
 
 	/// <summary>
 	/// Carga los recursos de los botones, puntero... de cegui

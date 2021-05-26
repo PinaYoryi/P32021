@@ -8,9 +8,7 @@
 bool ButtonComponent::init(const std::map<std::string, std::string>& mapa) {
 	if (mapa.find("text") == mapa.end() || mapa.find("position") == mapa.end() || mapa.find("size") == mapa.end() ||
 		mapa.find("name") == mapa.end() || mapa.find("type") == mapa.end() || mapa.find("showCursor") == mapa.end() ||
-		mapa.find("normal") == mapa.end() || mapa.find("normalImage") == mapa.end() ||
-		mapa.find("continueBullet") == mapa.end() || mapa.find("nextScene") == mapa.end() ||
-		mapa.find("properties") == mapa.end()) return false;
+		mapa.find("continueBullet") == mapa.end() || mapa.find("nextScene") == mapa.end()) return false;
 	std::string t = mapa.at("text");
 	
 	std::string p = mapa.at("position");
@@ -25,22 +23,25 @@ bool ButtonComponent::init(const std::map<std::string, std::string>& mapa) {
 	
 	std::string n = mapa.at("name");
 
-	std::string an = mapa.at("properties");
 	std::vector<std::string> proper;
-	int iterator = 0;
-	std::string na = "";
-	while ((na = an.substr(0, an.find(","))) != "") {
-		iterator = na.length() + 1;
-		if (iterator != an.length() + 1)
-		{
-			an = an.substr(iterator);
-			proper.push_back(na);
+	try {
+		std::string an = mapa.at("properties");
+		int iterator = 0;
+		std::string na = "";
+		while ((na = an.substr(0, an.find(","))) != "") {
+			iterator = na.length() + 1;
+			if (iterator != an.length() + 1)
+			{
+				an = an.substr(iterator);
+				proper.push_back(na);
+			}
+			else {
+				proper.push_back(na);
+				break;
+			}
 		}
-		else {
-			proper.push_back(na);
-			break;
-		}
-	};
+	}
+	catch(...) {}
 
 	_button = Gui::GetInstance()->createButton(t, glm::vec2(a, b), glm::vec2(x, y), n, proper);
 	_button->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&ButtonComponent::onClick, this));
@@ -57,11 +58,6 @@ bool ButtonComponent::init(const std::map<std::string, std::string>& mapa) {
 	}
 	if (mapa.at("showCursor") == "true")
 		Gui::GetInstance()->setMouseVisibility(true);
-
-	// Propiedades
-	std::string pN = mapa.at("normal");
-	std::string pNI = mapa.at("normalImage");
-	_button->setProperty(pN, pNI);
 	
 	//para despausar el mundo de bulet
 	if (mapa.at("continueBullet") == "true")
