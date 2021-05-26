@@ -1,26 +1,28 @@
-#include "TextComponent.h"
+#include "ImageComponent.h"
+#include "Entity.h"
 #include "Gui.h"
+#include "MotorLoop.h"
 #include <CEGUI/CEGUI.h>
 #include <CEGUI/Window.h>
+#include "ResourceManager.h"
 
-
-TextComponent::TextComponent() : _textG(nullptr)
+ImageComponent::ImageComponent() : _image(nullptr)
 {
 }
 
-TextComponent::~TextComponent()
+ImageComponent::~ImageComponent()
 {
-	CEGUI::WindowManager::getSingleton().destroyWindow(_textG);
+	CEGUI::WindowManager::getSingleton().destroyWindow(_image);
 	setActive(false);
 }
 
-bool TextComponent::init(const std::map<std::string, std::string>& mapa)
+bool ImageComponent::init(const std::map<std::string, std::string>& mapa)
 {
-	if (mapa.find("text") == mapa.end() || mapa.find("position") == mapa.end() ||
-		mapa.find("size") == mapa.end() || mapa.find("name") == mapa.end() ||
+	if (mapa.find("source") == mapa.end() || mapa.find("position") == mapa.end() ||
+		mapa.find("size") == mapa.end() || mapa.find("name") == mapa.end() || 
 		mapa.find("properties") == mapa.end()) return false;
 
-	std::string t = mapa.at("text");
+	std::string o = mapa.at("source");
 
 	std::string p = mapa.at("position");
 	std::string::size_type pa = 0, pb = 0;
@@ -51,7 +53,7 @@ bool TextComponent::init(const std::map<std::string, std::string>& mapa)
 		}
 	};
 
-	_textG = Gui::GetInstance()->createText(t, glm::vec2(a, b), glm::vec2(x, y), n, proper);
+	_image = Gui::GetInstance()->createImage(o, glm::vec2(a, b), glm::vec2(x, y), n, proper);
 	
 	return true;
 }

@@ -12,6 +12,7 @@
 #include "Light.h"
 #include "ButtonComponent.h"
 #include "TextComponent.h"
+#include "ImageComponent.h"
 #include "AudioSource.h"
 #include "AudioListener.h"
 #include "BasicAI.h"
@@ -68,6 +69,7 @@ bool SceneManager::loadComponents() {
 		ComponentFactoryRegistrations::ComponentFactoryRegistration<SkyBox>("skybox");
         ComponentFactoryRegistrations::ComponentFactoryRegistration<ButtonComponent>("button");
 		ComponentFactoryRegistrations::ComponentFactoryRegistration<TextComponent>("text");
+		ComponentFactoryRegistrations::ComponentFactoryRegistration<ImageComponent>("image");
 	}
 	catch (...) {
 

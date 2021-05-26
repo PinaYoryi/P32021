@@ -22,7 +22,7 @@
     <ClCompile Include="..\..\src\PiñaMotor\BasicAI.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\ButtonComponent.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Gui.cpp" />
-    <ClCompile Include="..\..\src\PiñaMotor\Image.cpp" />
+    <ClCompile Include="..\..\src\PiñaMotor\ImageComponent.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\Light.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\LuaReader.cpp" />
     <ClCompile Include="..\..\src\PiñaMotor\OgreMotor.cpp" />
@@ -65,7 +65,7 @@
     <ClInclude Include="..\..\include\ecs.h" />
     <ClInclude Include="..\..\include\Entity.h" />
     <ClInclude Include="..\..\include\Gui.h" />
-    <ClInclude Include="..\..\include\Image.h" />
+    <ClInclude Include="..\..\include\ImageComponent.h" />
     <ClInclude Include="..\..\include\Input.h" />
     <ClInclude Include="..\..\include\Light.h" />
     <ClInclude Include="..\..\include\LuaReader.h" />

@@ -7,16 +7,16 @@ namespace CEGUI {
 	class Window;
 }
 
-class TextComponent: public Component
+class ImageComponent: public Component
 {
 public:
-	TextComponent();
-	~TextComponent();
+	ImageComponent();
+	~ImageComponent();
 
 	bool init(const std::map<std::string, std::string>& mapa) override;
 
 private:
-	CEGUI::Window* _textG;
+	CEGUI::Window* _image;
 	glm::vec2 _position = glm::vec2(0.0, 0.0);
 	glm::vec2 _size = glm::vec2(0.0, 0.0);
 	std::string _name = "";

@@ -17,21 +17,6 @@ Gui::Gui() {
 	
 	_mRenderer->setUsingShaders(true);
 	
-	// Esto es como ponerlo en el resources.cfg
-	// rgm.createResourceGroup("imagesets");
-	// rgm.createResourceGroup("fonts");
-	// rgm.createResourceGroup("layouts");
-	// rgm.createResourceGroup("schemes");
-	// rgm.createResourceGroup("looknfeels");
-	// rgm.createResourceGroup("lua_scripts");
-	// 
-	// rgm.addResourceLocation("../../assets/resources/gui/schemes/", "FileSystem", "schemes");
-	// rgm.addResourceLocation("../../assets/resources/gui/imagesets/", "FileSystem", "imagesets");
-	// rgm.addResourceLocation("../../assets/resources/gui/fonts/", "FileSystem", "fonts");
-	// rgm.addResourceLocation("../../assets/resources/gui/layouts/", "FileSystem", "layouts");
-	// rgm.addResourceLocation("../../assets/resources/gui/looknfeels/", "FileSystem", "looknfeels");
-	// rgm.addResourceLocation("../../assets/resources/gui/lua_scripts/", "FileSystem", "lua_scripts");
-	
 	CEGUI::ImageManager::setImagesetDefaultResourceGroup("imagesets");
 	CEGUI::AnimationManager::setDefaultResourceGroup("animations");
 	CEGUI::Font::setDefaultResourceGroup("fonts");
@@ -53,7 +38,7 @@ Gui::~Gui() {
 bool Gui::Init() {
 	if (_guiInstance != nullptr) return false;
 	_guiInstance = new Gui();
-	_guiInstance->initResources("TaharezLook", "TaharezLook", "TaharezLook/MouseArrow", false);
+	_guiInstance->initResources("TaharezLook", "TaharezLook/MouseArrow", false);
 	return true;
 }
 
@@ -83,49 +68,46 @@ void Gui::captureInput(const SDL_Event& event) {
 		windowResized(_mWindow);
 }
 
-CEGUI::Window* Gui::createButton(const std::string& text, const glm::vec2 position, const glm::vec2 size, const std::string& name) {
+CEGUI::Window* Gui::createButton(const std::string& text, const glm::vec2 position, const glm::vec2 size, const std::string& name, std::vector<std::string> properties) {
 	CEGUI::Window* button = CEGUI::WindowManager::getSingleton().createWindow(_scheme + "/Button", name);
 
 	setWidgetDestRect(button, position, size);
 	button->setText(text);
 	_ceguiWindow->addChild(button);
 
+	if (properties.size() <= 0) return button;
+	for (int i = 0; i < properties.size() - 1; i += 2) {
+		button->setProperty(properties[i], properties[i + 1]);
+	}
+
 	return button;
 }
 
-CEGUI::Window* Gui::createText(const std::string& text, glm::vec2 position, glm::vec2 size, const std::string& name)
+CEGUI::Window* Gui::createText(const std::string& text, glm::vec2 position, glm::vec2 size, const std::string& name, std::vector<std::string> properties)
 {
 	CEGUI::Window* textG = CEGUI::WindowManager::getSingleton().createWindow(_scheme + "/StaticText", name);
 
 	setWidgetDestRect(textG, position, size);
 	textG->setText(text);
 	_ceguiWindow->addChild(textG);
-	textG->setProperty("FrameEnabled", "false");
-	textG->setProperty("BackgroundEnabled", "false");
-	textG->setProperty("TextColours", "tl:FF000000 tr:FF000000 bl:FF000000 br:FF000000");
+
+	if (properties.size() <= 0) return textG;
+	for (int i = 0; i < properties.size() - 1; i += 2) {
+		textG->setProperty(properties[i], properties[i + 1]);
+	}
 
 	return textG;
 }
 
-CEGUI::Window* Gui::createSlider(glm::vec2 position, glm::vec2 size, const std::string& name) {
-	CEGUI::Window* slider = CEGUI::WindowManager::getSingleton().createWindow(_scheme + "/Slider");
-	setWidgetDestRect(slider, position, size);
-	slider->setRotation(CEGUI::Quaternion(1, 0, 0, 0.71));
-	slider->setName(name);
-	_ceguiWindow->addChild(slider);
-
-	return slider;
-}
-
-CEGUI::Window* Gui::createImage(const std::string& image, glm::vec2 position, glm::vec2 size, const std::string& name) {
+CEGUI::Window* Gui::createImage(const std::string& image, glm::vec2 position, glm::vec2 size, const std::string& name, std::vector<std::string> properties) {
 	CEGUI::Window* staticImage = CEGUI::WindowManager::getSingleton().createWindow(_scheme + "/StaticImage", name);
 	setWidgetDestRect(staticImage, position, size);
-
-	staticImage->setProperty("FrameEnabled", "false");
-	staticImage->setProperty("BackgroundEnabled", "false");
-	staticImage->setProperty("Image", image);
-
 	_ceguiWindow->addChild(staticImage);
+
+	if (properties.size() <= 0) return staticImage;
+	for (int i = 0; i < properties.size() - 1; i += 2) {
+		staticImage->setProperty(properties[i], properties[i + 1]);
+	}
 
 	return staticImage;
 }
@@ -182,10 +164,9 @@ void Gui::setProperty(const std::string& propName, const std::string& propImage)
 	_ceguiWindow->setProperty(propName, propImage);
 }
 
-void Gui::initResources(std::string schemeName, std::string fontName, std::string mouseName, bool visible)
+void Gui::initResources(std::string schemeName, std::string mouseName, bool visible)
 {
 	Gui::GetInstance()->loadScheme(schemeName, schemeName + ".scheme");
-	//Gui::GetInstance()->setFont(fontName);
 	Gui::GetInstance()->setMouseImage(mouseName);
 	Gui::GetInstance()->setMouseVisibility(visible);
 }

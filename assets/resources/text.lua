@@ -38,7 +38,7 @@ local mapa = {
       }
     },
     {
-    	name="Texto",
+    	name="Imagen",
     	id=5,
     	components={
         transform={
@@ -48,12 +48,33 @@ local mapa = {
           parent="-1"
         },
         text={
-          text="Texto",
+          text="lamo",
           position="0.5,0.5",
           size="100,100",
           name="textoPrueba",
-        }   	
-    	},
+          properties="BackgroundEnabled,false,FrameEnabled,false,TextColours,tl:FF000000 tr:FF000000 bl:FF000000 br:FF000000"
+        },
+        image={
+          source="TaharezLook/MouseArrow",
+          position="0.2,0.2",
+          size="100,100",
+          name="imagenPrueba",
+          properties="BackgroundEnabled,false,FrameEnabled,false,Image,TaharezLook/MouseArrow"
+        },
+        button={
+          text="Jugar",
+          position="0.35,0.4",
+          size="200,100",
+          name="botonJugar",
+          type="EXIT",
+          showCursor="true",
+          normal="normal",
+          normalImage="TaharezLook/ButtonLeftNormal",
+          continueBullet="true",
+          nextScene="level.lua",
+          properties=""
+        }
+    	}
     }
   }
 }

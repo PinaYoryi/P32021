@@ -123,20 +123,17 @@
     <ClCompile Include="..\..\src\PiñaMotor\Gui.cpp">
       <Filter>Archivos de origen\MotoresTecnologia</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\PiñaMotor\Image.cpp">
-      <Filter>Archivos de origen\Componentes</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\PiñaMotor\TextComponent.cpp">
       <Filter>Archivos de origen\Componentes</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\PiñaMotor\LuaReader.cpp">
       <Filter>Archivos de origen\Core</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\PiñaMotor\ImageComponent.cpp">
+      <Filter>Archivos de origen\Componentes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\PiñaMotor\SceneManager.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\PiñaMotor\SceneManager.h">
       <Filter>Archivos de encabezado\Core</Filter>
     </ClInclude>
@@ -181,9 +178,6 @@
     </ClInclude>
     <ClInclude Include="..\..\include\Gui.h">
       <Filter>Archivos de encabezado\MotoresTecnologia</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\Image.h">
-      <Filter>Archivos de encabezado\Componentes</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\Input.h">
       <Filter>Archivos de encabezado\Core</Filter>
@@ -242,7 +236,7 @@
     <ClInclude Include="..\..\include\Transform.h">
       <Filter>Archivos de encabezado\Componentes</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\PiñaMotor\TextComponent.h">
+    <ClInclude Include="..\..\include\ImageComponent.h">
       <Filter>Archivos de encabezado\Componentes</Filter>
     </ClInclude>
   </ItemGroup>

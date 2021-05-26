@@ -34,10 +34,9 @@ public:
 	void captureInput(const SDL_Event& event);
 
 	// Ajusta las propiedades para crear, respectivamente, un boton, una barra, un rotulo y una imagen
-	CEGUI::Window* createButton(const std::string& text, glm::vec2 position, glm::vec2 size, const std::string& name);
-	CEGUI::Window* createText(const std::string& text, glm::vec2 position, glm::vec2 size, const std::string& name);
-	CEGUI::Window* createSlider(glm::vec2 position, glm::vec2 size, const std::string& name);
-	CEGUI::Window* createImage(const std::string& image, glm::vec2 position, glm::vec2 size, const std::string& name = "");
+	CEGUI::Window* createButton(const std::string& text, glm::vec2 position, glm::vec2 size, const std::string& name, std::vector<std::string> properties);
+	CEGUI::Window* createText(const std::string& text, glm::vec2 position, glm::vec2 size, const std::string& name, std::vector<std::string> properties);
+	CEGUI::Window* createImage(const std::string& image, glm::vec2 position, glm::vec2 size, const std::string& name, std::vector<std::string> properties);
 
 	/// <summary>
 	/// Carga un tema para la estetica del GUI
@@ -54,7 +53,7 @@ public:
 	/// <summary>
 	/// Carga los recursos de los botones, puntero... de cegui
 	/// </summary>
-	void initResources(std::string schemeName, std::string fontName, std::string mouseName, bool visible);
+	void initResources(std::string schemeName, std::string mouseName, bool visible);
 	
 private:
 	/// <summary>
