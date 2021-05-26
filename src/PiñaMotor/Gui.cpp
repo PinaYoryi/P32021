@@ -53,7 +53,7 @@ Gui::~Gui() {
 bool Gui::Init() {
 	if (_guiInstance != nullptr) return false;
 	_guiInstance = new Gui();
-	_guiInstance->initResources("TaharezLook", "TaharezLook/MouseArrow", false);
+	_guiInstance->initResources("TaharezLook", "TaharezLook", "TaharezLook/MouseArrow", false);
 	return true;
 }
 
@@ -95,11 +95,14 @@ CEGUI::Window* Gui::createButton(const std::string& text, const glm::vec2 positi
 
 CEGUI::Window* Gui::createText(const std::string& text, glm::vec2 position, glm::vec2 size, const std::string& name)
 {
-	CEGUI::Window* textG = CEGUI::WindowManager::getSingleton().createWindow(_scheme + "/Text", name);
+	CEGUI::Window* textG = CEGUI::WindowManager::getSingleton().createWindow(_scheme + "/StaticText", name);
 
 	setWidgetDestRect(textG, position, size);
 	textG->setText(text);
 	_ceguiWindow->addChild(textG);
+	textG->setProperty("FrameEnabled", "false");
+	textG->setProperty("BackgroundEnabled", "false");
+	textG->setProperty("TextColours", "tl:FF000000 tr:FF000000 bl:FF000000 br:FF000000");
 
 	return textG;
 }
@@ -112,19 +115,6 @@ CEGUI::Window* Gui::createSlider(glm::vec2 position, glm::vec2 size, const std::
 	_ceguiWindow->addChild(slider);
 
 	return slider;
-}
-
-CEGUI::Window* Gui::createLabel(const std::string& text, const glm::vec2 position, const glm::vec2 size, const std::string& name) {
-	CEGUI::Window* label = CEGUI::WindowManager::getSingleton().createWindow(_scheme + "/StaticText", name);
-	setWidgetDestRect(label, position, size);
-
-	label->setText(text);
-	label->setProperty("FrameEnabled", "false");
-	label->setProperty("BackgroundEnabled", "false");
-
-	_ceguiWindow->addChild(label);
-
-	return label;
 }
 
 CEGUI::Window* Gui::createImage(const std::string& image, glm::vec2 position, glm::vec2 size, const std::string& name) {
@@ -188,9 +178,10 @@ void Gui::setMouseVisibility(bool b) {
 	}
 }
 
-void Gui::initResources(std::string schemeName, std::string mouseName, bool visible)
+void Gui::initResources(std::string schemeName, std::string fontName, std::string mouseName, bool visible)
 {
 	Gui::GetInstance()->loadScheme(schemeName, schemeName + ".scheme");
+	//Gui::GetInstance()->setFont(fontName);
 	Gui::GetInstance()->setMouseImage(mouseName);
 	Gui::GetInstance()->setMouseVisibility(visible);
 }

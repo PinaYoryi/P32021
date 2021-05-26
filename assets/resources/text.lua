@@ -1,0 +1,63 @@
+local mapa = {
+  ambient="0.1,0.1,0.1",
+  gravity="0 -9.8 0",
+  entities={
+    {
+      name="Camera",
+      id=2,
+      components={
+        transform={
+          position="0,0,200",
+          rotation="0,0,0",
+          scale="1,1,1",
+          parent="-1"
+        },
+        camera={
+          near="0.1",
+          far="1000",
+          autoaspect="true",
+          aspect="1.78",
+          fov="50",
+          proyection="1",
+          viewport="0,0,1,1",
+          color="1.0,0.5,0.3137"
+        }
+        ,
+        skybox={
+          enable="true",
+          planenormal="Z",
+          planepos="20",
+          materialname="sky/space",
+          scale="1",
+          tiling="1",
+          drawfirst="true",
+          bow="10.0",
+          xsegments="10",
+          ysegments="10"
+        }
+      }
+    },
+    {
+    	name="Texto",
+    	id=5,
+    	components={
+        transform={
+          position="0,0,0",
+          rotation="0,0,0",
+          scale="1,1,1",
+          parent="-1"
+        },
+        text={
+          text="Texto",
+          position="0.5,0.5",
+          size="100,100",
+          name="textoPrueba",
+        }   	
+    	},
+    }
+  }
+}
+
+function GetMapa ()
+  return mapa
+end

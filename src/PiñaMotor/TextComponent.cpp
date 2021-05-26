@@ -19,8 +19,8 @@ TextComponent::~TextComponent()
 
 bool TextComponent::init(const std::map<std::string, std::string>& mapa)
 {
-	if (mapa.find("text") == mapa.end() || mapa.find("position") == mapa.end() || mapa.find("size") == mapa.end() ||
-		mapa.find("name") == mapa.end() || mapa.find("type") == mapa.end() || mapa.find("nextScene") == mapa.end()) return false;
+	if (mapa.find("text") == mapa.end() || mapa.find("position") == mapa.end() ||
+		mapa.find("size") == mapa.end() || mapa.find("name") == mapa.end()) return false;
 
 	std::string t = mapa.at("text");
 
@@ -37,9 +37,6 @@ bool TextComponent::init(const std::map<std::string, std::string>& mapa)
 	std::string n = mapa.at("name");
 
 	_textG = Gui::GetInstance()->createText(t, glm::vec2(a, b), glm::vec2(x, y), n);
-	//_textG->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&TextComponent::onClick, this));
-
 	
-
 	return true;
 }

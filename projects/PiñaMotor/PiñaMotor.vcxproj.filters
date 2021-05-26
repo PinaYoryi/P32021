@@ -129,6 +129,9 @@
     <ClCompile Include="..\..\src\PiñaMotor\Image.cpp">
       <Filter>Archivos de origen\Componentes</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\PiñaMotor\TextComponent.cpp">
+      <Filter>Archivos de origen\Componentes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\PiñaMotor\SceneManager.h">
@@ -231,6 +234,9 @@
       <Filter>Archivos de encabezado\Componentes</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\PiñaMotor\Image.h">
+      <Filter>Archivos de encabezado\Componentes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\PiñaMotor\TextComponent.h">
       <Filter>Archivos de encabezado\Componentes</Filter>
     </ClInclude>
   </ItemGroup>
