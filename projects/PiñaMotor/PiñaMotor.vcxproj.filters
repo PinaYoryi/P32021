@@ -114,9 +114,6 @@
     <ClCompile Include="..\..\src\PiñaMotor\BasicAI.cpp">
       <Filter>Archivos de origen\Componentes</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\PiñaMotor\LuaReader.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\PiñaMotor\SkyBox.cpp">
       <Filter>Archivos de origen\Componentes</Filter>
     </ClCompile>
@@ -132,108 +129,117 @@
     <ClCompile Include="..\..\src\PiñaMotor\TextComponent.cpp">
       <Filter>Archivos de origen\Componentes</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\PiñaMotor\LuaReader.cpp">
+      <Filter>Archivos de origen\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\PiñaMotor\SceneManager.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\PiñaMotor\Animation.h">
-      <Filter>Archivos de encabezado\Componentes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\PiñaMotor\AudioListener.h">
-      <Filter>Archivos de encabezado\Componentes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\PiñaMotor\Camera.h">
-      <Filter>Archivos de encabezado\Componentes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\PiñaMotor\Component.h">
-      <Filter>Archivos de encabezado\Componentes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\PiñaMotor\Light.h">
-      <Filter>Archivos de encabezado\Componentes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\PiñaMotor\Renderer.h">
-      <Filter>Archivos de encabezado\Componentes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\PiñaMotor\Rigidbody.h">
-      <Filter>Archivos de encabezado\Componentes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\PiñaMotor\Transform.h">
-      <Filter>Archivos de encabezado\Componentes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\PiñaMotor\Input.h">
-      <Filter>Archivos de encabezado\MotoresTecnologia</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\PiñaMotor\BulletInstance.h">
-      <Filter>Archivos de encabezado\MotoresTecnologia</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\PiñaMotor\Audio.h">
-      <Filter>Archivos de encabezado\MotoresTecnologia</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\PiñaMotor\OgreMotor.h">
-      <Filter>Archivos de encabezado\MotoresTecnologia</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\PiñaMotor\Vector4.h">
-      <Filter>Archivos de encabezado\TiposAuxiliares</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\PiñaMotor\Vector3.h">
-      <Filter>Archivos de encabezado\TiposAuxiliares</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\PiñaMotor\Vector2.h">
-      <Filter>Archivos de encabezado\TiposAuxiliares</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\PiñaMotor\Quaternion.h">
-      <Filter>Archivos de encabezado\TiposAuxiliares</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\PiñaMotor\Matrix3.h">
-      <Filter>Archivos de encabezado\TiposAuxiliares</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\PiñaMotor\Matrix4.h">
-      <Filter>Archivos de encabezado\TiposAuxiliares</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\PiñaMotor\SceneManager.h">
       <Filter>Archivos de encabezado\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\PiñaMotor\ResourceManager.h">
-      <Filter>Archivos de encabezado\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\PiñaMotor\PinaMotor.h">
-      <Filter>Archivos de encabezado\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\PiñaMotor\MotorLoop.h">
-      <Filter>Archivos de encabezado\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\PiñaMotor\LuaReader.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\PiñaMotor\ecs.h">
-      <Filter>Archivos de encabezado\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\PiñaMotor\ComponentFactory.h">
-      <Filter>Archivos de encabezado\Componentes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\PiñaMotor\ComponentFactoryRegistration.h">
-      <Filter>Archivos de encabezado\Componentes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\PiñaMotor\Entity.h">
-      <Filter>Archivos de encabezado\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\PiñaMotor\AudioSource.h">
-      <Filter>Archivos de encabezado\Componentes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\PiñaMotor\BasicAI.h">
-      <Filter>Archivos de encabezado\Componentes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\PiñaMotor\SkyBox.h">
-      <Filter>Archivos de encabezado\Componentes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\PiñaMotor\Gui.h">
+    <ClInclude Include="..\..\include\Audio.h">
       <Filter>Archivos de encabezado\MotoresTecnologia</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\PiñaMotor\ButtonComponent.h">
+    <ClInclude Include="..\..\include\AudioListener.h">
       <Filter>Archivos de encabezado\Componentes</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\PiñaMotor\Image.h">
+    <ClInclude Include="..\..\include\Animation.h">
+      <Filter>Archivos de encabezado\Componentes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\AudioSource.h">
+      <Filter>Archivos de encabezado\Componentes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\BasicAI.h">
+      <Filter>Archivos de encabezado\Componentes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\BulletInstance.h">
+      <Filter>Archivos de encabezado\MotoresTecnologia</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ButtonComponent.h">
+      <Filter>Archivos de encabezado\Componentes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Camera.h">
+      <Filter>Archivos de encabezado\Componentes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Component.h">
+      <Filter>Archivos de encabezado\Componentes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ComponentFactory.h">
+      <Filter>Archivos de encabezado\Componentes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ComponentFactoryRegistration.h">
+      <Filter>Archivos de encabezado\Componentes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ecs.h">
+      <Filter>Archivos de encabezado\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Entity.h">
+      <Filter>Archivos de encabezado\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Gui.h">
+      <Filter>Archivos de encabezado\MotoresTecnologia</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Image.h">
+      <Filter>Archivos de encabezado\Componentes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Input.h">
+      <Filter>Archivos de encabezado\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Light.h">
+      <Filter>Archivos de encabezado\Componentes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\LuaReader.h">
+      <Filter>Archivos de encabezado\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Matrix3.h">
+      <Filter>Archivos de encabezado\TiposAuxiliares</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Matrix4.h">
+      <Filter>Archivos de encabezado\TiposAuxiliares</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\MotorLoop.h">
+      <Filter>Archivos de encabezado\MotoresTecnologia</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\OgreMotor.h">
+      <Filter>Archivos de encabezado\MotoresTecnologia</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\PinaMotor.h">
+      <Filter>Archivos de encabezado\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Quaternion.h">
+      <Filter>Archivos de encabezado\TiposAuxiliares</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Renderer.h">
+      <Filter>Archivos de encabezado\Componentes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\ResourceManager.h">
+      <Filter>Archivos de encabezado\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Rigidbody.h">
+      <Filter>Archivos de encabezado\Componentes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SceneManager.h">
+      <Filter>Archivos de encabezado\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\SkyBox.h">
+      <Filter>Archivos de encabezado\Componentes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\TextComponent.h">
+      <Filter>Archivos de encabezado\Componentes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Vector2.h">
+      <Filter>Archivos de encabezado\TiposAuxiliares</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Vector3.h">
+      <Filter>Archivos de encabezado\TiposAuxiliares</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Vector4.h">
+      <Filter>Archivos de encabezado\TiposAuxiliares</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Transform.h">
       <Filter>Archivos de encabezado\Componentes</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\PiñaMotor\TextComponent.h">
