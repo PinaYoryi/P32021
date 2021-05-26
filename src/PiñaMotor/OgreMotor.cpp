@@ -122,7 +122,7 @@ void OgreMotor::setup() {
 	initialiseRTShaderSystem();
 	loadResources();
 
-	//_mRoot->addFrameListener(this);
+	_mRoot->addFrameListener(this);
 
 	_mRoot->showConfigDialog(NULL);
 
