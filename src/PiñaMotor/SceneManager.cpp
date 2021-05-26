@@ -1,6 +1,7 @@
 #include "SceneManager.h"
 #include "ResourceManager.h"
 #include "BulletInstance.h"
+#include "Gui.h"
 #include "ComponentFactoryRegistration.h"
 
 #include "Transform.h"
@@ -118,8 +119,10 @@ void SceneManager::deleteEntities() {
 
 void SceneManager::newScene(std::string sceneName, bool continueBullet) {
 	deleteEntities();
-	if(continueBullet)
+	if (continueBullet) {
 		BulletInstance::GetInstance()->setPaused(false);
+		Gui::GetInstance()->setMouseVisibility(false);
+	}
 
 	_sceneName = ResourceManager::GetInstance()->scene(sceneName);
 	_newScene = true;
