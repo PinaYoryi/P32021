@@ -18,7 +18,7 @@ std::string ResourceManager::texture(std::string name) {
 	if (it != _textures.end()) return it->second;
 	it = _textures.find("Default.png");
 	if (it != _textures.end()) return it->second;
-	throw "Could not find texture requested or the default one";
+	throw std::exception("Could not find texture requested or the default one");
 }
 
 std::string ResourceManager::audio(std::string name) {
@@ -26,19 +26,19 @@ std::string ResourceManager::audio(std::string name) {
 	if (it != _audio.end()) return it->second;
 	it = _audio.find("Default.ogg");
 	if (it != _audio.end()) return it->second;
-	throw "Could not find audio requested or the default one";
+	throw std::exception("Could not find audio requested or the default one");
 }
 
 std::string ResourceManager::scene(std::string name) {
 	auto it = _scenes.find(name);
-	if (it == _scenes.end()) throw "Non-existant scene has been called: " + name;
+	if (it == _scenes.end()) throw std::exception("Non-existant scene has been called");
 	return it->second;
 }
 
 std::string ResourceManager::prefab(std::string name)
 {
 	auto it = _prefabs.find(name);
-	if (it == _prefabs.end()) throw "Non-existant prefab has been called: " + name;
+	if (it == _prefabs.end()) throw std::exception("Non-existant prefab has been called");
 	return it->second;
 }
 

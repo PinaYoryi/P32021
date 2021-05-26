@@ -32,10 +32,7 @@ Entity* readPrefab(std::string file) {
 	std::printf("now calling lua\n\n");
 #endif
 	if (!luaL_loadfile(l, file.c_str()) && lua_pcall(l, 0, 0, 0)) {
-#if _DEBUG
-		std::cout << "Lua was not able to be loaded\n";
-#endif
-		throw "Lua file " + file + " was not able to be loaded";
+		throw std::exception("Lua file was not able to be loaded");
 	}
 	try {
 		lua_getglobal(l, "GetPrefab");
@@ -93,7 +90,7 @@ Entity* readPrefab(std::string file) {
 		return ent;
 	}
 	catch (...) {
-		throw "Prefab file " + file + " has incorrect formatting";
+		throw std::exception("Prefab file has incorrect formatting");
 	}
 }
 
@@ -109,10 +106,7 @@ void readFile(std::string file) {
 	std::printf("now calling lua\n\n");
 #endif
 	if (!luaL_loadfile(l, file.c_str()) && lua_pcall(l, 0, 0, 0)) {
-#if _DEBUG
-		std::cout << "Lua was not able to be loaded\n";
-#endif
-		throw "Lua file " + file + " was not able to be loaded";
+		throw std::exception("Lua file was not able to be loaded");
 	}
 
 	try {
@@ -200,6 +194,6 @@ void readFile(std::string file) {
 		}
 	}
 	catch (...) {
-		throw "Lua file " + file + " has incorrect formatting";
+		throw std::exception("Lua file has incorrect formatting");
 	}
 }

@@ -27,7 +27,6 @@ public:
 	/// <summary>
 	/// Inicializa la clase Input con los parametros dados si no se ha inicializado antes.
 	/// Devuelve true si se inicializa por primera vez y false si ya hab�a sido inicializada.
-	/// Todo: Implementar los parametros a inicializar.
 	/// </summary>
 	static bool Init();
 

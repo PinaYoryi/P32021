@@ -1,7 +1,6 @@
 #pragma once
 #include <iostream>
 
-// TODO: Macros
 class Transform;
 class Renderer;
 class Camera;

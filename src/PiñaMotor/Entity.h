@@ -24,7 +24,7 @@ public:
 
 			return t;
 		}
-		throw "Error de carga del componente " + compName; // TODO: Hacer un sistema de excepciones
+		throw std::exception("Error de carga del componente ");
 	}
 
 	/// <summary>
