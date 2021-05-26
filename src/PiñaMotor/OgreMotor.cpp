@@ -83,7 +83,7 @@ void OgreMotor::createRoot() {
 
 	if (!Ogre::FileSystemLayer::fileExists(pluginsPath))
 	{	
-		OGRE_EXCEPT(Ogre::Exception::ERR_FILE_NOT_FOUND, "plugins.cfg", "IG2ApplicationContext::createRoot");
+		OGRE_EXCEPT(Ogre::Exception::ERR_FILE_NOT_FOUND, "plugins.cfg", "createRoot");
 	}
 
 	_mSolutionPath = pluginsPath;    
@@ -123,7 +123,6 @@ void OgreMotor::setup() {
 	loadResources();
 
 	_mRoot->addFrameListener(this);
-
 	_mRoot->showConfigDialog(NULL);
 
 	_mSM = _mRoot->createSceneManager();
