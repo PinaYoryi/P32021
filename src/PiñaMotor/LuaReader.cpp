@@ -56,7 +56,7 @@ Entity* readPrefab(std::string file) {
 		lua_getfield(l, -1, "cursor");
 		int cursor = lua_tonumber(l, -1);
 		lua_pop(l, 1);
-		Gui::GetInstance()->mouseVisible(cursor);
+		Gui::GetInstance()->setMouseVisibility(cursor);
 
 		Entity* ent = new Entity(name, id);
 		SceneManager::GetInstance()->addEntity(ent);
