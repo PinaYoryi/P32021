@@ -8,7 +8,7 @@
 bool ButtonComponent::init(const std::map<std::string, std::string>& mapa) {
 	if (mapa.find("text") == mapa.end() || mapa.find("position") == mapa.end() || mapa.find("size") == mapa.end() ||
 		mapa.find("name") == mapa.end() || mapa.find("type") == mapa.end() || mapa.find("showCursor") == mapa.end()
-		|| mapa.find("nextScene") == mapa.end()) return false;
+		|| mapa.find("continueBullet") == mapa.end() || mapa.find("nextScene") == mapa.end()) return false;
 
 	std::string t = mapa.at("text");
 
@@ -30,7 +30,7 @@ bool ButtonComponent::init(const std::map<std::string, std::string>& mapa) {
 	std::string ty = mapa.at("type");
 	if (ty == "EXIT")
 		_buttonType = ButtonType::EXIT;
-	else if(ty == "RESUME")
+	else if (ty == "RESUME")
 		_buttonType = ButtonType::RESUME;
 	else {
 		_buttonType = ButtonType::CHANGE_SCENE;
@@ -38,7 +38,11 @@ bool ButtonComponent::init(const std::map<std::string, std::string>& mapa) {
 		_nextScene = nS;
 	}
 	if (mapa.at("showCursor") == "true")
-		Gui::GetInstance()->mouseVisible(true);
+		Gui::GetInstance()->setMouseVisibility(true);
+
+	//para despausar el mundo de bulet
+	if (mapa.at("continueBullet") == "true")
+		_continueBullet = true;
 
 	return true;
 }
@@ -46,7 +50,7 @@ bool ButtonComponent::init(const std::map<std::string, std::string>& mapa) {
 void ButtonComponent::onClick() {
 	switch (_buttonType) {
 	case ButtonType::CHANGE_SCENE:
-		SceneManager::GetInstance()->newScene(_nextScene);
+		SceneManager::GetInstance()->newScene(_nextScene, _continueBullet);
 		break;
 	case ButtonType::RESUME:
 		SceneManager::GetInstance()->continueScene();
@@ -59,5 +63,4 @@ void ButtonComponent::onClick() {
 }
 ButtonComponent::~ButtonComponent() {
 	CEGUI::WindowManager::getSingleton().destroyWindow(_button);
-	//setActive(false);
 }

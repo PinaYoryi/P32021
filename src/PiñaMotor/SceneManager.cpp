@@ -116,8 +116,11 @@ void SceneManager::deleteEntities() {
 	_entitiesToLoad.clear();
 }
 
-void SceneManager::newScene(std::string sceneName) {
+void SceneManager::newScene(std::string sceneName, bool continueBullet) {
 	deleteEntities();
+	if(continueBullet)
+		BulletInstance::GetInstance()->setPaused(false);
+
 	_sceneName = ResourceManager::GetInstance()->scene(sceneName);
 	_newScene = true;
 }

@@ -182,8 +182,10 @@ void Gui::setMouseImage(const std::string& imageFile) {
 void Gui::setMouseVisibility(bool b) {
 	if (b)
 		CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().show();
-	else
+	else {
 		CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().hide();
+		_ceguiWindow->setUsingAutoRenderingSurface(true);
+	}
 }
 
 void Gui::initResources(std::string schemeName, std::string mouseName, bool visible)

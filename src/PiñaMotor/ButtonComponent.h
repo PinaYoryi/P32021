@@ -41,4 +41,6 @@ protected:
 	std::string _name = "";
 	std::string _text = "";
 	std::string _nextScene = "myscript.lua";
+	bool _continueBullet = false;//si es true, al ser pulsado el boton se continua las fisicas
+
 };

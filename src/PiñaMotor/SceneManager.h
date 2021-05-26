@@ -53,7 +53,7 @@ public:
 	/// <summary>
 	/// Avisa al manager de que se va a cargar una escana
 	/// </summary>
-	void newScene(std::string sceneName);
+	void newScene(std::string sceneName,bool continuePhysics = false);
 
 	/// <summary>
 	/// Carga las entidades que hay en el vector de entidades a cargar en el vector de entidades a usar

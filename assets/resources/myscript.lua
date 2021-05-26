@@ -121,6 +121,7 @@ local mapa = {
           name="botonSalir",
           type="EXIT",
           showCursor="true",
+          continueBullet="true",
           nextScene=""
         }   	
     	},
