@@ -121,6 +121,8 @@ local mapa = {
           name="botonSalir",
           type="EXIT",
           showCursor="true",
+          normal="normal",
+          normalImage="TaharezLook/ButtonLeftNormal",
           continueBullet="true",
           nextScene=""
         }   	

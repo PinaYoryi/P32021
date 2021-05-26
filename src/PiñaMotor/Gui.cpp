@@ -178,6 +178,10 @@ void Gui::setMouseVisibility(bool b) {
 	}
 }
 
+void Gui::setProperty(const std::string& propName, const std::string& propImage) {
+	_ceguiWindow->setProperty(propName, propImage);
+}
+
 void Gui::initResources(std::string schemeName, std::string fontName, std::string mouseName, bool visible)
 {
 	Gui::GetInstance()->loadScheme(schemeName, schemeName + ".scheme");

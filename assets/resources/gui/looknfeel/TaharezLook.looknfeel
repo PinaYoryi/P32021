@@ -66,9 +66,6 @@
         </ImagerySection>
         <ImagerySection name="normal">
             <FrameComponent>
-                <Image component="LeftEdge" name="TaharezLook/ButtonLeftNormal" />
-                <Image component="RightEdge" name="TaharezLook/ButtonRightNormal" />
-                <Image component="Background" name="TaharezLook/ButtonMiddleNormal" />
             </FrameComponent>
             <ImageryComponent>
                 <ImageProperty name="NormalImage" />

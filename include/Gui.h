@@ -44,11 +44,12 @@ public:
 	/// </summary>
 	void loadScheme(const std::string& schemeName, const std::string& schemeFile);
 
-	// Setea, respectivamente, un widget, la fuente de los textos, la imagen del puntero y su visibilidad
+	// Setea, respectivamente, un widget, la fuente de los textos, la imagen del puntero y su visibilidad y las propiedades de imagen
 	void setWidgetDestRect(CEGUI::Window* widget, const glm::vec2 position, const glm::vec2 size);
 	void setFont(const std::string& fontFile);
 	void setMouseImage(const std::string& imageFile);
 	void setMouseVisibility(bool b);
+	void setProperty(const std::string& propName, const std::string& propImage);
 
 	/// <summary>
 	/// Carga los recursos de los botones, puntero... de cegui
