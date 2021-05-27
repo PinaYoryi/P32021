@@ -20,22 +20,22 @@ public:
 	virtual void update() override;
 
 	/// <summary>
-	/// Añade un sonido/musica y lo ejcuta, name es la direccion o nombre del archivo, 
+	/// Aï¿½ade un sonido/musica y lo ejcuta, name es la direccion o nombre del archivo, 
 	/// volume el volumen de dicho sonido y loop por si se quiere ejecutar en bucle
 	/// </summary>
 	void playSound2D(const std::string name, float volume, bool loop);
 	
-	// Reproduce el sonido que tiene en loop o no según el parámetro
-	void playSound2D(bool loop);
+	// Reproduce el sonido que tiene en loop o no segï¿½n el parï¿½metro
+	void playSound2D(bool loop = false);
 
 	/// <summary>
-	/// Añade un sonido/musica y lo ejcuta en una posicion en concreto determinada por el parametro position, name es la direccion o nombre del archivo, 
+	/// Aï¿½ade un sonido/musica y lo ejcuta en una posicion en concreto determinada por el parametro position, name es la direccion o nombre del archivo, 
 	/// volume el volumen de dicho sonido y loop por si se quiere ejecutar en bucle
 	/// </summary>
 	void playSound3D(const std::string name, float volume, bool loop, Vector3<float> position, Vector3<float> velocity);
 
-	// Reproduce el sonido que tiene en loop o no según el parámetro
-	void playSound3D(bool loop);
+	// Reproduce el sonido que tiene en loop o no segï¿½n el parï¿½metro
+	void playSound3D(bool loop = false);
 
 	/// <summary>
 	/// para un sonido
