@@ -54,6 +54,10 @@ bool TextComponent::init(const std::map<std::string, std::string>& mapa)
 	catch (...) {}
 
 	_textG = Gui::GetInstance()->createText(t, glm::vec2(a, b), glm::vec2(x, y), n, proper);
-	
+	setText("Funciona");
 	return true;
+}
+
+void TextComponent::setText(std::string text) {
+	_textG->setText(text);
 }

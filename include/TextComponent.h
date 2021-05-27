@@ -14,6 +14,7 @@ public:
 	~TextComponent();
 
 	bool init(const std::map<std::string, std::string>& mapa) override;
+	void setText(std::string text);
 
 private:
 	CEGUI::Window* _textG;
