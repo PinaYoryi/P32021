@@ -29,6 +29,10 @@ public:
 	/// Método abstracto para gestionar el input del button
 	/// </summary>
 	virtual void onClick();
+
+	/// <summary>
+	/// Fija un nuevo valor para el texto
+	/// </summary>
 	void setText(std::string text);
 
 protected:

@@ -38,6 +38,8 @@ Gui::~Gui() {
 bool Gui::Init() {
 	if (_guiInstance != nullptr) return false;
 	_guiInstance = new Gui();
+
+	//Valores por defecto del motor. Se pueden configurar.
 	_guiInstance->initResources("TaharezLook", "TaharezLook/MouseArrow", false);
 	return true;
 }
@@ -75,6 +77,7 @@ CEGUI::Window* Gui::createButton(const std::string& text, const glm::vec2 positi
 	button->setText(text);
 	_ceguiWindow->addChild(button);
 
+	//Si hay propiedades declaradas, se asignan en parejas: nombre y valor
 	if (properties.size() <= 0) return button;
 	for (int i = 0; i < properties.size() - 1; i += 2) {
 		button->setProperty(properties[i], properties[i + 1]);
@@ -91,6 +94,7 @@ CEGUI::Window* Gui::createText(const std::string& text, glm::vec2 position, glm:
 	textG->setText(text);
 	_ceguiWindow->addChild(textG);
 
+	//Si hay propiedades declaradas, se asignan en parejas: nombre y valor
 	if (properties.size() <= 0) return textG;
 	for (int i = 0; i < properties.size() - 1; i += 2) {
 		textG->setProperty(properties[i], properties[i + 1]);
@@ -104,6 +108,7 @@ CEGUI::Window* Gui::createImage(const std::string& image, glm::vec2 position, gl
 	setWidgetDestRect(staticImage, position, size);
 	_ceguiWindow->addChild(staticImage);
 
+	//Si hay propiedades declaradas, se asignan en parejas: nombre y valor
 	if (properties.size() <= 0) return staticImage;
 	for (int i = 0; i < properties.size() - 1; i += 2) {
 		staticImage->setProperty(properties[i], properties[i + 1]);

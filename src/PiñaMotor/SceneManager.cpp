@@ -50,6 +50,7 @@ bool SceneManager::addEntityToRemove(Entity* ent) {
 	auto it = find(_entities.begin(), _entities.end(), ent);
 	if (it == _entities.end()) return false;
 
+	//Se cambian las entidades al vector de eliminar
 	_entitiesToRemove.push_back(*it);
 	_entities.erase(it);
 	return true;
@@ -80,6 +81,7 @@ bool SceneManager::loadComponents() {
 
 Entity* SceneManager::getEntityByID(int id)
 {
+	// Busca entre las entidades activas
 	Entity* ent = nullptr;
 	auto it = _entities.begin();
 	while (ent == nullptr && it != _entities.end()) {
@@ -88,6 +90,7 @@ Entity* SceneManager::getEntityByID(int id)
 		++it;
 	}
 
+	//Si no se encuentra, entre las entidades a crear
 	if (ent == nullptr) {
 		auto it = _entitiesToLoad.begin();
 		while (ent == nullptr && it != _entitiesToLoad.end()) {
@@ -111,6 +114,7 @@ std::vector<Entity*>* SceneManager::getEntities() {
 }
 
 void SceneManager::deleteEntities() {
+	//Elimina todas las entidades creadas y a crear
 	for (Entity* e : _entities) {
 		_entitiesToRemove.push_back(e);
 	}
@@ -133,11 +137,13 @@ void SceneManager::newScene(std::string sceneName, bool continueBullet) {
 }
 
 void SceneManager::loadEntities() {	
+	// Añade las entidades de la nueva escena al vector de entidades a crear
 	if (_newScene) {
 		readFile(_sceneName);
 		_newScene = false;
 	}
 
+	// Crea dichas entidades
 	for (Entity* e : _entitiesToLoad)
 		_entities.push_back(e);
 	_entitiesToLoad.clear();
@@ -151,11 +157,12 @@ void SceneManager::pauseScene() {
 
 void SceneManager::continueScene() {
 	for (Entity* e : _entities) {
+		//Si es una entidad pausada la reanuda
 		if (e->isPaused())
 			e->setPaused(false);
+		//Si no la elimina
 		else
 			addEntityToRemove(e);
 	}
 	BulletInstance::GetInstance()->setPaused(false);
-
 }

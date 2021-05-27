@@ -14,6 +14,10 @@ public:
 	~TextComponent();
 
 	bool init(const std::map<std::string, std::string>& mapa) override;
+
+	/// <summary>
+	/// Fija un nuevo valor para el texto
+	/// </summary>
 	void setText(std::string text);
 
 private:
