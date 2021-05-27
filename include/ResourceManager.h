@@ -3,8 +3,7 @@
 #include <string>
 #include <filesystem>
 
-static const std::string MOTOR_RESOURCES_PATH = "..\\assets\\resources";
-static const std::string GAME_RESOURCES_PATH = "..\\..\\P32021\\assets\\resources";
+static const std::string RESOURCES_PATH = ".\\resources";
 
 class ResourceManager {
 public:

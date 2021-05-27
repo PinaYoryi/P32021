@@ -1,0 +1,1 @@
+xcopy .\resources ..\bin\resources /y /e /i

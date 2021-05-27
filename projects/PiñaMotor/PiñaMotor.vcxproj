@@ -263,6 +263,7 @@ OgreResources.bat</Command>
     </PreBuildEvent>
     <PostBuildEvent>
       <Command>cd ../../assets
+BinResources.bat
 OgreResources.bat</Command>
     </PostBuildEvent>
     <Lib>

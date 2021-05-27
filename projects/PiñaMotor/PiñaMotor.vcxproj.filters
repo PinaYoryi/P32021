@@ -134,9 +134,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\src\PiñaMotor\SceneManager.h">
-      <Filter>Archivos de encabezado\Core</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\Audio.h">
       <Filter>Archivos de encabezado\MotoresTecnologia</Filter>
     </ClInclude>

@@ -8,8 +8,7 @@ ResourceManager* ResourceManager::GetInstance() {
 
 ResourceManager* ResourceManager::Init() {
 	if (_singleton == nullptr) _singleton = new ResourceManager();
-	if (std::filesystem::exists(MOTOR_RESOURCES_PATH)) _singleton->searchDir(MOTOR_RESOURCES_PATH);
-	if (std::filesystem::exists(GAME_RESOURCES_PATH)) _singleton->searchDir(GAME_RESOURCES_PATH);
+	if (std::filesystem::exists(RESOURCES_PATH)) _singleton->searchDir(RESOURCES_PATH);
 	return _singleton;
 }
 
@@ -45,7 +44,7 @@ std::string ResourceManager::prefab(std::string name)
 void ResourceManager::searchDir(std::filesystem::path path) {
 	for (const auto& entry : std::filesystem::directory_iterator(path)) {
 		size_t lastindex = entry.path().string().find_last_of(".");
-		if (lastindex == 1)
+		if (lastindex == 0)
 			searchDir(entry.path());
 		else
 			loadAsset(entry.path(), lastindex, path.string().length());

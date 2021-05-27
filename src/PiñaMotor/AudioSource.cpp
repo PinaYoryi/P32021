@@ -44,7 +44,6 @@ bool AudioSource::init(const std::map<std::string, std::string>& mapa) {
 	_initialized = true;
 
 	_trans = _myEntity->getComponent<Transform>();
-	if (!_trans->isInitialized())return false;
 
 	return true;
 }
