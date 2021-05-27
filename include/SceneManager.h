@@ -75,6 +75,9 @@ public:
 	/// </summary>
 	void deleteEntities();
 
+	// Devuelve la escena actual
+	std::string getCurrentScene() {	return _sceneName; }
+
 protected:
 	static SceneManager* _singleton;
 
