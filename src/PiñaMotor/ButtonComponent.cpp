@@ -69,7 +69,7 @@ bool ButtonComponent::init(const std::map<std::string, std::string>& mapa) {
 	//para despausar el mundo de bulet
 	if (mapa.at("continueBullet") == "true")
 		_continueBullet = true;
-	
+
 	return true;
 }
 
@@ -89,4 +89,8 @@ void ButtonComponent::onClick() {
 }
 ButtonComponent::~ButtonComponent() {
 	CEGUI::WindowManager::getSingleton().destroyWindow(_button);
+}
+
+void ButtonComponent::setText(std::string text) {
+	_button->setText(text);
 }
