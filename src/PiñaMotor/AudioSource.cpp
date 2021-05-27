@@ -103,6 +103,7 @@ void AudioSource::playSound2D(bool loop) {
 			_result = _channel->setMode(FMOD_LOOP_NORMAL);
 			errorCheck(_result);
 		}
+		_channelAux = _channel;
 
 		_result = _channel->setPaused(false);
 		errorCheck(_result);
@@ -189,12 +190,8 @@ void AudioSource::stopSound() {
 		
 		_result = _system->getChannelsPlaying(0);
 		_result = _channel->stop();
+		_result = _channelAux->stop();
 		errorCheck(_result);
-		while (_result == FMOD_ERR_INVALID_HANDLE)
-		{
-			_result = _channel->stop();
-			errorCheck(_result);
-		}
 	}
 	catch (std::exception& e) {
 		std::cout << e.what() << std::endl;
