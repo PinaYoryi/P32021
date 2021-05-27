@@ -253,7 +253,10 @@ cd ../..
 cd ..
 echo CEGUIDONE
 
-cd ../..
+cd ..
+copy /Y scheme.cfg "../bin/scheme.cfg"
+
+cd ..
 echo BUILD PROJECT
 msbuild PinaMotor.sln -p:Configuration=Debug
 msbuild PinaMotor.sln -p:Configuration=Release

@@ -52,7 +52,7 @@ public:
 	/// <summary>
 	/// Carga los recursos de los botones, puntero... de cegui
 	/// </summary>
-	void initResources(std::string schemeName, std::string mouseName, bool visible);
+	void initResources();
 	
 private:
 	/// <summary>
@@ -69,6 +69,9 @@ private:
 	static Gui* _guiInstance;
 
 	std::string _scheme;
+	std::string _schemeText;
+	std::string _schemeImage;
+	std::string _schemeButton;
 
 	// Render de la ventana
 	Ogre::RenderWindow* _mWindow = nullptr;

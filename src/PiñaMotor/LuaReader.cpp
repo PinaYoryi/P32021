@@ -4,6 +4,7 @@
 #include <iostream>
 #include <map>
 #include <string>
+#include "LuaReader.h"
 #include "SceneManager.h"
 #include "Entity.h"
 #include "OgreMotor.h"
@@ -196,4 +197,38 @@ void readFile(std::string file) {
 	catch (...) {
 		throw std::exception("Lua file has incorrect formatting");
 	}
+}
+
+std::vector<std::string> readScheme(std::string file) {
+	lua_State* l;
+	l = luaL_newstate();
+	openlualibs(l);
+	
+	if (!luaL_loadfile(l, file.c_str()) && lua_pcall(l, 0, 0, 0)) {
+		throw std::exception("Lua file was not able to be loaded");
+	}
+
+	std::vector<std::string> values;
+	lua_getglobal(l, "loadScheme");
+	lua_pcall(l, 0, 1, 0);
+	lua_getfield(l, -1, "scheme");
+	values.push_back(lua_tostring(l, -1));
+	lua_pop(l, 1);
+	lua_getfield(l, -1, "showMouse");
+	values.push_back(lua_tostring(l, -1));
+	lua_pop(l, 1);
+	lua_getfield(l, -1, "mouse");
+	values.push_back(lua_tostring(l, -1));
+	lua_pop(l, 1);
+	lua_getfield(l, -1, "text");
+	values.push_back(lua_tostring(l, -1));
+	lua_pop(l, 1);
+	lua_getfield(l, -1, "image");
+	values.push_back(lua_tostring(l, -1));
+	lua_pop(l, 1);
+	lua_getfield(l, -1, "button");
+	values.push_back(lua_tostring(l, -1));
+	lua_pop(l, 2);
+
+	return values;
 }

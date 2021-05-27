@@ -4,6 +4,7 @@
 #include <CEGUI/MouseCursor.h>
 #include <CEGUI/RendererModules/Ogre/Renderer.h>
 #include <iostream>
+#include "LuaReader.h"
 
 Gui* Gui::_guiInstance = nullptr;
 
@@ -40,7 +41,7 @@ bool Gui::Init() {
 	_guiInstance = new Gui();
 
 	//Valores por defecto del motor. Se pueden configurar.
-	_guiInstance->initResources("TaharezLook", "TaharezLook/MouseArrow", false);
+	_guiInstance->initResources();
 	return true;
 }
 
@@ -71,7 +72,7 @@ void Gui::captureInput(const SDL_Event& event) {
 }
 
 CEGUI::Window* Gui::createButton(const std::string& text, const glm::vec2 position, const glm::vec2 size, const std::string& name, std::vector<std::string> properties) {
-	CEGUI::Window* button = CEGUI::WindowManager::getSingleton().createWindow(_scheme + "/Button", name);
+	CEGUI::Window* button = CEGUI::WindowManager::getSingleton().createWindow(_schemeButton, name);
 
 	setWidgetDestRect(button, position, size);
 	button->setText(text);
@@ -88,7 +89,7 @@ CEGUI::Window* Gui::createButton(const std::string& text, const glm::vec2 positi
 
 CEGUI::Window* Gui::createText(const std::string& text, glm::vec2 position, glm::vec2 size, const std::string& name, std::vector<std::string> properties)
 {
-	CEGUI::Window* textG = CEGUI::WindowManager::getSingleton().createWindow(_scheme + "/StaticText", name);
+	CEGUI::Window* textG = CEGUI::WindowManager::getSingleton().createWindow(_schemeText, name);
 
 	setWidgetDestRect(textG, position, size);
 	textG->setText(text);
@@ -104,7 +105,7 @@ CEGUI::Window* Gui::createText(const std::string& text, glm::vec2 position, glm:
 }
 
 CEGUI::Window* Gui::createImage(const std::string& image, glm::vec2 position, glm::vec2 size, const std::string& name, std::vector<std::string> properties) {
-	CEGUI::Window* staticImage = CEGUI::WindowManager::getSingleton().createWindow(_scheme + "/StaticImage", name);
+	CEGUI::Window* staticImage = CEGUI::WindowManager::getSingleton().createWindow(_schemeImage, name);
 	setWidgetDestRect(staticImage, position, size);
 	_ceguiWindow->addChild(staticImage);
 
@@ -165,10 +166,13 @@ void Gui::setMouseVisibility(bool b) {
 	}
 }
 
-void Gui::initResources(std::string schemeName, std::string mouseName, bool visible)
+void Gui::initResources()
 {
-	Gui::GetInstance()->loadScheme(schemeName, schemeName + ".scheme");
-	Gui::GetInstance()->setMouseImage(mouseName);
-	Gui::GetInstance()->setMouseVisibility(visible);
+	std::vector<std::string> values = readScheme();
+	Gui::GetInstance()->loadScheme(values[0], values[0] + ".scheme");
+	Gui::GetInstance()->setMouseVisibility(values[1] == "true");
+	Gui::GetInstance()->setMouseImage(values[2]);
+	_schemeText = values[3];
+	_schemeImage = values[4];
+	_schemeButton = values[5];
 }
-
