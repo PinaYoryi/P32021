@@ -56,8 +56,15 @@ bool ButtonComponent::init(const std::map<std::string, std::string>& mapa) {
 		std::string nS = mapa.at("nextScene");
 		_nextScene = nS;
 	}
-	if (mapa.at("showCursor") == "true")
+	if (mapa.at("showCursor") == "true") {
+		try {
+			std::string cI = mapa.at("cursorImage");
+			Gui::GetInstance()->setMouseImage(cI);
+		}
+		catch (...) {}
+
 		Gui::GetInstance()->setMouseVisibility(true);
+	}
 	
 	//para despausar el mundo de bulet
 	if (mapa.at("continueBullet") == "true")
