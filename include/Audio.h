@@ -38,7 +38,6 @@ public:
 	/// </summary>
 	 FMOD_RESULT getResult() { return _result; }
 
-	 void addSound();
 
 private:
 	void initResources();

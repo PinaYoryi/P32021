@@ -125,21 +125,22 @@ void SceneManager::deleteEntities() {
 	_entitiesToLoad.clear();
 }
 
+
 void SceneManager::newScene(std::string sceneName, bool continueBullet) {
 	deleteEntities();
 	if (continueBullet) {
 		BulletInstance::GetInstance()->setPaused(false);
 		Gui::GetInstance()->setMouseVisibility(false);
 	}
-
-	_sceneName = ResourceManager::GetInstance()->scene(sceneName);
+	_sceneName = sceneName;
+	_sceneNameRoute = ResourceManager::GetInstance()->scene(sceneName);
 	_newScene = true;
 }
 
 void SceneManager::loadEntities() {	
 	// Añade las entidades de la nueva escena al vector de entidades a crear
 	if (_newScene) {
-		readFile(_sceneName);
+		readFile(_sceneNameRoute);
 		_newScene = false;
 	}
 

@@ -75,17 +75,18 @@ public:
 	/// </summary>
 	void deleteEntities();
 
-	// Devuelve la escena actual
-	std::string getCurrentScene() {	return _sceneName; }
+	// Devuelve el nombre de la escena actual
+	std::string getCurrentScene() { return _sceneName; }
 
 protected:
 	static SceneManager* _singleton;
 
 	bool _newScene = false;
-	std::string _sceneName;
+	std::string _sceneNameRoute;	//la ruta de la escena
+	std::string _sceneName;			//el nombre de la escena como tal
 
-	std::vector<Entity*> _entities;
-	std::vector<Entity*> _entitiesToRemove;
-	std::vector<Entity*> _entitiesToLoad;
+	std::vector<Entity*> _entities;				//vector con las entidades que hay
+	std::vector<Entity*> _entitiesToRemove;		//vector con las entidades a borrar al final del frame
+	std::vector<Entity*> _entitiesToLoad;		//vector con las entidades a cargar al final del frame
 	SceneManager() {};
 };

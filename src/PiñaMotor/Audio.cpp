@@ -82,13 +82,7 @@ FMOD::Sound* Audio::getSound(const char* name) {
 	return _sounds[name];
 }
 
-void Audio::addSound(){
-
-}
-
 void Audio::errorCheck(FMOD_RESULT result) {
 	if (result != FMOD_RESULT::FMOD_OK)
 		throw std::exception(FMOD_ErrorString(result));
 }
-
-//https://documentation.help/FMOD-Ex/fmod_result.html
