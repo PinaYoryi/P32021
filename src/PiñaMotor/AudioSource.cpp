@@ -46,8 +46,6 @@ bool AudioSource::init(const std::map<std::string, std::string>& mapa) {
 	_trans = _myEntity->getComponent<Transform>();
 	if (!_trans->isInitialized())return false;
 
-	playSound3D();
-
 	return true;
 }
 
@@ -90,7 +88,7 @@ void AudioSource::playSound2D(const std::string name, float volume, bool loop) {
 	}
 }
 
-void AudioSource::playSound2D() {
+void AudioSource::playSound2D(bool loop) {
 	try {
 		FMOD::Sound* sound;
 		_result = _system->createSound(_soundName.c_str(), FMOD_DEFAULT, 0, &sound);
@@ -100,6 +98,11 @@ void AudioSource::playSound2D() {
 		errorCheck(_result);
 
 		setVolume(_volume);
+
+		if (loop) {
+			_result = _channel->setMode(FMOD_LOOP_NORMAL);
+			errorCheck(_result);
+		}
 
 		_result = _channel->setPaused(false);
 		errorCheck(_result);
@@ -142,7 +145,7 @@ void AudioSource::playSound3D(const std::string name, float volume, bool loop, V
 	}
 }
 
-void AudioSource::playSound3D() {
+void AudioSource::playSound3D(bool loop) {
 	
 	FMOD_VECTOR position = (FMOD_VECTOR)_trans->position();
 		//_trans->position();
@@ -163,6 +166,11 @@ void AudioSource::playSound3D() {
 		errorCheck(_result);
 
 		setVolume(_volume);
+
+		if (loop) {
+			_result = _channel->setMode(FMOD_LOOP_NORMAL);
+			errorCheck(_result);
+		}
 
 		_result = _channel->setPaused(false);
 		errorCheck(_result);

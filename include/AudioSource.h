@@ -25,7 +25,8 @@ public:
 	/// </summary>
 	void playSound2D(const std::string name, float volume, bool loop);
 	
-	void playSound2D();
+	// Reproduce el sonido que tiene en loop o no según el parámetro
+	void playSound2D(bool loop);
 
 	/// <summary>
 	/// Añade un sonido/musica y lo ejcuta en una posicion en concreto determinada por el parametro position, name es la direccion o nombre del archivo, 
@@ -33,7 +34,8 @@ public:
 	/// </summary>
 	void playSound3D(const std::string name, float volume, bool loop, Vector3<float> position, Vector3<float> velocity);
 
-	void playSound3D();
+	// Reproduce el sonido que tiene en loop o no según el parámetro
+	void playSound3D(bool loop);
 
 	/// <summary>
 	/// para un sonido
