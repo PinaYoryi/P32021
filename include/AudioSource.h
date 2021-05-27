@@ -99,4 +99,5 @@ private:
 	//std::map<const char*, FMOD::Sound*> _sounds;
 
 	FMOD::Channel* _channel;
+	FMOD::Channel* _channelAux;
 };

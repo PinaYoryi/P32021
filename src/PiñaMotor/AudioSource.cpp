@@ -183,8 +183,18 @@ void AudioSource::playSound3D(bool loop) {
 
 void AudioSource::stopSound() {
 	try {
+		//_result = _system->getChannelsPlaying(0);
+		//_result = _system->getChannel(0,&_channel);
+		//errorCheck(_result);
+		
+		_result = _system->getChannelsPlaying(0);
 		_result = _channel->stop();
 		errorCheck(_result);
+		while (_result == FMOD_ERR_INVALID_HANDLE)
+		{
+			_result = _channel->stop();
+			errorCheck(_result);
+		}
 	}
 	catch (std::exception& e) {
 		std::cout << e.what() << std::endl;
